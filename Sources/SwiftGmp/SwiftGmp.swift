@@ -43,7 +43,7 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
         return mpfr_set_str (&temp_mpfr, gmpString, 10, MPFR_RNDN) == 0
     }
         
-    func mantissaExponent(len: Int) -> (String, Int) {
+    public func mantissaExponent(len: Int) -> (String, Int) {
         var exponent: mpfr_exp_t = 0
         
         var charArray: Array<CChar> = Array(repeating: 0, count: len+10)

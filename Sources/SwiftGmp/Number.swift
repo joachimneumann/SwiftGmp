@@ -10,7 +10,7 @@ import Foundation
 
 @MainActor
 public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equatable {
-    private(set) var precision: Int = 0
+    public private(set) var precision: Int = 0
     private var _str: String?
     private var _swiftGmp: SwiftGmp?
     
