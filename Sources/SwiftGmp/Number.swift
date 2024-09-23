@@ -17,7 +17,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
     var isStr: Bool { _str != nil }
     var isSwiftGmp: Bool { _swiftGmp != nil }
     public var str: String? { return _str }
-    var swiftGmp: SwiftGmp? { return _swiftGmp }
+    public var swiftGmp: SwiftGmp? { return _swiftGmp }
     
     public static func ==(lhs: Number, rhs: Number) -> Bool {
         if lhs.isStr && rhs.isStr { return lhs.str! == rhs.str! }
