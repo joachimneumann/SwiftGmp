@@ -11,11 +11,11 @@ import Foundation
 @MainActor
 public class Operator: @preconcurrency Equatable, Identifiable {
     public let id = UUID()
-    let priority: Int
+    public let priority: Int
     public static let openParenthesesPriority = -2
     public static let closedParenthesesPriority = -1
     public static let equalPriority = -3
-    init(_ priority: Int) {
+    public init(_ priority: Int) {
         //print("Operator init()")
         self.priority = priority
     }
