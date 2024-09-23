@@ -31,7 +31,7 @@ public typealias twoOperantsType = (SwiftGmp) -> (SwiftGmp) -> ()
 
 public class Inplace: Operator {
     let operation: inplaceType
-    init(_ op: @escaping inplaceType, _ priority: Int) {
+    public init(_ op: @escaping inplaceType, _ priority: Int) {
         operation = op
         super.init(priority)
     }

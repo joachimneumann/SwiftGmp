@@ -70,35 +70,35 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
     static var randstate: gmp_randstate_t? = nil
     
     //func isNull()       -> Bool { mpfr_cmp_d(&mpfr, 0.0) == 0 }
-    func isNegtive()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
+    public func isNegtive()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
     
-    func inPlace(op: inplaceType) { op(self)() }
+    public func inPlace(op: inplaceType) { op(self)() }
     /// in the second argument, I a simultaneously using the same memory
     /// Option 1: &mpfr -> &copy().mpfr
     /// Option 2: in the build settings set exclusiv access to memory to compiletime enfocement only
-    func abs()        { mpfr_abs(  &mpfr, &mpfr, MPFR_RNDN) }
-    func sqrt()       { mpfr_sqrt( &mpfr, &mpfr, MPFR_RNDN) }
-    func sqrt3()      { mpfr_cbrt( &mpfr, &mpfr, MPFR_RNDN) }
-    func Z()          { mpfr_zeta( &mpfr, &mpfr, MPFR_RNDN) }
-    func ln()         { mpfr_log(  &mpfr, &mpfr, MPFR_RNDN) }
-    func log10()      { mpfr_log10(&mpfr, &mpfr, MPFR_RNDN) }
-    func log2()       { mpfr_log2 (&mpfr, &mpfr, MPFR_RNDN) }
-    func sin()        { mpfr_sin(  &mpfr, &mpfr, MPFR_RNDN) }
-    func cos()        { mpfr_cos(  &mpfr, &mpfr, MPFR_RNDN) }
-    func tan()        { mpfr_tan(  &mpfr, &mpfr, MPFR_RNDN) }
-    func asin()       { mpfr_asin( &mpfr, &mpfr, MPFR_RNDN) }
-    func acos()       { mpfr_acos( &mpfr, &mpfr, MPFR_RNDN) }
-    func atan()       { mpfr_atan( &mpfr, &mpfr, MPFR_RNDN) }
-    func sinh()       { mpfr_sinh( &mpfr, &mpfr, MPFR_RNDN) }
-    func cosh()       { mpfr_cosh( &mpfr, &mpfr, MPFR_RNDN) }
-    func tanh()       { mpfr_tanh( &mpfr, &mpfr, MPFR_RNDN) }
-    func asinh()      { mpfr_asinh(&mpfr, &mpfr, MPFR_RNDN) }
-    func acosh()      { mpfr_acosh(&mpfr, &mpfr, MPFR_RNDN) }
-    func atanh()      { mpfr_atanh(&mpfr, &mpfr, MPFR_RNDN) }
-    func pow_x_2()    { mpfr_sqr(  &mpfr, &mpfr, MPFR_RNDN) }
-    func pow_e_x()    { mpfr_exp(  &mpfr, &mpfr, MPFR_RNDN) }
-    func pow_10_x()   { mpfr_exp10(&mpfr, &mpfr, MPFR_RNDN) }
-    func changeSign() { mpfr_neg(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func abs()        { mpfr_abs(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func sqrt()       { mpfr_sqrt( &mpfr, &mpfr, MPFR_RNDN) }
+    public func sqrt3()      { mpfr_cbrt( &mpfr, &mpfr, MPFR_RNDN) }
+    public func Z()          { mpfr_zeta( &mpfr, &mpfr, MPFR_RNDN) }
+    public func ln()         { mpfr_log(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func log10()      { mpfr_log10(&mpfr, &mpfr, MPFR_RNDN) }
+    public func log2()       { mpfr_log2 (&mpfr, &mpfr, MPFR_RNDN) }
+    public func sin()        { mpfr_sin(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func cos()        { mpfr_cos(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func tan()        { mpfr_tan(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func asin()       { mpfr_asin( &mpfr, &mpfr, MPFR_RNDN) }
+    public func acos()       { mpfr_acos( &mpfr, &mpfr, MPFR_RNDN) }
+    public func atan()       { mpfr_atan( &mpfr, &mpfr, MPFR_RNDN) }
+    public func sinh()       { mpfr_sinh( &mpfr, &mpfr, MPFR_RNDN) }
+    public func cosh()       { mpfr_cosh( &mpfr, &mpfr, MPFR_RNDN) }
+    public func tanh()       { mpfr_tanh( &mpfr, &mpfr, MPFR_RNDN) }
+    public func asinh()      { mpfr_asinh(&mpfr, &mpfr, MPFR_RNDN) }
+    public func acosh()      { mpfr_acosh(&mpfr, &mpfr, MPFR_RNDN) }
+    public func atanh()      { mpfr_atanh(&mpfr, &mpfr, MPFR_RNDN) }
+    public func pow_x_2()    { mpfr_sqr(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func pow_e_x()    { mpfr_exp(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func pow_10_x()   { mpfr_exp10(&mpfr, &mpfr, MPFR_RNDN) }
+    public func changeSign() { mpfr_neg(  &mpfr, &mpfr, MPFR_RNDN) }
     
     static var deg2rad: SwiftGmp? = nil
     static var rad2deg: SwiftGmp? = nil
@@ -117,22 +117,22 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
         rad_deg_precision = precision
     }
     
-    func sinD()  { SwiftGmp.check(precision); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); mpfr_sin(  &mpfr, &mpfr, MPFR_RNDN) }
-    func cosD()  { SwiftGmp.check(precision); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); mpfr_cos(  &mpfr, &mpfr, MPFR_RNDN) }
-    func tanD()  { SwiftGmp.check(precision); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); mpfr_tan(  &mpfr, &mpfr, MPFR_RNDN) }
-    func asinD() { SwiftGmp.check(precision); mpfr_asin( &mpfr, &mpfr, MPFR_RNDN); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
-    func acosD() { SwiftGmp.check(precision); mpfr_acos( &mpfr, &mpfr, MPFR_RNDN); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
-    func atanD() { SwiftGmp.check(precision); mpfr_atan( &mpfr, &mpfr, MPFR_RNDN); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
+    public func sinD()  { SwiftGmp.check(precision); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); mpfr_sin(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func cosD()  { SwiftGmp.check(precision); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); mpfr_cos(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func tanD()  { SwiftGmp.check(precision); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); mpfr_tan(  &mpfr, &mpfr, MPFR_RNDN) }
+    public func asinD() { SwiftGmp.check(precision); mpfr_asin( &mpfr, &mpfr, MPFR_RNDN); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
+    public func acosD() { SwiftGmp.check(precision); mpfr_acos( &mpfr, &mpfr, MPFR_RNDN); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
+    public func atanD() { SwiftGmp.check(precision); mpfr_atan( &mpfr, &mpfr, MPFR_RNDN); mpfr_mul(&mpfr, &mpfr, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
     
-    func π() {
+    public func π() {
         mpfr_const_pi(&mpfr, MPFR_RNDN)
     }
-    func e() {
+    public func e() {
         mpfr_exp( &mpfr, &SwiftGmp(withString: "1.0", precision: precision).mpfr, MPFR_RNDN)
         /// Note: mpfr_const_euler() returns 0.577..., not 2.718
     }
     
-    func rand() {
+    public func rand() {
         if SwiftGmp.randstate == nil {
             SwiftGmp.randstate = gmp_randstate_t()
             __gmp_randinit_mt(&SwiftGmp.randstate!)
@@ -142,10 +142,10 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
     }
     
     
-    func pow_x_3()    { mpfr_pow_ui(&mpfr, &mpfr, 3, MPFR_RNDN) }
-    func pow_2_x()    { mpfr_ui_pow(&mpfr, 2, &mpfr, MPFR_RNDN) }
-    func rez()        { mpfr_ui_div(&mpfr, 1, &mpfr, MPFR_RNDN) }
-    func fac() {
+    public func pow_x_3()    { mpfr_pow_ui(&mpfr, &mpfr, 3, MPFR_RNDN) }
+    public func pow_2_x()    { mpfr_ui_pow(&mpfr, 2, &mpfr, MPFR_RNDN) }
+    public func rez()        { mpfr_ui_div(&mpfr, 1, &mpfr, MPFR_RNDN) }
+    public func fac() {
         let n = mpfr_get_si(&mpfr, MPFR_RNDN)
         if n >= 0 {
             let un = UInt(n)
@@ -155,32 +155,32 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
         }
     }
     
-    func execute(_ op: twoOperantsType, with other: SwiftGmp) { op(self)(other) }
-    func add (other: SwiftGmp) { mpfr_add(&mpfr, &mpfr, &other.mpfr, MPFR_RNDN) }
-    func sub (other: SwiftGmp) {
+    public func execute(_ op: twoOperantsType, with other: SwiftGmp) { op(self)(other) }
+    public func add (other: SwiftGmp) { mpfr_add(&mpfr, &mpfr, &other.mpfr, MPFR_RNDN) }
+    public func sub (other: SwiftGmp) {
         mpfr_sub(&mpfr, &mpfr, &other.mpfr, MPFR_RNDN)
     }
-    func mul (other: SwiftGmp) { mpfr_mul(&mpfr, &mpfr, &other.mpfr, MPFR_RNDN) }
-    func div (other: SwiftGmp) { mpfr_div(&mpfr, &mpfr, &other.mpfr, MPFR_RNDN) }
+    public func mul (other: SwiftGmp) { mpfr_mul(&mpfr, &mpfr, &other.mpfr, MPFR_RNDN) }
+    public func div (other: SwiftGmp) { mpfr_div(&mpfr, &mpfr, &other.mpfr, MPFR_RNDN) }
     
-    func pow_x_y(exponent: SwiftGmp) { mpfr_pow(&mpfr, &mpfr, &exponent.mpfr, MPFR_RNDN) }
-    func pow_y_x(base: SwiftGmp)     { mpfr_pow(&mpfr, &base.mpfr, &mpfr, MPFR_RNDN) }
-    func sqrty(exponent: SwiftGmp)   { exponent.rez(); pow_x_y(exponent: exponent) }
-    func logy(base: SwiftGmp) {
+    public func pow_x_y(exponent: SwiftGmp) { mpfr_pow(&mpfr, &mpfr, &exponent.mpfr, MPFR_RNDN) }
+    public func pow_y_x(base: SwiftGmp)     { mpfr_pow(&mpfr, &base.mpfr, &mpfr, MPFR_RNDN) }
+    public func sqrty(exponent: SwiftGmp)   { exponent.rez(); pow_x_y(exponent: exponent) }
+    public func logy(base: SwiftGmp) {
         self.ln()
         base.ln()
         self.div(other: base)
     }
-    func EE(other: SwiftGmp) {
+    public func EE(other: SwiftGmp) {
         other.pow_10_x()
         self.mul(other: other)
     }
     
-    func setValue(other: SwiftGmp) {
+    public func setValue(other: SwiftGmp) {
         mpfr_set(&mpfr, &other.mpfr, MPFR_RNDN)
     }
     
-    func x_double_up_arrow_y(other: SwiftGmp) {
+    public func x_double_up_arrow_y(other: SwiftGmp) {
         var temp: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
         mpfr_init2 (&temp, mpfr_get_prec(&mpfr))
         mpfr_set(&temp, &mpfr, MPFR_RNDN)
@@ -193,7 +193,7 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
         mpfr_clear(&temp)
     }
     
-    func toDouble() -> Double {
+    public func toDouble() -> Double {
         return mpfr_get_d(&mpfr, MPFR_RNDN)
     }
     var isValid: Bool {
