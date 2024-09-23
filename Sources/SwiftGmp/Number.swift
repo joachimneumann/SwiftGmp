@@ -41,15 +41,15 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
         return lSwiftGmp == rSwiftGmp
     }
     
-    static func !=(lhs: Number, rhs: Number) -> Bool {
+    public static func !=(lhs: Number, rhs: Number) -> Bool {
         return !(lhs == rhs)
     }
     
-    var isValid: Bool {
+    public var isValid: Bool {
         if isStr { return true }
         return _swiftGmp!.isValid
     }
-    func copy() -> Number {
+    public func copy() -> Number {
         if isStr {
             return Number(str!, precision: precision)
         } else {
