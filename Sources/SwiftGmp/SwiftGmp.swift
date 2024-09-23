@@ -61,7 +61,7 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
         return (mantissa, exponent - 1)
     }
 
-    func copy() -> SwiftGmp {
+    public func copy() -> SwiftGmp {
         let ret = SwiftGmp.init(withString: "0", precision: precision)
         mpfr_set(&ret.mpfr, &mpfr, MPFR_RNDN)
         return ret
@@ -196,23 +196,23 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
     public func toDouble() -> Double {
         return mpfr_get_d(&mpfr, MPFR_RNDN)
     }
-    var isValid: Bool {
+    public var isValid: Bool {
         if mpfr_number_p(&mpfr) == 0 { return false }
         if NaN { return false }
         if inf { return false }
         return true
     }
-    var NaN: Bool {
+    public var NaN: Bool {
         mpfr_nan_p(&mpfr) != 0
     }
-    var inf: Bool {
+    public var inf: Bool {
         mpfr_inf_p(&mpfr) != 0
     }
-    var isZero: Bool {
+    public var isZero: Bool {
         mpfr_zero_p(&mpfr) != 0
     }
         
-    static func memorySize(bits: Int) -> Int {
+    public static func memorySize(bits: Int) -> Int {
         mpfr_custom_get_size(bits)
     }
 }
