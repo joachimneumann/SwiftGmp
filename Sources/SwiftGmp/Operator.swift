@@ -50,7 +50,7 @@ public struct OperatorStack: CustomDebugStringConvertible {
     mutating func push(_ element: Operator) {
         array.append(element)
     }
-    mutating func pop() -> Operator? {
+    public mutating func pop() -> Operator? {
         return array.popLast()
     }
     
