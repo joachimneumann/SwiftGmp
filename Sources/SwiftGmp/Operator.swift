@@ -84,5 +84,12 @@ public struct OperatorStack: CustomDebugStringConvertible {
 //         }
         return ret
     }
+    
+    public init(array: [Operator]) {
+        self.array = array
+    }
+    public init() {
+        self.array = []
+    }
 }
 
