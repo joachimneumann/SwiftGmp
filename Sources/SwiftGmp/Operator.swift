@@ -9,8 +9,8 @@
 import Foundation
 
 @MainActor
-class Operator: @preconcurrency Equatable, Identifiable {
-    let id = UUID()
+public class Operator: @preconcurrency Equatable, Identifiable {
+    public let id = UUID()
     let priority: Int
     static let openParenthesesPriority = -2
     static let closedParenthesesPriority = -1
@@ -19,17 +19,17 @@ class Operator: @preconcurrency Equatable, Identifiable {
         //print("Operator init()")
         self.priority = priority
     }
-    static func == (lhs: Operator, rhs: Operator) -> Bool {
+    public static func == (lhs: Operator, rhs: Operator) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
 
 
-typealias inplaceType = (SwiftGmp) -> () -> ()
-typealias twoOperantsType = (SwiftGmp) -> (SwiftGmp) -> ()
+public typealias inplaceType = (SwiftGmp) -> () -> ()
+public typealias twoOperantsType = (SwiftGmp) -> (SwiftGmp) -> ()
 
-class Inplace: Operator {
+public class Inplace: Operator {
     let operation: inplaceType
     init(_ op: @escaping inplaceType, _ priority: Int) {
         operation = op

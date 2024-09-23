@@ -62,7 +62,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
             _str = nil
         }
     }
-    func execute(_ op: twoOperantsType, with other: Number) {
+    public func execute(_ op: twoOperantsType, with other: Number) {
         toSwiftGmp()
         other.toSwiftGmp()
         _gmp!.execute(op, with: other._gmp!)
