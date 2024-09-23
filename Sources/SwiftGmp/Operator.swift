@@ -12,9 +12,9 @@ import Foundation
 public class Operator: @preconcurrency Equatable, Identifiable {
     public let id = UUID()
     let priority: Int
-    static let openParenthesesPriority = -2
-    static let closedParenthesesPriority = -1
-    static let equalPriority = -3
+    public static let openParenthesesPriority = -2
+    public static let closedParenthesesPriority = -1
+    public static let equalPriority = -3
     init(_ priority: Int) {
         //print("Operator init()")
         self.priority = priority
@@ -37,9 +37,9 @@ public class Inplace: Operator {
     }
 }
 
-class TwoOperand: Operator {
+public class TwoOperand: Operator {
     let operation: twoOperantsType
-    init(_ op: @escaping twoOperantsType, _ priority: Int) {
+    public init(_ op: @escaping twoOperantsType, _ priority: Int) {
         operation = op
         super.init(priority)
     }
