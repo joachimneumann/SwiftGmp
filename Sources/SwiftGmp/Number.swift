@@ -72,12 +72,12 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
         _gmp!.inPlace(op: op)
     }
     
-    init(_ str: String, precision: Int) {
+    public init(_ str: String, precision: Int) {
         _str = str
         _gmp = nil
         self.precision = precision
     }
-    init(_ gmp: SwiftGmp) {
+    public init(_ gmp: SwiftGmp) {
         //print("Number init()")
         _str = nil
         _gmp = gmp.copy()
