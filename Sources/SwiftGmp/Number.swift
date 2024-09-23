@@ -100,7 +100,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
         }
     }
     
-    func append(_ digit: String) {
+    public func append(_ digit: String) {
         if !isStr {
             _str = digit
             _swiftGmp = nil
@@ -111,7 +111,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
         }
     }
     
-    func appendDot() {
+    public func appendDot() {
         if str == nil {
             _str = "0."
         } else {
