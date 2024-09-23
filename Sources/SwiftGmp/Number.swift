@@ -14,8 +14,8 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
     private var _str: String?
     private var _swiftGmp: SwiftGmp?
     
-    var isStr: Bool { _str != nil }
-    var isSwiftGmp: Bool { _swiftGmp != nil }
+    public var isStr: Bool { _str != nil }
+    public var isSwiftGmp: Bool { _swiftGmp != nil }
     public var str: String? { return _str }
     public var swiftGmp: SwiftGmp? { return _swiftGmp }
     

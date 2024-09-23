@@ -47,7 +47,7 @@ public class TwoOperand: Operator {
 
 public struct OperatorStack: CustomDebugStringConvertible {
     private var array: [Operator] = []
-    mutating func push(_ element: Operator) {
+    public mutating func push(_ element: Operator) {
         array.append(element)
     }
     public mutating func pop() -> Operator? {
