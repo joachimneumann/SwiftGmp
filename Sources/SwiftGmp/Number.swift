@@ -9,7 +9,7 @@
 import Foundation
 
 @MainActor
-class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equatable {
+public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equatable {
     private(set) var precision: Int = 0
     private var _str: String?
     private var _gmp: SwiftGmp?
@@ -19,7 +19,7 @@ class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equa
     var str: String? { return _str }
     var gmp: SwiftGmp? { return _gmp }
     
-    static func ==(lhs: Number, rhs: Number) -> Bool {
+    public static func ==(lhs: Number, rhs: Number) -> Bool {
         if lhs.isStr && rhs.isStr { return lhs.str! == rhs.str! }
         if lhs.isSwiftGmp && rhs.isSwiftGmp { return lhs.gmp! == rhs.gmp! }
         /// mixed str and SwiftGmp
@@ -138,7 +138,7 @@ class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equa
         }
     }
     
-    var debugDescription: String {
+    public var debugDescription: String {
         if isStr {
             return "\(_str!) precision \(precision) string"
         } else {
