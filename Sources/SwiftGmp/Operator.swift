@@ -45,7 +45,7 @@ class TwoOperand: Operator {
     }
 }
 
-struct OperatorStack: CustomDebugStringConvertible {
+public struct OperatorStack: CustomDebugStringConvertible {
     private var array: [Operator] = []
     mutating func push(_ element: Operator) {
         array.append(element)
@@ -73,7 +73,7 @@ struct OperatorStack: CustomDebugStringConvertible {
     mutating func removeAll() {
         array.removeAll()
     }
-    var debugDescription: String {
+    public var debugDescription: String {
         let ret = "operatorStack: "
 //        for toBePrinted in array {
 //            for op in operators {
