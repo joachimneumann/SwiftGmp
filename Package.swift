@@ -25,6 +25,10 @@ let package = Package(
             dependencies: [],
             path: "Sources/SwiftGmp_C_Target",
             publicHeadersPath: "include"
+        ),
+        .testTarget(
+            name: "SwiftGmpTests",
+            dependencies: ["SwiftGmp"]
         )
     ]
 )

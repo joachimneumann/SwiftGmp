@@ -1,10 +1,9 @@
 import Foundation
 import SwiftGmp_C_Target
 
-@MainActor var globalUnsignedLongInt: CUnsignedLong = 0
+var globalUnsignedLongInt: CUnsignedLong = 0
 
-@MainActor
-public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStringConvertible {
+public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private var bits: Int
     private(set) var precision: Int
 

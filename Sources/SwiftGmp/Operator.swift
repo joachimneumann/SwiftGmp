@@ -8,8 +8,7 @@
 
 import Foundation
 
-@MainActor
-class Operator: @preconcurrency Equatable, Identifiable {
+class Operator: Equatable, Identifiable {
     let id = UUID()
     let priority: Int
     static let openParenthesesPriority = -2

@@ -8,20 +8,19 @@
 
 import Foundation
 
-@MainActor
-class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equatable {
+class Number: CustomDebugStringConvertible, Equatable {
     private(set) var precision: Int = 0
     private var _str: String?
-    private var _gmp: SwiftGmp?
+    private var _swiftGmp: SwiftGmp?
     
     var isStr: Bool { _str != nil }
-    var isSwiftGmp: Bool { _gmp != nil }
+    var isSwiftGmp: Bool { _swiftGmp != nil }
     var str: String? { return _str }
-    var gmp: SwiftGmp? { return _gmp }
+    var swiftGmp: SwiftGmp? { return _swiftGmp }
     
     static func ==(lhs: Number, rhs: Number) -> Bool {
         if lhs.isStr && rhs.isStr { return lhs.str! == rhs.str! }
-        if lhs.isSwiftGmp && rhs.isSwiftGmp { return lhs.gmp! == rhs.gmp! }
+        if lhs.isSwiftGmp && rhs.isSwiftGmp { return lhs.swiftGmp! == rhs.swiftGmp! }
         /// mixed str and SwiftGmp
 
         if lhs.precision != rhs.precision { return false }
@@ -29,12 +28,12 @@ class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equa
         let lSwiftGmp: SwiftGmp
         let rSwiftGmp: SwiftGmp
         if lhs.isSwiftGmp {
-            lSwiftGmp = lhs.gmp!
+            lSwiftGmp = lhs.swiftGmp!
         } else {
             lSwiftGmp = SwiftGmp(withString: lhs.str!, precision: lhs.precision)
         }
         if rhs.isSwiftGmp {
-            rSwiftGmp = rhs.gmp!
+            rSwiftGmp = rhs.swiftGmp!
         } else {
             rSwiftGmp = SwiftGmp(withString: rhs.str!, precision: lhs.precision)
         }
@@ -47,63 +46,63 @@ class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equa
     
     var isValid: Bool {
         if isStr { return true }
-        return _gmp!.isValid
+        return _swiftGmp!.isValid
     }
     func copy() -> Number {
         if isStr {
             return Number(str!, precision: precision)
         } else {
-            return Number(gmp!.copy())
+            return Number(swiftGmp!.copy())
         }
     }
     func toSwiftGmp() {
         if isStr {
-            _gmp = SwiftGmp(withString: str!, precision: precision)
+            _swiftGmp = SwiftGmp(withString: str!, precision: precision)
             _str = nil
         }
     }
     func execute(_ op: twoOperantsType, with other: Number) {
         toSwiftGmp()
         other.toSwiftGmp()
-        _gmp!.execute(op, with: other._gmp!)
+        _swiftGmp!.execute(op, with: other._swiftGmp!)
     }
     func execute(_ op: inplaceType) {
         toSwiftGmp()
-        _gmp!.inPlace(op: op)
+        _swiftGmp!.inPlace(op: op)
     }
     
     init(_ str: String, precision: Int) {
         _str = str
-        _gmp = nil
+        _swiftGmp = nil
         self.precision = precision
     }
     init(_ gmp: SwiftGmp) {
         //print("Number init()")
         _str = nil
-        _gmp = gmp.copy()
+        _swiftGmp = gmp.copy()
         self.precision = gmp.precision
     }
     fileprivate init() {
         //print("Number init()")
         _str = nil
-        _gmp = nil
+        _swiftGmp = nil
         precision = 0
     }
     
     func setValue(other number: Number) {
         if number.isStr {
             _str = number.str
-            _gmp = nil
+            _swiftGmp = nil
         } else {
             toSwiftGmp()
-            _gmp!.setValue(other: number._gmp!)
+            _swiftGmp!.setValue(other: number._swiftGmp!)
         }
     }
     
     func append(_ digit: String) {
         if !isStr {
             _str = digit
-            _gmp = nil
+            _swiftGmp = nil
         } else if _str == "0" {
             _str = digit
         } else {
@@ -122,7 +121,7 @@ class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equa
         if isStr {
             return _str!.starts(with: "-")
         } else {
-            return _gmp!.isNegtive()
+            return _swiftGmp!.isNegtive()
         }
     }
     func changeSign() {
@@ -134,7 +133,7 @@ class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equa
                 _str! = "-" + _str!
             }
         } else {
-            _gmp!.changeSign()
+            _swiftGmp!.changeSign()
         }
     }
     
@@ -142,7 +141,7 @@ class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equa
         if isStr {
             return "\(_str!) precision \(precision) string"
         } else {
-            return "\(_gmp!.toDouble())  precision \(precision) gmp "
+            return "\(_swiftGmp!.toDouble())  precision \(precision) gmp "
         }
     }
     
