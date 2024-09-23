@@ -90,7 +90,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
         precision = 0
     }
     
-    func setValue(other number: Number) {
+    public func setValue(other number: Number) {
         if number.isStr {
             _str = number.str
             _gmp = nil
