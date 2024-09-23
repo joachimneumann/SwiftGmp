@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -8,7 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "SwiftGmp",
-            targets: ["SwiftGmp", "MyCTarget"]
+            targets: ["SwiftGmp", "SwiftGmp_C_Target"]
         ),
     ],
     targets: [
@@ -18,12 +18,12 @@ let package = Package(
         ),
         .target(
             name: "SwiftGmp",
-            dependencies: ["swiftgmp", "MyCTarget"]
+            dependencies: ["swiftgmp", "SwiftGmp_C_Target"]
         ),
         .target(
-            name: "MyCTarget",
+            name: "SwiftGmp_C_Target",
             dependencies: [],
-            path: "Sources/MyCTarget",
+            path: "Sources/SwiftGmp_C_Target",
             publicHeadersPath: "include"
         )
     ]
