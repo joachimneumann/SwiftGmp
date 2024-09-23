@@ -67,7 +67,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
         other.toSwiftGmp()
         _swiftGmp!.execute(op, with: other._swiftGmp!)
     }
-    func execute(_ op: inplaceType) {
+    public func execute(_ op: inplaceType) {
         toSwiftGmp()
         _swiftGmp!.inPlace(op: op)
     }
