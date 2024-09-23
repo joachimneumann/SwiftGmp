@@ -16,7 +16,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
     
     var isStr: Bool { _str != nil }
     var isSwiftGmp: Bool { _gmp != nil }
-    var str: String? { return _str }
+    public var str: String? { return _str }
     var gmp: SwiftGmp? { return _gmp }
     
     public static func ==(lhs: Number, rhs: Number) -> Bool {
@@ -118,14 +118,14 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
             if !_str!.contains(".") { _str!.append(".") }
         }
     }
-    var isNegative: Bool {
+    public var isNegative: Bool {
         if isStr {
             return _str!.starts(with: "-")
         } else {
             return _gmp!.isNegtive()
         }
     }
-    func changeSign() {
+    public func changeSign() {
         if isStr {
             if _str == "0" { return }
             if _str!.starts(with: "-") {

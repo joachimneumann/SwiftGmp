@@ -54,7 +54,7 @@ public struct OperatorStack: CustomDebugStringConvertible {
         return array.popLast()
     }
     
-    mutating func removeLast() {
+    public mutating func removeLast() {
         array.removeLast()
     }
     var hasOpenParentheses: Bool {
@@ -63,14 +63,14 @@ public struct OperatorStack: CustomDebugStringConvertible {
          }
          return false
     }
-    var last: Operator? {
+    public var last: Operator? {
         array.last
     }
-    var count: Int {
+    public var count: Int {
         array.count
     }
-    var isEmpty: Bool { array.count == 0 }
-    mutating func removeAll() {
+    public var isEmpty: Bool { array.count == 0 }
+    public mutating func removeAll() {
         array.removeAll()
     }
     public var debugDescription: String {
