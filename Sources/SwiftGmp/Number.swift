@@ -10,34 +10,31 @@ import Foundation
 
 public class Number: CustomDebugStringConvertible, Equatable {
     public private(set) var precision: Int = 0
+    
     private var _str: String?
     private var _swiftGmp: SwiftGmp?
     
-    public var isStr: Bool { _str != nil }
-    public var isSwiftGmp: Bool { _swiftGmp != nil }
-    public var str: String? { return _str }
-    var swiftGmp: SwiftGmp? { return _swiftGmp }
+    private var isStr: Bool { _str != nil }
+    private var isSwiftGmp: Bool { _swiftGmp != nil }
+    private var str: String? { return _str }
+    private var swiftGmp: SwiftGmp {
+        if isStr {
+            _swiftGmp = SwiftGmp(withString: str!, precision: precision)
+            _str = nil
+        }
+        return _swiftGmp!
+    }
     
     public static func ==(lhs: Number, rhs: Number) -> Bool {
         if lhs.isStr && rhs.isStr { return lhs.str! == rhs.str! }
-        if lhs.isSwiftGmp && rhs.isSwiftGmp { return lhs.swiftGmp! == rhs.swiftGmp! }
+        if lhs.isSwiftGmp && rhs.isSwiftGmp { return lhs.swiftGmp == rhs.swiftGmp }
         /// mixed str and SwiftGmp
 
         if lhs.precision != rhs.precision { return false }
 
-        let lSwiftGmp: SwiftGmp
-        let rSwiftGmp: SwiftGmp
-        if lhs.isSwiftGmp {
-            lSwiftGmp = lhs.swiftGmp!
-        } else {
-            lSwiftGmp = SwiftGmp(withString: lhs.str!, precision: lhs.precision)
-        }
-        if rhs.isSwiftGmp {
-            rSwiftGmp = rhs.swiftGmp!
-        } else {
-            rSwiftGmp = SwiftGmp(withString: rhs.str!, precision: lhs.precision)
-        }
-        return lSwiftGmp == rSwiftGmp
+        let l = lhs
+        let r = rhs
+        return l.swiftGmp == r.swiftGmp
     }
     
     public static func !=(lhs: Number, rhs: Number) -> Bool {
@@ -46,34 +43,25 @@ public class Number: CustomDebugStringConvertible, Equatable {
     
     public var isValid: Bool {
         if isStr { return true }
-        return _swiftGmp!.isValid
+        return swiftGmp.isValid
     }
     public func copy() -> Number {
         if isStr {
             return Number(str!, precision: precision)
         } else {
-            return Number(swiftGmp!.copy())
+            return Number(swiftGmp.copy())
         }
     }
-    private func toSwiftGmp() {
-        if isStr {
-            _swiftGmp = SwiftGmp(withString: str!, precision: precision)
-            _str = nil
-        }
-    }
+
     public func isApproximately(_ other: Double, precision: Double = 1e-3) -> Bool {
-        self.toSwiftGmp()
-        return abs(self.swiftGmp!.toDouble() - other) <= precision
+        return abs(self.swiftGmp.toDouble() - other) <= precision
     }
 
     public func execute(_ op: twoOperantsType, with other: Number) {
-        toSwiftGmp()
-        other.toSwiftGmp()
-        _swiftGmp!.execute(op, with: other._swiftGmp!)
+        swiftGmp.execute(op, with: other.swiftGmp)
     }
     public func execute(_ op: inplaceType) {
-        toSwiftGmp()
-        _swiftGmp!.inPlace(op: op)
+        swiftGmp.inPlace(op: op)
     }
     
     public init(_ str: String, precision: Int) {
@@ -87,20 +75,13 @@ public class Number: CustomDebugStringConvertible, Equatable {
         _swiftGmp = gmp.copy()
         self.precision = gmp.precision
     }
-    fileprivate init() {
-        //print("Number init()")
-        _str = nil
-        _swiftGmp = nil
-        precision = 0
-    }
     
     public func setValue(other number: Number) {
         if number.isStr {
             _str = number.str
             _swiftGmp = nil
         } else {
-            toSwiftGmp()
-            _swiftGmp!.setValue(other: number._swiftGmp!)
+            swiftGmp.setValue(other: number.swiftGmp)
         }
     }
     
@@ -126,7 +107,7 @@ public class Number: CustomDebugStringConvertible, Equatable {
         if isStr {
             return _str!.starts(with: "-")
         } else {
-            return _swiftGmp!.isNegtive()
+            return swiftGmp.isNegative()
         }
     }
     public func changeSign() {
@@ -138,7 +119,7 @@ public class Number: CustomDebugStringConvertible, Equatable {
                 _str! = "-" + _str!
             }
         } else {
-            _swiftGmp!.changeSign()
+            swiftGmp.changeSign()
         }
     }
     
@@ -146,7 +127,7 @@ public class Number: CustomDebugStringConvertible, Equatable {
         if isStr {
             return "\(_str!) precision \(precision) string"
         } else {
-            return "\(_swiftGmp!.toDouble())  precision \(precision) gmp "
+            return "\(swiftGmp.toDouble())  precision \(precision) gmp "
         }
     }
     

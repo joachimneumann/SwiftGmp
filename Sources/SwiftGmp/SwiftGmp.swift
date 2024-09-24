@@ -105,7 +105,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     // Status Boolean
     //
     //func isNull()       -> Bool { mpfr_cmp_d(&mpfr, 0.0) == 0 }
-    public func isNegtive()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
+    public func isNegative()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
     public var isValid: Bool {
         if mpfr_number_p(&mpfr) == 0 { return false }
         if NaN { return false }
