@@ -31,6 +31,12 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         return mpfr_cmp(&lhs.mpfr, &rhs.mpfr) == 0
     }
     
+    func setPrecision(_ newPrecision: Int) {
+        precision = newPrecision
+        bits = Number.bits(for: precision)
+        mpfr_prec_round(&mpfr, self.bits, MPFR_RNDN);
+    }
+    
     func isApproximately(_ other: Double, precision: Double = 1e-3) -> Bool {
         let diff = self.toDouble() - other
         return Swift.abs(diff) <= precision
@@ -104,7 +110,6 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     //
     // Status Boolean
     //
-    //func isNull()       -> Bool { mpfr_cmp_d(&mpfr, 0.0) == 0 }
     func isNegative()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
     var isValid: Bool {
         if mpfr_number_p(&mpfr) == 0 { return false }
@@ -125,6 +130,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     //
     // constants
     //
+    
+    func zero() { mpfr_set_d(&mpfr, 0.0, MPFR_RNDN) }
     func π() { mpfr_const_pi(&mpfr, MPFR_RNDN) }
     func e() { mpfr_exp( &mpfr, &SwiftGmp(withString: "1.0", precision: precision).mpfr, MPFR_RNDN) } /// Note: mpfr_const_euler() returns 0.577..., not 2.718
     static var randstate: gmp_randstate_t? = nil

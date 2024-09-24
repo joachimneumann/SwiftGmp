@@ -21,6 +21,11 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
     
     public private(set) var precision: Int = 0
     
+    func setPrecision(_ newPrecision: Int) {
+        precision = newPrecision
+        swiftGmp.setPrecision(precision)
+    }
+    
     init(_ str: String, precision: Int) {
         _str = str
         _swiftGmp = nil
@@ -58,7 +63,12 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         }
         return _swiftGmp!
     }
-
+    public func toDouble() -> Double {
+        if isStr {
+            return Double(str!)!
+        }
+        return swiftGmp.toDouble()
+    }
     
     public static func ==(lhs: Number, rhs: Number) async -> Bool {
         if await lhs.precision != rhs.precision { return false }
@@ -138,54 +148,55 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         }
     }
 
-    public func isApproximately(_ other: Double, precision: Double = 1e-3) -> Bool {
-        return abs(self.swiftGmp.toDouble() - other) <= precision
+    public func similarTo(_ other: Double, precision: Double = 1e-3) async -> Bool {
+        abs(await self.copy().toDouble() - other) <= precision
     }
 
     //
     // constants
     // public implementation in numbers.swift
     //
-    func π() async    { swiftGmp.π() }
-    func e() async    { swiftGmp.e() }
-    func rand() async { swiftGmp.rand() }
+    func zero() { swiftGmp.zero() }
+    func π()    { swiftGmp.π() }
+    func e()    { swiftGmp.e() }
+    func rand() { swiftGmp.rand() }
 
     //
     // inplace
     //
-    public func inplace_abs() async { swiftGmp.abs() }
-    public func inplace_sqrt() async { swiftGmp.sqrt() }
-    public func inplace_sqrt3() async { swiftGmp.sqrt3() }
-    public func inplace_Z() async { swiftGmp.Z() }
-    public func inplace_ln() async { swiftGmp.ln() }
-    public func inplace_log10() async { swiftGmp.log10() }
-    public func inplace_log2() async { swiftGmp.log2() }
-    public func inplace_sin() async { swiftGmp.sin() }
-    public func inplace_cos() async { swiftGmp.cos() }
-    public func inplace_tan() async { swiftGmp.tan() }
-    public func inplace_asin() async { swiftGmp.asin() }
-    public func inplace_acos() async { swiftGmp.acos() }
-    public func inplace_atan() async { swiftGmp.atan() }
-    public func inplace_sinh() async { swiftGmp.sinh() }
-    public func inplace_cosh() async { swiftGmp.cosh() }
-    public func inplace_tanh() async { swiftGmp.tanh() }
-    public func inplace_asinh() async { swiftGmp.asinh() }
-    public func inplace_acosh() async { swiftGmp.acosh() }
-    public func inplace_atanh() async { swiftGmp.atanh() }
-    public func inplace_pow_x_2() async { swiftGmp.pow_x_2() }
-    public func inplace_pow_e_x() async { swiftGmp.pow_e_x() }
-    public func inplace_pow_10_x() async { swiftGmp.pow_10_x() }
-    public func inplace_changeSign() async { swiftGmp.changeSign() }
-    public func inplace_pow_x_3() async { swiftGmp.pow_x_3() }
-    public func inplace_pow_2_x() async { swiftGmp.pow_2_x() }
-    public func inplace_rez() async { swiftGmp.rez() }
-    public func inplace_fac() async { swiftGmp.fac() }
-    public func inplace_sinD() async { swiftGmp.sinD() }
-    public func inplace_cosD() async { swiftGmp.cosD() }
-    public func inplace_tanD() async { swiftGmp.tanD() }
-    public func inplace_asinD() async { swiftGmp.asinD() }
-    public func inplace_acosD() async { swiftGmp.acosD() }
-    public func inplace_atanD() async { swiftGmp.atanD() }
+    public func inplace_abs() { swiftGmp.abs() }
+    public func inplace_sqrt() { swiftGmp.sqrt() }
+    public func inplace_sqrt3() { swiftGmp.sqrt3() }
+    public func inplace_Z() { swiftGmp.Z() }
+    public func inplace_ln() { swiftGmp.ln() }
+    public func inplace_log10() { swiftGmp.log10() }
+    public func inplace_log2() { swiftGmp.log2() }
+    public func inplace_sin() { swiftGmp.sin() }
+    public func inplace_cos() { swiftGmp.cos() }
+    public func inplace_tan() { swiftGmp.tan() }
+    public func inplace_asin() { swiftGmp.asin() }
+    public func inplace_acos() { swiftGmp.acos() }
+    public func inplace_atan() { swiftGmp.atan() }
+    public func inplace_sinh() { swiftGmp.sinh() }
+    public func inplace_cosh() { swiftGmp.cosh() }
+    public func inplace_tanh() { swiftGmp.tanh() }
+    public func inplace_asinh() { swiftGmp.asinh() }
+    public func inplace_acosh() { swiftGmp.acosh() }
+    public func inplace_atanh() { swiftGmp.atanh() }
+    public func inplace_pow_x_2() { swiftGmp.pow_x_2() }
+    public func inplace_pow_e_x() { swiftGmp.pow_e_x() }
+    public func inplace_pow_10_x() { swiftGmp.pow_10_x() }
+    public func inplace_changeSign() { swiftGmp.changeSign() }
+    public func inplace_pow_x_3() { swiftGmp.pow_x_3() }
+    public func inplace_pow_2_x() { swiftGmp.pow_2_x() }
+    public func inplace_rez() { swiftGmp.rez() }
+    public func inplace_fac() { swiftGmp.fac() }
+    public func inplace_sinD() { swiftGmp.sinD() }
+    public func inplace_cosD() { swiftGmp.cosD() }
+    public func inplace_tanD() { swiftGmp.tanD() }
+    public func inplace_asinD() { swiftGmp.asinD() }
+    public func inplace_acosD() { swiftGmp.acosD() }
+    public func inplace_atanD() { swiftGmp.atanD() }
     
     //
     // twoOperant
@@ -205,7 +216,7 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         }
     }
     
-    public func append(_ digit: String) async {
+    public func append(_ digit: String) {
         if !isStr {
             _str = digit
             _swiftGmp = nil
@@ -217,10 +228,11 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
     }
     
     public func appendDot() {
-        if var _str {
-            if !_str.contains(".") { _str.append(".") }
-        } else {
+        if _str == nil {
             _str = "0."
+            _swiftGmp = nil
+        } else {
+            if !_str!.contains(".") { _str!.append(".") }
         }
     }
     public var isNegative: Bool {
@@ -233,29 +245,29 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         }
     }
     public func changeSign() {
-        if var _str {
-            if _str == "0" { return }
-            if _str.starts(with: "-") {
-                _str.removeFirst()
-            } else {
-                _str = "-" + _str
-            }
-        } else {
+        if _str == nil {
             swiftGmp.changeSign()
+        } else {
+            if _str! == "0" { return }
+            if _str!.starts(with: "-") {
+                _str!.removeFirst()
+            } else {
+                _str! = "-" + _str!
+            }
         }
     }
         
     static func internalPrecision(for precision: Int) -> Int {
-        // return precision
-        if precision <= 500 {
-            return 1000
-        } else if precision <= 10000 {
-            return 2 * precision
-        } else if precision <= 100000 {
-            return Int(round(1.5*Double(precision)))
-        } else {
-            return precision + 50000
-        }
+        return precision
+//        if precision <= 500 {
+//            return 1000
+//        } else if precision <= 10000 {
+//            return 2 * precision
+//        } else if precision <= 100000 {
+//            return Int(round(1.5*Double(precision)))
+//        } else {
+//            return precision + 50000
+//        }
     }
     
     static func bits(for precision: Int) -> Int {
@@ -270,3 +282,8 @@ public extension String {
     }
 }
 
+public extension Double {
+    func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
+        abs(self - other) <= precision
+    }
+}
