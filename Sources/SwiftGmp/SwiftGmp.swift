@@ -1,10 +1,9 @@
 import Foundation
 import SwiftGmp_C_Target
 
-@MainActor var globalUnsignedLongInt: CUnsignedLong = 0
+var globalUnsignedLongInt: CUnsignedLong = 0
 
-@MainActor
-public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStringConvertible {
+public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private var bits: Int
     public private(set) var precision: Int
 
@@ -144,7 +143,10 @@ public class SwiftGmp: @preconcurrency Equatable, @preconcurrency CustomDebugStr
     
     public func pow_x_3()    { mpfr_pow_ui(&mpfr, &mpfr, 3, MPFR_RNDN) }
     public func pow_2_x()    { mpfr_ui_pow(&mpfr, 2, &mpfr, MPFR_RNDN) }
-    public func rez()        { mpfr_ui_div(&mpfr, 1, &mpfr, MPFR_RNDN) }
+    public func rez()        {
+        var temp = mpfr
+        mpfr_ui_div(&mpfr, 1, &temp, MPFR_RNDN)
+    }
     public func fac() {
         let n = mpfr_get_si(&mpfr, MPFR_RNDN)
         if n >= 0 {

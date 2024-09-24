@@ -8,8 +8,7 @@
 
 import Foundation
 
-@MainActor
-public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurrency Equatable {
+public class Number: CustomDebugStringConvertible, Equatable {
     public private(set) var precision: Int = 0
     private var _str: String?
     private var _swiftGmp: SwiftGmp?
@@ -17,7 +16,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
     public var isStr: Bool { _str != nil }
     public var isSwiftGmp: Bool { _swiftGmp != nil }
     public var str: String? { return _str }
-    public var swiftGmp: SwiftGmp? { return _swiftGmp }
+    var swiftGmp: SwiftGmp? { return _swiftGmp }
     
     public static func ==(lhs: Number, rhs: Number) -> Bool {
         if lhs.isStr && rhs.isStr { return lhs.str! == rhs.str! }
@@ -56,12 +55,17 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
             return Number(swiftGmp!.copy())
         }
     }
-    public func toSwiftGmp() {
+    private func toSwiftGmp() {
         if isStr {
             _swiftGmp = SwiftGmp(withString: str!, precision: precision)
             _str = nil
         }
     }
+    public func isApproximately(_ other: Double, precision: Double = 1e-3) -> Bool {
+        self.toSwiftGmp()
+        return abs(self.swiftGmp!.toDouble() - other) <= precision
+    }
+
     public func execute(_ op: twoOperantsType, with other: Number) {
         toSwiftGmp()
         other.toSwiftGmp()
@@ -77,7 +81,7 @@ public class Number: @preconcurrency CustomDebugStringConvertible, @preconcurren
         _swiftGmp = nil
         self.precision = precision
     }
-    public init(_ gmp: SwiftGmp) {
+    private init(_ gmp: SwiftGmp) {
         //print("Number init()")
         _str = nil
         _swiftGmp = gmp.copy()
