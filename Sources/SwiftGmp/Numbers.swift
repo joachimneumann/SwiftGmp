@@ -6,7 +6,7 @@
 //
 
 
-public struct Numbers {
+public actor Numbers {
     private var precision: Int
     public init(precision: Int) {
         self.precision = precision
@@ -16,8 +16,8 @@ public struct Numbers {
         return Number(value, precision: precision)
     }
 
-    public var π: Number    { let ret = new("0"); ret.π();    return ret }
-    public var e: Number    { let ret = new("0"); ret.e();    return ret }
-    public var rand: Number { let ret = new("0"); ret.rand(); return ret }
+    public var π: Number    { get async { let ret = new("0"); await ret.π();    return ret }}
+    public var e: Number    { get async { let ret = new("0"); await ret.e();    return ret }}
+    public var rand: Number { get async { let ret = new("0"); await ret.rand(); return ret }}
 
 }

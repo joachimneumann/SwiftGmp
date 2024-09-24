@@ -1,7 +1,7 @@
 import Testing
 @testable import SwiftGmp
 
-@Test func example() async throws {
+@Test func example() {
     let x = SwiftGmp(withString: "1", precision: 20)
     #expect(x.toDouble() == 1)
     let x1 = SwiftGmp(withString: "2", precision: 20)
