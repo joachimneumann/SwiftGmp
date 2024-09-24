@@ -7,6 +7,12 @@
 
 
 public actor Numbers: @preconcurrency CustomDebugStringConvertible {
+    enum Constants {
+        case π
+        case e
+        case rand
+        case zero
+    }
     private var precision: Int
     public init(precision: Int) {
         self.precision = precision
@@ -14,15 +20,6 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
     }
     
     private var array: [Number] = []
-    
-    public func new(_ value: String) -> Number {
-        Number(value, precision: precision)
-    }
-
-    public var π: Number    { get async { let ret = new("0"); await ret.π();    return ret }}
-    public var e: Number    { get async { let ret = new("0"); await ret.e();    return ret }}
-    public var rand: Number { get async { let ret = new("0"); await ret.rand(); return ret }}
-    public var zero: Number { new("0") }
     
     func setPrecision(to newPrecision: Int) async {
         precision = newPrecision
@@ -33,9 +30,28 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
     
     func replaceLast(with number: Number) {
         removeLast()
-        append(number)
+        push(number)
     }
-    func append(_ number: Number) {
+    
+    func pushZero() {
+        array.append(zero)
+    }
+    func push(constant: Constants) async {
+        switch constant {
+            case .π:
+            array.append(await π)
+        case .e:
+            array.append(await e)
+        case .rand:
+            array.append(await rand)
+        case .zero:
+            pushZero()
+        }
+    }
+    public func push(_ number: String) {
+        array.append(new(number))
+    }
+    private func push(_ number: Number) {
         array.append(number)
     }
     func popLast() -> Number {
@@ -75,4 +91,13 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
         return array.last!
     }
 
+    
+    private func new(_ value: String) -> Number {
+        Number(value, precision: precision)
+    }
+
+    private var π: Number    { get async { let ret = new("0"); await ret.π();    return ret }}
+    private var e: Number    { get async { let ret = new("0"); await ret.e();    return ret }}
+    private var rand: Number { get async { let ret = new("0"); await ret.rand(); return ret }}
+    private var zero: Number { new("0") }
 }

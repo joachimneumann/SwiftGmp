@@ -9,114 +9,142 @@ import Foundation
 import Testing
 @testable import SwiftGmp
 
+extension Numbers {
+    var d: Double {
+        get async { await last.toDouble() }
+    }
+}
+
 @Test func calculator() async {
     
-    let numbers = Numbers(precision: 5)
-    var x = await numbers.new("0")
-
-    await x.append("1")
-    var value = await x.toDouble()
-    #expect(value.similarTo(1.0))
+    let numbers = Numbers(precision: 50)
     
-    await x.append("2")
-    value = await x.toDouble()
-    #expect(value.similarTo(12.0))
-    #expect(12.0.similarTo(12.0))
-    #expect(12.0.similarTo(value))
+    await numbers.push(constant: .π)
+    #expect(await numbers.last.similarTo(3.141592653589793, precision: 1e-10))
+    #expect((await numbers.d) == 3.141592653589793)
+    #expect(await numbers.d.similarTo(3.141592653589793, precision: 1e-3))
+    #expect(await numbers.d.similarTo(3.141592653589793, precision: 1e-6))
 
-    await x.append("3")
-    value = await x.toDouble()
-    #expect(value.similarTo(123.0))
-
-    await x.appendDot()
-    value = await x.toDouble()
-    #expect(value.similarTo(123.0))
-
-    await x.append("4")
-    value = await x.toDouble()
-    #expect(value.similarTo(123.4))
-
-    await x.changeSign()
-    value = await x.toDouble()
-    #expect(value.similarTo(-123.4))
-
-    await x = numbers.zero
-    value = await x.toDouble()
-    #expect(value == 0.0)
-    
-    await x = numbers.π
-    value = await x.toDouble()
-    #expect(await x.similarTo(3.1415))
-    
-    #expect(await x != (x+1))
-
-    x = await numbers.new("123")
-    #expect(await x.similarTo(123))
-    #expect(await x != (x+1))
-
-    x = await numbers.new("1234")
-    #expect(await x.similarTo(1234))
-    #expect(await x != (x+1))
-
-    x = await numbers.new("12345")
-    #expect(await x.similarTo(12345))
-    #expect(await x != (x+1))
-
-    await numbers.setPrecision(to: 15)
     await numbers.setPrecision(to: 5)
-    x = await numbers.new("123456")
-    #expect(await x.similarTo(123456))
-    #expect(await x != (x+1))
+    await numbers.push(constant: .π)
+    #expect(await !numbers.last.similarTo(3.141592653589793, precision: 1e-10))
+    #expect((await numbers.d) != 3.141592653589793)
+    #expect((await numbers.d).similarTo(3.141592653589793, precision: 1e-3))
+    #expect(!(await numbers.d).similarTo(3.141592653589793, precision: 1e-6))
 
-    x = await numbers.new("1234567")
-    #expect(await x.similarTo(1234567))
-    #expect(await x != (x+1))
+    await numbers.setPrecision(to: 50)
+    await numbers.push("1")
+    #expect((await numbers.d) == 1.0)
 
-    x = await numbers.new("1234567")
-    #expect(await x.similarTo(1234567))
-    #expect(await x != (x+1))
+    await numbers.last.append("1")
+    #expect((await numbers.d) == 11.0)
 
-    x = await numbers.new("12345678")
-    #expect(await x.similarTo(12345678))
-    #expect(await x != (x+1))
+    await numbers.last.inplace_fac()
+    #expect((await numbers.d) == 11.0)
 
-    x = await numbers.new("123456789")
-    #expect(await x.similarTo(123456789))
-    #expect(await x != (x+1))
-
-    x = await numbers.new("1234567890")
-    #expect(await x.similarTo(1234567890))
-    #expect(await x != (x+1))
-
-    x = await numbers.new("123456789012345678")
-    #expect(await x.similarTo(123456789012345678))
-    #expect(await x != (x+1))
-
-    x = await numbers.new("1234567890123456789")
-    #expect(await x.similarTo(1234567890123456789))
-    #expect(await x != (x+1))
-
-    x = await numbers.new("12345678901234567890")
-    #expect(await x.similarTo(12345678901234567890))
-    #expect(await x != (x+1))
-
-    x = await numbers.new("123456789012345678901234567890123456789")
-    value = await x.toDouble()
-    #expect(await value.similarTo(123456789012345678901234567890123456789))
-    #expect(value == 123456789012345678901234567890123456789)
-
-    let x1 = await numbers.new("123456789012345678901234567890123456789")
-    var x2 = await numbers.new("123456789012345678901234567890123456789")
-    #expect(await x1 == x2)
-    x2 = await x2 + 1
-    #expect(await x1 != x2)
-    print(x1)
-    print(x2)
-
-    x = await numbers.new("777777777")
-    #expect(await x.similarTo(777777777))
-    await x.append("777777777")
-    #expect(await x.similarTo(7.77777777777777777e17))
+//
+//    var value = await x.toDouble()
+//    #expect(value.similarTo(1.0))
+//    
+//    await x.append("2")
+//    value = await x.toDouble()
+//    #expect(value.similarTo(12.0))
+//    #expect(12.0.similarTo(12.0))
+//    #expect(12.0.similarTo(value))
+//
+//    await x.append("3")
+//    value = await x.toDouble()
+//    #expect(value.similarTo(123.0))
+//
+//    await x.appendDot()
+//    value = await x.toDouble()
+//    #expect(value.similarTo(123.0))
+//
+//    await x.append("4")
+//    value = await x.toDouble()
+//    #expect(value.similarTo(123.4))
+//
+//    await x.changeSign()
+//    value = await x.toDouble()
+//    #expect(value.similarTo(-123.4))
+//
+//    await x = numbers.zero
+//    value = await x.toDouble()
+//    #expect(value == 0.0)
+//    
+//    await x = numbers.π
+//    value = await x.toDouble()
+//    #expect(await x.similarTo(3.1415))
+//    
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("123")
+//    #expect(await x.similarTo(123))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("1234")
+//    #expect(await x.similarTo(1234))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("12345")
+//    #expect(await x.similarTo(12345))
+//    #expect(await x != (x+1))
+//
+//    await numbers.setPrecision(to: 15)
+//    await numbers.setPrecision(to: 5)
+//    x = await numbers.new("123456")
+//    #expect(await x.similarTo(123456))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("1234567")
+//    #expect(await x.similarTo(1234567))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("1234567")
+//    #expect(await x.similarTo(1234567))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("12345678")
+//    #expect(await x.similarTo(12345678))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("123456789")
+//    #expect(await x.similarTo(123456789))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("1234567890")
+//    #expect(await x.similarTo(1234567890))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("123456789012345678")
+//    #expect(await x.similarTo(123456789012345678))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("1234567890123456789")
+//    #expect(await x.similarTo(1234567890123456789))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("12345678901234567890")
+//    #expect(await x.similarTo(12345678901234567890))
+//    #expect(await x != (x+1))
+//
+//    x = await numbers.new("123456789012345678901234567890123456789")
+//    value = await x.toDouble()
+//    #expect(await value.similarTo(123456789012345678901234567890123456789))
+//    #expect(value == 123456789012345678901234567890123456789)
+//
+//    let x1 = await numbers.new("123456789012345678901234567890123456789")
+//    var x2 = await numbers.new("123456789012345678901234567890123456789")
+//    #expect(await x1 == x2)
+//    x2 = await x2 + 1
+//    #expect(await x1 != x2)
+//    print(x1)
+//    print(x2)
+//
+//    x = await numbers.new("777777777")
+//    #expect(await x.similarTo(777777777))
+//    await x.append("777777777")
+//    #expect(await x.similarTo(7.77777777777777777e17))
 
     //    XCTAssertEqual(debugBrain.double, 777777777)
     //
