@@ -8,9 +8,35 @@
 
 import Foundation
 
+public func rez(_ n: Number) -> Number { let ret = n.copy(); ret.inplace_rez(); return ret }
+
 public class Number: CustomDebugStringConvertible, Equatable {
     public private(set) var precision: Int = 0
     
+    init(_ str: String, precision: Int) {
+        _str = str
+        _swiftGmp = nil
+        self.precision = precision
+    }
+
+    private init(precision: Int) {
+        _str = "0"
+        _swiftGmp = nil
+        self.precision = precision
+    }
+
+    private init(_ gmp: SwiftGmp) {
+        //print("Number init()")
+        _str = nil
+        _swiftGmp = gmp.copy()
+        self.precision = gmp.precision
+    }
+
+    private init(_ d: Double, precision: Int) {
+        _str = nil
+        _swiftGmp = SwiftGmp(withString: String(d), precision: precision)
+    }
+
     private var _str: String?
     private var _swiftGmp: SwiftGmp?
     
@@ -26,26 +52,69 @@ public class Number: CustomDebugStringConvertible, Equatable {
     }
     
     public static func ==(lhs: Number, rhs: Number) -> Bool {
-        if lhs.isStr && rhs.isStr { return lhs.str! == rhs.str! }
-        if lhs.isSwiftGmp && rhs.isSwiftGmp { return lhs.swiftGmp == rhs.swiftGmp }
-        /// mixed str and SwiftGmp
-
         if lhs.precision != rhs.precision { return false }
 
+        if lhs.isStr && rhs.isStr { return lhs.str! == rhs.str! }
         let l = lhs
         let r = rhs
         return l.swiftGmp == r.swiftGmp
     }
-    
     public static func !=(lhs: Number, rhs: Number) -> Bool {
         return !(lhs == rhs)
     }
-    
+    public static func +(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp + rhs.swiftGmp)
+    }
+    public static func +(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp + rhs.swiftGmp)
+    }
+    public static func +(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp + r.swiftGmp)
+    }
+
+    public static func -(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp - rhs.swiftGmp)
+    }
+    public static func -(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp - rhs.swiftGmp)
+    }
+    public static func -(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp - r.swiftGmp)
+    }
+
+    public static func *(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp * rhs.swiftGmp)
+    }
+    public static func *(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp * rhs.swiftGmp)
+    }
+    public static func *(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp * r.swiftGmp)
+    }
+
+    public static func /(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp / rhs.swiftGmp)
+    }
+    public static func /(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp / rhs.swiftGmp)
+    }
+    public static func /(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp / r.swiftGmp)
+    }
+
     public var isValid: Bool {
         if isStr { return true }
         return swiftGmp.isValid
     }
-    public func copy() -> Number {
+    fileprivate func copy() -> Number {
         if isStr {
             return Number(str!, precision: precision)
         } else {
@@ -57,24 +126,59 @@ public class Number: CustomDebugStringConvertible, Equatable {
         return abs(self.swiftGmp.toDouble() - other) <= precision
     }
 
-    public func execute(_ op: twoOperantsType, with other: Number) {
-        swiftGmp.execute(op, with: other.swiftGmp)
-    }
-    public func execute(_ op: inplaceType) {
-        swiftGmp.inPlace(op: op)
-    }
+    //
+    // constants
+    // public implementation in numbers.swift
+    //
+    func π() { swiftGmp.π() }
+    func e() { swiftGmp.e() }
+    func rand() { swiftGmp.rand() }
+
+    //
+    // inplace
+    //
+    public func inplace_abs() { swiftGmp.abs() }
+    public func inplace_sqrt() { swiftGmp.sqrt() }
+    public func inplace_sqrt3() { swiftGmp.sqrt3() }
+    public func inplace_Z() { swiftGmp.Z() }
+    public func inplace_ln() { swiftGmp.ln() }
+    public func inplace_log10() { swiftGmp.log10() }
+    public func inplace_log2() { swiftGmp.log2() }
+    public func inplace_sin() { swiftGmp.sin() }
+    public func inplace_cos() { swiftGmp.cos() }
+    public func inplace_tan() { swiftGmp.tan() }
+    public func inplace_asin() { swiftGmp.asin() }
+    public func inplace_acos() { swiftGmp.acos() }
+    public func inplace_atan() { swiftGmp.atan() }
+    public func inplace_sinh() { swiftGmp.sinh() }
+    public func inplace_cosh() { swiftGmp.cosh() }
+    public func inplace_tanh() { swiftGmp.tanh() }
+    public func inplace_asinh() { swiftGmp.asinh() }
+    public func inplace_acosh() { swiftGmp.acosh() }
+    public func inplace_atanh() { swiftGmp.atanh() }
+    public func inplace_pow_x_2() { swiftGmp.pow_x_2() }
+    public func inplace_pow_e_x() { swiftGmp.pow_e_x() }
+    public func inplace_pow_10_x() { swiftGmp.pow_10_x() }
+    public func inplace_changeSign() { swiftGmp.changeSign() }
+    public func inplace_pow_x_3() { swiftGmp.pow_x_3() }
+    public func inplace_pow_2_x() { swiftGmp.pow_2_x() }
+    public func inplace_rez() { swiftGmp.rez() }
+    public func inplace_fac() { swiftGmp.fac() }
+    public func inplace_sinD() { swiftGmp.sinD() }
+    public func inplace_cosD() { swiftGmp.cosD() }
+    public func inplace_tanD() { swiftGmp.tanD() }
+    public func inplace_asinD() { swiftGmp.asinD() }
+    public func inplace_acosD() { swiftGmp.acosD() }
+    public func inplace_atanD() { swiftGmp.atanD() }
     
-    public init(_ str: String, precision: Int) {
-        _str = str
-        _swiftGmp = nil
-        self.precision = precision
-    }
-    private init(_ gmp: SwiftGmp) {
-        //print("Number init()")
-        _str = nil
-        _swiftGmp = gmp.copy()
-        self.precision = gmp.precision
-    }
+    //
+    // twoOperant
+    //
+    public func pow_x_y(exponent: Number) { swiftGmp.pow_x_y(exponent: exponent.swiftGmp) }
+    public func pow_y_x(base: Number)   { swiftGmp.pow_y_x(base: base.swiftGmp) }
+    public func sqrty(exponent: Number) { swiftGmp.sqrty(exponent: exponent.swiftGmp) }
+    public func logy(base: Number)      { swiftGmp.logy(base: base.swiftGmp) }
+    public func EE(other: Number)       { swiftGmp.EE(other: other.swiftGmp) }
     
     public func setValue(other number: Number) {
         if number.isStr {
@@ -97,26 +201,26 @@ public class Number: CustomDebugStringConvertible, Equatable {
     }
     
     public func appendDot() {
-        if str == nil {
-            _str = "0."
+        if var _str {
+            if !_str.contains(".") { _str.append(".") }
         } else {
-            if !_str!.contains(".") { _str!.append(".") }
+            _str = "0."
         }
     }
     public var isNegative: Bool {
-        if isStr {
-            return _str!.starts(with: "-")
+        if let _str {
+            return _str.starts(with: "-")
         } else {
             return swiftGmp.isNegative()
         }
     }
     public func changeSign() {
-        if isStr {
+        if var _str {
             if _str == "0" { return }
-            if _str!.starts(with: "-") {
-                _str!.removeFirst()
+            if _str.starts(with: "-") {
+                _str.removeFirst()
             } else {
-                _str! = "-" + _str!
+                _str = "-" + _str
             }
         } else {
             swiftGmp.changeSign()
@@ -124,11 +228,10 @@ public class Number: CustomDebugStringConvertible, Equatable {
     }
     
     public var debugDescription: String {
-        if isStr {
-            return "\(_str!) precision \(precision) string"
-        } else {
-            return "\(swiftGmp.toDouble())  precision \(precision) gmp "
+        if let _str {
+            return "\(_str) precision \(precision) string"
         }
+        return "\(swiftGmp.toDouble())  precision \(precision) gmp "
     }
     
     static func internalPrecision(for precision: Int) -> Int {

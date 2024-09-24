@@ -3,9 +3,9 @@ import SwiftGmp_C_Target
 
 var globalUnsignedLongInt: CUnsignedLong = 0
 
-public class SwiftGmp: Equatable, CustomDebugStringConvertible {
+class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private var bits: Int
-    public private(set) var precision: Int
+    private(set) var precision: Int
 
     /// init with zeros. The struct will be initialized correctly in init() with mpfr_init2()
     private var mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
@@ -27,11 +27,11 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_clear(&mpfr)
     }
     
-    public static func == (lhs: SwiftGmp, rhs: SwiftGmp) -> Bool {
+    static func == (lhs: SwiftGmp, rhs: SwiftGmp) -> Bool {
         return mpfr_cmp(&lhs.mpfr, &rhs.mpfr) == 0
     }
     
-    public func isApproximately(_ other: Double, precision: Double = 1e-3) -> Bool {
+    func isApproximately(_ other: Double, precision: Double = 1e-3) -> Bool {
         let diff = self.toDouble() - other
         return Swift.abs(diff) <= precision
     }
@@ -57,7 +57,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         return temp
     }
 
-    public var debugDescription: String {
+    var debugDescription: String {
         let (mantissa, exponent) = mantissaExponent(len: 100)
         return "\(mantissa) \(exponent)"
     }
@@ -71,18 +71,18 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     //
     // copy and convert
     //
-    public func copy() -> SwiftGmp {
+    func copy() -> SwiftGmp {
         let ret = SwiftGmp.init(withString: "0", precision: precision)
         mpfr_set(&ret.mpfr, &mpfr, MPFR_RNDN)
         return ret
     }
-    public func toDouble() -> Double {
+    func toDouble() -> Double {
         return mpfr_get_d(&mpfr, MPFR_RNDN)
     }
-    public static func memorySize(bits: Int) -> Int {
+    static func memorySize(bits: Int) -> Int {
         mpfr_custom_get_size(bits)
     }
-    public func mantissaExponent(len: Int) -> (String, Int) {
+    func mantissaExponent(len: Int) -> (String, Int) {
         var exponent: mpfr_exp_t = 0
         
         var charArray: Array<CChar> = Array(repeating: 0, count: len+10)
@@ -105,30 +105,30 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     // Status Boolean
     //
     //func isNull()       -> Bool { mpfr_cmp_d(&mpfr, 0.0) == 0 }
-    public func isNegative()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
-    public var isValid: Bool {
+    func isNegative()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
+    var isValid: Bool {
         if mpfr_number_p(&mpfr) == 0 { return false }
         if NaN { return false }
         if inf { return false }
         return true
     }
-    public var NaN: Bool {
+    var NaN: Bool {
         mpfr_nan_p(&mpfr) != 0
     }
-    public var inf: Bool {
+    var inf: Bool {
         mpfr_inf_p(&mpfr) != 0
     }
-    public var isZero: Bool {
+    var isZero: Bool {
         mpfr_zero_p(&mpfr) != 0
     }
     
     //
     // constants
     //
-    public func π() { mpfr_const_pi(&mpfr, MPFR_RNDN) }
-    public func e() { mpfr_exp( &mpfr, &SwiftGmp(withString: "1.0", precision: precision).mpfr, MPFR_RNDN) } /// Note: mpfr_const_euler() returns 0.577..., not 2.718
+    func π() { mpfr_const_pi(&mpfr, MPFR_RNDN) }
+    func e() { mpfr_exp( &mpfr, &SwiftGmp(withString: "1.0", precision: precision).mpfr, MPFR_RNDN) } /// Note: mpfr_const_euler() returns 0.577..., not 2.718
     static var randstate: gmp_randstate_t? = nil
-    public func rand() {
+    func rand() {
         if SwiftGmp.randstate == nil {
             SwiftGmp.randstate = gmp_randstate_t()
             __gmp_randinit_mt(&SwiftGmp.randstate!)
@@ -141,37 +141,37 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     //
     // inPlace
     //
-    public func inPlace(op: inplaceType) { op(self)() }
+//    func inPlace(op: inplaceType) { op(self)() }
     /// in the second argument, I a simultaneously using the same memory
     /// Option 1: &mpfr -> &copy().mpfr
     /// Option 2: in the build settings set exclusiv access to memory to compiletime enfocement only
-    public func abs()        { var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN) }
-    public func sqrt()       { var temp = mpfr; mpfr_sqrt( &mpfr, &temp, MPFR_RNDN) }
-    public func sqrt3()      { var temp = mpfr; mpfr_cbrt( &mpfr, &temp, MPFR_RNDN) }
-    public func Z()          { var temp = mpfr; mpfr_zeta( &mpfr, &temp, MPFR_RNDN) }
-    public func ln()         { var temp = mpfr; mpfr_log(  &mpfr, &temp, MPFR_RNDN) }
-    public func log10()      { var temp = mpfr; mpfr_log10(&mpfr, &temp, MPFR_RNDN) }
-    public func log2()       { var temp = mpfr; mpfr_log2 (&mpfr, &temp, MPFR_RNDN) }
-    public func sin()        { var temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN) }
-    public func cos()        { var temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN) }
-    public func tan()        { var temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN) }
-    public func asin()       { var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN) }
-    public func acos()       { var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN) }
-    public func atan()       { var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN) }
-    public func sinh()       { var temp = mpfr; mpfr_sinh( &mpfr, &temp, MPFR_RNDN) }
-    public func cosh()       { var temp = mpfr; mpfr_cosh( &mpfr, &temp, MPFR_RNDN) }
-    public func tanh()       { var temp = mpfr; mpfr_tanh( &mpfr, &temp, MPFR_RNDN) }
-    public func asinh()      { var temp = mpfr; mpfr_asinh(&mpfr, &temp, MPFR_RNDN) }
-    public func acosh()      { var temp = mpfr; mpfr_acosh(&mpfr, &temp, MPFR_RNDN) }
-    public func atanh()      { var temp = mpfr; mpfr_atanh(&mpfr, &temp, MPFR_RNDN) }
-    public func pow_x_2()    { var temp = mpfr; mpfr_sqr(  &mpfr, &temp, MPFR_RNDN) }
-    public func pow_e_x()    { var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN) }
-    public func pow_10_x()   { var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN) }
-    public func changeSign() { var temp = mpfr; mpfr_neg(  &mpfr, &temp, MPFR_RNDN) }
-    public func pow_x_3()    { var temp = mpfr; mpfr_pow_ui(&mpfr, &temp, 3, MPFR_RNDN) }
-    public func pow_2_x()    { var temp = mpfr; mpfr_ui_pow(&mpfr, 2, &temp, MPFR_RNDN) }
-    public func rez()        { var temp = mpfr; mpfr_ui_div(&mpfr, 1, &temp, MPFR_RNDN) }
-    public func fac() {
+    func abs()        { var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN) }
+    func sqrt()       { var temp = mpfr; mpfr_sqrt( &mpfr, &temp, MPFR_RNDN) }
+    func sqrt3()      { var temp = mpfr; mpfr_cbrt( &mpfr, &temp, MPFR_RNDN) }
+    func Z()          { var temp = mpfr; mpfr_zeta( &mpfr, &temp, MPFR_RNDN) }
+    func ln()         { var temp = mpfr; mpfr_log(  &mpfr, &temp, MPFR_RNDN) }
+    func log10()      { var temp = mpfr; mpfr_log10(&mpfr, &temp, MPFR_RNDN) }
+    func log2()       { var temp = mpfr; mpfr_log2 (&mpfr, &temp, MPFR_RNDN) }
+    func sin()        { var temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN) }
+    func cos()        { var temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN) }
+    func tan()        { var temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN) }
+    func asin()       { var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN) }
+    func acos()       { var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN) }
+    func atan()       { var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN) }
+    func sinh()       { var temp = mpfr; mpfr_sinh( &mpfr, &temp, MPFR_RNDN) }
+    func cosh()       { var temp = mpfr; mpfr_cosh( &mpfr, &temp, MPFR_RNDN) }
+    func tanh()       { var temp = mpfr; mpfr_tanh( &mpfr, &temp, MPFR_RNDN) }
+    func asinh()      { var temp = mpfr; mpfr_asinh(&mpfr, &temp, MPFR_RNDN) }
+    func acosh()      { var temp = mpfr; mpfr_acosh(&mpfr, &temp, MPFR_RNDN) }
+    func atanh()      { var temp = mpfr; mpfr_atanh(&mpfr, &temp, MPFR_RNDN) }
+    func pow_x_2()    { var temp = mpfr; mpfr_sqr(  &mpfr, &temp, MPFR_RNDN) }
+    func pow_e_x()    { var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN) }
+    func pow_10_x()   { var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN) }
+    func changeSign() { var temp = mpfr; mpfr_neg(  &mpfr, &temp, MPFR_RNDN) }
+    func pow_x_3()    { var temp = mpfr; mpfr_pow_ui(&mpfr, &temp, 3, MPFR_RNDN) }
+    func pow_2_x()    { var temp = mpfr; mpfr_ui_pow(&mpfr, 2, &temp, MPFR_RNDN) }
+    func rez()        { var temp = mpfr; mpfr_ui_div(&mpfr, 1, &temp, MPFR_RNDN) }
+    func fac() {
         let n = mpfr_get_si(&mpfr, MPFR_RNDN)
         if n >= 0 {
             let un = UInt(n)
@@ -197,40 +197,40 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
             rad_deg_precision = precision
         }
     }
-    public func sinD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN) }
-    public func cosD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN) }
-    public func tanD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN) }
-    public func asinD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
-    public func acosD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
-    public func atanD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
+    func sinD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN) }
+    func cosD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN) }
+    func tanD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN) }
+    func asinD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
+    func acosD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
+    func atanD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
     
     //
     // twoOperants
     //
-    public func execute(_ op: twoOperantsType, with other: SwiftGmp) { op(self)(other) }
-    public func add (other: SwiftGmp) { var temp = mpfr; mpfr_add(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
-    public func sub (other: SwiftGmp) { var temp = mpfr; mpfr_sub(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
-    public func mul (other: SwiftGmp) { var temp = mpfr; mpfr_mul(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
-    public func div (other: SwiftGmp) { var temp = mpfr; mpfr_div(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
+//    func execute(_ op: twoOperantsType, with other: SwiftGmp) { op(self)(other) }
+    func add (other: SwiftGmp) { var temp = mpfr; mpfr_add(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
+    func sub (other: SwiftGmp) { var temp = mpfr; mpfr_sub(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
+    func mul (other: SwiftGmp) { var temp = mpfr; mpfr_mul(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
+    func div (other: SwiftGmp) { var temp = mpfr; mpfr_div(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
     
-    public func pow_x_y(exponent: SwiftGmp) { mpfr_pow(&mpfr, &mpfr, &exponent.mpfr, MPFR_RNDN) }
-    public func pow_y_x(base: SwiftGmp)     { mpfr_pow(&mpfr, &base.mpfr, &mpfr, MPFR_RNDN) }
-    public func sqrty(exponent: SwiftGmp)   { exponent.rez(); pow_x_y(exponent: exponent) }
-    public func logy(base: SwiftGmp) {
+    func pow_x_y(exponent: SwiftGmp) { mpfr_pow(&mpfr, &mpfr, &exponent.mpfr, MPFR_RNDN) }
+    func pow_y_x(base: SwiftGmp)     { mpfr_pow(&mpfr, &base.mpfr, &mpfr, MPFR_RNDN) }
+    func sqrty(exponent: SwiftGmp)   { exponent.rez(); pow_x_y(exponent: exponent) }
+    func logy(base: SwiftGmp) {
         self.ln()
         base.ln()
         self.div(other: base)
     }
-    public func EE(other: SwiftGmp) {
+    func EE(other: SwiftGmp) {
         other.pow_10_x()
         self.mul(other: other)
     }
     
-    public func setValue(other: SwiftGmp) {
+    func setValue(other: SwiftGmp) {
         mpfr_set(&mpfr, &other.mpfr, MPFR_RNDN)
     }
     
-    public func x_double_up_arrow_y(other: SwiftGmp) {
+    func x_double_up_arrow_y(other: SwiftGmp) {
         var temp: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
         mpfr_init2 (&temp, mpfr_get_prec(&mpfr))
         mpfr_set(&temp, &mpfr, MPFR_RNDN)

@@ -18,5 +18,8 @@ import Testing
     
     #expect((x1/x2).isApproximately(0.666))
     #expect((x2/x1).toDouble() == 1.5)
+    
+    x2.rez()
+    #expect(x2.isApproximately(0.33333))
 }
 
