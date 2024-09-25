@@ -5,8 +5,9 @@ import Testing
 import SwiftGmp
 
 @Test func testPrecisionTest() {
-    var precision: Int = 20
+    var precision: Int; precision = 20
     var leftNumber: Number
+
 
     precision = 5
     leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)

@@ -5,8 +5,7 @@
 //  Created by Joachim Neumann on 24.09.24.
 //
 
-
-public actor Numbers: @preconcurrency CustomDebugStringConvertible {
+public class Numbers: CustomDebugStringConvertible {
     enum Constants {
         case π
         case e
@@ -23,7 +22,7 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
     private var array: [Number] = []
     private var operatorStack: OperatorStack = OperatorStack.init()
     
-    func setPrecision(to newPrecision: Int) async {
+    func setPrecision(to newPrecision: Int) {
         precision = newPrecision
         for number in array {
             number.setPrecision(precision)

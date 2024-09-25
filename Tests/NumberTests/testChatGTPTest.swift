@@ -5,7 +5,7 @@ import Testing
 import SwiftGmp
 
 @Test func testChatGTPTest() {
-    var precision: Int = 20
+    var precision: Int; precision = 20
     var leftNumber: Number
 
 

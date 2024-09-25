@@ -5,7 +5,7 @@ import Testing
 import SwiftGmp
 
 @Test func testBasicsTest() {
-    var precision: Int = 20
+    var precision: Int; precision = 20
     var leftNumber: Number
 
     leftNumber = Number(1, precision: precision) + Number(2, precision: precision)
@@ -13,5 +13,249 @@ import SwiftGmp
 
     leftNumber = Number(2, precision: precision) * Number(4, precision: precision)
     #expect(leftNumber.representation().allInOneLine == "8")
+
+    leftNumber = Number(30, precision: precision)
+    leftNumber.inplace_sinD()
+    #expect(leftNumber.representation().allInOneLine == "0.5")
+
+    leftNumber = Number(45, precision: precision)
+    leftNumber.inplace_sinD()
+    #expect(leftNumber.toDouble().similarTo(0.7071))
+
+    leftNumber = Number(60, precision: precision)
+    leftNumber.inplace_sinD()
+    #expect(leftNumber.toDouble().similarTo(0.8660))
+
+    leftNumber = Number(90, precision: precision)
+    leftNumber.inplace_sinD()
+    #expect(leftNumber.representation().allInOneLine == "1.0")
+
+    leftNumber = Number(0, precision: precision)
+    leftNumber.inplace_sinD()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(180, precision: precision)
+    leftNumber.inplace_sinD()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(270, precision: precision)
+    leftNumber.inplace_sinD()
+    #expect(leftNumber.representation().allInOneLine == "-1.0")
+
+    leftNumber = Number(30, precision: precision)
+    leftNumber.inplace_cosD()
+    #expect(leftNumber.toDouble().similarTo(0.8660))
+
+    leftNumber = Number(45, precision: precision)
+    leftNumber.inplace_cosD()
+    #expect(leftNumber.toDouble().similarTo(0.7071))
+
+    leftNumber = Number(60, precision: precision)
+    leftNumber.inplace_cosD()
+    #expect(leftNumber.representation().allInOneLine == "0.5")
+
+    leftNumber = Number(90, precision: precision)
+    leftNumber.inplace_cosD()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(45, precision: precision)
+    leftNumber.inplace_tanD()
+    #expect(leftNumber.representation().allInOneLine == "1.0")
+
+    leftNumber = Number(60, precision: precision)
+    leftNumber.inplace_tanD()
+    #expect(leftNumber.toDouble().similarTo(1.7321))
+
+    leftNumber = Number(30, precision: precision)
+    leftNumber.inplace_tanD()
+    #expect(leftNumber.toDouble().similarTo(0.5774))
+
+    leftNumber = Number(0, precision: precision)
+    leftNumber.inplace_tanD()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(0, precision: precision)
+    leftNumber.inplace_asinD()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(0, precision: precision)
+    leftNumber.inplace_acosD()
+    #expect(leftNumber.representation().allInOneLine == "90.0")
+
+    leftNumber = Number(0.5, precision: precision)
+    leftNumber.inplace_asinD()
+    #expect(leftNumber.representation().allInOneLine == "30.0")
+
+    leftNumber = Number(0.5, precision: precision)
+    leftNumber.inplace_acosD()
+    #expect(leftNumber.representation().allInOneLine == "60.0")
+
+    leftNumber = Number(1, precision: precision)
+    leftNumber.inplace_atanD()
+    #expect(leftNumber.representation().allInOneLine == "45.0")
+
+    leftNumber = Number(0, precision: precision)
+    leftNumber.inplace_atanD()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(1.5708, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "1.0")
+
+    leftNumber = Number(0.5236, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.toDouble().similarTo(0.8660))
+
+    leftNumber = Number(1.0472, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.toDouble().similarTo(0.8660))
+
+    leftNumber = Number(0.7854, precision: precision)
+    leftNumber.inplace_tan()
+    #expect(leftNumber.representation().allInOneLine == "1.0")
+
+    leftNumber = Number(2.3562, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.toDouble().similarTo(0.7071))
+
+    leftNumber = Number(2.6180, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.toDouble().similarTo(-0.8660))
+
+    leftNumber = Number(3.1416, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(3.1416, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.representation().allInOneLine == "-1.0")
+
+    leftNumber = Number(3.6652, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "-0.5")
+
+    leftNumber = Number(3.92699, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.toDouble().similarTo(-0.7071))
+
+    leftNumber = Number(5.7596, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "-0.5")
+
+    leftNumber = Number(6.2832, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(4.7124, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_atan()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_atan()
+    #expect(leftNumber.toDouble().similarTo(0.7854))
+
+    leftNumber = Number(0.8660, precision: precision)
+    leftNumber.inplace_acos()
+    #expect(leftNumber.toDouble().similarTo(0.5236))
+
+    leftNumber = Number(0.5, precision: precision)
+    leftNumber.inplace_asin()
+    #expect(leftNumber.toDouble().similarTo(0.5236))
+
+    leftNumber = Number(-1.0, precision: precision)
+    leftNumber.inplace_atan()
+    #expect(leftNumber.toDouble().similarTo(-0.7854))
+
+    leftNumber = Number(0.8660, precision: precision)
+    leftNumber.inplace_asin()
+    #expect(leftNumber.toDouble().similarTo(1.0472))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_acos()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(0.7854, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.toDouble().similarTo(0.7071))
+
+    leftNumber = Number(1.5708, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(1.0472, precision: precision)
+    leftNumber.inplace_tan()
+    #expect(leftNumber.toDouble().similarTo(1.7321))
+
+    leftNumber = Number(1.5708, precision: precision)
+    leftNumber.inplace_tan()
+    #expect(leftNumber.representation().allInOneLine == "infinity")
+
+    leftNumber = Number(0.5236, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "0.5")
+
+    leftNumber = Number(0.5236, precision: precision)
+    leftNumber.inplace_tan()
+    #expect(leftNumber.toDouble().similarTo(0.5774))
+
+    leftNumber = Number(1.0472, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.representation().allInOneLine == "0.5")
+
+    leftNumber = Number(2.0944, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.toDouble().similarTo(0.8660))
+
+    leftNumber = Number(3.1416, precision: precision)
+    leftNumber.inplace_tan()
+    #expect(leftNumber.representation().allInOneLine == "0.0")
+
+    leftNumber = Number(2.6180, precision: precision)
+    leftNumber.inplace_sin()
+    #expect(leftNumber.representation().allInOneLine == "0.5")
+
+    leftNumber = Number(5.23599, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.representation().allInOneLine == "0.5")
+
+    leftNumber = Number(4.7124, precision: precision)
+    leftNumber.inplace_tan()
+    #expect(leftNumber.representation().allInOneLine == "infinity")
+
+    leftNumber = Number(2.0944, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.toDouble().similarTo(-0.5))
+
+    leftNumber = Number(5.7596, precision: precision)
+    leftNumber.inplace_cos()
+    #expect(leftNumber.toDouble().similarTo(0.8660))
+
+    leftNumber = Number(1.5708, precision: precision)
+    leftNumber.inplace_asin()
+    #expect(leftNumber.toDouble().similarTo(1.5708))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_asin()
+    #expect(leftNumber.toDouble().similarTo(1.5708))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_acos()
+    #expect(leftNumber.toDouble().similarTo(1.5708))
+
+    leftNumber = Number(0.7071, precision: precision)
+    leftNumber.inplace_acos()
+    #expect(leftNumber.toDouble().similarTo(0.7854))
+
+    leftNumber = Number(0.5774, precision: precision)
+    leftNumber.inplace_atan()
+    #expect(leftNumber.toDouble().similarTo(0.5236))
 
 }

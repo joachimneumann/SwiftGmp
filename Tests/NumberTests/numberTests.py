@@ -53,12 +53,8 @@ def isRepresentableAsDouble(string):
 
 
 def assertEqual(components):
-    if len(components) < 3:
-        print("less than 3 components in:")
-        print(components)
-        return
     if not (components[-2] == "=" or components[-2] == "~=" or components[-2] == "!="):
-        print("second last not \"=\"")
+        print("second last not \"=\", \"~=\", \"!=\"")
         print(components)
         return
 
@@ -70,7 +66,12 @@ def assertEqual(components):
             else:
                 write("Number(\"" + component + "\", precision: precision)")
         else:
-            write(" "+component+" ")
+            operator = component
+            if operator == "+" or operator == "-" or operator == "*" or operator == "/":
+                write(" "+component+" ")
+            else:
+                writeln("")
+                write("    leftNumber.inplace_"+operator+"()")
     writeln("")
     if components[-2] == "=":
         writeln("    #expect(leftNumber.representation().allInOneLine == \"" + components[-1] + "\")")
@@ -91,7 +92,7 @@ for file in glob.glob("*.txt"):
     writeln("import SwiftGmp")
     writeln("")
     writeln("@Test func "+basename+"Test() {")
-    writeln("    var precision: Int = 20")
+    writeln("    var precision: Int; precision = 20")
     writeln("    var leftNumber: Number")
     writeln("")
     print(basename+"Test.swift")
