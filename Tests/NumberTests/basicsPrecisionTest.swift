@@ -10,10 +10,10 @@ import SwiftGmp
     leftNumber = Number(10000000000, precision: 20) + Number(3, precision: 20)
     #expect(leftNumber.toDouble().similarTo(10000000003))
 
-    leftNumber = Number("10000000000000000000000", precision: 50) + Number(3, precision: 50)
-    #expect(leftNumber.similarTo(Number("10000000000000000000000", precision: 50)))
+    leftNumber = Number("10000000000000000000000", precision: 20) + Number(3, precision: 20)
+    #expect(leftNumber.similarTo(Number("10000000000000000000003", precision: 20)))
 
-    leftNumber = Number("1000000000000000000000000000000000000", precision: 50) + Number(3, precision: 50)
-    #expect(leftNumber == Number("1000000000000000000000000000000000000", precision: 50))
+    leftNumber = Number("1000000000000000000000000000000000000", precision: 20) + Number(3, precision: 20)
+    #expect(leftNumber.similarTo(Number("1000000000000000000000000000000000003", precision: 20)))
 
 }

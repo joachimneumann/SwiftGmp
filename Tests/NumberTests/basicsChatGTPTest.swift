@@ -20,13 +20,13 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(88.714679))
 
     leftNumber = Number(39.651211, precision: 20) - Number(64.685904, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-25.034693))
+    #expect(leftNumber.similarTo(Number("-25.034693", precision: 20)))
 
     leftNumber = Number(71.331751, precision: 20) / Number(12.865136, precision: 20)
     #expect(leftNumber.toDouble().similarTo(5.544578))
 
     leftNumber = Number(6.188656, precision: 20) * Number(41.325041, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(255.746463))
+    #expect(leftNumber.similarTo(Number("255.746463", precision: 20)))
 
     leftNumber = Number(80.94458, precision: 20) / Number(19.996754, precision: 20)
     #expect(leftNumber.toDouble().similarTo(4.047886))
@@ -83,7 +83,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(1.677749))
 
     leftNumber = Number(43.889693, precision: 20) + Number(38.70593, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(82.595623))
+    #expect(leftNumber.similarTo(Number("82.595623", precision: 20)))
 
     leftNumber = Number(18.687246, precision: 20) + Number(55.435883, precision: 20)
     #expect(leftNumber.toDouble().similarTo(74.123129))
@@ -95,7 +95,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(-69.42879))
 
     leftNumber = Number(12.782436, precision: 20) - Number(22.377089, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-9.594653))
+    #expect(leftNumber.similarTo(Number("-9.594653", precision: 20)))
 
     leftNumber = Number(92.102843, precision: 20) - Number(53.058159, precision: 20)
     #expect(leftNumber.toDouble().similarTo(39.044684))
@@ -110,7 +110,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(43.603902))
 
     leftNumber = Number(37.152682, precision: 20) - Number(92.681725, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-55.529043))
+    #expect(leftNumber.similarTo(Number("-55.529043", precision: 20)))
 
     leftNumber = Number(99.386825, precision: 20) / Number(62.475758, precision: 20)
     #expect(leftNumber.toDouble().similarTo(1.590806))
@@ -140,7 +140,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(2971.496422))
 
     leftNumber = Number(97.695999, precision: 20) - Number(43.420576, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(54.275423))
+    #expect(leftNumber.similarTo(Number("54.275423", precision: 20)))
 
     leftNumber = Number(8.996259, precision: 20) * Number(75.571637, precision: 20)
     #expect(leftNumber.toDouble().similarTo(679.86202))
@@ -185,7 +185,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(48.856798))
 
     leftNumber = Number(72.742667, precision: 20) + Number(32.541706, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(105.284373))
+    #expect(leftNumber.similarTo(Number("105.284373", precision: 20)))
 
     leftNumber = Number(87.457541, precision: 20) / Number(66.828695, precision: 20)
     #expect(leftNumber.toDouble().similarTo(1.308682))
@@ -227,10 +227,10 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(82.019438))
 
     leftNumber = Number(93.926737, precision: 20) / Number(92.390922, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(1.016623))
+    #expect(leftNumber.similarTo(Number("1.016623", precision: 20)))
 
     leftNumber = Number(52.613184, precision: 20) - Number(2.867121, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(49.746063))
+    #expect(leftNumber.similarTo(Number("49.746063", precision: 20)))
 
     leftNumber = Number(52.80543, precision: 20) - Number(4.292984, precision: 20)
     #expect(leftNumber.toDouble().similarTo(48.512446))
@@ -269,7 +269,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(-20.211218))
 
     leftNumber = Number(24.243031, precision: 20) - Number(92.499174, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-68.256143))
+    #expect(leftNumber.similarTo(Number("-68.256143", precision: 20)))
 
     leftNumber = Number(19.082381, precision: 20) * Number(36.261034, precision: 20)
     #expect(leftNumber.toDouble().similarTo(691.946866))
@@ -290,7 +290,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(0.805335))
 
     leftNumber = Number(29.634264, precision: 20) - Number(34.682167, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-5.047903))
+    #expect(leftNumber.similarTo(Number("-5.047903", precision: 20)))
 
     leftNumber = Number(11.634179, precision: 20) + Number(78.792589, precision: 20)
     #expect(leftNumber.toDouble().similarTo(90.426768))
@@ -335,7 +335,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(83.780444))
 
     leftNumber = Number(96.824437, precision: 20) * Number(56.618942, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(5482.097183))
+    #expect(leftNumber.similarTo(Number("5482.097183", precision: 20)))
 
     leftNumber = Number(84.344644, precision: 20) / Number(59.055717, precision: 20)
     #expect(leftNumber.toDouble().similarTo(1.428221))
@@ -374,7 +374,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(0.523985))
 
     leftNumber = Number(44.872147, precision: 20) / Number(39.545626, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(1.134693))
+    #expect(leftNumber.similarTo(Number("1.134693", precision: 20)))
 
     leftNumber = Number(40.346363, precision: 20) + Number(96.718852, precision: 20)
     #expect(leftNumber.toDouble().similarTo(137.065215))
@@ -416,7 +416,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(2668.961175))
 
     leftNumber = Number(34.795104, precision: 20) / Number(49.554193, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(0.702163))
+    #expect(leftNumber.similarTo(Number("0.702163", precision: 20)))
 
     leftNumber = Number(2.505697, precision: 20) * Number(20.191147, precision: 20)
     #expect(leftNumber.toDouble().similarTo(50.592896))
@@ -461,7 +461,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(152.669517))
 
     leftNumber = Number(6.562474, precision: 20) * Number(8.945287, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(58.703213))
+    #expect(leftNumber.similarTo(Number("58.703213", precision: 20)))
 
     leftNumber = Number(65.712561, precision: 20) + Number(55.871315, precision: 20)
     #expect(leftNumber.toDouble().similarTo(121.583876))
@@ -530,7 +530,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(168.928778))
 
     leftNumber = Number(29.768218, precision: 20) + Number(94.171012, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(123.93923))
+    #expect(leftNumber.similarTo(Number("123.93923", precision: 20)))
 
     leftNumber = Number(15.69458, precision: 20) - Number(88.994152, precision: 20)
     #expect(leftNumber.toDouble().similarTo(-73.299572))
@@ -635,7 +635,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(38.64198))
 
     leftNumber = Number(55.941154, precision: 20) * Number(45.784567, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(2561.241513))
+    #expect(leftNumber.similarTo(Number("2561.241513", precision: 20)))
 
     leftNumber = Number(97.673676, precision: 20) / Number(25.241437, precision: 20)
     #expect(leftNumber.toDouble().similarTo(3.869577))
@@ -653,7 +653,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(39.819136))
 
     leftNumber = Number(29.321839, precision: 20) - Number(56.247022, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-26.925183))
+    #expect(leftNumber.similarTo(Number("-26.925183", precision: 20)))
 
     leftNumber = Number(22.595612, precision: 20) + Number(76.377835, precision: 20)
     #expect(leftNumber.toDouble().similarTo(98.973447))
@@ -704,7 +704,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(161.889567))
 
     leftNumber = Number(19.403201, precision: 20) - Number(72.036394, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-52.633193))
+    #expect(leftNumber.similarTo(Number("-52.633193", precision: 20)))
 
     leftNumber = Number(52.089188, precision: 20) / Number(95.445109, precision: 20)
     #expect(leftNumber.toDouble().similarTo(0.54575))
@@ -716,7 +716,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(24.079178))
 
     leftNumber = Number(67.39495, precision: 20) - Number(91.617253, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-24.222303))
+    #expect(leftNumber.similarTo(Number("-24.222303", precision: 20)))
 
     leftNumber = Number(87.737706, precision: 20) + Number(91.892735, precision: 20)
     #expect(leftNumber.toDouble().similarTo(179.630441))
@@ -815,7 +815,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(356.139548))
 
     leftNumber = Number(0.63335, precision: 20) - Number(22.773793, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-22.140443))
+    #expect(leftNumber.similarTo(Number("-22.140443", precision: 20)))
 
     leftNumber = Number(41.975577, precision: 20) + Number(77.735423, precision: 20)
     #expect(leftNumber.toDouble().similarTo(119.711))
@@ -866,19 +866,19 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(0.643375))
 
     leftNumber = Number(46.535071, precision: 20) - Number(14.089998, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(32.445073))
+    #expect(leftNumber.similarTo(Number("32.445073", precision: 20)))
 
     leftNumber = Number(22.942895, precision: 20) - Number(73.384117, precision: 20)
     #expect(leftNumber.toDouble().similarTo(-50.441222))
 
     leftNumber = Number(51.067597, precision: 20) + Number(38.759056, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(89.826653))
+    #expect(leftNumber.similarTo(Number("89.826653", precision: 20)))
 
     leftNumber = Number(68.254741, precision: 20) * Number(6.557788, precision: 20)
     #expect(leftNumber.toDouble().similarTo(447.600121))
 
     leftNumber = Number(70.183455, precision: 20) + Number(40.415475, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(110.59893))
+    #expect(leftNumber.similarTo(Number("110.59893", precision: 20)))
 
     leftNumber = Number(73.161522, precision: 20) / Number(50.680554, precision: 20)
     #expect(leftNumber.toDouble().similarTo(1.443582))
@@ -920,10 +920,10 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(82.122202))
 
     leftNumber = Number(44.942777, precision: 20) - Number(32.461504, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(12.481273))
+    #expect(leftNumber.similarTo(Number("12.481273", precision: 20)))
 
     leftNumber = Number(68.078666, precision: 20) - Number(96.240896, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-28.16223))
+    #expect(leftNumber.similarTo(Number("-28.16223", precision: 20)))
 
     leftNumber = Number(76.169001, precision: 20) + Number(89.957778, precision: 20)
     #expect(leftNumber.toDouble().similarTo(166.126779))
@@ -959,10 +959,10 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(95.207634))
 
     leftNumber = Number(96.088601, precision: 20) - Number(51.483188, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(44.605413))
+    #expect(leftNumber.similarTo(Number("44.605413", precision: 20)))
 
     leftNumber = Number(38.248182, precision: 20) * Number(79.801553, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(3052.264323))
+    #expect(leftNumber.similarTo(Number("3052.264323", precision: 20)))
 
     leftNumber = Number(72.995537, precision: 20) + Number(73.116777, precision: 20)
     #expect(leftNumber.toDouble().similarTo(146.112314))
@@ -989,10 +989,10 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(60.379819))
 
     leftNumber = Number(9.399666, precision: 20) - Number(97.612966, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-88.2133))
+    #expect(leftNumber.similarTo(Number("-88.2133", precision: 20)))
 
     leftNumber = Number(28.002016, precision: 20) - Number(87.190029, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-59.188013))
+    #expect(leftNumber.similarTo(Number("-59.188013", precision: 20)))
 
     leftNumber = Number(44.381195, precision: 20) / Number(9.288776, precision: 20)
     #expect(leftNumber.toDouble().similarTo(4.777938))
@@ -1022,7 +1022,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(2955.188971))
 
     leftNumber = Number(76.268466, precision: 20) * Number(62.03606, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(4731.395133))
+    #expect(leftNumber.similarTo(Number("4731.395133", precision: 20)))
 
     leftNumber = Number(34.281915, precision: 20) - Number(4.711604, precision: 20)
     #expect(leftNumber.toDouble().similarTo(29.570311))
@@ -1064,16 +1064,16 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(-12.664889))
 
     leftNumber = Number(19.93342, precision: 20) - Number(13.339477, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(6.593943))
+    #expect(leftNumber.similarTo(Number("6.593943", precision: 20)))
 
     leftNumber = Number(38.173294, precision: 20) / Number(34.157592, precision: 20)
     #expect(leftNumber.toDouble().similarTo(1.117564))
 
     leftNumber = Number(46.821754, precision: 20) * Number(23.191382, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(1085.861183))
+    #expect(leftNumber.similarTo(Number("1085.861183", precision: 20)))
 
     leftNumber = Number(80.952946, precision: 20) * Number(98.390657, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(7965.013543))
+    #expect(leftNumber.similarTo(Number("7965.013543", precision: 20)))
 
     leftNumber = Number(32.66393, precision: 20) + Number(61.955686, precision: 20)
     #expect(leftNumber.toDouble().similarTo(94.619616))
@@ -1178,7 +1178,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(3961.363616))
 
     leftNumber = Number(45.915743, precision: 20) + Number(29.205557, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(75.1213))
+    #expect(leftNumber.similarTo(Number("75.1213", precision: 20)))
 
     leftNumber = Number(65.416728, precision: 20) + Number(28.613054, precision: 20)
     #expect(leftNumber.toDouble().similarTo(94.029782))
@@ -1196,13 +1196,13 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(-20.51821))
 
     leftNumber = Number(20.466003, precision: 20) - Number(22.263786, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-1.797783))
+    #expect(leftNumber.similarTo(Number("-1.797783", precision: 20)))
 
     leftNumber = Number(94.923391, precision: 20) - Number(43.946236, precision: 20)
     #expect(leftNumber.toDouble().similarTo(50.977155))
 
     leftNumber = Number(87.34236, precision: 20) - Number(2.553317, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(84.789043))
+    #expect(leftNumber.similarTo(Number("84.789043", precision: 20)))
 
     leftNumber = Number(72.191831, precision: 20) / Number(76.89839, precision: 20)
     #expect(leftNumber.toDouble().similarTo(0.938795))
@@ -1235,7 +1235,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(0.42499))
 
     leftNumber = Number(22.98804, precision: 20) * Number(53.703673, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(1234.542183))
+    #expect(leftNumber.similarTo(Number("1234.542183", precision: 20)))
 
     leftNumber = Number(46.391667, precision: 20) / Number(17.196765, precision: 20)
     #expect(leftNumber.toDouble().similarTo(2.697697))
@@ -1247,7 +1247,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(0.376572))
 
     leftNumber = Number(22.120935, precision: 20) - Number(48.388998, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-26.268063))
+    #expect(leftNumber.similarTo(Number("-26.268063", precision: 20)))
 
     leftNumber = Number(42.52713, precision: 20) * Number(47.220925, precision: 20)
     #expect(leftNumber.toDouble().similarTo(2008.170416))
@@ -1274,7 +1274,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(147.262697))
 
     leftNumber = Number(68.960315, precision: 20) + Number(4.299658, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(73.259973))
+    #expect(leftNumber.similarTo(Number("73.259973", precision: 20)))
 
     leftNumber = Number(34.687341, precision: 20) + Number(36.520121, precision: 20)
     #expect(leftNumber.toDouble().similarTo(71.207462))
@@ -1286,7 +1286,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(3.940201))
 
     leftNumber = Number(86.444951, precision: 20) / Number(76.63354, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(1.12803))
+    #expect(leftNumber.similarTo(Number("1.12803", precision: 20)))
 
     leftNumber = Number(40.401125, precision: 20) * Number(37.243151, precision: 20)
     #expect(leftNumber.toDouble().similarTo(1504.665199))
@@ -1328,13 +1328,13 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(75.646226))
 
     leftNumber = Number(71.155629, precision: 20) - Number(44.359606, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(26.796023))
+    #expect(leftNumber.similarTo(Number("26.796023", precision: 20)))
 
     leftNumber = Number(92.859102, precision: 20) * Number(85.433584, precision: 20)
     #expect(leftNumber.toDouble().similarTo(7933.285891))
 
     leftNumber = Number(73.00346, precision: 20) * Number(84.22062, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(6148.396663))
+    #expect(leftNumber.similarTo(Number("6148.396663", precision: 20)))
 
     leftNumber = Number(42.947604, precision: 20) - Number(80.994412, precision: 20)
     #expect(leftNumber.toDouble().similarTo(-38.046808))
@@ -1346,7 +1346,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(84.078677))
 
     leftNumber = Number(46.898604, precision: 20) / Number(7.879916, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(5.951663))
+    #expect(leftNumber.similarTo(Number("5.951663", precision: 20)))
 
     leftNumber = Number(6.851229, precision: 20) / Number(44.710176, precision: 20)
     #expect(leftNumber.toDouble().similarTo(0.153236))
@@ -1355,7 +1355,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(-14.573344))
 
     leftNumber = Number(8.097386, precision: 20) + Number(89.955477, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(98.052863))
+    #expect(leftNumber.similarTo(Number("98.052863", precision: 20)))
 
     leftNumber = Number(20.59809, precision: 20) + Number(53.741681, precision: 20)
     #expect(leftNumber.toDouble().similarTo(74.339771))
@@ -1367,7 +1367,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(2912.634566))
 
     leftNumber = Number(62.356563, precision: 20) * Number(51.197054, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(3192.472323))
+    #expect(leftNumber.similarTo(Number("3192.472323", precision: 20)))
 
     leftNumber = Number(11.921235, precision: 20) - Number(54.963649, precision: 20)
     #expect(leftNumber.toDouble().similarTo(-43.042414))
@@ -1394,7 +1394,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(2798.786409))
 
     leftNumber = Number(56.537213, precision: 20) * Number(71.593595, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(4047.70233))
+    #expect(leftNumber.similarTo(Number("4047.70233", precision: 20)))
 
     leftNumber = Number(25.653624, precision: 20) + Number(48.76589, precision: 20)
     #expect(leftNumber.toDouble().similarTo(74.419514))
@@ -1424,7 +1424,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(624.714739))
 
     leftNumber = Number(89.677357, precision: 20) + Number(89.677326, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(179.354683))
+    #expect(leftNumber.similarTo(Number("179.354683", precision: 20)))
 
     leftNumber = Number(70.199204, precision: 20) / Number(4.920883, precision: 20)
     #expect(leftNumber.toDouble().similarTo(14.265571))
@@ -1436,7 +1436,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(0.205065))
 
     leftNumber = Number(7.008562, precision: 20) + Number(12.261641, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(19.270203))
+    #expect(leftNumber.similarTo(Number("19.270203", precision: 20)))
 
     leftNumber = Number(95.876733, precision: 20) - Number(25.285925, precision: 20)
     #expect(leftNumber.toDouble().similarTo(70.590808))
@@ -1451,10 +1451,10 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(222.813516))
 
     leftNumber = Number(6.79105, precision: 20) / Number(26.257765, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(0.25863))
+    #expect(leftNumber.similarTo(Number("0.25863", precision: 20)))
 
     leftNumber = Number(55.342458, precision: 20) * Number(27.865427, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(1542.141223))
+    #expect(leftNumber.similarTo(Number("1542.141223", precision: 20)))
 
     leftNumber = Number(46.959268, precision: 20) + Number(79.136649, precision: 20)
     #expect(leftNumber.toDouble().similarTo(126.095917))
@@ -1463,7 +1463,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(2248.440305))
 
     leftNumber = Number(25.247652, precision: 20) * Number(23.567135, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(595.014823))
+    #expect(leftNumber.similarTo(Number("595.014823", precision: 20)))
 
     leftNumber = Number(11.380114, precision: 20) - Number(88.499878, precision: 20)
     #expect(leftNumber.toDouble().similarTo(-77.119764))
@@ -1481,10 +1481,10 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(1005.291322))
 
     leftNumber = Number(35.476465, precision: 20) - Number(64.903958, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-29.427493))
+    #expect(leftNumber.similarTo(Number("-29.427493", precision: 20)))
 
     leftNumber = Number(85.748832, precision: 20) - Number(92.541535, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(-6.792703))
+    #expect(leftNumber.similarTo(Number("-6.792703", precision: 20)))
 
     leftNumber = Number(79.244677, precision: 20) / Number(21.411028, precision: 20)
     #expect(leftNumber.toDouble().similarTo(3.701115))
@@ -1502,7 +1502,7 @@ import SwiftGmp
     #expect(leftNumber.toDouble().similarTo(4631.058849))
 
     leftNumber = Number(53.089693, precision: 20) + Number(20.187337, precision: 20)
-    #expect(leftNumber.toDouble().similarTo(73.27703))
+    #expect(leftNumber.similarTo(Number("73.27703", precision: 20)))
 
     leftNumber = Number(72.862729, precision: 20) - Number(83.334709, precision: 20)
     #expect(leftNumber.toDouble().similarTo(-10.47198))

@@ -10,7 +10,13 @@ import Foundation
 
 public func rez(_ n: Number) -> Number { let ret = n.copy(); ret.inplace_rez(); return ret }
 
-public class Number: CustomDebugStringConvertible  {
+public class Number: CustomDebugStringConvertible, Separators, ShowAs {
+    var showAsInt: Bool = false
+    var showAsFloat: Bool = false
+    
+    var decimalSeparator: DecimalSeparator = DecimalSeparator.dot
+    var groupingSeparator: GroupingSeparator = GroupingSeparator.comma
+    
     public var debugDescription: String {
         if let _str {
             return "\(_str) precision \(precision) string"
@@ -273,6 +279,158 @@ public class Number: CustomDebugStringConvertible  {
     static func bits(for precision: Int) -> Int {
         Int(Double(internalPrecision(for: precision)) * 3.32192809489)
     }
+    
+    private func withSeparators(numberString: String, isNegative: Bool, separators: Separators) -> String {
+        var integerPart: String
+        let fractionalPart: String
+        
+        if numberString.contains(".") {
+            integerPart = numberString.before(first: ".")
+            fractionalPart = numberString.after(first: ".")
+        } else {
+            /// integer
+            integerPart = numberString
+            fractionalPart = ""
+        }
+        
+        if let c = separators.groupingSeparator.character {
+            var count = integerPart.count
+            while count >= 4 {
+                count = count - 3
+                integerPart.insert(c, at: integerPart.index(integerPart.startIndex, offsetBy: count))
+            }
+        }
+        let minusSign = isNegative ? "-" : ""
+        if numberString.contains(".") {
+            return minusSign + integerPart + separators.decimalSeparator.string + fractionalPart
+        } else {
+            return minusSign + integerPart
+        }
+    }
+        
+    private func fromStringNumber(
+        _ stringNumber: String,
+        separators: Separators,
+        showAs: ShowAs,
+        forceScientific: Bool) -> NumberRepresentation {
+        
+        assert(!stringNumber.contains(","))
+        assert(!stringNumber.contains("e"))
+            
+        let signAndSeparator: String
+        if stringNumber.starts(with: "-") {
+            signAndSeparator = withSeparators(numberString: String(stringNumber.dropFirst()), isNegative: true, separators: separators)
+        } else {
+            signAndSeparator = withSeparators(numberString: stringNumber, isNegative: false, separators: separators)
+        }
+        return NumberRepresentation(left: signAndSeparator)
+    }
+    
+    public func representation() -> NumberRepresentation {
+        if let str = _str {
+            return fromStringNumber(str, separators: self, showAs: self, forceScientific: false)
+        }
+        
+        if swiftGmp.NaN {
+            return NumberRepresentation(left: "not a number")
+        }
+        if swiftGmp.inf {
+            return NumberRepresentation(left: "infinity")
+        }
+
+        if swiftGmp.isZero {
+            return NumberRepresentation(left: "0")
+        }
+
+        let mantissaLength: Int
+        mantissaLength = swiftGmp.precision
+        let (mantissa, exponent) = swiftGmp.mantissaExponent(len: mantissaLength)
+        
+        return fromMantissaAndExponent(mantissa, exponent, separators: self, showAs: self, forceScientific: false)
+    }
+    
+    private func fromMantissaAndExponent(
+        _ mantissa_: String,
+        _ exponent: Int,
+        separators: Separators,
+        showAs: ShowAs,
+        forceScientific: Bool) -> NumberRepresentation {
+
+        //print("showAs", showAs.showAsInt, showAs.showAsFloat)
+        var returnValue: NumberRepresentation = NumberRepresentation(left: "error")
+        var mantissa = mantissa_
+        
+        if mantissa.isEmpty {
+            mantissa = "0"
+        }
+        
+        /// negative? Special treatment
+        let isNegative = mantissa.first == "-"
+        if isNegative {
+            mantissa.removeFirst()
+        }
+        
+        /// Can be displayed as Integer?
+        /*
+         123,456,789,012,345,678,901,123,456 --> 400 pixel
+         What can be displayed in 200 pixel?
+         - I dont want the separator as leading character!
+         */
+        if mantissa.count <= exponent + 1 && !forceScientific { /// smaller than because of possible trailing zeroes in the integer
+            mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
+            let withSeparators = withSeparators(numberString: mantissa, isNegative: isNegative, separators: separators)
+            returnValue.left = withSeparators
+            return returnValue
+        }
+        
+        /// Is floating point XXX,xxx?
+        if exponent >= 0 && !forceScientific {
+            var floatString = mantissa
+            let index = floatString.index(floatString.startIndex, offsetBy: exponent+1)
+            //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
+            floatString.insert(".", at: index)
+            floatString = withSeparators(numberString: floatString, isNegative: isNegative, separators: separators)
+            returnValue.left = floatString
+            return returnValue
+            /// is the comma visible in the first line and is there at least one digit after the comma?
+        }
+        
+        /// is floating point 0,xxxx
+        /// additional requirement: first non-zero digit in first line. If not -> Scientific
+        if exponent < 0 && !forceScientific {
+            let minusSign = isNegative ? "-" : ""
+            
+            var testFloat = minusSign + "0" + separators.decimalSeparator.string
+            var floatString = mantissa
+            for _ in 0..<(-1*exponent - 1) {
+                floatString = "0" + floatString
+                testFloat += "0"
+            }
+            testFloat += "x"
+            floatString = minusSign + "0" + separators.decimalSeparator.string + floatString
+            returnValue.left = floatString
+            return returnValue
+        }
+        
+        mantissa = mantissa_
+        if isNegative {
+            mantissa.removeFirst()
+        }
+        
+        let secondIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
+        mantissa.insert(".", at: secondIndex)
+        if mantissa.count == 2 {
+            // 4.
+            mantissa.append("0")
+        }
+        mantissa = withSeparators(numberString: mantissa, isNegative: isNegative, separators: separators)
+        let exponentString = "e\(exponent)"
+        returnValue.left = mantissa
+        returnValue.right = exponentString
+        return returnValue
+    }
+
+
 }
 
 

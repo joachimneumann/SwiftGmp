@@ -19,6 +19,38 @@ def writeln(content):
     
 precision = 20
 
+def isRepresentableAsDouble(string):
+    test = string
+    if "." in string:
+        while test[-1] == "0":
+            test.removeLast()
+        
+    
+    if len(test) > 16:
+        return False
+    
+    if "." in string:
+        if (test == "3"):
+            test = test[:-1]
+            test = test + "9"
+        elif (test[-1] == "."):
+            test = test + "3"
+        else:
+            test = test[:-1]
+            test = test + "3"
+    else:
+        if (test[-1] == "3"):
+            test = test[:-1]
+            test = test + "9"
+        else:
+            test = test[:-1]
+            test = test + "3"
+
+    selfDouble = float(string)
+    testDouble = float(test)
+    return testDouble != selfDouble
+
+
 def assertEqual(components):
     if len(components) < 3:
         print("less than 3 components in:")
@@ -39,7 +71,7 @@ def assertEqual(components):
         else:
             write(" "+component+" ")
     writeln("")
-    if len(components[-1]) <= 16:
+    if (isRepresentableAsDouble(components[-1])):
         writeln("    #expect(leftNumber.toDouble().similarTo(" + str(components[-1]) + "))")
     else:
         solution = "Number(\"" + components[-1] + "\", precision: "+str(precision)+")"
