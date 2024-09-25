@@ -13,6 +13,7 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
         case rand
         case zero
     }
+    
     private var precision: Int
     public init(precision: Int) {
         self.precision = precision
@@ -20,11 +21,12 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
     }
     
     private var array: [Number] = []
+    private var operatorStack: OperatorStack = OperatorStack.init()
     
     func setPrecision(to newPrecision: Int) async {
         precision = newPrecision
         for number in array {
-            await number.setPrecision(precision)
+            number.setPrecision(precision)
         }
     }
     
@@ -33,30 +35,32 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
         push(number)
     }
     
-    func pushZero() {
-        array.append(zero)
-    }
-    func push(constant: Constants) async {
-        switch constant {
-            case .π:
-            array.append(await π)
-        case .e:
-            array.append(await e)
-        case .rand:
-            array.append(await rand)
-        case .zero:
-            pushZero()
-        }
-    }
+//    func pushZero() {
+//        array.append(zero)
+//    }
+//    func push(constant: Constants) async {
+//        switch constant {
+//            case .π:
+//            array.append(π)
+//        case .e:
+//            array.append(e)
+//        case .rand:
+//            array.append(rand)
+//        case .zero:
+//            pushZero()
+//        }
+//    }
     public func push(_ number: String) {
         array.append(new(number))
+    }
+    public func push(_ o: Inplace) {
+        operatorStack.push(o)
     }
     private func push(_ number: Number) {
         array.append(number)
     }
-    func popLast() -> Number {
-        assert(array.count > 0)
-        return array.popLast()!
+    func popLast() -> Number? {
+        return array.popLast()
     }
     func removeLast() {
         assert(array.count > 0)
@@ -74,9 +78,9 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
     }
     
     public var debugDescription: String {
-        var ret = "numberStack \(array.count): "
+        var ret = "numberStack \(array.count): \n"
         for number in array {
-            ret += "\(number) "
+            ret += "    \(number) \n"
         }
         return ret
     }
@@ -92,12 +96,36 @@ public actor Numbers: @preconcurrency CustomDebugStringConvertible {
     }
 
     
-    private func new(_ value: String) -> Number {
+    func new(_ value: String) -> Number {
         Number(value, precision: precision)
     }
 
-    private var π: Number    { get async { let ret = new("0"); await ret.π();    return ret }}
-    private var e: Number    { get async { let ret = new("0"); await ret.e();    return ret }}
-    private var rand: Number { get async { let ret = new("0"); await ret.rand(); return ret }}
-    private var zero: Number { new("0") }
+    func mul() {
+        if let last = popLast() {
+            if let secondLast = popLast() {
+                push(last * secondLast)
+            }
+        }
+    }
+    func add() {
+        if let last = popLast() {
+            if let secondLast = popLast() {
+                push(last + secondLast)
+            }
+        }
+    }
+    func sub() {
+        if let last = popLast() {
+            if let secondLast = popLast() {
+                push(last - secondLast)
+            }
+        }
+    }
+    func div() {
+        if let last = popLast() {
+            if let secondLast = popLast() {
+                push(last / secondLast)
+            }
+        }
+    }
 }

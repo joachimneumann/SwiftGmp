@@ -8,9 +8,9 @@
 
 import Foundation
 
-public func rez(_ n: Number) async -> Number { let ret = await n.copy(); await ret.inplace_rez(); return ret }
+public func rez(_ n: Number) -> Number { let ret = n.copy(); ret.inplace_rez(); return ret }
 
-public actor Number: @preconcurrency CustomDebugStringConvertible  {
+public class Number: CustomDebugStringConvertible  {
     public var debugDescription: String {
         if let _str {
             return "\(_str) precision \(precision) string"
@@ -26,18 +26,22 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         swiftGmp.setPrecision(precision)
     }
     
-    init(_ str: String, precision: Int) {
+    public init(_ str: String, precision: Int) {
         _str = str
         _swiftGmp = nil
         self.precision = precision
     }
 
-    private init(precision: Int) {
+    public init(precision: Int) {
         _str = "0"
         _swiftGmp = nil
         self.precision = precision
     }
 
+    public init(_ d: Double, precision: Int) {
+        _str = nil
+        _swiftGmp = SwiftGmp(withString: String(d), precision: precision)
+    }
     private init(_ gmp: SwiftGmp) {
         //print("Number init()")
         _str = nil
@@ -45,10 +49,6 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         self.precision = gmp.precision
     }
 
-    private init(_ d: Double, precision: Int) {
-        _str = nil
-        _swiftGmp = SwiftGmp(withString: String(d), precision: precision)
-    }
 
     private var _str: String?
     private var _swiftGmp: SwiftGmp?
@@ -70,72 +70,72 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         return swiftGmp.toDouble()
     }
     
-    public static func ==(lhs: Number, rhs: Number) async -> Bool {
-        if await lhs.precision != rhs.precision { return false }
+    public static func ==(lhs: Number, rhs: Number) -> Bool {
+        if lhs.precision != rhs.precision { return false }
 
-        let selfIsStr = await lhs.isStr
-        let otherIsStr = await rhs.isStr
+        let selfIsStr = lhs.isStr
+        let otherIsStr = rhs.isStr
         if selfIsStr && otherIsStr {
-            return await lhs.str == rhs.str
+            return lhs.str == rhs.str
         }
 
         let l = lhs
         let r = rhs
-        return await l.swiftGmp == r.swiftGmp
+        return l.swiftGmp == r.swiftGmp
     }
-    public static func !=(lhs: Number, rhs: Number) async -> Bool {
-        return await !(lhs == rhs)
+    public static func !=(lhs: Number, rhs: Number) -> Bool {
+        return !(lhs == rhs)
     }
-    public static func +(lhs: Number, rhs: Number) async -> Number {
-        return await Number(lhs.swiftGmp + rhs.swiftGmp)
+    public static func +(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp + rhs.swiftGmp)
     }
-    public static func +(lhs: Double, rhs: Number) async -> Number {
-        let l = await Number(lhs, precision: rhs.precision)
-        return await Number(l.swiftGmp + rhs.swiftGmp)
+    public static func +(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp + rhs.swiftGmp)
     }
-    public static func +(lhs: Number, rhs: Double) async -> Number {
-        let r = await Number(rhs, precision: lhs.precision)
-        return await Number(lhs.swiftGmp + r.swiftGmp)
-    }
-
-    public static func -(lhs: Number, rhs: Number) async -> Number {
-        return await Number(lhs.swiftGmp - rhs.swiftGmp)
-    }
-    public static func -(lhs: Double, rhs: Number) async -> Number {
-        let l = await Number(lhs, precision: rhs.precision)
-        return await Number(l.swiftGmp - rhs.swiftGmp)
-    }
-    public static func -(lhs: Number, rhs: Double) async -> Number {
-        let r = await Number(rhs, precision: lhs.precision)
-        return await Number(lhs.swiftGmp - r.swiftGmp)
+    public static func +(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp + r.swiftGmp)
     }
 
-    public static func *(lhs: Number, rhs: Number) async -> Number {
-        return await Number(lhs.swiftGmp * rhs.swiftGmp)
+    public static func -(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp - rhs.swiftGmp)
     }
-    public static func *(lhs: Double, rhs: Number) async -> Number {
-        let l = await Number(lhs, precision: rhs.precision)
-        return await Number(l.swiftGmp * rhs.swiftGmp)
+    public static func -(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp - rhs.swiftGmp)
     }
-    public static func *(lhs: Number, rhs: Double) async -> Number {
-        let r = await Number(rhs, precision: lhs.precision)
-        return await Number(lhs.swiftGmp * r.swiftGmp)
+    public static func -(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp - r.swiftGmp)
     }
 
-    public static func /(lhs: Number, rhs: Number) async -> Number {
-        return await Number(lhs.swiftGmp / rhs.swiftGmp)
+    public static func *(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp * rhs.swiftGmp)
     }
-    public static func /(lhs: Double, rhs: Number) async -> Number {
-        let l = await Number(lhs, precision: rhs.precision)
-        return await Number(l.swiftGmp / rhs.swiftGmp)
+    public static func *(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp * rhs.swiftGmp)
     }
-    public static func /(lhs: Number, rhs: Double) async -> Number {
-        let r = await Number(rhs, precision: lhs.precision)
-        return await Number(lhs.swiftGmp / r.swiftGmp)
+    public static func *(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp * r.swiftGmp)
+    }
+
+    public static func /(lhs: Number, rhs: Number) -> Number {
+        return Number(lhs.swiftGmp / rhs.swiftGmp)
+    }
+    public static func /(lhs: Double, rhs: Number) -> Number {
+        let l = Number(lhs, precision: rhs.precision)
+        return Number(l.swiftGmp / rhs.swiftGmp)
+    }
+    public static func /(lhs: Number, rhs: Double) -> Number {
+        let r = Number(rhs, precision: lhs.precision)
+        return Number(lhs.swiftGmp / r.swiftGmp)
     }
 
     public var isValid: Bool {
-        get async {
+        get {
             if isStr { return true }
             return swiftGmp.isValid
         }
@@ -148,22 +148,22 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         }
     }
 
-    public func similarTo(_ other: Double, precision: Double = 1e-3) async -> Bool {
-        abs(await self.copy().toDouble() - other) <= precision
+    public func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
+        abs(self.copy().toDouble() - other) <= precision
+    }
+    public func similarTo(_ other: Number, precision: Double = 1e-3) -> Bool {
+        abs(self.copy().toDouble() - other.toDouble()) <= precision
     }
 
-    //
-    // constants
-    // public implementation in numbers.swift
-    //
-    func zero() { swiftGmp.zero() }
-    func π()    { swiftGmp.π() }
-    func e()    { swiftGmp.e() }
-    func rand() { swiftGmp.rand() }
 
     //
     // inplace
     //
+    public func inplace_zero() { swiftGmp.zero() }
+    public func inplace_π()    { swiftGmp.π() }
+    public func inplace_e()    { swiftGmp.e() }
+    public func inplace_rand() { swiftGmp.rand() }
+
     public func inplace_abs() { swiftGmp.abs() }
     public func inplace_sqrt() { swiftGmp.sqrt() }
     public func inplace_sqrt3() { swiftGmp.sqrt3() }
@@ -201,18 +201,18 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
     //
     // twoOperant
     //
-    public func pow_x_y(exponent: Number) async { await swiftGmp.pow_x_y(exponent: exponent.swiftGmp) }
-    public func pow_y_x(base: Number)     async { await swiftGmp.pow_y_x(base: base.swiftGmp) }
-    public func sqrty(exponent: Number)   async { await swiftGmp.sqrty(exponent: exponent.swiftGmp) }
-    public func logy(base: Number)        async { await swiftGmp.logy(base: base.swiftGmp) }
-    public func EE(other: Number)         async { await swiftGmp.EE(other: other.swiftGmp) }
+    public func pow_x_y(exponent: Number) { swiftGmp.pow_x_y(exponent: exponent.swiftGmp) }
+    public func pow_y_x(base: Number)     { swiftGmp.pow_y_x(base: base.swiftGmp) }
+    public func sqrty(exponent: Number)   { swiftGmp.sqrty(exponent: exponent.swiftGmp) }
+    public func logy(base: Number)        { swiftGmp.logy(base: base.swiftGmp) }
+    public func EE(other: Number)         { swiftGmp.EE(other: other.swiftGmp) }
     
-    public func setValue(other number: Number) async {
-        if await number.isStr {
-            _str = await number.str
+    public func setValue(other number: Number) {
+        if number.isStr {
+            _str = number.str
             _swiftGmp = nil
         } else {
-            await swiftGmp.setValue(other: number.swiftGmp)
+            swiftGmp.setValue(other: number.swiftGmp)
         }
     }
     
@@ -236,7 +236,7 @@ public actor Number: @preconcurrency CustomDebugStringConvertible  {
         }
     }
     public var isNegative: Bool {
-        get async {
+        get {
             if let _str {
                 return _str.starts(with: "-")
             } else {
