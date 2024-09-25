@@ -15,7 +15,7 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     var showAsFloat: Bool = false
     
     var decimalSeparator: DecimalSeparator = DecimalSeparator.dot
-    var groupingSeparator: GroupingSeparator = GroupingSeparator.comma
+    var groupingSeparator: GroupingSeparator = GroupingSeparator.none
     
     public var debugDescription: String {
         if let _str {

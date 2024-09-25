@@ -27,7 +27,7 @@ enum DecimalSeparator: String, Codable, CaseIterable{
         }
     }
 }
-enum GroupingSeparator: String, Codable, CaseIterable{
+public enum GroupingSeparator: String, Codable, CaseIterable{
     case comma
     case dot
     case none

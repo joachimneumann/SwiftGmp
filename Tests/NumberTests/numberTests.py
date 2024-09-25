@@ -20,6 +20,7 @@ def writeln(content):
 precision = 20
 
 def isRepresentableAsDouble(string):
+    return False
     test = string
     if "." in string:
         while test[-1] == "0":
@@ -30,16 +31,16 @@ def isRepresentableAsDouble(string):
         return False
     
     if "." in string:
-        if (test == "3"):
+        if test == "3":
             test = test[:-1]
             test = test + "9"
-        elif (test[-1] == "."):
+        elif test[-1] == ".":
             test = test + "3"
         else:
             test = test[:-1]
             test = test + "3"
     else:
-        if (test[-1] == "3"):
+        if test[-1] == "3":
             test = test[:-1]
             test = test + "9"
         else:
@@ -56,7 +57,7 @@ def assertEqual(components):
         print("less than 3 components in:")
         print(components)
         return
-    if components[-2] != "=":
+    if not (components[-2] == "=" or components[-2] == "~=" or components[-2] == "!="):
         print("second last not \"=\"")
         print(components)
         return
@@ -65,17 +66,18 @@ def assertEqual(components):
     for component in components[:-2]:
         if is_double(component):
             if len(component) <= 16:
-                write("Number(" + component + ", precision: "+str(precision)+")")
+                write("Number(" + component + ", precision: precision)")
             else:
-                write("Number(\"" + component + "\", precision: "+str(precision)+")")
+                write("Number(\"" + component + "\", precision: precision)")
         else:
             write(" "+component+" ")
     writeln("")
-    if (isRepresentableAsDouble(components[-1])):
-        writeln("    #expect(leftNumber.toDouble().similarTo(" + str(components[-1]) + "))")
-    else:
-        solution = "Number(\"" + components[-1] + "\", precision: "+str(precision)+")"
-        writeln("    #expect(leftNumber.similarTo(" + solution + "))")
+    if components[-2] == "=":
+        writeln("    #expect(leftNumber.representation().allInOneLine == \"" + components[-1] + "\")")
+    elif components[-2] == "!=":
+        writeln("    #expect(leftNumber.representation().allInOneLine != \"" + components[-1] + "\")")
+    elif components[-2] == "~=":
+        writeln("    #expect(leftNumber.toDouble().similarTo(" + components[-1] + "))")
 
 # Get full file name with directores using for loop
 for file in glob.glob("*.txt"):
@@ -89,6 +91,7 @@ for file in glob.glob("*.txt"):
     writeln("import SwiftGmp")
     writeln("")
     writeln("@Test func "+basename+"Test() {")
+    writeln("    var precision: Int = 20")
     writeln("    var leftNumber: Number")
     writeln("")
     print(basename+"Test.swift")
@@ -105,21 +108,13 @@ for file in glob.glob("*.txt"):
                         writeln("// "+comment)
                 else:
                     components = content.strip().split(" ")
-                    if len(components) < 2:
-                        write_("// "+components[0]+"\n")
-                    else:
-                        if components[0] == "PRECISION":
-                            writeln("")
-                            write_("PRECISION.")
-                            write(components[1])
-                            write(" = ")
-                            write(components[2])
-                            if len(comment) > 0:
-                                write(" // "+comment)
-                        else:
-                            assertEqual(components)
-                            if len(comment) > 0:
-                                write(" // "+comment)
+                    if components[0] == "precision":
                         writeln("")
+                        write("    "+content.strip())
+                    else:
+                        assertEqual(components)
+                        if len(comment) > 0:
+                            write(" // "+comment)
+                    writeln("")
     writeln("}")
     f.close()
