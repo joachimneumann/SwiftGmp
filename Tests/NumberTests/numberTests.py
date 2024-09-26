@@ -73,12 +73,15 @@ def assertEqual(components):
                 writeln("")
                 write("    leftNumber.inplace_"+operator+"()")
     writeln("")
-    if components[-2] == "=":
-        writeln("    #expect(leftNumber.representation().allInOneLine == \"" + components[-1] + "\")")
-    elif components[-2] == "!=":
-        writeln("    #expect(leftNumber.representation().allInOneLine != \"" + components[-1] + "\")")
-    elif components[-2] == "~=":
-        writeln("    #expect(leftNumber.toDouble().similarTo(" + components[-1] + "))")
+    if components[-1] == "infinity":
+        writeln("    #expect(leftNumber.isInfinity)")
+    else:
+        if components[-2] == "=":
+            writeln("    #expect(leftNumber.representation().allInOneLine == \"" + components[-1] + "\")")
+        elif components[-2] == "!=":
+            writeln("    #expect(leftNumber.representation().allInOneLine != \"" + components[-1] + "\")")
+        elif components[-2] == "~=":
+            writeln("    #expect(leftNumber.toDouble().similarTo(" + components[-1] + "))")
 
 # Get full file name with directores using for loop
 for file in glob.glob("*.txt"):

@@ -52,9 +52,9 @@ public class Numbers: CustomDebugStringConvertible {
     public func push(_ number: String) {
         array.append(new(number))
     }
-    public func push(_ o: Inplace) {
-        operatorStack.push(o)
-    }
+//    public func push(_ o: InplaceOperator) {
+//        operatorStack.push(o)
+//    }
     private func push(_ number: Number) {
         array.append(number)
     }

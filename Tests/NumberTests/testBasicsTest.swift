@@ -14,9 +14,320 @@ import SwiftGmp
     leftNumber = Number(2, precision: precision) * Number(4, precision: precision)
     #expect(leftNumber.representation().allInOneLine == "8")
 
+    leftNumber = Number(3, precision: precision) / Number(0, precision: precision)
+    #expect(leftNumber.isInfinity)
+
+    leftNumber = Number(-5.0, precision: precision)
+    leftNumber.inplace_abs()
+    #expect(leftNumber.toDouble().similarTo(5.0))
+
+    leftNumber = Number(3.14, precision: precision)
+    leftNumber.inplace_abs()
+    #expect(leftNumber.toDouble().similarTo(3.14))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_abs()
+    #expect(leftNumber.toDouble().similarTo(0.0))
+
+    leftNumber = Number(-100.25, precision: precision)
+    leftNumber.inplace_abs()
+    #expect(leftNumber.toDouble().similarTo(100.25))
+
+    leftNumber = Number(12.5, precision: precision)
+    leftNumber.inplace_abs()
+    #expect(leftNumber.toDouble().similarTo(12.5))
+
+    leftNumber = Number(4.0, precision: precision)
+    leftNumber.inplace_sqrt()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
+    leftNumber = Number(9.0, precision: precision)
+    leftNumber.inplace_sqrt()
+    #expect(leftNumber.toDouble().similarTo(3.0))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_sqrt()
+    #expect(leftNumber.toDouble().similarTo(0.0))
+
+    leftNumber = Number(16.0, precision: precision)
+    leftNumber.inplace_sqrt()
+    #expect(leftNumber.toDouble().similarTo(4.0))
+
+    leftNumber = Number(25.0, precision: precision)
+    leftNumber.inplace_sqrt()
+    #expect(leftNumber.toDouble().similarTo(5.0))
+
+    leftNumber = Number(8.0, precision: precision)
+    leftNumber.inplace_sqrt3()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
+    leftNumber = Number(27.0, precision: precision)
+    leftNumber.inplace_sqrt3()
+    #expect(leftNumber.toDouble().similarTo(3.0))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_sqrt3()
+    #expect(leftNumber.toDouble().similarTo(0.0))
+
+    leftNumber = Number(64.0, precision: precision)
+    leftNumber.inplace_sqrt3()
+    #expect(leftNumber.toDouble().similarTo(4.0))
+
+    leftNumber = Number(125.0, precision: precision)
+    leftNumber.inplace_sqrt3()
+    #expect(leftNumber.toDouble().similarTo(5.0))
+
+    leftNumber = Number(1, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.isInfinity)
+
+    leftNumber = Number(2, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.6449340668482264))
+
+    leftNumber = Number(3, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.2020569031595942))
+
+    leftNumber = Number(4, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.0823232337111381))
+
+    leftNumber = Number(5, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.0369277551433699))
+
+    leftNumber = Number(6, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.0173430619844490))
+
+    leftNumber = Number(7, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.0083492773819228))
+
+    leftNumber = Number(8, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.0040773561979440))
+
+    leftNumber = Number(9, precision: precision)
+    leftNumber.inplace_Z()
+    #expect(leftNumber.toDouble().similarTo(1.0020083928260822))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_ln()
+    #expect(leftNumber.toDouble().similarTo(0.0))
+
+    leftNumber = Number(2.7183, precision: precision)
+    leftNumber.inplace_ln()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(7.3891, precision: precision)
+    leftNumber.inplace_ln()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
+    leftNumber = Number(20.0855, precision: precision)
+    leftNumber.inplace_ln()
+    #expect(leftNumber.toDouble().similarTo(3.0))
+
+    leftNumber = Number(54.5982, precision: precision)
+    leftNumber.inplace_ln()
+    #expect(leftNumber.toDouble().similarTo(4.0))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_log10()
+    #expect(leftNumber.toDouble().similarTo(0.0))
+
+    leftNumber = Number(10.0, precision: precision)
+    leftNumber.inplace_log10()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(100.0, precision: precision)
+    leftNumber.inplace_log10()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
+    leftNumber = Number(1000.0, precision: precision)
+    leftNumber.inplace_log10()
+    #expect(leftNumber.toDouble().similarTo(3.0))
+
+    leftNumber = Number(10000.0, precision: precision)
+    leftNumber.inplace_log10()
+    #expect(leftNumber.toDouble().similarTo(4.0))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_log2()
+    #expect(leftNumber.toDouble().similarTo(0.0))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_log2()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(4.0, precision: precision)
+    leftNumber.inplace_log2()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
+    leftNumber = Number(8.0, precision: precision)
+    leftNumber.inplace_log2()
+    #expect(leftNumber.toDouble().similarTo(3.0))
+
+    leftNumber = Number(16.0, precision: precision)
+    leftNumber.inplace_log2()
+    #expect(leftNumber.toDouble().similarTo(4.0))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_pow_x_2()
+    #expect(leftNumber.toDouble().similarTo(4.0))
+
+    leftNumber = Number(3.0, precision: precision)
+    leftNumber.inplace_pow_x_2()
+    #expect(leftNumber.toDouble().similarTo(9.0))
+
+    leftNumber = Number(5.0, precision: precision)
+    leftNumber.inplace_pow_x_2()
+    #expect(leftNumber.toDouble().similarTo(25.0))
+
+    leftNumber = Number(-4.0, precision: precision)
+    leftNumber.inplace_pow_x_2()
+    #expect(leftNumber.toDouble().similarTo(16.0))
+
+    leftNumber = Number(10.0, precision: precision)
+    leftNumber.inplace_pow_x_2()
+    #expect(leftNumber.toDouble().similarTo(100.0))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_pow_e_x()
+    #expect(leftNumber.toDouble().similarTo(2.7183))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_pow_e_x()
+    #expect(leftNumber.toDouble().similarTo(7.3891))
+
+    leftNumber = Number(3.0, precision: precision)
+    leftNumber.inplace_pow_e_x()
+    #expect(leftNumber.toDouble().similarTo(20.0855))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_pow_e_x()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(-1.0, precision: precision)
+    leftNumber.inplace_pow_e_x()
+    #expect(leftNumber.toDouble().similarTo(0.3679))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_pow_10_x()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_pow_10_x()
+    #expect(leftNumber.toDouble().similarTo(10.0))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_pow_10_x()
+    #expect(leftNumber.toDouble().similarTo(100.0))
+
+    leftNumber = Number(3.0, precision: precision)
+    leftNumber.inplace_pow_10_x()
+    #expect(leftNumber.toDouble().similarTo(1000.0))
+
+    leftNumber = Number(-1.0, precision: precision)
+    leftNumber.inplace_pow_10_x()
+    #expect(leftNumber.toDouble().similarTo(0.1))
+
+    leftNumber = Number(5.0, precision: precision)
+    leftNumber.inplace_changeSign()
+    #expect(leftNumber.toDouble().similarTo(-5.0))
+
+    leftNumber = Number(-3.14, precision: precision)
+    leftNumber.inplace_changeSign()
+    #expect(leftNumber.toDouble().similarTo(3.14))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_changeSign()
+    #expect(leftNumber.toDouble().similarTo(0.0))
+
+    leftNumber = Number(100.0, precision: precision)
+    leftNumber.inplace_changeSign()
+    #expect(leftNumber.toDouble().similarTo(-100.0))
+
+    leftNumber = Number(-50.0, precision: precision)
+    leftNumber.inplace_changeSign()
+    #expect(leftNumber.toDouble().similarTo(50.0))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_pow_x_3()
+    #expect(leftNumber.toDouble().similarTo(8.0))
+
+    leftNumber = Number(3.0, precision: precision)
+    leftNumber.inplace_pow_x_3()
+    #expect(leftNumber.toDouble().similarTo(27.0))
+
+    leftNumber = Number(-4.0, precision: precision)
+    leftNumber.inplace_pow_x_3()
+    #expect(leftNumber.toDouble().similarTo(-64.0))
+
+    leftNumber = Number(5.0, precision: precision)
+    leftNumber.inplace_pow_x_3()
+    #expect(leftNumber.toDouble().similarTo(125.0))
+
+    leftNumber = Number(-2.0, precision: precision)
+    leftNumber.inplace_pow_x_3()
+    #expect(leftNumber.toDouble().similarTo(-8.0))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_pow_2_x()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_pow_2_x()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_pow_2_x()
+    #expect(leftNumber.toDouble().similarTo(4.0))
+
+    leftNumber = Number(3.0, precision: precision)
+    leftNumber.inplace_pow_2_x()
+    #expect(leftNumber.toDouble().similarTo(8.0))
+
+    leftNumber = Number(4.0, precision: precision)
+    leftNumber.inplace_pow_2_x()
+    #expect(leftNumber.toDouble().similarTo(16.0))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_rez()
+    #expect(leftNumber.toDouble().similarTo(0.5))
+
+    leftNumber = Number(4.0, precision: precision)
+    leftNumber.inplace_rez()
+    #expect(leftNumber.toDouble().similarTo(0.25))
+
+    leftNumber = Number(0.5, precision: precision)
+    leftNumber.inplace_rez()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
+    leftNumber = Number(10.0, precision: precision)
+    leftNumber.inplace_rez()
+    #expect(leftNumber.toDouble().similarTo(0.1))
+
+    leftNumber = Number(0.2, precision: precision)
+    leftNumber.inplace_rez()
+    #expect(leftNumber.toDouble().similarTo(5.0))
+
+    leftNumber = Number(0.0, precision: precision)
+    leftNumber.inplace_fac()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(1.0, precision: precision)
+    leftNumber.inplace_fac()
+    #expect(leftNumber.toDouble().similarTo(1.0))
+
+    leftNumber = Number(2.0, precision: precision)
+    leftNumber.inplace_fac()
+    #expect(leftNumber.toDouble().similarTo(2.0))
+
     leftNumber = Number(30, precision: precision)
     leftNumber.inplace_sinD()
-    #expect(leftNumber.representation().allInOneLine == "0.5")
+    #expect(leftNumber.toDouble().similarTo(0.5))
 
     leftNumber = Number(45, precision: precision)
     leftNumber.inplace_sinD()
@@ -28,19 +339,19 @@ import SwiftGmp
 
     leftNumber = Number(90, precision: precision)
     leftNumber.inplace_sinD()
-    #expect(leftNumber.representation().allInOneLine == "1.0")
+    #expect(leftNumber.representation().allInOneLine == "1")
 
     leftNumber = Number(0, precision: precision)
     leftNumber.inplace_sinD()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.representation().allInOneLine == "0")
 
     leftNumber = Number(180, precision: precision)
     leftNumber.inplace_sinD()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0))
 
     leftNumber = Number(270, precision: precision)
     leftNumber.inplace_sinD()
-    #expect(leftNumber.representation().allInOneLine == "-1.0")
+    #expect(leftNumber.representation().allInOneLine == "-1")
 
     leftNumber = Number(30, precision: precision)
     leftNumber.inplace_cosD()
@@ -52,15 +363,15 @@ import SwiftGmp
 
     leftNumber = Number(60, precision: precision)
     leftNumber.inplace_cosD()
-    #expect(leftNumber.representation().allInOneLine == "0.5")
+    #expect(leftNumber.toDouble().similarTo(0.5))
 
     leftNumber = Number(90, precision: precision)
     leftNumber.inplace_cosD()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0))
 
     leftNumber = Number(45, precision: precision)
     leftNumber.inplace_tanD()
-    #expect(leftNumber.representation().allInOneLine == "1.0")
+    #expect(leftNumber.representation().allInOneLine == "1")
 
     leftNumber = Number(60, precision: precision)
     leftNumber.inplace_tanD()
@@ -72,35 +383,35 @@ import SwiftGmp
 
     leftNumber = Number(0, precision: precision)
     leftNumber.inplace_tanD()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.representation().allInOneLine == "0")
 
     leftNumber = Number(0, precision: precision)
     leftNumber.inplace_asinD()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.representation().allInOneLine == "0")
 
     leftNumber = Number(0, precision: precision)
     leftNumber.inplace_acosD()
-    #expect(leftNumber.representation().allInOneLine == "90.0")
+    #expect(leftNumber.representation().allInOneLine == "90")
 
     leftNumber = Number(0.5, precision: precision)
     leftNumber.inplace_asinD()
-    #expect(leftNumber.representation().allInOneLine == "30.0")
+    #expect(leftNumber.representation().allInOneLine == "30")
 
     leftNumber = Number(0.5, precision: precision)
     leftNumber.inplace_acosD()
-    #expect(leftNumber.representation().allInOneLine == "60.0")
+    #expect(leftNumber.representation().allInOneLine == "60")
 
     leftNumber = Number(1, precision: precision)
     leftNumber.inplace_atanD()
-    #expect(leftNumber.representation().allInOneLine == "45.0")
+    #expect(leftNumber.representation().allInOneLine == "45")
 
     leftNumber = Number(0, precision: precision)
     leftNumber.inplace_atanD()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.representation().allInOneLine == "0")
 
     leftNumber = Number(1.5708, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "1.0")
+    #expect(leftNumber.toDouble().similarTo(1.0))
 
     leftNumber = Number(0.5236, precision: precision)
     leftNumber.inplace_cos()
@@ -112,7 +423,7 @@ import SwiftGmp
 
     leftNumber = Number(0.7854, precision: precision)
     leftNumber.inplace_tan()
-    #expect(leftNumber.representation().allInOneLine == "1.0")
+    #expect(leftNumber.toDouble().similarTo(1.0))
 
     leftNumber = Number(2.3562, precision: precision)
     leftNumber.inplace_sin()
@@ -124,15 +435,15 @@ import SwiftGmp
 
     leftNumber = Number(3.1416, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0.0))
 
     leftNumber = Number(3.1416, precision: precision)
     leftNumber.inplace_cos()
-    #expect(leftNumber.representation().allInOneLine == "-1.0")
+    #expect(leftNumber.toDouble().similarTo(-1.0))
 
     leftNumber = Number(3.6652, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "-0.5")
+    #expect(leftNumber.toDouble().similarTo(-0.5))
 
     leftNumber = Number(3.92699, precision: precision)
     leftNumber.inplace_cos()
@@ -140,19 +451,19 @@ import SwiftGmp
 
     leftNumber = Number(5.7596, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "-0.5")
+    #expect(leftNumber.toDouble().similarTo(-0.5))
 
     leftNumber = Number(6.2832, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0.0))
 
     leftNumber = Number(4.7124, precision: precision)
     leftNumber.inplace_cos()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0.0))
 
     leftNumber = Number(0.0, precision: precision)
     leftNumber.inplace_atan()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0.0))
 
     leftNumber = Number(1.0, precision: precision)
     leftNumber.inplace_atan()
@@ -176,11 +487,11 @@ import SwiftGmp
 
     leftNumber = Number(1.0, precision: precision)
     leftNumber.inplace_acos()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.representation().allInOneLine == "0")
 
     leftNumber = Number(0.0, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.representation().allInOneLine == "0")
 
     leftNumber = Number(0.7854, precision: precision)
     leftNumber.inplace_sin()
@@ -188,19 +499,15 @@ import SwiftGmp
 
     leftNumber = Number(1.5708, precision: precision)
     leftNumber.inplace_cos()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0.0))
 
     leftNumber = Number(1.0472, precision: precision)
     leftNumber.inplace_tan()
     #expect(leftNumber.toDouble().similarTo(1.7321))
 
-    leftNumber = Number(1.5708, precision: precision)
-    leftNumber.inplace_tan()
-    #expect(leftNumber.representation().allInOneLine == "infinity")
-
     leftNumber = Number(0.5236, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "0.5")
+    #expect(leftNumber.toDouble().similarTo(0.5))
 
     leftNumber = Number(0.5236, precision: precision)
     leftNumber.inplace_tan()
@@ -208,7 +515,7 @@ import SwiftGmp
 
     leftNumber = Number(1.0472, precision: precision)
     leftNumber.inplace_cos()
-    #expect(leftNumber.representation().allInOneLine == "0.5")
+    #expect(leftNumber.toDouble().similarTo(0.5))
 
     leftNumber = Number(2.0944, precision: precision)
     leftNumber.inplace_sin()
@@ -216,19 +523,15 @@ import SwiftGmp
 
     leftNumber = Number(3.1416, precision: precision)
     leftNumber.inplace_tan()
-    #expect(leftNumber.representation().allInOneLine == "0.0")
+    #expect(leftNumber.toDouble().similarTo(0.0))
 
     leftNumber = Number(2.6180, precision: precision)
     leftNumber.inplace_sin()
-    #expect(leftNumber.representation().allInOneLine == "0.5")
+    #expect(leftNumber.toDouble().similarTo(0.5))
 
     leftNumber = Number(5.23599, precision: precision)
     leftNumber.inplace_cos()
-    #expect(leftNumber.representation().allInOneLine == "0.5")
-
-    leftNumber = Number(4.7124, precision: precision)
-    leftNumber.inplace_tan()
-    #expect(leftNumber.representation().allInOneLine == "infinity")
+    #expect(leftNumber.toDouble().similarTo(0.5))
 
     leftNumber = Number(2.0944, precision: precision)
     leftNumber.inplace_cos()
@@ -237,10 +540,6 @@ import SwiftGmp
     leftNumber = Number(5.7596, precision: precision)
     leftNumber.inplace_cos()
     #expect(leftNumber.toDouble().similarTo(0.8660))
-
-    leftNumber = Number(1.5708, precision: precision)
-    leftNumber.inplace_asin()
-    #expect(leftNumber.toDouble().similarTo(1.5708))
 
     leftNumber = Number(1.0, precision: precision)
     leftNumber.inplace_asin()

@@ -146,6 +146,14 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
             return swiftGmp.isValid
         }
     }
+
+    public var isInfinity: Bool {
+        get {
+            if isStr { return str == "infinity" }
+            return swiftGmp.inf
+        }
+    }
+
     fileprivate func copy() -> Number {
         if isStr {
             return Number(str!, precision: precision)
@@ -165,44 +173,44 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     //
     // inplace
     //
-    public func inplace_zero() { swiftGmp.zero() }
-    public func inplace_π()    { swiftGmp.π() }
-    public func inplace_e()    { swiftGmp.e() }
-    public func inplace_rand() { swiftGmp.rand() }
-
-    public func inplace_abs() { swiftGmp.abs() }
-    public func inplace_sqrt() { swiftGmp.sqrt() }
-    public func inplace_sqrt3() { swiftGmp.sqrt3() }
-    public func inplace_Z() { swiftGmp.Z() }
-    public func inplace_ln() { swiftGmp.ln() }
-    public func inplace_log10() { swiftGmp.log10() }
-    public func inplace_log2() { swiftGmp.log2() }
-    public func inplace_sin() { swiftGmp.sin() }
-    public func inplace_cos() { swiftGmp.cos() }
-    public func inplace_tan() { swiftGmp.tan() }
-    public func inplace_asin() { swiftGmp.asin() }
-    public func inplace_acos() { swiftGmp.acos() }
-    public func inplace_atan() { swiftGmp.atan() }
-    public func inplace_sinh() { swiftGmp.sinh() }
-    public func inplace_cosh() { swiftGmp.cosh() }
-    public func inplace_tanh() { swiftGmp.tanh() }
-    public func inplace_asinh() { swiftGmp.asinh() }
-    public func inplace_acosh() { swiftGmp.acosh() }
-    public func inplace_atanh() { swiftGmp.atanh() }
-    public func inplace_pow_x_2() { swiftGmp.pow_x_2() }
-    public func inplace_pow_e_x() { swiftGmp.pow_e_x() }
-    public func inplace_pow_10_x() { swiftGmp.pow_10_x() }
+    public func inplace_zero()       { swiftGmp.zero() }
+    public func inplace_π()          { swiftGmp.π() }
+    public func inplace_e()          { swiftGmp.e() }
+    public func inplace_rand()       { swiftGmp.rand() }
+  
+    public func inplace_abs()        { swiftGmp.abs() }
+    public func inplace_sqrt()       { swiftGmp.sqrt() }
+    public func inplace_sqrt3()      { swiftGmp.sqrt3() }
+    public func inplace_Z()          { swiftGmp.Z() }
+    public func inplace_ln()         { swiftGmp.ln() }
+    public func inplace_log10()      { swiftGmp.log10() }
+    public func inplace_log2()       { swiftGmp.log2() }
+    public func inplace_sin()        { swiftGmp.sin() }
+    public func inplace_cos()        { swiftGmp.cos() }
+    public func inplace_tan()        { swiftGmp.tan() }
+    public func inplace_asin()       { swiftGmp.asin() }
+    public func inplace_acos()       { swiftGmp.acos() }
+    public func inplace_atan()       { swiftGmp.atan() }
+    public func inplace_sinh()       { swiftGmp.sinh() }
+    public func inplace_cosh()       { swiftGmp.cosh() }
+    public func inplace_tanh()       { swiftGmp.tanh() }
+    public func inplace_asinh()      { swiftGmp.asinh() }
+    public func inplace_acosh()      { swiftGmp.acosh() }
+    public func inplace_atanh()      { swiftGmp.atanh() }
+    public func inplace_pow_x_2()    { swiftGmp.pow_x_2() }
+    public func inplace_pow_e_x()    { swiftGmp.pow_e_x() }
+    public func inplace_pow_10_x()   { swiftGmp.pow_10_x() }
     public func inplace_changeSign() { swiftGmp.changeSign() }
-    public func inplace_pow_x_3() { swiftGmp.pow_x_3() }
-    public func inplace_pow_2_x() { swiftGmp.pow_2_x() }
-    public func inplace_rez() { swiftGmp.rez() }
-    public func inplace_fac() { swiftGmp.fac() }
-    public func inplace_sinD() { swiftGmp.sinD() }
-    public func inplace_cosD() { swiftGmp.cosD() }
-    public func inplace_tanD() { swiftGmp.tanD() }
-    public func inplace_asinD() { swiftGmp.asinD() }
-    public func inplace_acosD() { swiftGmp.acosD() }
-    public func inplace_atanD() { swiftGmp.atanD() }
+    public func inplace_pow_x_3()    { swiftGmp.pow_x_3() }
+    public func inplace_pow_2_x()    { swiftGmp.pow_2_x() }
+    public func inplace_rez()        { swiftGmp.rez() }
+    public func inplace_fac()        { swiftGmp.fac() }
+    public func inplace_sinD()       { swiftGmp.sinD() }
+    public func inplace_cosD()       { swiftGmp.cosD() }
+    public func inplace_tanD()       { swiftGmp.tanD() }
+    public func inplace_asinD()      { swiftGmp.asinD() }
+    public func inplace_acosD()      { swiftGmp.acosD() }
+    public func inplace_atanD()      { swiftGmp.atanD() }
     
     //
     // twoOperant
