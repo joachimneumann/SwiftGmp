@@ -9,13 +9,10 @@
 import Foundation
 
 public struct OperatorQueue {
-    private var availableOperators = AvailableOperators()
     private var queue: [Operator] = []
     
-    public mutating func push(_ key: String) {
-        if let op = availableOperators.op(key) {
+    public mutating func push(_ op: Operator) {
             queue.append(op)
-        }
     }
     public mutating func pop() -> Operator? {
         return queue.popLast()

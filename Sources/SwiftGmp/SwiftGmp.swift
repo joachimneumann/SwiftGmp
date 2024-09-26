@@ -10,6 +10,12 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     /// init with zeros. The struct will be initialized correctly in init() with mpfr_init2()
     private var mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
 
+    init(precision: Int) {
+        self.precision = precision
+        self.bits = Number.bits(for: precision)
+        mpfr_init2 (&mpfr, bits) // NaN
+//        what does toDouble() return?
+    }
     init(withString string: String, precision: Int) {
         self.precision = precision
         self.bits = Number.bits(for: precision)
@@ -64,6 +70,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
 
     var debugDescription: String {
+        guard !NaN else { return "nan"}
+        guard isValid else { return "not valid"}
         let (mantissa, exponent) = mantissaExponent(len: 100)
         return "\(mantissa) \(exponent)"
     }

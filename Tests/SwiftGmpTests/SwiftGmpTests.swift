@@ -2,6 +2,11 @@ import Testing
 @testable import SwiftGmp
 
 @Test func example() {
+    let nan = SwiftGmp(precision: 20)
+    #expect(!nan.isValid)
+    #expect(nan.debugDescription == "nan")
+    #expect(nan.toDouble().debugDescription == Double.nan.debugDescription) // nan
+    
     let x = SwiftGmp(withString: "1", precision: 20)
     #expect(x.toDouble() == 1)
     let x1 = SwiftGmp(withString: "2", precision: 20)

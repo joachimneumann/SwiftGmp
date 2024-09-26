@@ -55,7 +55,6 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         self.precision = gmp.precision
     }
 
-
     private var _str: String?
     private var _swiftGmp: SwiftGmp?
     
@@ -69,9 +68,14 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         }
         return _swiftGmp!
     }
-    public func toDouble() -> Double {
+    public func toDouble() -> Double? {
         if isStr {
-            return Double(str!)!
+            let asDouble = Double(str!)
+            if (asDouble != nil) {
+                return asDouble!
+            } else {
+                return nil
+            }
         }
         return swiftGmp.toDouble()
     }
@@ -140,6 +144,12 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         return Number(lhs.swiftGmp / r.swiftGmp)
     }
 
+    public var isNaN: Bool {
+        get {
+            if isStr { return false }
+            return swiftGmp.NaN
+        }
+    }
     public var isValid: Bool {
         get {
             if isStr { return true }
@@ -163,10 +173,13 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     }
 
     public func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
-        abs(self.copy().toDouble() - other) <= precision
+        guard let d = self.copy().toDouble() else { return false }
+        return abs(d - other) <= precision
     }
     public func similarTo(_ other: Number, precision: Double = 1e-3) -> Bool {
-        abs(self.copy().toDouble() - other.toDouble()) <= precision
+        guard let d1 = self.copy().toDouble() else { return false }
+        guard let d2 = other.copy().toDouble() else { return false }
+        return abs(d1 - d2) <= precision
     }
 
 
