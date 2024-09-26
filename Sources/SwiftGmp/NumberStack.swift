@@ -20,7 +20,7 @@ public class Numbers: CustomDebugStringConvertible {
     }
     
     private var array: [Number] = []
-    private var operatorStack: OperatorStack = OperatorStack.init()
+    private var operatorQueue: OperatorQueue = OperatorQueue()
     
     func setPrecision(to newPrecision: Int) {
         precision = newPrecision
