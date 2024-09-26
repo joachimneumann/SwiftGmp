@@ -5,6 +5,24 @@
 //  Created by Joachim Neumann on 26.09.24.
 //
 
+import Foundation
+
+public enum TokenizerError: Error, LocalizedError {
+    case unknownOperator(op: String)
+    case invalidNumber(op: String)
+    case unprocessed(op: String)
+    
+    public var errorDescription: String? {
+        switch self {
+        case .unknownOperator(let op):
+            return "Unknown operator: \(op)"
+        case .invalidNumber(let op):
+            return "Invalid number: \(op)"
+        case .unprocessed(let op):
+            return "Unprocessed token: \(op)"
+        }
+    }
+}
 
 
 public struct Tokenizer {
@@ -116,12 +134,6 @@ public struct Tokenizer {
         }
         
         return firstChar == "-" || (firstChar >= "1" && firstChar <= "9")
-    }
-
-    public enum TokenizerError: Error {
-        case unknownOperator(op: String)
-        case invalidNumber(op: String)
-        case unprocessed(op: String)
     }
 
     public mutating func parse(_ input: String) throws -> [Token] {
