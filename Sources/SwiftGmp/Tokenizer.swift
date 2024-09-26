@@ -120,7 +120,8 @@ public struct Tokenizer {
 
     public enum TokenizerError: Error {
         case unknownOperator(op: String)
-        case invalidNumber
+        case invalidNumber(op: String)
+        case unprocessed(op: String)
     }
 
     public mutating func parse(_ input: String) throws -> [Token] {
@@ -147,9 +148,16 @@ public struct Tokenizer {
                 if s.isValid {
                     tokenArray.append(Token(n))
                     continue
+                } else {
+                    throw(TokenizerError.invalidNumber(op: split))
                 }
             }
-            throw(TokenizerError.unknownOperator(op: split))
+            if split == "=" {
+                return tokenArray
+            }
+            
+            // some tokens have not been processed
+            throw(TokenizerError.unprocessed(op: split))
         }
         return tokenArray
     }

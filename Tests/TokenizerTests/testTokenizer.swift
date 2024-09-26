@@ -14,12 +14,13 @@ import SwiftGmp
     
     do {
         let _ = try tokenizer.parse("1 sin =")
-        #expect(Bool(false)) // Expected an error to be thrown, but nothing was thrown
+        #expect(Bool(true))
     } catch {
         switch error {
             case Tokenizer.TokenizerError.unknownOperator(let op):
                 print("unknown operator \(op)")
             default: break
         }
+        #expect(Bool(false))
     }
 }
