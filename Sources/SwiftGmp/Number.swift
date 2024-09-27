@@ -210,12 +210,12 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     public func inplace_asinh()      { swiftGmp.asinh() }
     public func inplace_acosh()      { swiftGmp.acosh() }
     public func inplace_atanh()      { swiftGmp.atanh() }
-    public func inplace_pow_x_2()    { swiftGmp.pow_x_2() }
-    public func inplace_pow_e_x()    { swiftGmp.pow_e_x() }
-    public func inplace_pow_10_x()   { swiftGmp.pow_10_x() }
+    public func inplace_sqr()        { swiftGmp.sqr() }
+    public func inplace_cubed()      { swiftGmp.cubed() }
+    public func inplace_exp()        { swiftGmp.exp() }
+    public func inplace_exp2()       { swiftGmp.exp2() }
+    public func inplace_exp10()      { swiftGmp.exp10() }
     public func inplace_changeSign() { swiftGmp.changeSign() }
-    public func inplace_pow_x_3()    { swiftGmp.pow_x_3() }
-    public func inplace_pow_2_x()    { swiftGmp.pow_2_x() }
     public func inplace_rez()        { swiftGmp.rez() }
     public func inplace_fac()        { swiftGmp.fac() }
     public func inplace_sinD()       { swiftGmp.sinD() }
@@ -228,6 +228,10 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     //
     // twoOperant
     //
+    public func add(other: Number)        { swiftGmp.add(other: other.swiftGmp) }
+    public func sub(other: Number)        { swiftGmp.sub(other: other.swiftGmp) }
+    public func mul(other: Number)        { swiftGmp.mul(other: other.swiftGmp) }
+    public func div(other: Number)        { swiftGmp.div(other: other.swiftGmp) }
     public func pow_x_y(exponent: Number) { swiftGmp.pow_x_y(exponent: exponent.swiftGmp) }
     public func pow_y_x(base: Number)     { swiftGmp.pow_y_x(base: base.swiftGmp) }
     public func sqrty(exponent: Number)   { swiftGmp.sqrty(exponent: exponent.swiftGmp) }

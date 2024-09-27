@@ -17,7 +17,7 @@ import SwiftGmp
         #expect(Bool(true))
     } catch {
         switch error {
-            case Tokenizer.TokenizerError.unknownOperator(let op):
+            case TokenizerError.unknownOperator(let op):
                 print("unknown operator \(op)")
             default: break
         }

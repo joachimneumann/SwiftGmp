@@ -179,12 +179,12 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     func asinh()      { var temp = mpfr; mpfr_asinh(&mpfr, &temp, MPFR_RNDN) }
     func acosh()      { var temp = mpfr; mpfr_acosh(&mpfr, &temp, MPFR_RNDN) }
     func atanh()      { var temp = mpfr; mpfr_atanh(&mpfr, &temp, MPFR_RNDN) }
-    func pow_x_2()    { var temp = mpfr; mpfr_sqr(  &mpfr, &temp, MPFR_RNDN) }
-    func pow_e_x()    { var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN) }
-    func pow_10_x()   { var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN) }
+    func sqr()        { var temp = mpfr; mpfr_sqr(  &mpfr, &temp, MPFR_RNDN) }
+    func exp()        { var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN) }
+    func exp2()       { var temp = mpfr; mpfr_ui_pow(&mpfr, 2, &temp, MPFR_RNDN) }
+    func exp10()      { var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN) }
     func changeSign() { var temp = mpfr; mpfr_neg(  &mpfr, &temp, MPFR_RNDN) }
-    func pow_x_3()    { var temp = mpfr; mpfr_pow_ui(&mpfr, &temp, 3, MPFR_RNDN) }
-    func pow_2_x()    { var temp = mpfr; mpfr_ui_pow(&mpfr, 2, &temp, MPFR_RNDN) }
+    func cubed()      { var temp = mpfr; mpfr_pow_ui(&mpfr, &temp, 3, MPFR_RNDN) }
     func rez()        { var temp = mpfr; mpfr_ui_div(&mpfr, 1, &temp, MPFR_RNDN) }
     func fac() {
         let n = mpfr_get_si(&mpfr, MPFR_RNDN)
@@ -237,7 +237,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         self.div(other: base)
     }
     func EE(other: SwiftGmp) {
-        other.pow_10_x()
+        other.exp10()
         self.mul(other: other)
     }
     

@@ -11,1503 +11,1503 @@ import SwiftGmp
 
     precision = 20
     leftNumber = Number(81.651654, precision: precision) / Number(40.563652, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.012927))
+    #expect(leftNumber.toDouble()!.similarTo(2.012927))
 
     leftNumber = Number(50.817846, precision: precision) + Number(68.530428, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(119.348274))
+    #expect(leftNumber.toDouble()!.similarTo(119.348274))
 
     leftNumber = Number(68.115634, precision: precision) / Number(97.517606, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.698496))
+    #expect(leftNumber.toDouble()!.similarTo(0.698496))
 
     leftNumber = Number(17.172385, precision: precision) + Number(71.542294, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(88.714679))
+    #expect(leftNumber.toDouble()!.similarTo(88.714679))
 
     leftNumber = Number(39.651211, precision: precision) - Number(64.685904, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-25.034693))
+    #expect(leftNumber.toDouble()!.similarTo(-25.034693))
 
     leftNumber = Number(71.331751, precision: precision) / Number(12.865136, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5.544578))
+    #expect(leftNumber.toDouble()!.similarTo(5.544578))
 
     leftNumber = Number(6.188656, precision: precision) * Number(41.325041, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(255.746463))
+    #expect(leftNumber.toDouble()!.similarTo(255.746463))
 
     leftNumber = Number(80.94458, precision: precision) / Number(19.996754, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4.047886))
+    #expect(leftNumber.toDouble()!.similarTo(4.047886))
 
     leftNumber = Number(88.315693, precision: precision) * Number(68.125939, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(6016.589514))
+    #expect(leftNumber.toDouble()!.similarTo(6016.589514))
 
     leftNumber = Number(77.9241, precision: precision) + Number(34.598681, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(112.522781))
+    #expect(leftNumber.toDouble()!.similarTo(112.522781))
 
     leftNumber = Number(79.31113, precision: precision) / Number(15.064157, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5.26489))
+    #expect(leftNumber.toDouble()!.similarTo(5.26489))
 
     leftNumber = Number(93.637647, precision: precision) * Number(58.307156, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5459.744891))
+    #expect(leftNumber.toDouble()!.similarTo(5459.744891))
 
     leftNumber = Number(99.836875, precision: precision) / Number(80.051363, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.24716))
+    #expect(leftNumber.toDouble()!.similarTo(1.24716))
 
     leftNumber = Number(46.051561, precision: precision) - Number(23.047301, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(23.00426))
+    #expect(leftNumber.toDouble()!.similarTo(23.00426))
 
     leftNumber = Number(53.750942, precision: precision) - Number(46.64676, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(7.104182))
+    #expect(leftNumber.toDouble()!.similarTo(7.104182))
 
     leftNumber = Number(34.902253, precision: precision) + Number(79.196765, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(114.099018))
+    #expect(leftNumber.toDouble()!.similarTo(114.099018))
 
     leftNumber = Number(41.585473, precision: precision) / Number(79.932095, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.52026))
+    #expect(leftNumber.toDouble()!.similarTo(0.52026))
 
     leftNumber = Number(44.623381, precision: precision) - Number(78.659429, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-34.036048))
+    #expect(leftNumber.toDouble()!.similarTo(-34.036048))
 
     leftNumber = Number(17.83145, precision: precision) / Number(33.175151, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.537494))
+    #expect(leftNumber.toDouble()!.similarTo(0.537494))
 
     leftNumber = Number(61.236168, precision: precision) / Number(93.237541, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.656776))
+    #expect(leftNumber.toDouble()!.similarTo(0.656776))
 
     leftNumber = Number(21.699896, precision: precision) * Number(50.749272, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1101.253924))
+    #expect(leftNumber.toDouble()!.similarTo(1101.253924))
 
     leftNumber = Number(63.192287, precision: precision) / Number(64.230503, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.983836))
+    #expect(leftNumber.toDouble()!.similarTo(0.983836))
 
     leftNumber = Number(95.071567, precision: precision) - Number(73.832131, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(21.239436))
+    #expect(leftNumber.toDouble()!.similarTo(21.239436))
 
     leftNumber = Number(89.770876, precision: precision) * Number(40.95793, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3676.829255))
+    #expect(leftNumber.toDouble()!.similarTo(3676.829255))
 
     leftNumber = Number(59.795255, precision: precision) / Number(35.64017, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.677749))
+    #expect(leftNumber.toDouble()!.similarTo(1.677749))
 
     leftNumber = Number(43.889693, precision: precision) + Number(38.70593, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(82.595623))
+    #expect(leftNumber.toDouble()!.similarTo(82.595623))
 
     leftNumber = Number(18.687246, precision: precision) + Number(55.435883, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(74.123129))
+    #expect(leftNumber.toDouble()!.similarTo(74.123129))
 
     leftNumber = Number(58.129587, precision: precision) + Number(84.201808, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(142.331395))
+    #expect(leftNumber.toDouble()!.similarTo(142.331395))
 
     leftNumber = Number(5.588969, precision: precision) - Number(75.017759, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-69.42879))
+    #expect(leftNumber.toDouble()!.similarTo(-69.42879))
 
     leftNumber = Number(12.782436, precision: precision) - Number(22.377089, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-9.594653))
+    #expect(leftNumber.toDouble()!.similarTo(-9.594653))
 
     leftNumber = Number(92.102843, precision: precision) - Number(53.058159, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(39.044684))
+    #expect(leftNumber.toDouble()!.similarTo(39.044684))
 
     leftNumber = Number(44.269269, precision: precision) * Number(88.118796, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3900.954684))
+    #expect(leftNumber.toDouble()!.similarTo(3900.954684))
 
     leftNumber = Number(32.130965, precision: precision) * Number(90.909822, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2921.020309))
+    #expect(leftNumber.toDouble()!.similarTo(2921.020309))
 
     leftNumber = Number(0.474176, precision: precision) * Number(91.957211, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(43.603902))
+    #expect(leftNumber.toDouble()!.similarTo(43.603902))
 
     leftNumber = Number(37.152682, precision: precision) - Number(92.681725, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-55.529043))
+    #expect(leftNumber.toDouble()!.similarTo(-55.529043))
 
     leftNumber = Number(99.386825, precision: precision) / Number(62.475758, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.590806))
+    #expect(leftNumber.toDouble()!.similarTo(1.590806))
 
     leftNumber = Number(56.005524, precision: precision) * Number(41.296364, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2312.824505))
+    #expect(leftNumber.toDouble()!.similarTo(2312.824505))
 
     leftNumber = Number(87.936743, precision: precision) / Number(84.010076, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.04674))
+    #expect(leftNumber.toDouble()!.similarTo(1.04674))
 
     leftNumber = Number(60.344804, precision: precision) - Number(34.855243, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(25.489561))
+    #expect(leftNumber.toDouble()!.similarTo(25.489561))
 
     leftNumber = Number(70.955536, precision: precision) / Number(71.350043, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.994471))
+    #expect(leftNumber.toDouble()!.similarTo(0.994471))
 
     leftNumber = Number(3.081405, precision: precision) + Number(74.061566, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(77.142971))
+    #expect(leftNumber.toDouble()!.similarTo(77.142971))
 
     leftNumber = Number(41.741724, precision: precision) - Number(65.889038, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-24.147314))
+    #expect(leftNumber.toDouble()!.similarTo(-24.147314))
 
     leftNumber = Number(35.76903, precision: precision) + Number(12.286746, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(48.055776))
+    #expect(leftNumber.toDouble()!.similarTo(48.055776))
 
     leftNumber = Number(72.127467, precision: precision) * Number(41.197848, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2971.496422))
+    #expect(leftNumber.toDouble()!.similarTo(2971.496422))
 
     leftNumber = Number(97.695999, precision: precision) - Number(43.420576, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(54.275423))
+    #expect(leftNumber.toDouble()!.similarTo(54.275423))
 
     leftNumber = Number(8.996259, precision: precision) * Number(75.571637, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(679.86202))
+    #expect(leftNumber.toDouble()!.similarTo(679.86202))
 
     leftNumber = Number(28.115601, precision: precision) / Number(39.811977, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.70621))
+    #expect(leftNumber.toDouble()!.similarTo(0.70621))
 
     leftNumber = Number(95.546103, precision: precision) * Number(39.272629, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3752.346656))
+    #expect(leftNumber.toDouble()!.similarTo(3752.346656))
 
     leftNumber = Number(49.269089, precision: precision) - Number(9.385887, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(39.883202))
+    #expect(leftNumber.toDouble()!.similarTo(39.883202))
 
     leftNumber = Number(39.08327, precision: precision) - Number(19.372396, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(19.710874))
+    #expect(leftNumber.toDouble()!.similarTo(19.710874))
 
     leftNumber = Number(53.404774, precision: precision) - Number(85.145849, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-31.741075))
+    #expect(leftNumber.toDouble()!.similarTo(-31.741075))
 
     leftNumber = Number(4.272812, precision: precision) - Number(27.511188, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-23.238376))
+    #expect(leftNumber.toDouble()!.similarTo(-23.238376))
 
     leftNumber = Number(20.600117, precision: precision) + Number(14.442485, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(35.042602))
+    #expect(leftNumber.toDouble()!.similarTo(35.042602))
 
     leftNumber = Number(2.701371, precision: precision) + Number(15.38239, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(18.083761))
+    #expect(leftNumber.toDouble()!.similarTo(18.083761))
 
     leftNumber = Number(33.961997, precision: precision) + Number(85.541724, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(119.503721))
+    #expect(leftNumber.toDouble()!.similarTo(119.503721))
 
     leftNumber = Number(66.355797, precision: precision) - Number(36.760776, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(29.595021))
+    #expect(leftNumber.toDouble()!.similarTo(29.595021))
 
     leftNumber = Number(18.185088, precision: precision) * Number(97.811252, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1778.706225))
+    #expect(leftNumber.toDouble()!.similarTo(1778.706225))
 
     leftNumber = Number(79.125319, precision: precision) * Number(91.722454, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(7257.568432))
+    #expect(leftNumber.toDouble()!.similarTo(7257.568432))
 
     leftNumber = Number(58.313262, precision: precision) - Number(9.456464, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(48.856798))
+    #expect(leftNumber.toDouble()!.similarTo(48.856798))
 
     leftNumber = Number(72.742667, precision: precision) + Number(32.541706, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(105.284373))
+    #expect(leftNumber.toDouble()!.similarTo(105.284373))
 
     leftNumber = Number(87.457541, precision: precision) / Number(66.828695, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.308682))
+    #expect(leftNumber.toDouble()!.similarTo(1.308682))
 
     leftNumber = Number(11.182359, precision: precision) + Number(38.469985, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(49.652344))
+    #expect(leftNumber.toDouble()!.similarTo(49.652344))
 
     leftNumber = Number(20.014369, precision: precision) + Number(29.501025, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(49.515394))
+    #expect(leftNumber.toDouble()!.similarTo(49.515394))
 
     leftNumber = Number(91.643692, precision: precision) + Number(32.495255, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(124.138947))
+    #expect(leftNumber.toDouble()!.similarTo(124.138947))
 
     leftNumber = Number(16.189502, precision: precision) / Number(74.620683, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.216957))
+    #expect(leftNumber.toDouble()!.similarTo(0.216957))
 
     leftNumber = Number(22.627569, precision: precision) * Number(16.189757, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(366.334844))
+    #expect(leftNumber.toDouble()!.similarTo(366.334844))
 
     leftNumber = Number(73.690941, precision: precision) / Number(98.73313, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.746365))
+    #expect(leftNumber.toDouble()!.similarTo(0.746365))
 
     leftNumber = Number(80.991584, precision: precision) + Number(24.625791, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(105.617375))
+    #expect(leftNumber.toDouble()!.similarTo(105.617375))
 
     leftNumber = Number(23.950864, precision: precision) / Number(34.61646, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.691892))
+    #expect(leftNumber.toDouble()!.similarTo(0.691892))
 
     leftNumber = Number(2.706182, precision: precision) + Number(35.137254, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(37.843436))
+    #expect(leftNumber.toDouble()!.similarTo(37.843436))
 
     leftNumber = Number(55.693971, precision: precision) + Number(87.857326, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(143.551297))
+    #expect(leftNumber.toDouble()!.similarTo(143.551297))
 
     leftNumber = Number(19.801356, precision: precision) / Number(35.201236, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.562519))
+    #expect(leftNumber.toDouble()!.similarTo(0.562519))
 
     leftNumber = Number(26.195557, precision: precision) + Number(55.823881, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(82.019438))
+    #expect(leftNumber.toDouble()!.similarTo(82.019438))
 
     leftNumber = Number(93.926737, precision: precision) / Number(92.390922, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.016623))
+    #expect(leftNumber.toDouble()!.similarTo(1.016623))
 
     leftNumber = Number(52.613184, precision: precision) - Number(2.867121, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(49.746063))
+    #expect(leftNumber.toDouble()!.similarTo(49.746063))
 
     leftNumber = Number(52.80543, precision: precision) - Number(4.292984, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(48.512446))
+    #expect(leftNumber.toDouble()!.similarTo(48.512446))
 
     leftNumber = Number(22.830967, precision: precision) * Number(86.834119, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1982.506905))
+    #expect(leftNumber.toDouble()!.similarTo(1982.506905))
 
     leftNumber = Number(94.91586, precision: precision) - Number(23.691441, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(71.224419))
+    #expect(leftNumber.toDouble()!.similarTo(71.224419))
 
     leftNumber = Number(7.652716, precision: precision) * Number(93.798509, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(717.813351))
+    #expect(leftNumber.toDouble()!.similarTo(717.813351))
 
     leftNumber = Number(37.483091, precision: precision) / Number(62.705197, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.597767))
+    #expect(leftNumber.toDouble()!.similarTo(0.597767))
 
     leftNumber = Number(71.124738, precision: precision) / Number(85.678025, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.83014))
+    #expect(leftNumber.toDouble()!.similarTo(0.83014))
 
     leftNumber = Number(71.165846, precision: precision) - Number(88.178268, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-17.012422))
+    #expect(leftNumber.toDouble()!.similarTo(-17.012422))
 
     leftNumber = Number(31.955162, precision: precision) + Number(51.13752, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(83.092682))
+    #expect(leftNumber.toDouble()!.similarTo(83.092682))
 
     leftNumber = Number(70.78456, precision: precision) + Number(0.778496, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(71.563056))
+    #expect(leftNumber.toDouble()!.similarTo(71.563056))
 
     leftNumber = Number(93.822773, precision: precision) + Number(47.142042, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(140.964815))
+    #expect(leftNumber.toDouble()!.similarTo(140.964815))
 
     leftNumber = Number(64.691063, precision: precision) / Number(66.443741, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.973622))
+    #expect(leftNumber.toDouble()!.similarTo(0.973622))
 
     leftNumber = Number(69.786451, precision: precision) - Number(89.997669, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-20.211218))
+    #expect(leftNumber.toDouble()!.similarTo(-20.211218))
 
     leftNumber = Number(24.243031, precision: precision) - Number(92.499174, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-68.256143))
+    #expect(leftNumber.toDouble()!.similarTo(-68.256143))
 
     leftNumber = Number(19.082381, precision: precision) * Number(36.261034, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(691.946866))
+    #expect(leftNumber.toDouble()!.similarTo(691.946866))
 
     leftNumber = Number(39.818178, precision: precision) / Number(54.426106, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.731601))
+    #expect(leftNumber.toDouble()!.similarTo(0.731601))
 
     leftNumber = Number(86.666221, precision: precision) + Number(15.538018, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(102.204239))
+    #expect(leftNumber.toDouble()!.similarTo(102.204239))
 
     leftNumber = Number(1.206086, precision: precision) - Number(23.985463, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-22.779377))
+    #expect(leftNumber.toDouble()!.similarTo(-22.779377))
 
     leftNumber = Number(93.12549, precision: precision) + Number(78.11487, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(171.24036))
+    #expect(leftNumber.toDouble()!.similarTo(171.24036))
 
     leftNumber = Number(62.791216, precision: precision) / Number(77.969075, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.805335))
+    #expect(leftNumber.toDouble()!.similarTo(0.805335))
 
     leftNumber = Number(29.634264, precision: precision) - Number(34.682167, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-5.047903))
+    #expect(leftNumber.toDouble()!.similarTo(-5.047903))
 
     leftNumber = Number(11.634179, precision: precision) + Number(78.792589, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(90.426768))
+    #expect(leftNumber.toDouble()!.similarTo(90.426768))
 
     leftNumber = Number(23.050193, precision: precision) - Number(75.11232, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-52.062127))
+    #expect(leftNumber.toDouble()!.similarTo(-52.062127))
 
     leftNumber = Number(94.419906, precision: precision) * Number(51.481133, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4860.843739))
+    #expect(leftNumber.toDouble()!.similarTo(4860.843739))
 
     leftNumber = Number(39.967609, precision: precision) * Number(93.762488, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3747.462459))
+    #expect(leftNumber.toDouble()!.similarTo(3747.462459))
 
     leftNumber = Number(11.976291, precision: precision) / Number(99.11258, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.120835))
+    #expect(leftNumber.toDouble()!.similarTo(0.120835))
 
     leftNumber = Number(72.196582, precision: precision) + Number(48.631424, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(120.828006))
+    #expect(leftNumber.toDouble()!.similarTo(120.828006))
 
     leftNumber = Number(55.127565, precision: precision) / Number(74.921373, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.735806))
+    #expect(leftNumber.toDouble()!.similarTo(0.735806))
 
     leftNumber = Number(2.12243, precision: precision) / Number(34.45723, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.061596))
+    #expect(leftNumber.toDouble()!.similarTo(0.061596))
 
     leftNumber = Number(49.725944, precision: precision) * Number(55.862281, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2777.804657))
+    #expect(leftNumber.toDouble()!.similarTo(2777.804657))
 
     leftNumber = Number(8.681463, precision: precision) + Number(56.765269, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(65.446732))
+    #expect(leftNumber.toDouble()!.similarTo(65.446732))
 
     leftNumber = Number(1.508101, precision: precision) * Number(68.298919, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(103.001668))
+    #expect(leftNumber.toDouble()!.similarTo(103.001668))
 
     leftNumber = Number(57.032746, precision: precision) / Number(11.776241, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4.843035))
+    #expect(leftNumber.toDouble()!.similarTo(4.843035))
 
     leftNumber = Number(73.366532, precision: precision) - Number(33.232551, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(40.133981))
+    #expect(leftNumber.toDouble()!.similarTo(40.133981))
 
     leftNumber = Number(90.038026, precision: precision) - Number(6.257582, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(83.780444))
+    #expect(leftNumber.toDouble()!.similarTo(83.780444))
 
     leftNumber = Number(96.824437, precision: precision) * Number(56.618942, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5482.097183))
+    #expect(leftNumber.toDouble()!.similarTo(5482.097183))
 
     leftNumber = Number(84.344644, precision: precision) / Number(59.055717, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.428221))
+    #expect(leftNumber.toDouble()!.similarTo(1.428221))
 
     leftNumber = Number(3.925836, precision: precision) - Number(89.718428, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-85.792592))
+    #expect(leftNumber.toDouble()!.similarTo(-85.792592))
 
     leftNumber = Number(77.156207, precision: precision) - Number(93.469201, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-16.312994))
+    #expect(leftNumber.toDouble()!.similarTo(-16.312994))
 
     leftNumber = Number(5.090155, precision: precision) / Number(21.919771, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.232218))
+    #expect(leftNumber.toDouble()!.similarTo(0.232218))
 
     leftNumber = Number(19.030602, precision: precision) + Number(93.996764, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(113.027366))
+    #expect(leftNumber.toDouble()!.similarTo(113.027366))
 
     leftNumber = Number(17.664115, precision: precision) * Number(95.742056, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1691.198688))
+    #expect(leftNumber.toDouble()!.similarTo(1691.198688))
 
     leftNumber = Number(52.129916, precision: precision) + Number(98.442839, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(150.572755))
+    #expect(leftNumber.toDouble()!.similarTo(150.572755))
 
     leftNumber = Number(88.116382, precision: precision) - Number(26.107245, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(62.009137))
+    #expect(leftNumber.toDouble()!.similarTo(62.009137))
 
     leftNumber = Number(1.684655, precision: precision) * Number(35.143308, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(59.20435))
+    #expect(leftNumber.toDouble()!.similarTo(59.20435))
 
     leftNumber = Number(10.503897, precision: precision) - Number(62.829025, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-52.325128))
+    #expect(leftNumber.toDouble()!.similarTo(-52.325128))
 
     leftNumber = Number(5.193118, precision: precision) + Number(90.121882, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(95.315))
+    #expect(leftNumber.toDouble()!.similarTo(95.315))
 
     leftNumber = Number(32.945184, precision: precision) / Number(62.874348, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.523985))
+    #expect(leftNumber.toDouble()!.similarTo(0.523985))
 
     leftNumber = Number(44.872147, precision: precision) / Number(39.545626, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.134693))
+    #expect(leftNumber.toDouble()!.similarTo(1.134693))
 
     leftNumber = Number(40.346363, precision: precision) + Number(96.718852, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(137.065215))
+    #expect(leftNumber.toDouble()!.similarTo(137.065215))
 
     leftNumber = Number(10.81021, precision: precision) - Number(41.657902, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-30.847692))
+    #expect(leftNumber.toDouble()!.similarTo(-30.847692))
 
     leftNumber = Number(26.746151, precision: precision) / Number(46.500323, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.575182))
+    #expect(leftNumber.toDouble()!.similarTo(0.575182))
 
     leftNumber = Number(88.675257, precision: precision) / Number(75.38798, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.176252))
+    #expect(leftNumber.toDouble()!.similarTo(1.176252))
 
     leftNumber = Number(77.690011, precision: precision) + Number(30.263029, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(107.95304))
+    #expect(leftNumber.toDouble()!.similarTo(107.95304))
 
     leftNumber = Number(58.759077, precision: precision) / Number(30.54882, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.923448))
+    #expect(leftNumber.toDouble()!.similarTo(1.923448))
 
     leftNumber = Number(88.078297, precision: precision) * Number(56.383116, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4966.128837))
+    #expect(leftNumber.toDouble()!.similarTo(4966.128837))
 
     leftNumber = Number(30.275551, precision: precision) / Number(77.913403, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.388579))
+    #expect(leftNumber.toDouble()!.similarTo(0.388579))
 
     leftNumber = Number(44.949831, precision: precision) / Number(95.970968, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.468369))
+    #expect(leftNumber.toDouble()!.similarTo(0.468369))
 
     leftNumber = Number(57.812285, precision: precision) + Number(38.070131, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(95.882416))
+    #expect(leftNumber.toDouble()!.similarTo(95.882416))
 
     leftNumber = Number(59.51429, precision: precision) - Number(18.279188, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(41.235102))
+    #expect(leftNumber.toDouble()!.similarTo(41.235102))
 
     leftNumber = Number(65.127279, precision: precision) + Number(72.658979, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(137.786258))
+    #expect(leftNumber.toDouble()!.similarTo(137.786258))
 
     leftNumber = Number(42.541289, precision: precision) * Number(62.738136, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2668.961175))
+    #expect(leftNumber.toDouble()!.similarTo(2668.961175))
 
     leftNumber = Number(34.795104, precision: precision) / Number(49.554193, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.702163))
+    #expect(leftNumber.toDouble()!.similarTo(0.702163))
 
     leftNumber = Number(2.505697, precision: precision) * Number(20.191147, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(50.592896))
+    #expect(leftNumber.toDouble()!.similarTo(50.592896))
 
     leftNumber = Number(64.010212, precision: precision) / Number(28.39995, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.253885))
+    #expect(leftNumber.toDouble()!.similarTo(2.253885))
 
     leftNumber = Number(6.864224, precision: precision) / Number(85.123169, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.080639))
+    #expect(leftNumber.toDouble()!.similarTo(0.080639))
 
     leftNumber = Number(38.196608, precision: precision) / Number(61.786029, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.618208))
+    #expect(leftNumber.toDouble()!.similarTo(0.618208))
 
     leftNumber = Number(57.241922, precision: precision) - Number(26.15532, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(31.086602))
+    #expect(leftNumber.toDouble()!.similarTo(31.086602))
 
     leftNumber = Number(22.67777, precision: precision) * Number(89.555936, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2030.928919))
+    #expect(leftNumber.toDouble()!.similarTo(2030.928919))
 
     leftNumber = Number(5.728776, precision: precision) + Number(68.544946, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(74.273722))
+    #expect(leftNumber.toDouble()!.similarTo(74.273722))
 
     leftNumber = Number(59.333817, precision: precision) - Number(56.923592, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.410225))
+    #expect(leftNumber.toDouble()!.similarTo(2.410225))
 
     leftNumber = Number(85.265549, precision: precision) / Number(97.306894, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.876254))
+    #expect(leftNumber.toDouble()!.similarTo(0.876254))
 
     leftNumber = Number(93.222455, precision: precision) + Number(34.158929, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(127.381384))
+    #expect(leftNumber.toDouble()!.similarTo(127.381384))
 
     leftNumber = Number(84.340129, precision: precision) / Number(64.093667, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.315889))
+    #expect(leftNumber.toDouble()!.similarTo(1.315889))
 
     leftNumber = Number(86.904099, precision: precision) / Number(78.682416, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.104492))
+    #expect(leftNumber.toDouble()!.similarTo(1.104492))
 
     leftNumber = Number(6.550028, precision: precision) * Number(22.074715, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(144.590001))
+    #expect(leftNumber.toDouble()!.similarTo(144.590001))
 
     leftNumber = Number(97.551723, precision: precision) + Number(55.117794, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(152.669517))
+    #expect(leftNumber.toDouble()!.similarTo(152.669517))
 
     leftNumber = Number(6.562474, precision: precision) * Number(8.945287, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(58.703213))
+    #expect(leftNumber.toDouble()!.similarTo(58.703213))
 
     leftNumber = Number(65.712561, precision: precision) + Number(55.871315, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(121.583876))
+    #expect(leftNumber.toDouble()!.similarTo(121.583876))
 
     leftNumber = Number(83.263463, precision: precision) - Number(53.058938, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(30.204525))
+    #expect(leftNumber.toDouble()!.similarTo(30.204525))
 
     leftNumber = Number(12.299057, precision: precision) * Number(45.260976, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(556.667324))
+    #expect(leftNumber.toDouble()!.similarTo(556.667324))
 
     leftNumber = Number(40.893155, precision: precision) / Number(80.466412, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.508202))
+    #expect(leftNumber.toDouble()!.similarTo(0.508202))
 
     leftNumber = Number(90.303122, precision: precision) / Number(18.840676, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4.792987))
+    #expect(leftNumber.toDouble()!.similarTo(4.792987))
 
     leftNumber = Number(0.850323, precision: precision) + Number(83.436132, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(84.286455))
+    #expect(leftNumber.toDouble()!.similarTo(84.286455))
 
     leftNumber = Number(20.027949, precision: precision) + Number(84.707717, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(104.735666))
+    #expect(leftNumber.toDouble()!.similarTo(104.735666))
 
     leftNumber = Number(61.520892, precision: precision) * Number(9.546457, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(587.30655))
+    #expect(leftNumber.toDouble()!.similarTo(587.30655))
 
     leftNumber = Number(27.730166, precision: precision) + Number(63.820423, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(91.550589))
+    #expect(leftNumber.toDouble()!.similarTo(91.550589))
 
     leftNumber = Number(16.811707, precision: precision) + Number(69.071671, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(85.883378))
+    #expect(leftNumber.toDouble()!.similarTo(85.883378))
 
     leftNumber = Number(38.725592, precision: precision) / Number(21.010346, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.843168))
+    #expect(leftNumber.toDouble()!.similarTo(1.843168))
 
     leftNumber = Number(6.54684, precision: precision) - Number(72.525105, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-65.978265))
+    #expect(leftNumber.toDouble()!.similarTo(-65.978265))
 
     leftNumber = Number(39.915227, precision: precision) + Number(6.642652, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(46.557879))
+    #expect(leftNumber.toDouble()!.similarTo(46.557879))
 
     leftNumber = Number(97.072229, precision: precision) * Number(91.234577, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(8856.343751))
+    #expect(leftNumber.toDouble()!.similarTo(8856.343751))
 
     leftNumber = Number(87.596152, precision: precision) * Number(9.815829, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(859.828849))
+    #expect(leftNumber.toDouble()!.similarTo(859.828849))
 
     leftNumber = Number(17.25777, precision: precision) + Number(43.910584, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(61.168354))
+    #expect(leftNumber.toDouble()!.similarTo(61.168354))
 
     leftNumber = Number(99.000982, precision: precision) / Number(14.729172, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(6.721422))
+    #expect(leftNumber.toDouble()!.similarTo(6.721422))
 
     leftNumber = Number(64.124976, precision: precision) + Number(77.027962, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(141.152938))
+    #expect(leftNumber.toDouble()!.similarTo(141.152938))
 
     leftNumber = Number(80.185158, precision: precision) + Number(86.541394, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(166.726552))
+    #expect(leftNumber.toDouble()!.similarTo(166.726552))
 
     leftNumber = Number(39.262906, precision: precision) + Number(66.022066, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(105.284972))
+    #expect(leftNumber.toDouble()!.similarTo(105.284972))
 
     leftNumber = Number(5.970765, precision: precision) / Number(58.942825, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.101298))
+    #expect(leftNumber.toDouble()!.similarTo(0.101298))
 
     leftNumber = Number(97.099263, precision: precision) + Number(71.829515, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(168.928778))
+    #expect(leftNumber.toDouble()!.similarTo(168.928778))
 
     leftNumber = Number(29.768218, precision: precision) + Number(94.171012, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(123.93923))
+    #expect(leftNumber.toDouble()!.similarTo(123.93923))
 
     leftNumber = Number(15.69458, precision: precision) - Number(88.994152, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-73.299572))
+    #expect(leftNumber.toDouble()!.similarTo(-73.299572))
 
     leftNumber = Number(13.375384, precision: precision) - Number(27.123072, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-13.747688))
+    #expect(leftNumber.toDouble()!.similarTo(-13.747688))
 
     leftNumber = Number(20.966564, precision: precision) + Number(63.778245, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(84.744809))
+    #expect(leftNumber.toDouble()!.similarTo(84.744809))
 
     leftNumber = Number(35.339072, precision: precision) / Number(86.651096, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.407832))
+    #expect(leftNumber.toDouble()!.similarTo(0.407832))
 
     leftNumber = Number(53.926198, precision: precision) - Number(10.910446, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(43.015752))
+    #expect(leftNumber.toDouble()!.similarTo(43.015752))
 
     leftNumber = Number(73.363096, precision: precision) + Number(26.854188, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(100.217284))
+    #expect(leftNumber.toDouble()!.similarTo(100.217284))
 
     leftNumber = Number(76.614024, precision: precision) * Number(74.459197, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5704.618706))
+    #expect(leftNumber.toDouble()!.similarTo(5704.618706))
 
     leftNumber = Number(36.662236, precision: precision) + Number(60.467136, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(97.129372))
+    #expect(leftNumber.toDouble()!.similarTo(97.129372))
 
     leftNumber = Number(82.079407, precision: precision) + Number(97.312778, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(179.392185))
+    #expect(leftNumber.toDouble()!.similarTo(179.392185))
 
     leftNumber = Number(71.147055, precision: precision) + Number(55.314686, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(126.461741))
+    #expect(leftNumber.toDouble()!.similarTo(126.461741))
 
     leftNumber = Number(80.564535, precision: precision) + Number(75.788161, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(156.352696))
+    #expect(leftNumber.toDouble()!.similarTo(156.352696))
 
     leftNumber = Number(28.005722, precision: precision) * Number(35.359676, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(990.273256))
+    #expect(leftNumber.toDouble()!.similarTo(990.273256))
 
     leftNumber = Number(60.853048, precision: precision) / Number(14.68687, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4.143364))
+    #expect(leftNumber.toDouble()!.similarTo(4.143364))
 
     leftNumber = Number(27.880907, precision: precision) - Number(9.497255, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(18.383652))
+    #expect(leftNumber.toDouble()!.similarTo(18.383652))
 
     leftNumber = Number(97.191688, precision: precision) + Number(2.061499, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(99.253187))
+    #expect(leftNumber.toDouble()!.similarTo(99.253187))
 
     leftNumber = Number(53.261986, precision: precision) + Number(15.691992, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(68.953978))
+    #expect(leftNumber.toDouble()!.similarTo(68.953978))
 
     leftNumber = Number(11.717794, precision: precision) * Number(73.543562, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(861.76831))
+    #expect(leftNumber.toDouble()!.similarTo(861.76831))
 
     leftNumber = Number(69.317198, precision: precision) * Number(83.578221, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5793.408094))
+    #expect(leftNumber.toDouble()!.similarTo(5793.408094))
 
     leftNumber = Number(48.082249, precision: precision) / Number(31.256557, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.538309))
+    #expect(leftNumber.toDouble()!.similarTo(1.538309))
 
     leftNumber = Number(59.622424, precision: precision) / Number(50.043763, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.191406))
+    #expect(leftNumber.toDouble()!.similarTo(1.191406))
 
     leftNumber = Number(93.632774, precision: precision) + Number(98.925143, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(192.557917))
+    #expect(leftNumber.toDouble()!.similarTo(192.557917))
 
     leftNumber = Number(15.272669, precision: precision) * Number(88.251607, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1347.837582))
+    #expect(leftNumber.toDouble()!.similarTo(1347.837582))
 
     leftNumber = Number(78.398989, precision: precision) - Number(51.509752, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(26.889237))
+    #expect(leftNumber.toDouble()!.similarTo(26.889237))
 
     leftNumber = Number(48.962416, precision: precision) + Number(89.009251, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(137.971667))
+    #expect(leftNumber.toDouble()!.similarTo(137.971667))
 
     leftNumber = Number(85.5997, precision: precision) * Number(94.774104, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(8112.63487))
+    #expect(leftNumber.toDouble()!.similarTo(8112.63487))
 
     leftNumber = Number(8.745174, precision: precision) * Number(91.144581, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(797.07522))
+    #expect(leftNumber.toDouble()!.similarTo(797.07522))
 
     leftNumber = Number(93.066732, precision: precision) * Number(94.314237, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(8777.517819))
+    #expect(leftNumber.toDouble()!.similarTo(8777.517819))
 
     leftNumber = Number(94.168436, precision: precision) + Number(73.475628, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(167.644064))
+    #expect(leftNumber.toDouble()!.similarTo(167.644064))
 
     leftNumber = Number(29.29042, precision: precision) - Number(54.144122, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-24.853702))
+    #expect(leftNumber.toDouble()!.similarTo(-24.853702))
 
     leftNumber = Number(32.603656, precision: precision) / Number(68.951934, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.472846))
+    #expect(leftNumber.toDouble()!.similarTo(0.472846))
 
     leftNumber = Number(70.017363, precision: precision) / Number(21.099284, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.318471))
+    #expect(leftNumber.toDouble()!.similarTo(3.318471))
 
     leftNumber = Number(1.789433, precision: precision) / Number(29.289003, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.061096))
+    #expect(leftNumber.toDouble()!.similarTo(0.061096))
 
     leftNumber = Number(20.04425, precision: precision) / Number(58.061606, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.345224))
+    #expect(leftNumber.toDouble()!.similarTo(0.345224))
 
     leftNumber = Number(78.533782, precision: precision) - Number(39.891802, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(38.64198))
+    #expect(leftNumber.toDouble()!.similarTo(38.64198))
 
     leftNumber = Number(55.941154, precision: precision) * Number(45.784567, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2561.241513))
+    #expect(leftNumber.toDouble()!.similarTo(2561.241513))
 
     leftNumber = Number(97.673676, precision: precision) / Number(25.241437, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.869577))
+    #expect(leftNumber.toDouble()!.similarTo(3.869577))
 
     leftNumber = Number(32.361657, precision: precision) / Number(26.535311, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.21957))
+    #expect(leftNumber.toDouble()!.similarTo(1.21957))
 
     leftNumber = Number(43.043696, precision: precision) + Number(10.92823, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(53.971926))
+    #expect(leftNumber.toDouble()!.similarTo(53.971926))
 
     leftNumber = Number(80.483266, precision: precision) + Number(74.303185, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(154.786451))
+    #expect(leftNumber.toDouble()!.similarTo(154.786451))
 
     leftNumber = Number(98.536763, precision: precision) - Number(58.717627, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(39.819136))
+    #expect(leftNumber.toDouble()!.similarTo(39.819136))
 
     leftNumber = Number(29.321839, precision: precision) - Number(56.247022, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-26.925183))
+    #expect(leftNumber.toDouble()!.similarTo(-26.925183))
 
     leftNumber = Number(22.595612, precision: precision) + Number(76.377835, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(98.973447))
+    #expect(leftNumber.toDouble()!.similarTo(98.973447))
 
     leftNumber = Number(23.327587, precision: precision) - Number(43.442992, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-20.115405))
+    #expect(leftNumber.toDouble()!.similarTo(-20.115405))
 
     leftNumber = Number(48.2597, precision: precision) * Number(84.965538, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4100.411374))
+    #expect(leftNumber.toDouble()!.similarTo(4100.411374))
 
     leftNumber = Number(48.946952, precision: precision) - Number(78.129347, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-29.182395))
+    #expect(leftNumber.toDouble()!.similarTo(-29.182395))
 
     leftNumber = Number(41.214647, precision: precision) * Number(42.877304, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1767.172949))
+    #expect(leftNumber.toDouble()!.similarTo(1767.172949))
 
     leftNumber = Number(59.811775, precision: precision) / Number(22.838769, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.61887))
+    #expect(leftNumber.toDouble()!.similarTo(2.61887))
 
     leftNumber = Number(90.237591, precision: precision) + Number(20.163291, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(110.400882))
+    #expect(leftNumber.toDouble()!.similarTo(110.400882))
 
     leftNumber = Number(70.839661, precision: precision) * Number(97.271651, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(6890.690782))
+    #expect(leftNumber.toDouble()!.similarTo(6890.690782))
 
     leftNumber = Number(10.935885, precision: precision) / Number(50.213889, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.217786))
+    #expect(leftNumber.toDouble()!.similarTo(0.217786))
 
     leftNumber = Number(41.566237, precision: precision) - Number(82.185268, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-40.619031))
+    #expect(leftNumber.toDouble()!.similarTo(-40.619031))
 
     leftNumber = Number(58.166051, precision: precision) - Number(93.917272, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-35.751221))
+    #expect(leftNumber.toDouble()!.similarTo(-35.751221))
 
     leftNumber = Number(49.351272, precision: precision) + Number(84.415107, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(133.766379))
+    #expect(leftNumber.toDouble()!.similarTo(133.766379))
 
     leftNumber = Number(34.38881, precision: precision) - Number(43.557727, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-9.168917))
+    #expect(leftNumber.toDouble()!.similarTo(-9.168917))
 
     leftNumber = Number(49.015336, precision: precision) - Number(46.285881, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.729455))
+    #expect(leftNumber.toDouble()!.similarTo(2.729455))
 
     leftNumber = Number(27.11216, precision: precision) - Number(68.536069, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-41.423909))
+    #expect(leftNumber.toDouble()!.similarTo(-41.423909))
 
     leftNumber = Number(91.569391, precision: precision) + Number(70.320176, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(161.889567))
+    #expect(leftNumber.toDouble()!.similarTo(161.889567))
 
     leftNumber = Number(19.403201, precision: precision) - Number(72.036394, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-52.633193))
+    #expect(leftNumber.toDouble()!.similarTo(-52.633193))
 
     leftNumber = Number(52.089188, precision: precision) / Number(95.445109, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.54575))
+    #expect(leftNumber.toDouble()!.similarTo(0.54575))
 
     leftNumber = Number(31.204198, precision: precision) / Number(57.46115, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.543049))
+    #expect(leftNumber.toDouble()!.similarTo(0.543049))
 
     leftNumber = Number(95.669464, precision: precision) - Number(71.590286, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(24.079178))
+    #expect(leftNumber.toDouble()!.similarTo(24.079178))
 
     leftNumber = Number(67.39495, precision: precision) - Number(91.617253, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-24.222303))
+    #expect(leftNumber.toDouble()!.similarTo(-24.222303))
 
     leftNumber = Number(87.737706, precision: precision) + Number(91.892735, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(179.630441))
+    #expect(leftNumber.toDouble()!.similarTo(179.630441))
 
     leftNumber = Number(14.249792, precision: precision) + Number(25.727009, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(39.976801))
+    #expect(leftNumber.toDouble()!.similarTo(39.976801))
 
     leftNumber = Number(3.954104, precision: precision) * Number(54.085848, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(213.861068))
+    #expect(leftNumber.toDouble()!.similarTo(213.861068))
 
     leftNumber = Number(42.291863, precision: precision) - Number(19.988713, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(22.30315))
+    #expect(leftNumber.toDouble()!.similarTo(22.30315))
 
     leftNumber = Number(93.388339, precision: precision) / Number(77.405116, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.206488))
+    #expect(leftNumber.toDouble()!.similarTo(1.206488))
 
     leftNumber = Number(43.611937, precision: precision) / Number(96.158972, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.45354))
+    #expect(leftNumber.toDouble()!.similarTo(0.45354))
 
     leftNumber = Number(34.09177, precision: precision) - Number(56.952652, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-22.860882))
+    #expect(leftNumber.toDouble()!.similarTo(-22.860882))
 
     leftNumber = Number(15.343612, precision: precision) + Number(61.476826, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(76.820438))
+    #expect(leftNumber.toDouble()!.similarTo(76.820438))
 
     leftNumber = Number(13.207682, precision: precision) + Number(28.557278, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(41.76496))
+    #expect(leftNumber.toDouble()!.similarTo(41.76496))
 
     leftNumber = Number(75.809365, precision: precision) - Number(29.781978, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(46.027387))
+    #expect(leftNumber.toDouble()!.similarTo(46.027387))
 
     leftNumber = Number(83.50859, precision: precision) + Number(94.05625, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(177.56484))
+    #expect(leftNumber.toDouble()!.similarTo(177.56484))
 
     leftNumber = Number(50.649361, precision: precision) * Number(10.052714, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(509.16354))
+    #expect(leftNumber.toDouble()!.similarTo(509.16354))
 
     leftNumber = Number(9.250616, precision: precision) + Number(82.462055, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(91.712671))
+    #expect(leftNumber.toDouble()!.similarTo(91.712671))
 
     leftNumber = Number(5.543059, precision: precision) * Number(54.200285, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(300.435378))
+    #expect(leftNumber.toDouble()!.similarTo(300.435378))
 
     leftNumber = Number(53.874319, precision: precision) - Number(71.514554, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-17.640235))
+    #expect(leftNumber.toDouble()!.similarTo(-17.640235))
 
     leftNumber = Number(32.516047, precision: precision) / Number(45.112234, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.720781))
+    #expect(leftNumber.toDouble()!.similarTo(0.720781))
 
     leftNumber = Number(15.563675, precision: precision) + Number(57.006144, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(72.569819))
+    #expect(leftNumber.toDouble()!.similarTo(72.569819))
 
     leftNumber = Number(92.415411, precision: precision) + Number(3.122161, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(95.537572))
+    #expect(leftNumber.toDouble()!.similarTo(95.537572))
 
     leftNumber = Number(81.038775, precision: precision) * Number(11.993301, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(971.922421))
+    #expect(leftNumber.toDouble()!.similarTo(971.922421))
 
     leftNumber = Number(4.921527, precision: precision) - Number(83.010462, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-78.088935))
+    #expect(leftNumber.toDouble()!.similarTo(-78.088935))
 
     leftNumber = Number(22.820596, precision: precision) + Number(13.509753, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(36.330349))
+    #expect(leftNumber.toDouble()!.similarTo(36.330349))
 
     leftNumber = Number(68.701655, precision: precision) / Number(56.972838, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.205867))
+    #expect(leftNumber.toDouble()!.similarTo(1.205867))
 
     leftNumber = Number(82.11731, precision: precision) / Number(85.239085, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.963376))
+    #expect(leftNumber.toDouble()!.similarTo(0.963376))
 
     leftNumber = Number(26.391945, precision: precision) * Number(16.183917, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(427.125047))
+    #expect(leftNumber.toDouble()!.similarTo(427.125047))
 
     leftNumber = Number(25.543639, precision: precision) * Number(92.205389, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2355.26117))
+    #expect(leftNumber.toDouble()!.similarTo(2355.26117))
 
     leftNumber = Number(99.817681, precision: precision) * Number(26.042278, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2599.479798))
+    #expect(leftNumber.toDouble()!.similarTo(2599.479798))
 
     leftNumber = Number(33.780335, precision: precision) - Number(77.706936, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-43.926601))
+    #expect(leftNumber.toDouble()!.similarTo(-43.926601))
 
     leftNumber = Number(36.013507, precision: precision) - Number(36.983514, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-0.970007))
+    #expect(leftNumber.toDouble()!.similarTo(-0.970007))
 
     leftNumber = Number(40.708506, precision: precision) + Number(78.684214, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(119.39272))
+    #expect(leftNumber.toDouble()!.similarTo(119.39272))
 
     leftNumber = Number(78.838803, precision: precision) - Number(50.389699, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(28.449104))
+    #expect(leftNumber.toDouble()!.similarTo(28.449104))
 
     leftNumber = Number(68.884815, precision: precision) + Number(49.777974, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(118.662789))
+    #expect(leftNumber.toDouble()!.similarTo(118.662789))
 
     leftNumber = Number(86.055204, precision: precision) * Number(4.138501, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(356.139548))
+    #expect(leftNumber.toDouble()!.similarTo(356.139548))
 
     leftNumber = Number(0.63335, precision: precision) - Number(22.773793, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-22.140443))
+    #expect(leftNumber.toDouble()!.similarTo(-22.140443))
 
     leftNumber = Number(41.975577, precision: precision) + Number(77.735423, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(119.711))
+    #expect(leftNumber.toDouble()!.similarTo(119.711))
 
     leftNumber = Number(65.794443, precision: precision) / Number(45.545166, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.444598))
+    #expect(leftNumber.toDouble()!.similarTo(1.444598))
 
     leftNumber = Number(16.368648, precision: precision) * Number(53.158496, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(870.132709))
+    #expect(leftNumber.toDouble()!.similarTo(870.132709))
 
     leftNumber = Number(86.580096, precision: precision) + Number(20.071232, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(106.651328))
+    #expect(leftNumber.toDouble()!.similarTo(106.651328))
 
     leftNumber = Number(79.079146, precision: precision) + Number(83.729381, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(162.808527))
+    #expect(leftNumber.toDouble()!.similarTo(162.808527))
 
     leftNumber = Number(51.313679, precision: precision) / Number(62.940329, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.815275))
+    #expect(leftNumber.toDouble()!.similarTo(0.815275))
 
     leftNumber = Number(32.502716, precision: precision) + Number(49.094778, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(81.597494))
+    #expect(leftNumber.toDouble()!.similarTo(81.597494))
 
     leftNumber = Number(67.818719, precision: precision) / Number(73.114684, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.927566))
+    #expect(leftNumber.toDouble()!.similarTo(0.927566))
 
     leftNumber = Number(65.381604, precision: precision) * Number(93.021006, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(6081.862578))
+    #expect(leftNumber.toDouble()!.similarTo(6081.862578))
 
     leftNumber = Number(23.243049, precision: precision) / Number(4.708298, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4.936614))
+    #expect(leftNumber.toDouble()!.similarTo(4.936614))
 
     leftNumber = Number(72.301764, precision: precision) / Number(2.94652, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(24.538019))
+    #expect(leftNumber.toDouble()!.similarTo(24.538019))
 
     leftNumber = Number(66.235736, precision: precision) / Number(18.391365, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.601458))
+    #expect(leftNumber.toDouble()!.similarTo(3.601458))
 
     leftNumber = Number(40.516997, precision: precision) * Number(70.134655, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2841.645606))
+    #expect(leftNumber.toDouble()!.similarTo(2841.645606))
 
     leftNumber = Number(49.247898, precision: precision) - Number(43.456478, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5.79142))
+    #expect(leftNumber.toDouble()!.similarTo(5.79142))
 
     leftNumber = Number(50.848695, precision: precision) * Number(65.567808, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3334.037471))
+    #expect(leftNumber.toDouble()!.similarTo(3334.037471))
 
     leftNumber = Number(12.917582, precision: precision) - Number(12.274207, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.643375))
+    #expect(leftNumber.toDouble()!.similarTo(0.643375))
 
     leftNumber = Number(46.535071, precision: precision) - Number(14.089998, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(32.445073))
+    #expect(leftNumber.toDouble()!.similarTo(32.445073))
 
     leftNumber = Number(22.942895, precision: precision) - Number(73.384117, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-50.441222))
+    #expect(leftNumber.toDouble()!.similarTo(-50.441222))
 
     leftNumber = Number(51.067597, precision: precision) + Number(38.759056, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(89.826653))
+    #expect(leftNumber.toDouble()!.similarTo(89.826653))
 
     leftNumber = Number(68.254741, precision: precision) * Number(6.557788, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(447.600121))
+    #expect(leftNumber.toDouble()!.similarTo(447.600121))
 
     leftNumber = Number(70.183455, precision: precision) + Number(40.415475, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(110.59893))
+    #expect(leftNumber.toDouble()!.similarTo(110.59893))
 
     leftNumber = Number(73.161522, precision: precision) / Number(50.680554, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.443582))
+    #expect(leftNumber.toDouble()!.similarTo(1.443582))
 
     leftNumber = Number(26.684301, precision: precision) * Number(45.163892, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1205.166888))
+    #expect(leftNumber.toDouble()!.similarTo(1205.166888))
 
     leftNumber = Number(43.689996, precision: precision) * Number(74.948244, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3274.488481))
+    #expect(leftNumber.toDouble()!.similarTo(3274.488481))
 
     leftNumber = Number(41.294614, precision: precision) / Number(76.283904, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.541328))
+    #expect(leftNumber.toDouble()!.similarTo(0.541328))
 
     leftNumber = Number(46.749907, precision: precision) + Number(29.688602, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(76.438509))
+    #expect(leftNumber.toDouble()!.similarTo(76.438509))
 
     leftNumber = Number(95.313245, precision: precision) * Number(79.595988, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(7586.551905))
+    #expect(leftNumber.toDouble()!.similarTo(7586.551905))
 
     leftNumber = Number(43.709077, precision: precision) - Number(40.916693, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.792384))
+    #expect(leftNumber.toDouble()!.similarTo(2.792384))
 
     leftNumber = Number(6.81425, precision: precision) * Number(86.247694, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(587.713349))
+    #expect(leftNumber.toDouble()!.similarTo(587.713349))
 
     leftNumber = Number(62.03049, precision: precision) - Number(43.681705, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(18.348785))
+    #expect(leftNumber.toDouble()!.similarTo(18.348785))
 
     leftNumber = Number(43.451844, precision: precision) + Number(15.128377, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(58.580221))
+    #expect(leftNumber.toDouble()!.similarTo(58.580221))
 
     leftNumber = Number(89.782494, precision: precision) + Number(6.225196, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(96.00769))
+    #expect(leftNumber.toDouble()!.similarTo(96.00769))
 
     leftNumber = Number(72.740641, precision: precision) * Number(45.265621, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3292.650287))
+    #expect(leftNumber.toDouble()!.similarTo(3292.650287))
 
     leftNumber = Number(26.610329, precision: precision) + Number(55.511873, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(82.122202))
+    #expect(leftNumber.toDouble()!.similarTo(82.122202))
 
     leftNumber = Number(44.942777, precision: precision) - Number(32.461504, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(12.481273))
+    #expect(leftNumber.toDouble()!.similarTo(12.481273))
 
     leftNumber = Number(68.078666, precision: precision) - Number(96.240896, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-28.16223))
+    #expect(leftNumber.toDouble()!.similarTo(-28.16223))
 
     leftNumber = Number(76.169001, precision: precision) + Number(89.957778, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(166.126779))
+    #expect(leftNumber.toDouble()!.similarTo(166.126779))
 
     leftNumber = Number(13.59354, precision: precision) * Number(83.145472, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1130.241299))
+    #expect(leftNumber.toDouble()!.similarTo(1130.241299))
 
     leftNumber = Number(20.398665, precision: precision) * Number(17.351545, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(353.948354))
+    #expect(leftNumber.toDouble()!.similarTo(353.948354))
 
     leftNumber = Number(57.295311, precision: precision) / Number(62.902316, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.910862))
+    #expect(leftNumber.toDouble()!.similarTo(0.910862))
 
     leftNumber = Number(27.868672, precision: precision) / Number(82.941034, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.336006))
+    #expect(leftNumber.toDouble()!.similarTo(0.336006))
 
     leftNumber = Number(66.136471, precision: precision) * Number(30.767718, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2034.868289))
+    #expect(leftNumber.toDouble()!.similarTo(2034.868289))
 
     leftNumber = Number(96.68225, precision: precision) / Number(84.251627, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.147542))
+    #expect(leftNumber.toDouble()!.similarTo(1.147542))
 
     leftNumber = Number(97.590075, precision: precision) * Number(63.073913, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(6155.3879))
+    #expect(leftNumber.toDouble()!.similarTo(6155.3879))
 
     leftNumber = Number(32.039936, precision: precision) / Number(30.305876, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.057219))
+    #expect(leftNumber.toDouble()!.similarTo(1.057219))
 
     leftNumber = Number(65.984162, precision: precision) + Number(2.388544, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(68.372706))
+    #expect(leftNumber.toDouble()!.similarTo(68.372706))
 
     leftNumber = Number(33.358707, precision: precision) + Number(61.848927, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(95.207634))
+    #expect(leftNumber.toDouble()!.similarTo(95.207634))
 
     leftNumber = Number(96.088601, precision: precision) - Number(51.483188, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(44.605413))
+    #expect(leftNumber.toDouble()!.similarTo(44.605413))
 
     leftNumber = Number(38.248182, precision: precision) * Number(79.801553, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3052.264323))
+    #expect(leftNumber.toDouble()!.similarTo(3052.264323))
 
     leftNumber = Number(72.995537, precision: precision) + Number(73.116777, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(146.112314))
+    #expect(leftNumber.toDouble()!.similarTo(146.112314))
 
     leftNumber = Number(96.426585, precision: precision) - Number(17.353525, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(79.07306))
+    #expect(leftNumber.toDouble()!.similarTo(79.07306))
 
     leftNumber = Number(69.788819, precision: precision) - Number(53.981731, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(15.807088))
+    #expect(leftNumber.toDouble()!.similarTo(15.807088))
 
     leftNumber = Number(44.40269, precision: precision) + Number(15.967999, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(60.370689))
+    #expect(leftNumber.toDouble()!.similarTo(60.370689))
 
     leftNumber = Number(29.864096, precision: precision) * Number(8.810747, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(263.124994))
+    #expect(leftNumber.toDouble()!.similarTo(263.124994))
 
     leftNumber = Number(30.842336, precision: precision) / Number(24.442607, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.261827))
+    #expect(leftNumber.toDouble()!.similarTo(1.261827))
 
     leftNumber = Number(7.864745, precision: precision) + Number(39.37684, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(47.241585))
+    #expect(leftNumber.toDouble()!.similarTo(47.241585))
 
     leftNumber = Number(69.620905, precision: precision) - Number(9.241086, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(60.379819))
+    #expect(leftNumber.toDouble()!.similarTo(60.379819))
 
     leftNumber = Number(9.399666, precision: precision) - Number(97.612966, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-88.2133))
+    #expect(leftNumber.toDouble()!.similarTo(-88.2133))
 
     leftNumber = Number(28.002016, precision: precision) - Number(87.190029, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-59.188013))
+    #expect(leftNumber.toDouble()!.similarTo(-59.188013))
 
     leftNumber = Number(44.381195, precision: precision) / Number(9.288776, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4.777938))
+    #expect(leftNumber.toDouble()!.similarTo(4.777938))
 
     leftNumber = Number(31.590712, precision: precision) - Number(67.338696, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-35.747984))
+    #expect(leftNumber.toDouble()!.similarTo(-35.747984))
 
     leftNumber = Number(98.055377, precision: precision) / Number(80.405172, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.219516))
+    #expect(leftNumber.toDouble()!.similarTo(1.219516))
 
     leftNumber = Number(65.874916, precision: precision) * Number(10.909515, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(718.663384))
+    #expect(leftNumber.toDouble()!.similarTo(718.663384))
 
     leftNumber = Number(21.60362, precision: precision) * Number(49.993744, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1080.045848))
+    #expect(leftNumber.toDouble()!.similarTo(1080.045848))
 
     leftNumber = Number(26.398877, precision: precision) - Number(21.876408, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4.522469))
+    #expect(leftNumber.toDouble()!.similarTo(4.522469))
 
     leftNumber = Number(39.812656, precision: precision) + Number(56.282371, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(96.095027))
+    #expect(leftNumber.toDouble()!.similarTo(96.095027))
 
     leftNumber = Number(19.110064, precision: precision) - Number(95.227688, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-76.117624))
+    #expect(leftNumber.toDouble()!.similarTo(-76.117624))
 
     leftNumber = Number(75.960368, precision: precision) * Number(38.904353, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2955.188971))
+    #expect(leftNumber.toDouble()!.similarTo(2955.188971))
 
     leftNumber = Number(76.268466, precision: precision) * Number(62.03606, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4731.395133))
+    #expect(leftNumber.toDouble()!.similarTo(4731.395133))
 
     leftNumber = Number(34.281915, precision: precision) - Number(4.711604, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(29.570311))
+    #expect(leftNumber.toDouble()!.similarTo(29.570311))
 
     leftNumber = Number(77.304292, precision: precision) * Number(75.066082, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5802.930322))
+    #expect(leftNumber.toDouble()!.similarTo(5802.930322))
 
     leftNumber = Number(25.336451, precision: precision) / Number(75.087532, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.337426))
+    #expect(leftNumber.toDouble()!.similarTo(0.337426))
 
     leftNumber = Number(38.867444, precision: precision) + Number(26.531991, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(65.399435))
+    #expect(leftNumber.toDouble()!.similarTo(65.399435))
 
     leftNumber = Number(79.751454, precision: precision) * Number(50.776681, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4049.514139))
+    #expect(leftNumber.toDouble()!.similarTo(4049.514139))
 
     leftNumber = Number(20.619602, precision: precision) + Number(38.609482, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(59.229084))
+    #expect(leftNumber.toDouble()!.similarTo(59.229084))
 
     leftNumber = Number(26.139775, precision: precision) + Number(3.210734, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(29.350509))
+    #expect(leftNumber.toDouble()!.similarTo(29.350509))
 
     leftNumber = Number(47.289157, precision: precision) + Number(73.603371, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(120.892528))
+    #expect(leftNumber.toDouble()!.similarTo(120.892528))
 
     leftNumber = Number(70.543807, precision: precision) * Number(62.564364, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4413.528419))
+    #expect(leftNumber.toDouble()!.similarTo(4413.528419))
 
     leftNumber = Number(77.128486, precision: precision) - Number(88.450523, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-11.322037))
+    #expect(leftNumber.toDouble()!.similarTo(-11.322037))
 
     leftNumber = Number(67.340059, precision: precision) + Number(4.810931, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(72.15099))
+    #expect(leftNumber.toDouble()!.similarTo(72.15099))
 
     leftNumber = Number(67.425242, precision: precision) - Number(27.099637, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(40.325605))
+    #expect(leftNumber.toDouble()!.similarTo(40.325605))
 
     leftNumber = Number(82.357441, precision: precision) - Number(95.02233, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-12.664889))
+    #expect(leftNumber.toDouble()!.similarTo(-12.664889))
 
     leftNumber = Number(19.93342, precision: precision) - Number(13.339477, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(6.593943))
+    #expect(leftNumber.toDouble()!.similarTo(6.593943))
 
     leftNumber = Number(38.173294, precision: precision) / Number(34.157592, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.117564))
+    #expect(leftNumber.toDouble()!.similarTo(1.117564))
 
     leftNumber = Number(46.821754, precision: precision) * Number(23.191382, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1085.861183))
+    #expect(leftNumber.toDouble()!.similarTo(1085.861183))
 
     leftNumber = Number(80.952946, precision: precision) * Number(98.390657, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(7965.013543))
+    #expect(leftNumber.toDouble()!.similarTo(7965.013543))
 
     leftNumber = Number(32.66393, precision: precision) + Number(61.955686, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(94.619616))
+    #expect(leftNumber.toDouble()!.similarTo(94.619616))
 
     leftNumber = Number(33.926921, precision: precision) - Number(94.417468, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-60.490547))
+    #expect(leftNumber.toDouble()!.similarTo(-60.490547))
 
     leftNumber = Number(50.730312, precision: precision) * Number(7.283638, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(369.501228))
+    #expect(leftNumber.toDouble()!.similarTo(369.501228))
 
     leftNumber = Number(67.367076, precision: precision) - Number(87.591518, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-20.224442))
+    #expect(leftNumber.toDouble()!.similarTo(-20.224442))
 
     leftNumber = Number(11.7727, precision: precision) * Number(58.212212, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(685.314908))
+    #expect(leftNumber.toDouble()!.similarTo(685.314908))
 
     leftNumber = Number(33.40446, precision: precision) - Number(79.692882, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-46.288422))
+    #expect(leftNumber.toDouble()!.similarTo(-46.288422))
 
     leftNumber = Number(8.372345, precision: precision) - Number(41.373909, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-33.001564))
+    #expect(leftNumber.toDouble()!.similarTo(-33.001564))
 
     leftNumber = Number(15.823929, precision: precision) * Number(55.582838, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(879.538882))
+    #expect(leftNumber.toDouble()!.similarTo(879.538882))
 
     leftNumber = Number(9.103044, precision: precision) + Number(77.105665, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(86.208709))
+    #expect(leftNumber.toDouble()!.similarTo(86.208709))
 
     leftNumber = Number(38.113412, precision: precision) - Number(52.172032, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-14.05862))
+    #expect(leftNumber.toDouble()!.similarTo(-14.05862))
 
     leftNumber = Number(55.193189, precision: precision) - Number(43.162351, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(12.030838))
+    #expect(leftNumber.toDouble()!.similarTo(12.030838))
 
     leftNumber = Number(69.889072, precision: precision) * Number(14.356788, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1003.38259))
+    #expect(leftNumber.toDouble()!.similarTo(1003.38259))
 
     leftNumber = Number(74.490692, precision: precision) / Number(28.253236, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.636537))
+    #expect(leftNumber.toDouble()!.similarTo(2.636537))
 
     leftNumber = Number(67.713376, precision: precision) - Number(48.499734, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(19.213642))
+    #expect(leftNumber.toDouble()!.similarTo(19.213642))
 
     leftNumber = Number(70.798919, precision: precision) - Number(47.902509, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(22.89641))
+    #expect(leftNumber.toDouble()!.similarTo(22.89641))
 
     leftNumber = Number(90.770667, precision: precision) * Number(2.760267, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(250.551277))
+    #expect(leftNumber.toDouble()!.similarTo(250.551277))
 
     leftNumber = Number(14.664407, precision: precision) / Number(98.248077, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.149259))
+    #expect(leftNumber.toDouble()!.similarTo(0.149259))
 
     leftNumber = Number(80.465744, precision: precision) * Number(45.764446, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3682.470196))
+    #expect(leftNumber.toDouble()!.similarTo(3682.470196))
 
     leftNumber = Number(95.708464, precision: precision) / Number(91.825749, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.042284))
+    #expect(leftNumber.toDouble()!.similarTo(1.042284))
 
     leftNumber = Number(69.871886, precision: precision) - Number(48.754451, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(21.117435))
+    #expect(leftNumber.toDouble()!.similarTo(21.117435))
 
     leftNumber = Number(52.516078, precision: precision) + Number(8.865697, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(61.381775))
+    #expect(leftNumber.toDouble()!.similarTo(61.381775))
 
     leftNumber = Number(37.458091, precision: precision) - Number(54.131278, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-16.673187))
+    #expect(leftNumber.toDouble()!.similarTo(-16.673187))
 
     leftNumber = Number(98.908552, precision: precision) + Number(6.827819, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(105.736371))
+    #expect(leftNumber.toDouble()!.similarTo(105.736371))
 
     leftNumber = Number(57.418903, precision: precision) * Number(17.87903, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1026.594289))
+    #expect(leftNumber.toDouble()!.similarTo(1026.594289))
 
     leftNumber = Number(20.911031, precision: precision) * Number(76.66066, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1603.053438))
+    #expect(leftNumber.toDouble()!.similarTo(1603.053438))
 
     leftNumber = Number(87.507724, precision: precision) * Number(58.633915, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5130.920451))
+    #expect(leftNumber.toDouble()!.similarTo(5130.920451))
 
     leftNumber = Number(80.406989, precision: precision) / Number(24.212435, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.320896))
+    #expect(leftNumber.toDouble()!.similarTo(3.320896))
 
     leftNumber = Number(78.140735, precision: precision) - Number(11.550713, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(66.590022))
+    #expect(leftNumber.toDouble()!.similarTo(66.590022))
 
     leftNumber = Number(82.459003, precision: precision) - Number(58.964603, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(23.4944))
+    #expect(leftNumber.toDouble()!.similarTo(23.4944))
 
     leftNumber = Number(45.792115, precision: precision) / Number(88.318926, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.518486))
+    #expect(leftNumber.toDouble()!.similarTo(0.518486))
 
     leftNumber = Number(58.751588, precision: precision) / Number(11.687671, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5.0268))
+    #expect(leftNumber.toDouble()!.similarTo(5.0268))
 
     leftNumber = Number(70.356961, precision: precision) * Number(49.785978, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3502.790112))
+    #expect(leftNumber.toDouble()!.similarTo(3502.790112))
 
     leftNumber = Number(85.738537, precision: precision) + Number(15.82217, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(101.560707))
+    #expect(leftNumber.toDouble()!.similarTo(101.560707))
 
     leftNumber = Number(83.038563, precision: precision) * Number(47.705108, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3961.363616))
+    #expect(leftNumber.toDouble()!.similarTo(3961.363616))
 
     leftNumber = Number(45.915743, precision: precision) + Number(29.205557, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(75.1213))
+    #expect(leftNumber.toDouble()!.similarTo(75.1213))
 
     leftNumber = Number(65.416728, precision: precision) + Number(28.613054, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(94.029782))
+    #expect(leftNumber.toDouble()!.similarTo(94.029782))
 
     leftNumber = Number(47.861776, precision: precision) - Number(91.793745, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-43.931969))
+    #expect(leftNumber.toDouble()!.similarTo(-43.931969))
 
     leftNumber = Number(80.13062, precision: precision) + Number(15.264101, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(95.394721))
+    #expect(leftNumber.toDouble()!.similarTo(95.394721))
 
     leftNumber = Number(17.024705, precision: precision) * Number(70.930562, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1207.571894))
+    #expect(leftNumber.toDouble()!.similarTo(1207.571894))
 
     leftNumber = Number(48.696501, precision: precision) - Number(69.214711, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-20.51821))
+    #expect(leftNumber.toDouble()!.similarTo(-20.51821))
 
     leftNumber = Number(20.466003, precision: precision) - Number(22.263786, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-1.797783))
+    #expect(leftNumber.toDouble()!.similarTo(-1.797783))
 
     leftNumber = Number(94.923391, precision: precision) - Number(43.946236, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(50.977155))
+    #expect(leftNumber.toDouble()!.similarTo(50.977155))
 
     leftNumber = Number(87.34236, precision: precision) - Number(2.553317, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(84.789043))
+    #expect(leftNumber.toDouble()!.similarTo(84.789043))
 
     leftNumber = Number(72.191831, precision: precision) / Number(76.89839, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.938795))
+    #expect(leftNumber.toDouble()!.similarTo(0.938795))
 
     leftNumber = Number(18.479029, precision: precision) + Number(89.949173, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(108.428202))
+    #expect(leftNumber.toDouble()!.similarTo(108.428202))
 
     leftNumber = Number(28.454544, precision: precision) / Number(2.193007, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(12.975127))
+    #expect(leftNumber.toDouble()!.similarTo(12.975127))
 
     leftNumber = Number(5.065607, precision: precision) * Number(55.951889, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(283.430281))
+    #expect(leftNumber.toDouble()!.similarTo(283.430281))
 
     leftNumber = Number(11.802279, precision: precision) * Number(73.558794, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(868.16141))
+    #expect(leftNumber.toDouble()!.similarTo(868.16141))
 
     leftNumber = Number(83.04682, precision: precision) / Number(43.449952, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.911321))
+    #expect(leftNumber.toDouble()!.similarTo(1.911321))
 
     leftNumber = Number(37.181862, precision: precision) - Number(17.420228, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(19.761634))
+    #expect(leftNumber.toDouble()!.similarTo(19.761634))
 
     leftNumber = Number(11.384335, precision: precision) + Number(74.891725, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(86.27606))
+    #expect(leftNumber.toDouble()!.similarTo(86.27606))
 
     leftNumber = Number(89.876991, precision: precision) + Number(84.813928, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(174.690919))
+    #expect(leftNumber.toDouble()!.similarTo(174.690919))
 
     leftNumber = Number(15.897304, precision: precision) / Number(37.406278, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.42499))
+    #expect(leftNumber.toDouble()!.similarTo(0.42499))
 
     leftNumber = Number(22.98804, precision: precision) * Number(53.703673, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1234.542183))
+    #expect(leftNumber.toDouble()!.similarTo(1234.542183))
 
     leftNumber = Number(46.391667, precision: precision) / Number(17.196765, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.697697))
+    #expect(leftNumber.toDouble()!.similarTo(2.697697))
 
     leftNumber = Number(21.967781, precision: precision) + Number(25.469047, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(47.436828))
+    #expect(leftNumber.toDouble()!.similarTo(47.436828))
 
     leftNumber = Number(26.748584, precision: precision) / Number(71.031862, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.376572))
+    #expect(leftNumber.toDouble()!.similarTo(0.376572))
 
     leftNumber = Number(22.120935, precision: precision) - Number(48.388998, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-26.268063))
+    #expect(leftNumber.toDouble()!.similarTo(-26.268063))
 
     leftNumber = Number(42.52713, precision: precision) * Number(47.220925, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2008.170416))
+    #expect(leftNumber.toDouble()!.similarTo(2008.170416))
 
     leftNumber = Number(15.51373, precision: precision) / Number(67.058935, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.231345))
+    #expect(leftNumber.toDouble()!.similarTo(0.231345))
 
     leftNumber = Number(5.131439, precision: precision) / Number(69.6051, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.073722))
+    #expect(leftNumber.toDouble()!.similarTo(0.073722))
 
     leftNumber = Number(59.789254, precision: precision) * Number(46.786012, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2797.300755))
+    #expect(leftNumber.toDouble()!.similarTo(2797.300755))
 
     leftNumber = Number(68.008921, precision: precision) / Number(22.140733, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.071665))
+    #expect(leftNumber.toDouble()!.similarTo(3.071665))
 
     leftNumber = Number(58.531777, precision: precision) * Number(60.272506, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3527.85688))
+    #expect(leftNumber.toDouble()!.similarTo(3527.85688))
 
     leftNumber = Number(27.196757, precision: precision) + Number(85.881825, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(113.078582))
+    #expect(leftNumber.toDouble()!.similarTo(113.078582))
 
     leftNumber = Number(65.953908, precision: precision) + Number(81.308789, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(147.262697))
+    #expect(leftNumber.toDouble()!.similarTo(147.262697))
 
     leftNumber = Number(68.960315, precision: precision) + Number(4.299658, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(73.259973))
+    #expect(leftNumber.toDouble()!.similarTo(73.259973))
 
     leftNumber = Number(34.687341, precision: precision) + Number(36.520121, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(71.207462))
+    #expect(leftNumber.toDouble()!.similarTo(71.207462))
 
     leftNumber = Number(48.91872, precision: precision) * Number(62.375151, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3051.312547))
+    #expect(leftNumber.toDouble()!.similarTo(3051.312547))
 
     leftNumber = Number(75.438944, precision: precision) / Number(19.145965, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.940201))
+    #expect(leftNumber.toDouble()!.similarTo(3.940201))
 
     leftNumber = Number(86.444951, precision: precision) / Number(76.63354, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.12803))
+    #expect(leftNumber.toDouble()!.similarTo(1.12803))
 
     leftNumber = Number(40.401125, precision: precision) * Number(37.243151, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1504.665199))
+    #expect(leftNumber.toDouble()!.similarTo(1504.665199))
 
     leftNumber = Number(98.40084, precision: precision) - Number(25.369962, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(73.030878))
+    #expect(leftNumber.toDouble()!.similarTo(73.030878))
 
     leftNumber = Number(62.47475, precision: precision) + Number(79.61332, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(142.08807))
+    #expect(leftNumber.toDouble()!.similarTo(142.08807))
 
     leftNumber = Number(55.9989, precision: precision) / Number(69.81746, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.802076))
+    #expect(leftNumber.toDouble()!.similarTo(0.802076))
 
     leftNumber = Number(88.907996, precision: precision) - Number(62.234094, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(26.673902))
+    #expect(leftNumber.toDouble()!.similarTo(26.673902))
 
     leftNumber = Number(53.865569, precision: precision) - Number(18.313937, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(35.551632))
+    #expect(leftNumber.toDouble()!.similarTo(35.551632))
 
     leftNumber = Number(80.205677, precision: precision) + Number(91.153163, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(171.35884))
+    #expect(leftNumber.toDouble()!.similarTo(171.35884))
 
     leftNumber = Number(30.689128, precision: precision) + Number(87.966692, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(118.65582))
+    #expect(leftNumber.toDouble()!.similarTo(118.65582))
 
     leftNumber = Number(45.797004, precision: precision) * Number(31.844065, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1458.362772))
+    #expect(leftNumber.toDouble()!.similarTo(1458.362772))
 
     leftNumber = Number(32.010265, precision: precision) - Number(17.196229, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(14.814036))
+    #expect(leftNumber.toDouble()!.similarTo(14.814036))
 
     leftNumber = Number(0.305849, precision: precision) * Number(36.050132, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(11.025897))
+    #expect(leftNumber.toDouble()!.similarTo(11.025897))
 
     leftNumber = Number(8.151876, precision: precision) * Number(15.614015, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(127.283514))
+    #expect(leftNumber.toDouble()!.similarTo(127.283514))
 
     leftNumber = Number(90.909412, precision: precision) - Number(15.263186, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(75.646226))
+    #expect(leftNumber.toDouble()!.similarTo(75.646226))
 
     leftNumber = Number(71.155629, precision: precision) - Number(44.359606, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(26.796023))
+    #expect(leftNumber.toDouble()!.similarTo(26.796023))
 
     leftNumber = Number(92.859102, precision: precision) * Number(85.433584, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(7933.285891))
+    #expect(leftNumber.toDouble()!.similarTo(7933.285891))
 
     leftNumber = Number(73.00346, precision: precision) * Number(84.22062, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(6148.396663))
+    #expect(leftNumber.toDouble()!.similarTo(6148.396663))
 
     leftNumber = Number(42.947604, precision: precision) - Number(80.994412, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-38.046808))
+    #expect(leftNumber.toDouble()!.similarTo(-38.046808))
 
     leftNumber = Number(43.475523, precision: precision) + Number(80.791531, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(124.267054))
+    #expect(leftNumber.toDouble()!.similarTo(124.267054))
 
     leftNumber = Number(57.681721, precision: precision) + Number(26.396956, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(84.078677))
+    #expect(leftNumber.toDouble()!.similarTo(84.078677))
 
     leftNumber = Number(46.898604, precision: precision) / Number(7.879916, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(5.951663))
+    #expect(leftNumber.toDouble()!.similarTo(5.951663))
 
     leftNumber = Number(6.851229, precision: precision) / Number(44.710176, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.153236))
+    #expect(leftNumber.toDouble()!.similarTo(0.153236))
 
     leftNumber = Number(24.056599, precision: precision) - Number(38.629943, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-14.573344))
+    #expect(leftNumber.toDouble()!.similarTo(-14.573344))
 
     leftNumber = Number(8.097386, precision: precision) + Number(89.955477, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(98.052863))
+    #expect(leftNumber.toDouble()!.similarTo(98.052863))
 
     leftNumber = Number(20.59809, precision: precision) + Number(53.741681, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(74.339771))
+    #expect(leftNumber.toDouble()!.similarTo(74.339771))
 
     leftNumber = Number(39.246812, precision: precision) + Number(93.662499, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(132.909311))
+    #expect(leftNumber.toDouble()!.similarTo(132.909311))
 
     leftNumber = Number(30.506839, precision: precision) * Number(95.474807, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2912.634566))
+    #expect(leftNumber.toDouble()!.similarTo(2912.634566))
 
     leftNumber = Number(62.356563, precision: precision) * Number(51.197054, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3192.472323))
+    #expect(leftNumber.toDouble()!.similarTo(3192.472323))
 
     leftNumber = Number(11.921235, precision: precision) - Number(54.963649, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-43.042414))
+    #expect(leftNumber.toDouble()!.similarTo(-43.042414))
 
     leftNumber = Number(18.551539, precision: precision) + Number(16.75744, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(35.308979))
+    #expect(leftNumber.toDouble()!.similarTo(35.308979))
 
     leftNumber = Number(45.447951, precision: precision) * Number(96.014297, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4363.653065))
+    #expect(leftNumber.toDouble()!.similarTo(4363.653065))
 
     leftNumber = Number(59.214735, precision: precision) / Number(53.062722, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.115939))
+    #expect(leftNumber.toDouble()!.similarTo(1.115939))
 
     leftNumber = Number(78.048861, precision: precision) / Number(50.237092, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1.55361))
+    #expect(leftNumber.toDouble()!.similarTo(1.55361))
 
     leftNumber = Number(17.04362, precision: precision) * Number(60.753308, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1035.456295))
+    #expect(leftNumber.toDouble()!.similarTo(1035.456295))
 
     leftNumber = Number(13.813365, precision: precision) * Number(22.810971, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(315.096268))
+    #expect(leftNumber.toDouble()!.similarTo(315.096268))
 
     leftNumber = Number(38.221801, precision: precision) * Number(73.22487, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2798.786409))
+    #expect(leftNumber.toDouble()!.similarTo(2798.786409))
 
     leftNumber = Number(56.537213, precision: precision) * Number(71.593595, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4047.70233))
+    #expect(leftNumber.toDouble()!.similarTo(4047.70233))
 
     leftNumber = Number(25.653624, precision: precision) + Number(48.76589, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(74.419514))
+    #expect(leftNumber.toDouble()!.similarTo(74.419514))
 
     leftNumber = Number(9.633777, precision: precision) + Number(89.909307, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(99.543084))
+    #expect(leftNumber.toDouble()!.similarTo(99.543084))
 
     leftNumber = Number(29.994098, precision: precision) - Number(69.773445, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-39.779347))
+    #expect(leftNumber.toDouble()!.similarTo(-39.779347))
 
     leftNumber = Number(66.371396, precision: precision) * Number(39.783085, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2640.458889))
+    #expect(leftNumber.toDouble()!.similarTo(2640.458889))
 
     leftNumber = Number(24.774465, precision: precision) / Number(34.959012, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.708672))
+    #expect(leftNumber.toDouble()!.similarTo(0.708672))
 
     leftNumber = Number(72.705352, precision: precision) + Number(30.052723, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(102.758075))
+    #expect(leftNumber.toDouble()!.similarTo(102.758075))
 
     leftNumber = Number(40.582006, precision: precision) * Number(29.086852, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1180.402802))
+    #expect(leftNumber.toDouble()!.similarTo(1180.402802))
 
     leftNumber = Number(80.77704, precision: precision) / Number(32.108029, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2.515789))
+    #expect(leftNumber.toDouble()!.similarTo(2.515789))
 
     leftNumber = Number(29.111097, precision: precision) * Number(21.459677, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(624.714739))
+    #expect(leftNumber.toDouble()!.similarTo(624.714739))
 
     leftNumber = Number(89.677357, precision: precision) + Number(89.677326, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(179.354683))
+    #expect(leftNumber.toDouble()!.similarTo(179.354683))
 
     leftNumber = Number(70.199204, precision: precision) / Number(4.920883, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(14.265571))
+    #expect(leftNumber.toDouble()!.similarTo(14.265571))
 
     leftNumber = Number(6.351792, precision: precision) - Number(2.407006, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.944786))
+    #expect(leftNumber.toDouble()!.similarTo(3.944786))
 
     leftNumber = Number(7.134926, precision: precision) / Number(34.793509, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.205065))
+    #expect(leftNumber.toDouble()!.similarTo(0.205065))
 
     leftNumber = Number(7.008562, precision: precision) + Number(12.261641, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(19.270203))
+    #expect(leftNumber.toDouble()!.similarTo(19.270203))
 
     leftNumber = Number(95.876733, precision: precision) - Number(25.285925, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(70.590808))
+    #expect(leftNumber.toDouble()!.similarTo(70.590808))
 
     leftNumber = Number(7.323621, precision: precision) - Number(73.928518, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-66.604897))
+    #expect(leftNumber.toDouble()!.similarTo(-66.604897))
 
     leftNumber = Number(71.812988, precision: precision) * Number(15.209191, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1092.217451))
+    #expect(leftNumber.toDouble()!.similarTo(1092.217451))
 
     leftNumber = Number(67.310808, precision: precision) * Number(3.310219, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(222.813516))
+    #expect(leftNumber.toDouble()!.similarTo(222.813516))
 
     leftNumber = Number(6.79105, precision: precision) / Number(26.257765, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(0.25863))
+    #expect(leftNumber.toDouble()!.similarTo(0.25863))
 
     leftNumber = Number(55.342458, precision: precision) * Number(27.865427, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1542.141223))
+    #expect(leftNumber.toDouble()!.similarTo(1542.141223))
 
     leftNumber = Number(46.959268, precision: precision) + Number(79.136649, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(126.095917))
+    #expect(leftNumber.toDouble()!.similarTo(126.095917))
 
     leftNumber = Number(92.656006, precision: precision) * Number(24.266536, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(2248.440305))
+    #expect(leftNumber.toDouble()!.similarTo(2248.440305))
 
     leftNumber = Number(25.247652, precision: precision) * Number(23.567135, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(595.014823))
+    #expect(leftNumber.toDouble()!.similarTo(595.014823))
 
     leftNumber = Number(11.380114, precision: precision) - Number(88.499878, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-77.119764))
+    #expect(leftNumber.toDouble()!.similarTo(-77.119764))
 
     leftNumber = Number(87.706847, precision: precision) * Number(55.115554, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4834.011462))
+    #expect(leftNumber.toDouble()!.similarTo(4834.011462))
 
     leftNumber = Number(79.970931, precision: precision) * Number(91.748788, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(7337.235994))
+    #expect(leftNumber.toDouble()!.similarTo(7337.235994))
 
     leftNumber = Number(82.61939, precision: precision) - Number(2.578508, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(80.040882))
+    #expect(leftNumber.toDouble()!.similarTo(80.040882))
 
     leftNumber = Number(17.570511, precision: precision) * Number(57.214689, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(1005.291322))
+    #expect(leftNumber.toDouble()!.similarTo(1005.291322))
 
     leftNumber = Number(35.476465, precision: precision) - Number(64.903958, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-29.427493))
+    #expect(leftNumber.toDouble()!.similarTo(-29.427493))
 
     leftNumber = Number(85.748832, precision: precision) - Number(92.541535, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-6.792703))
+    #expect(leftNumber.toDouble()!.similarTo(-6.792703))
 
     leftNumber = Number(79.244677, precision: precision) / Number(21.411028, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(3.701115))
+    #expect(leftNumber.toDouble()!.similarTo(3.701115))
 
     leftNumber = Number(16.957367, precision: precision) + Number(94.448624, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(111.405991))
+    #expect(leftNumber.toDouble()!.similarTo(111.405991))
 
     leftNumber = Number(61.218005, precision: precision) - Number(25.087707, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(36.130298))
+    #expect(leftNumber.toDouble()!.similarTo(36.130298))
 
     leftNumber = Number(56.86438, precision: precision) - Number(1.311804, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(55.552576))
+    #expect(leftNumber.toDouble()!.similarTo(55.552576))
 
     leftNumber = Number(55.613175, precision: precision) * Number(83.272693, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(4631.058849))
+    #expect(leftNumber.toDouble()!.similarTo(4631.058849))
 
     leftNumber = Number(53.089693, precision: precision) + Number(20.187337, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(73.27703))
+    #expect(leftNumber.toDouble()!.similarTo(73.27703))
 
     leftNumber = Number(72.862729, precision: precision) - Number(83.334709, precision: precision)
-    #expect(leftNumber.toDouble().similarTo(-10.47198))
+    #expect(leftNumber.toDouble()!.similarTo(-10.47198))
 
 }

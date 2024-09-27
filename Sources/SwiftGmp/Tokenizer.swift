@@ -19,7 +19,7 @@ public enum TokenizerError: Error, LocalizedError {
         case .invalidNumber(let op):
             return "Invalid number: \(op)"
         case .unprocessed(let op):
-            return "Unprocessed token: \(op)"
+            return "unknown: \(op)"
         }
     }
 }
@@ -33,10 +33,7 @@ public struct Tokenizer {
                 return inplaceOperator.description ?? "unknown"
             }
             if let number {
-                if let d = number.toDouble() {
-                    return String(d)
-                }
-                return "Nan"
+                return number.debugDescription
             }
             if let twoOperandOperator {
                 return twoOperandOperator.description ?? "unknown"
@@ -66,15 +63,8 @@ public struct Tokenizer {
 
     
     private var inplaceOperators: [String: InplaceOperator] = [:]
-    private var twoOperandOperators: [String: TwoOperandOperator] = [:]
-    public var inplaceOperatorKeysSortedByLength: [String] = []
-        
-//    func op(_ key: String) -> Operator? {
-//        if inplaceOperators[key] != nil {
-//            return inplaceOperators[key]
-//        }
-//        return nil
-//    }
+    private var basicTwoOperandOperator: [String: TwoOperandOperator] = [:]
+    private var twoOperandOperator: [String: TwoOperandOperator] = [:]
     
     public func allOperators() -> [String] {
         return Array(inplaceOperators.keys)
@@ -104,12 +94,12 @@ public struct Tokenizer {
         inplaceOperators["asinh"]      = InplaceOperator(Number.inplace_asinh, 1, description: "asinh")
         inplaceOperators["acosh"]      = InplaceOperator(Number.inplace_acosh, 1, description: "acosh")
         inplaceOperators["atanh"]      = InplaceOperator(Number.inplace_atanh, 1, description: "atanh")
-        inplaceOperators["pow_x_2"]    = InplaceOperator(Number.inplace_pow_x_2, 1, description: "pow_x_2")
-        inplaceOperators["pow_e_x"]    = InplaceOperator(Number.inplace_pow_e_x, 1, description: "pow_e_x")
-        inplaceOperators["pow_10_x"]   = InplaceOperator(Number.inplace_pow_10_x, 1, description: "pow_10_x")
+        inplaceOperators["sqr"]     = InplaceOperator(Number.inplace_sqr, 1, description: "square")
+        inplaceOperators["cubed"]      = InplaceOperator(Number.inplace_cubed, 1, description: "cubed")
+        inplaceOperators["exp"]        = InplaceOperator(Number.inplace_exp, 1, description: "exp (to the power of e)")
+        inplaceOperators["exp2"]       = InplaceOperator(Number.inplace_exp2, 1, description: "to the power of 2")
+        inplaceOperators["exp10"]      = InplaceOperator(Number.inplace_exp10, 1, description: "to the power of 10")
         inplaceOperators["changeSign"] = InplaceOperator(Number.inplace_changeSign, 1, description: "changeSign")
-        inplaceOperators["pow_x_3"]    = InplaceOperator(Number.inplace_pow_x_3, 1, description: "pow_x_3")
-        inplaceOperators["pow_2_x"]    = InplaceOperator(Number.inplace_pow_2_x, 1, description: "pow_2_x")
         inplaceOperators["rez"]        = InplaceOperator(Number.inplace_rez, 1, description: "rez")
         inplaceOperators["fac"]        = InplaceOperator(Number.inplace_fac, 1, description: "fac")
         inplaceOperators["sinD"]       = InplaceOperator(Number.inplace_sinD, 1, description: "sinD")
@@ -118,29 +108,65 @@ public struct Tokenizer {
         inplaceOperators["asinD"]      = InplaceOperator(Number.inplace_asinD, 1, description: "asinD")
         inplaceOperators["acosD"]      = InplaceOperator(Number.inplace_acosD, 1, description: "acosD")
         inplaceOperators["atand"]      = InplaceOperator(Number.inplace_atanD, 1, description: "atanD")
-        inplaceOperatorKeysSortedByLength = inplaceOperators.keys.sorted { $0.count < $1.count }
+
+        basicTwoOperandOperator["+"]   = TwoOperandOperator(Number.add, 1, description: "add" )
+        basicTwoOperandOperator["-"]   = TwoOperandOperator(Number.sub, 1, description: "subtract" )
+        basicTwoOperandOperator["*"]   = TwoOperandOperator(Number.mul, 1, description: "multiply" )
+        basicTwoOperandOperator["/"]   = TwoOperandOperator(Number.div, 1, description: "divide" )
+
+        twoOperandOperator["pow_x_y"]  = TwoOperandOperator(Number.pow_x_y, 1, description: "x to the power of y" )
+        twoOperandOperator["pow_y_x"]  = TwoOperandOperator(Number.pow_y_x, 1, description: "y to the power of x" )
+        twoOperandOperator["sqrty"]    = TwoOperandOperator(Number.sqrty, 1, description: "y's root of x" )
+        twoOperandOperator["logy"]     = TwoOperandOperator(Number.logy, 1, description: "log to the base of y" )
+        twoOperandOperator["EE"]       = TwoOperandOperator(Number.EE, 1, description: "time to the the power of" )
     }
     
-    private func startsWithNumberPrefix(_ str: String) -> Bool {
-        guard let firstChar = str.first else {
-            return false // Empty string case
-        }
-        return firstChar == "-" || (firstChar >= "1" && firstChar <= "9")
+    func checkString(string: String) -> Bool {
+        let without_dot = string.replacingOccurrences(of: ".", with: "")
+        let digits = CharacterSet.decimalDigits
+        
+        let stringSet = CharacterSet(charactersIn: without_dot)
+
+        return digits.isSuperset(of: stringSet)
     }
 
-    private func continuesWithNumberPrefix(_ str: String) -> Bool {
-        guard let firstChar = str.first else {
-            return false // Empty string case
-        }
+    func is19orMinus(_ str: String.Element) -> Bool {
+        return str == "-" || (str >= "1" && str <= "9")
+    }
+    
+    private func canBeNumber(_ str: String) throws -> Bool {
+        guard str.filter{ $0 == "e" }.count <= 1 else { throw TokenizerError.invalidNumber(op: str) }
+        guard str.filter{ $0 == "." }.count <= 2 else { throw TokenizerError.invalidNumber(op: str) }
         
-        return firstChar == "-" || (firstChar >= "1" && firstChar <= "9")
+        let without_e_minus = str.replacingFirstOccurrence(of: "e-", with: "")
+        let without_e = without_e_minus.filter{ $0 != "e" }
+        guard checkString(string: without_e) else { throw TokenizerError.invalidNumber(op: str) }
+
+        func is19orMinus(_ str: String.Element) -> Bool {
+            return str == "-" || (str >= "1" && str <= "9")
+        }
+             
+        guard let firstChar = str.first else { return false } // Empty string case
+        if firstChar == "." {
+            guard let secondChar = str.dropFirst().first else { return false } // only .
+            if is19orMinus(secondChar) {
+                return true
+            } else {
+                throw TokenizerError.invalidNumber(op: str)
+            }
+        }
+        if is19orMinus(firstChar) {
+            return true
+        } else {
+            throw TokenizerError.invalidNumber(op: str)
+        }
     }
 
     public mutating func parse(_ input: String) throws -> [Token] {
         var tokenArray: [Token] = []
 
         var bloatedString = input
-        for key in inplaceOperatorKeysSortedByLength {
+        for key in basicTwoOperandOperator.keys {
             if bloatedString.contains(key) {
                 bloatedString = bloatedString.replacingOccurrences(of: key, with: " \(key) ")
             }
@@ -154,16 +180,33 @@ public struct Tokenizer {
                 tokenArray.append(Token(op))
                 continue
             }
-            if startsWithNumberPrefix(split) {
-                let n = Number(split, precision: 10)
-                let s = SwiftGmp(withString: split, precision: 10)
-                if s.isValid {
-                    tokenArray.append(Token(n))
-                    continue
-                } else {
+            if let op = basicTwoOperandOperator[String(split)] {
+                tokenArray.append(Token(op))
+                continue
+            }
+            if let op = twoOperandOperator[String(split)] {
+                tokenArray.append(Token(op))
+                continue
+            }
+            if is19orMinus(split.first!) {
+                var okNumber: Bool = true
+                do {
+                    okNumber = try canBeNumber(split)
+                } catch {
                     throw(TokenizerError.invalidNumber(op: split))
                 }
+                if okNumber {
+                    let n = Number(split, precision: 10)
+                    let s = SwiftGmp(withString: split, precision: 10)
+                    if s.isValid && !s.NaN {
+                        tokenArray.append(Token(n))
+                        continue
+                    } else {
+                        throw(TokenizerError.invalidNumber(op: split))
+                    }
+                }
             }
+
             if split == "=" {
                 return tokenArray
             }
