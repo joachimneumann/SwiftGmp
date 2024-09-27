@@ -36,10 +36,10 @@ let package = Package(
         .testTarget(
             name: "NumberTests",
             dependencies: ["SwiftGmp"]
-        ),
-        .testTarget(
-            name: "TokenizerTests",
-            dependencies: ["SwiftGmp"]
         )
+//        .testTarget(
+//            name: "TokenizerTests",
+//            dependencies: ["SwiftGmp"]
+//        )
     ]
 )

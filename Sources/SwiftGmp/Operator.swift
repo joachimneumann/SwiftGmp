@@ -25,20 +25,17 @@ public class Operator: Equatable, Identifiable {
     }
 }
 
-public typealias inplaceType = (Number) -> () -> ()
-public typealias twoOperantsType = (Number) -> (Number) -> ()
-
 public class InplaceOperator: Operator {
-    public let operation: inplaceType
-    public init(_ operation: @escaping inplaceType, _ priority: Int, description: String = "") {
+    public let operation: SwiftGmp.swiftGmpInplaceType
+    public init(_ operation: @escaping SwiftGmp.swiftGmpInplaceType, _ priority: Int, description: String = "") {
         self.operation = operation
         super.init(priority, description: description)
     }
 }
 
 public class TwoOperandOperator: Operator {
-    public let operation: twoOperantsType
-    public init(_ op: @escaping twoOperantsType, _ priority: Int, description: String = "") {
+    public let operation: SwiftGmp.swiftGmpTwoOperantsType
+    public init(_ op: @escaping SwiftGmp.swiftGmpTwoOperantsType, _ priority: Int, description: String = "") {
         operation = op
         super.init(priority, description: description)
     }

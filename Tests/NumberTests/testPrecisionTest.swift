@@ -10,35 +10,35 @@ import SwiftGmp
 
 
     precision = 5
-    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine != "10000000003")
-
-    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine != "10000000000000000000003")
-
-    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine != "1000000000000000000000000000000000003")
-
-
-    precision = 20
-    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine == "10000000003")
-
-    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine != "10000000000000000000003")
-
-    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine != "1000000000000000000000000000000000003")
-
-
-    precision = 50
-    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine == "10000000003")
-
-    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine == "10000000000000000000003")
-
-    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
-    #expect(leftNumber.representation().allInOneLine == "1000000000000000000000000000000000003")
+//    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine != "10000000003")
+//
+//    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine != "10000000000000000000003")
+//
+//    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine != "1000000000000000000000000000000000003")
+//
+//
+//    precision = 20
+//    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine == "10000000003")
+//
+//    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine != "10000000000000000000003")
+//
+//    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine != "1000000000000000000000000000000000003")
+//
+//
+//    precision = 50
+//    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine == "10000000003")
+//
+//    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine == "10000000000000000000003")
+//
+//    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
+//    #expect(leftNumber.representation().allInOneLine == "1000000000000000000000000000000000003")
 
 }

@@ -3,43 +3,94 @@ import SwiftGmp_C_Target
 
 var globalUnsignedLongInt: CUnsignedLong = 0
 
-class SwiftGmp: Equatable, CustomDebugStringConvertible {
-    private var bits: Int
-    private(set) var precision: Int
+extension SwiftGmpInplaceOperation {
+    init() {
+        self = .zero
+    }
+}
+
+public enum SwiftGmpInplaceOperation {
+    case zero
+    case pi
+    case e
+    case rand
+    case abs
+    case sqrt
+    case sqrt3
+    case zeta
+    case ln
+    case log10
+    case log2
+    case sin
+    case cos
+    case tan
+    case asin
+    case acos
+    case atan
+    case sinh
+    case cosh
+    case tanh
+    case asinh
+    case acosh
+    case atanh
+    case sqr
+    case cubed
+    case exp
+    case exp2
+    case exp10
+    case changeSign
+    case rez
+    case fac
+    case sinD
+    case cosD
+    case tanD
+    case asinD
+    case acosD
+    case atanD
+}
+
+public enum SwiftGmpTwoOperantOperation {
+    case add
+    case sub
+    case mul
+    case div
+    case pow_x_y
+    case pow_y_x
+    case sqrty
+    case logy
+    case EE
+}
+
+public class SwiftGmp: Equatable, CustomDebugStringConvertible {
+    private(set) var bits: Int
+    private static var rad_deg_bits: Int = 10
+    private static var deg2rad: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
+    private static var rad2deg: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
 
     /// init with zeros. The struct will be initialized correctly in init() with mpfr_init2()
     private var mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
 
-    init(precision: Int) {
-        self.precision = precision
-        self.bits = Number.bits(for: precision)
-        mpfr_init2 (&mpfr, bits) // NaN
-//        what does toDouble() return?
+    init(bits: Int) {
+        self.bits = bits
+        mpfr_init2 (&mpfr, bits) // nan
     }
-    init(withString string: String, precision: Int) {
-        self.precision = precision
-        self.bits = Number.bits(for: precision)
+    init(withString string: String, bits: Int) {
+        self.bits = bits
         mpfr_init2 (&mpfr, bits)
         mpfr_set_str (&mpfr, string, 10, MPFR_RNDN)
     }
-
-//    private init(withMpfr from_mpfr: inout __mpfr_struct, bits: Int) {
-//        self.bits = bits
-//        mpfr_init2 (&mpfr, bits)
-//        mpfr_set(&mpfr, &from_mpfr, MPFR_RNDN)
-//    }
 
     deinit {
         mpfr_clear(&mpfr)
     }
     
-    static func == (lhs: SwiftGmp, rhs: SwiftGmp) -> Bool {
+    public static func == (lhs: SwiftGmp, rhs: SwiftGmp) -> Bool {
         return mpfr_cmp(&lhs.mpfr, &rhs.mpfr) == 0
     }
     
-    func setPrecision(_ newPrecision: Int) {
-        precision = newPrecision
-        bits = Number.bits(for: precision)
+    
+    func setBits(_ newBits: Int) {
+        bits = newBits
         mpfr_prec_round(&mpfr, self.bits, MPFR_RNDN);
     }
     
@@ -48,29 +99,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         return Swift.abs(diff) <= precision
     }
 
-    static func + (lhs: SwiftGmp, rhs: SwiftGmp) -> SwiftGmp {
-        let temp = lhs.copy()
-        temp.add(other: rhs)
-        return temp
-    }
-    static func - (lhs: SwiftGmp, rhs: SwiftGmp) -> SwiftGmp {
-        let temp = lhs.copy()
-        temp.sub(other: rhs)
-        return temp
-    }
-    static func * (lhs: SwiftGmp, rhs: SwiftGmp) -> SwiftGmp {
-        let temp = lhs.copy()
-        temp.mul(other: rhs)
-        return temp
-    }
-    static func / (lhs: SwiftGmp, rhs: SwiftGmp) -> SwiftGmp {
-        let temp = lhs.copy()
-        temp.div(other: rhs)
-        return temp
-    }
-
-    var debugDescription: String {
-        guard !NaN else { return "nan"}
+    public var debugDescription: String {
+        guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         let (mantissa, exponent) = mantissaExponent(len: 100)
         return "\(mantissa) \(exponent)"
@@ -86,7 +116,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     // copy and convert
     //
     func copy() -> SwiftGmp {
-        let ret = SwiftGmp.init(withString: "0", precision: precision)
+        let ret = SwiftGmp.init(withString: "0", bits: bits)
         mpfr_set(&ret.mpfr, &mpfr, MPFR_RNDN)
         return ret
     }
@@ -121,125 +151,163 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     func isNegative()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
     var isValid: Bool {
         if mpfr_number_p(&mpfr) == 0 { return false }
-        if NaN { return false }
-        if inf { return false }
+        if isNan { return false }
+        if isInf { return false }
         return true
     }
-    var NaN: Bool {
+    var isNan: Bool {
         mpfr_nan_p(&mpfr) != 0
     }
-    var inf: Bool {
+    var isInf: Bool {
         mpfr_inf_p(&mpfr) != 0
     }
     var isZero: Bool {
         mpfr_zero_p(&mpfr) != 0
     }
     
-    //
-    // constants
-    //
-    
-    func zero() { mpfr_set_d(&mpfr, 0.0, MPFR_RNDN) }
-    func π() { mpfr_const_pi(&mpfr, MPFR_RNDN) }
-    func e() { mpfr_exp( &mpfr, &SwiftGmp(withString: "1.0", precision: precision).mpfr, MPFR_RNDN) } /// Note: mpfr_const_euler() returns 0.577..., not 2.718
     static var randstate: gmp_randstate_t? = nil
-    func rand() {
-        if SwiftGmp.randstate == nil {
-            SwiftGmp.randstate = gmp_randstate_t()
-            __gmp_randinit_mt(&SwiftGmp.randstate!)
-            __gmp_randseed_ui(&SwiftGmp.randstate!, UInt.random(in: 0..<UInt.max));
-        }
-        mpfr_urandom(&mpfr, &SwiftGmp.randstate!, MPFR_RNDN)
-    }
-
     
-    //
-    // inPlace
-    //
+    public func execute(_ twoOperantOperation: SwiftGmpTwoOperantOperation, other: SwiftGmp) {
+        var temp = self.mpfr;
+        switch twoOperantOperation {
+        case .add:
+            mpfr_add(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+        case .sub:
+            mpfr_sub(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+        case .mul:
+            mpfr_mul(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+        case .div:
+            mpfr_div(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+        case .pow_x_y:
+            mpfr_pow(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+        case .pow_y_x:
+            mpfr_pow(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
+        case .sqrty:
+            other.execute(.rez)
+            execute(.pow_x_y, other: other)
+        case .logy:
+            other.execute(.ln)
+            execute(.div, other: other)
+        case .EE:
+            other.execute(.exp10)
+            execute(.mul, other: other)
+        }
+    }
+    public func execute(_ inplaceOp: SwiftGmpInplaceOperation) {
+        switch inplaceOp {
+        case .zero:
+            mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
+        case .pi:
+            mpfr_const_pi(&mpfr, MPFR_RNDN)
+        case .e:
+            mpfr_exp( &mpfr, &SwiftGmp(withString: "1.0", bits: bits).mpfr, MPFR_RNDN)
+        case .rand:
+            if SwiftGmp.randstate == nil {
+                SwiftGmp.randstate = gmp_randstate_t()
+                __gmp_randinit_mt(&SwiftGmp.randstate!)
+                __gmp_randseed_ui(&SwiftGmp.randstate!, UInt.random(in: 0..<UInt.max));
+            }
+            mpfr_urandom(&mpfr, &SwiftGmp.randstate!, MPFR_RNDN)
+        case .abs:
+            var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN)
+        case .sqrt:
+            var temp = mpfr; mpfr_sqrt( &mpfr, &temp, MPFR_RNDN)
+        case .sqrt3:
+            var temp = mpfr; mpfr_cbrt( &mpfr, &temp, MPFR_RNDN)
+        case .zeta:
+            var temp = mpfr; mpfr_zeta( &mpfr, &temp, MPFR_RNDN)
+        case .ln:
+            var temp = mpfr; mpfr_log(  &mpfr, &temp, MPFR_RNDN)
+        case .log10:
+            var temp = mpfr; mpfr_log10(&mpfr, &temp, MPFR_RNDN)
+        case .log2:
+            var temp = mpfr; mpfr_log2 (&mpfr, &temp, MPFR_RNDN)
+        case .sin:
+            var temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN)
+        case .cos:
+            var temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN)
+        case .tan:
+            var temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN)
+        case .asin:
+            var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN)
+        case .acos:
+            var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN)
+        case .atan:
+            var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN)
+        case .sinh:
+            var temp = mpfr; mpfr_sinh( &mpfr, &temp, MPFR_RNDN)
+        case .cosh:
+            var temp = mpfr; mpfr_cosh( &mpfr, &temp, MPFR_RNDN)
+        case .tanh:
+            var temp = mpfr; mpfr_tanh( &mpfr, &temp, MPFR_RNDN)
+        case .asinh:
+            var temp = mpfr; mpfr_asinh(&mpfr, &temp, MPFR_RNDN)
+        case .acosh:
+            var temp = mpfr; mpfr_acosh(&mpfr, &temp, MPFR_RNDN)
+        case .atanh:
+            var temp = mpfr; mpfr_atanh(&mpfr, &temp, MPFR_RNDN)
+        case .sqr:
+            var temp = mpfr; mpfr_sqr(  &mpfr, &temp, MPFR_RNDN)
+        case .cubed:
+            var temp = mpfr; mpfr_pow_ui(&mpfr, &temp, 3, MPFR_RNDN)
+        case .exp:
+            var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN)
+        case .exp2:
+            var temp = mpfr; mpfr_ui_pow(&mpfr, 2, &temp, MPFR_RNDN)
+        case .exp10:
+            var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN)
+        case .changeSign:
+            var temp = mpfr; mpfr_neg(  &mpfr, &temp, MPFR_RNDN)
+        case .rez:
+            var temp = mpfr; mpfr_ui_div(&mpfr, 1, &temp, MPFR_RNDN)
+        case .fac:
+            let n = mpfr_get_si(&mpfr, MPFR_RNDN)
+            if n >= 0 {
+                let un = UInt(n)
+                mpfr_fac_ui(&mpfr, un, MPFR_RNDN)
+            } else {
+                mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
+            }
+        case .sinD:
+            check(bits: bits)
+            var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad.mpfr, MPFR_RNDN); temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN)
+        case .cosD:
+            check(bits: bits)
+            var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad.mpfr, MPFR_RNDN); temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN)
+        case .tanD:
+            check(bits: bits)
+            var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad.mpfr, MPFR_RNDN); temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN)
+        case .asinD:
+            check(bits: bits)
+            var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg.mpfr, MPFR_RNDN)
+        case .acosD:
+            check(bits: bits)
+            var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg.mpfr, MPFR_RNDN)
+        case .atanD:
+            check(bits: bits)
+            var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg.mpfr, MPFR_RNDN)
+        }
+    }
+    
 //    func inPlace(op: inplaceType) { op(self)() }
     /// in the second argument, I a simultaneously using the same memory
     /// Option 1: &mpfr -> &copy().mpfr
     /// Option 2: in the build settings set exclusiv access to memory to compiletime enfocement only
-    func abs()        { var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN) }
-    func sqrt()       { var temp = mpfr; mpfr_sqrt( &mpfr, &temp, MPFR_RNDN) }
-    func sqrt3()      { var temp = mpfr; mpfr_cbrt( &mpfr, &temp, MPFR_RNDN) }
-    func Z()          { var temp = mpfr; mpfr_zeta( &mpfr, &temp, MPFR_RNDN) }
-    func ln()         { var temp = mpfr; mpfr_log(  &mpfr, &temp, MPFR_RNDN) }
-    func log10()      { var temp = mpfr; mpfr_log10(&mpfr, &temp, MPFR_RNDN) }
-    func log2()       { var temp = mpfr; mpfr_log2 (&mpfr, &temp, MPFR_RNDN) }
-    func sin()        { var temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN) }
-    func cos()        { var temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN) }
-    func tan()        { var temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN) }
-    func asin()       { var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN) }
-    func acos()       { var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN) }
-    func atan()       { var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN) }
-    func sinh()       { var temp = mpfr; mpfr_sinh( &mpfr, &temp, MPFR_RNDN) }
-    func cosh()       { var temp = mpfr; mpfr_cosh( &mpfr, &temp, MPFR_RNDN) }
-    func tanh()       { var temp = mpfr; mpfr_tanh( &mpfr, &temp, MPFR_RNDN) }
-    func asinh()      { var temp = mpfr; mpfr_asinh(&mpfr, &temp, MPFR_RNDN) }
-    func acosh()      { var temp = mpfr; mpfr_acosh(&mpfr, &temp, MPFR_RNDN) }
-    func atanh()      { var temp = mpfr; mpfr_atanh(&mpfr, &temp, MPFR_RNDN) }
-    func sqr()        { var temp = mpfr; mpfr_sqr(  &mpfr, &temp, MPFR_RNDN) }
-    func exp()        { var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN) }
-    func exp2()       { var temp = mpfr; mpfr_ui_pow(&mpfr, 2, &temp, MPFR_RNDN) }
-    func exp10()      { var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN) }
-    func changeSign() { var temp = mpfr; mpfr_neg(  &mpfr, &temp, MPFR_RNDN) }
-    func cubed()      { var temp = mpfr; mpfr_pow_ui(&mpfr, &temp, 3, MPFR_RNDN) }
-    func rez()        { var temp = mpfr; mpfr_ui_div(&mpfr, 1, &temp, MPFR_RNDN) }
-    func fac() {
-        let n = mpfr_get_si(&mpfr, MPFR_RNDN)
-        if n >= 0 {
-            let un = UInt(n)
-            mpfr_fac_ui(&mpfr, un, MPFR_RNDN)
-        } else {
-            mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
+    
+    func check(bits: Int) {
+        if bits != SwiftGmp.rad_deg_bits {
+            let _180 = SwiftGmp(withString: "180", bits: bits)
+            SwiftGmp.deg2rad.execute(.pi)
+            SwiftGmp.deg2rad.execute(.div, other: _180)
+            SwiftGmp.rad2deg.execute(.pi)
+            SwiftGmp.rad2deg.execute(.rez)
+            SwiftGmp.deg2rad.execute(.mul, other: _180)
+            SwiftGmp.rad_deg_bits = bits
         }
     }
-
-    static var deg2rad: SwiftGmp? = nil
-    static var rad2deg: SwiftGmp? = nil
-    static var rad_deg_precision: Int = 0
     
-    static func check(_ precision: Int) {
-        if precision != rad_deg_precision {
-            deg2rad = SwiftGmp(withString: "0", precision: precision);
-            deg2rad!.π()
-            deg2rad!.div(other: SwiftGmp(withString: "180", precision: precision))
-            SwiftGmp.rad2deg = SwiftGmp(withString: "0", precision: precision);
-            SwiftGmp.rad2deg!.π()
-            SwiftGmp.rad2deg!.rez()
-            SwiftGmp.rad2deg!.mul(other: SwiftGmp(withString: "180", precision: precision))
-            rad_deg_precision = precision
-        }
-    }
-    func sinD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN) }
-    func cosD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN) }
-    func tanD()  { SwiftGmp.check(precision); var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad!.mpfr, MPFR_RNDN); temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN) }
-    func asinD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
-    func acosD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
-    func atanD() { SwiftGmp.check(precision); var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg!.mpfr, MPFR_RNDN) }
-    
-    //
-    // twoOperants
-    //
-//    func execute(_ op: twoOperantsType, with other: SwiftGmp) { op(self)(other) }
-    func add (other: SwiftGmp) { var temp = mpfr; mpfr_add(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
-    func sub (other: SwiftGmp) { var temp = mpfr; mpfr_sub(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
-    func mul (other: SwiftGmp) { var temp = mpfr; mpfr_mul(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
-    func div (other: SwiftGmp) { var temp = mpfr; mpfr_div(&mpfr, &temp, &other.mpfr, MPFR_RNDN) }
-    
-    func pow_x_y(exponent: SwiftGmp) { mpfr_pow(&mpfr, &mpfr, &exponent.mpfr, MPFR_RNDN) }
-    func pow_y_x(base: SwiftGmp)     { mpfr_pow(&mpfr, &base.mpfr, &mpfr, MPFR_RNDN) }
-    func sqrty(exponent: SwiftGmp)   { exponent.rez(); pow_x_y(exponent: exponent) }
-    func logy(base: SwiftGmp) {
-        self.ln()
-        base.ln()
-        self.div(other: base)
-    }
-    func EE(other: SwiftGmp) {
-        other.exp10()
-        self.mul(other: other)
-    }
+    public typealias swiftGmpInplaceType = (SwiftGmp) -> () -> ()
+    public typealias swiftGmpTwoOperantsType = (SwiftGmp) -> (SwiftGmp) -> ()
     
     func setValue(other: SwiftGmp) {
         mpfr_set(&mpfr, &other.mpfr, MPFR_RNDN)

@@ -7,7 +7,7 @@
 
 public class NumberStack: CustomDebugStringConvertible {
     enum Constants {
-        case π
+        case pi
         case e
         case rand
         case zero
@@ -98,32 +98,32 @@ public class NumberStack: CustomDebugStringConvertible {
         Number(value, precision: precision)
     }
 
-    func mul() {
-        if let last = popLast() {
-            if let secondLast = popLast() {
-                push(last * secondLast)
-            }
-        }
-    }
-    func add() {
-        if let last = popLast() {
-            if let secondLast = popLast() {
-                push(last + secondLast)
-            }
-        }
-    }
-    func sub() {
-        if let last = popLast() {
-            if let secondLast = popLast() {
-                push(last - secondLast)
-            }
-        }
-    }
-    func div() {
-        if let last = popLast() {
-            if let secondLast = popLast() {
-                push(last / secondLast)
-            }
-        }
-    }
+//    func mul() {
+//        if let last = popLast() {
+//            if let secondLast = popLast() {
+//                push(last * secondLast)
+//            }
+//        }
+//    }
+//    func add() {
+//        if let last = popLast() {
+//            if let secondLast = popLast() {
+//                push(last + secondLast)
+//            }
+//        }
+//    }
+//    func sub() {
+//        if let last = popLast() {
+//            if let secondLast = popLast() {
+//                push(last - secondLast)
+//            }
+//        }
+//    }
+//    func div() {
+//        if let last = popLast() {
+//            if let secondLast = popLast() {
+//                push(last / secondLast)
+//            }
+//        }
+//    }
 }
