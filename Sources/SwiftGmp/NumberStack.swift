@@ -1,11 +1,11 @@
 //
-//  Numbers.swift
+//  NumberStack.swift
 //  SwiftGmp
 //
 //  Created by Joachim Neumann on 24.09.24.
 //
 
-public class Numbers: CustomDebugStringConvertible {
+public class NumberStack: CustomDebugStringConvertible {
     enum Constants {
         case π
         case e
@@ -20,7 +20,6 @@ public class Numbers: CustomDebugStringConvertible {
     }
     
     private var array: [Number] = []
-    private var operatorQueue: OperatorQueue = OperatorQueue()
     
     func setPrecision(to newPrecision: Int) {
         precision = newPrecision

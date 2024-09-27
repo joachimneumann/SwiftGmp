@@ -24,52 +24,60 @@ public enum TokenizerError: Error, LocalizedError {
     }
 }
 
+//public struct Token: CustomDebugStringConvertible {
+//    enum TokenType {
+//        case inplace
+//        case twoOperand
+//        case number
+//    }
+//    var tokenType: TokenType {
+//        if inplaceOperator != nil {
+//            return .inplace
+//        }
+//        if twoOperandOperator != nil {
+//            return .twoOperand
+//        }
+//        return .number
+//    }
+//    public var debugDescription: String {
+//        if let inplaceOperator {
+//            return inplaceOperator.description ?? "unknown"
+//        }
+//        if let number {
+//            return number.debugDescription
+//        }
+//        if let twoOperandOperator {
+//            return twoOperandOperator.description ?? "unknown"
+//        }
+//        return ""
+//    }
+//    
+//    let inplaceOperator: InplaceOperator?
+//    let twoOperandOperator: TwoOperandOperator?
+//    let number: Number?
+//    init(_ inplaceOperator: InplaceOperator) {
+//        self.inplaceOperator = inplaceOperator
+//        self.twoOperandOperator = nil
+//        self.number = nil
+//    }
+//    init(_ twoOperandOperator: TwoOperandOperator) {
+//        self.inplaceOperator = nil
+//        self.twoOperandOperator = twoOperandOperator
+//        self.number = nil
+//    }
+//    init(_ number: Number) {
+//        self.inplaceOperator = nil
+//        self.twoOperandOperator = nil
+//        self.number = number
+//    }
+//}
+
 
 public struct Tokenizer {
-    
-    public struct Token: CustomDebugStringConvertible {
-        public var debugDescription: String {
-            if let inplaceOperator {
-                return inplaceOperator.description ?? "unknown"
-            }
-            if let number {
-                return number.debugDescription
-            }
-            if let twoOperandOperator {
-                return twoOperandOperator.description ?? "unknown"
-            }
-            return ""
-        }
-        
-        let inplaceOperator: InplaceOperator?
-        let twoOperandOperator: TwoOperandOperator?
-        let number: Number?
-        init(_ inplaceOperator: InplaceOperator) {
-            self.inplaceOperator = inplaceOperator
-            self.twoOperandOperator = nil
-            self.number = nil
-        }
-        init(_ twoOperandOperator: TwoOperandOperator) {
-            self.inplaceOperator = nil
-            self.twoOperandOperator = twoOperandOperator
-            self.number = nil
-        }
-        init(_ number: Number) {
-            self.inplaceOperator = nil
-            self.twoOperandOperator = nil
-            self.number = number
-        }
-    }
-
-    
     private var inplaceOperators: [String: InplaceOperator] = [:]
     private var basicTwoOperandOperator: [String: TwoOperandOperator] = [:]
     private var twoOperandOperator: [String: TwoOperandOperator] = [:]
     
-    public func allOperators() -> [String] {
-        return Array(inplaceOperators.keys)
-    }
-
     public init() {
         inplaceOperators["zero"]       = InplaceOperator(Number.inplace_zero, 1, description: "zero")
         inplaceOperators["pi"]         = InplaceOperator(Number.inplace_π, 1, description: "π")
@@ -135,12 +143,14 @@ public struct Tokenizer {
     }
     
     private func canBeNumber(_ str: String) throws -> Bool {
-        guard str.filter{ $0 == "e" }.count <= 1 else { throw TokenizerError.invalidNumber(op: str) }
-        guard str.filter{ $0 == "." }.count <= 2 else { throw TokenizerError.invalidNumber(op: str) }
+        guard str.filter({ $0 == "e" }).count <= 1 else { throw TokenizerError.invalidNumber(op: str) }
+        guard str.filter({ $0 == "." }).count <= 2 else { throw TokenizerError.invalidNumber(op: str) }
         
         let without_e_minus = str.replacingFirstOccurrence(of: "e-", with: "")
         let without_e = without_e_minus.filter{ $0 != "e" }
-        guard checkString(string: without_e) else { throw TokenizerError.invalidNumber(op: str) }
+        if !checkString(string: without_e) {
+            throw TokenizerError.invalidNumber(op: str)
+        }
 
         func is19orMinus(_ str: String.Element) -> Bool {
             return str == "-" || (str >= "1" && str <= "9")
@@ -162,8 +172,9 @@ public struct Tokenizer {
         }
     }
 
-    public mutating func parse(_ input: String) throws -> [Token] {
-        var tokenArray: [Token] = []
+    public mutating func parse(_ input: String) throws -> ([Operator], [Number]) {
+        var operators: [Operator] = []
+        var numbers: [Number] = []
 
         var bloatedString = input
         for key in basicTwoOperandOperator.keys {
@@ -177,15 +188,15 @@ public struct Tokenizer {
             let split = String(splitSubSequence)
             if split.isEmpty { continue }
             if let op = inplaceOperators[String(split)] {
-                tokenArray.append(Token(op))
+                operators.append(op)
                 continue
             }
             if let op = basicTwoOperandOperator[String(split)] {
-                tokenArray.append(Token(op))
+                operators.append(op)
                 continue
             }
             if let op = twoOperandOperator[String(split)] {
-                tokenArray.append(Token(op))
+                operators.append(op)
                 continue
             }
             if is19orMinus(split.first!) {
@@ -199,7 +210,7 @@ public struct Tokenizer {
                     let n = Number(split, precision: 10)
                     let s = SwiftGmp(withString: split, precision: 10)
                     if s.isValid && !s.NaN {
-                        tokenArray.append(Token(n))
+                        numbers.append(n)
                         continue
                     } else {
                         throw(TokenizerError.invalidNumber(op: split))
@@ -208,13 +219,13 @@ public struct Tokenizer {
             }
 
             if split == "=" {
-                return tokenArray
+                return (operators, numbers)
             }
             
             // some tokens have not been processed
             throw(TokenizerError.unprocessed(op: split))
         }
-        return tokenArray
+        return (operators, numbers)
     }
 }
 
