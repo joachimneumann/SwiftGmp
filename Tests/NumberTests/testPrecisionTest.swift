@@ -5,40 +5,18 @@ import Testing
 import SwiftGmp
 
 @Test func testPrecisionTest() {
-    var precision: Int; precision = 20
-    var leftNumber: Number
+    let calculator = Calculator(precision: 20)
 
-
-    precision = 5
-//    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine != "10000000003")
-//
-//    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine != "10000000000000000000003")
-//
-//    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine != "1000000000000000000000000000000000003")
-//
-//
-//    precision = 20
-//    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine == "10000000003")
-//
-//    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine != "10000000000000000000003")
-//
-//    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine != "1000000000000000000000000000000000003")
-//
-//
-//    precision = 50
-//    leftNumber = Number(10000000000, precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine == "10000000003")
-//
-//    leftNumber = Number("10000000000000000000000", precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine == "10000000000000000000003")
-//
-//    leftNumber = Number("1000000000000000000000000000000000000", precision: precision) + Number(3, precision: precision)
-//    #expect(leftNumber.representation().allInOneLine == "1000000000000000000000000000000000003")
-
+    calculator.setPrecision(newPrecision: 5)
+    #expect(calculator.calc("10000000000 + 3 !") == "10000000003")
+    #expect(calculator.calc("10000000000000000000000 + 3 !") == "10000000000000000000003")
+    #expect(calculator.calc("1000000000000000000000000000000000000 + 3 !") == "1000000000000000000000000000000000003")
+    calculator.setPrecision(newPrecision: 20)
+    #expect(calculator.calc("10000000000 + 3") == "10000000003")
+    #expect(calculator.calc("10000000000000000000000 + 3 !") == "10000000000000000000003")
+    #expect(calculator.calc("1000000000000000000000000000000000000 + 3 !") == "1000000000000000000000000000000000003")
+    calculator.setPrecision(newPrecision: 50)
+    #expect(calculator.calc("10000000000 + 3") == "10000000003")
+    #expect(calculator.calc("10000000000000000000000 + 3") == "10000000000000000000003")
+    #expect(calculator.calc("1000000000000000000000000000000000000 + 3") == "1000000000000000000000000000000000003")
 }

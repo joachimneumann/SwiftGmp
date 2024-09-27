@@ -21,12 +21,14 @@ let package = Package(
         ),
         .target(
             name: "SwiftGmp",
-            dependencies: ["swiftgmp", "SwiftGmp_C_Target"]
+            dependencies: ["swiftgmp", "SwiftGmp_C_Target"],
+            exclude: ["**/*.txt", "**/*.py"]
         ),
         .target(
             name: "SwiftGmp_C_Target",
             dependencies: [],
             path: "Sources/SwiftGmp_C_Target",
+            exclude: ["**/*.txt", "**/*.py"],
             publicHeadersPath: "include"
         ),
         .testTarget(

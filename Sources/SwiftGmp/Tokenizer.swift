@@ -78,7 +78,15 @@ public struct Tokenizer {
     private var basicTwoOperandOperator: [String: TwoOperandOperator] = [:]
     private var twoOperandOperator: [String: TwoOperandOperator] = [:]
     
-    public init() {
+    private var precision: Int
+
+    public mutating func setPrecision(newPrecision: Int) {
+        precision = newPrecision
+    }
+
+    public init(precision: Int) {
+        self.precision = precision
+        
 //        inplaceOperators["zero"]       = InplaceOperator(n.inplace_zero, 1, description: "zero")
 //        inplaceOperators["pi"]         = InplaceOperator(Number.inplace_π, 1, description: "π")
 //        inplaceOperators["e"]          = InplaceOperator(Number.inplace_e, 1, description: "e")
@@ -207,9 +215,9 @@ public struct Tokenizer {
                     throw(TokenizerError.invalidNumber(op: split))
                 }
                 if okNumber {
-                    let n = Number(split, precision: 10)
-                    let s = SwiftGmp(withString: split, bits: 10)
-                    if s.isValid && !s.isNan {
+                    let n = Number(split, precision: precision)
+                    let tempGmp = SwiftGmp(withString: split, bits: n.bits(for: precision))
+                    if tempGmp.isValid && !tempGmp.isNan {
                         numbers.append(n)
                         continue
                     } else {

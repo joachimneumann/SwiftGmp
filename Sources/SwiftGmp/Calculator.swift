@@ -6,14 +6,20 @@
 //
 
 public class Calculator {
-    private var tokenizer = Tokenizer()
-    
-    public init() {
+    private var tokenizer: Tokenizer
+    private var precision: Int
+    public init(precision: Int) {
+        self.precision = precision
+        tokenizer = Tokenizer(precision: precision)
     }
-    
+    public func setPrecision(newPrecision: Int) {
+        self.precision = newPrecision
+        tokenizer.setPrecision(newPrecision: newPrecision)
+    }
+
     public func calc(_ expression: String) -> String {
         do {
-            var (operators, numbers) = try tokenizer.parse(expression)
+            let (operators, numbers) = try tokenizer.parse(expression)
             if numbers.count == 0 {
                 return "missing number in expression"
             }
