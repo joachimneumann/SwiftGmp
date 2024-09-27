@@ -74,10 +74,6 @@ public enum TokenizerError: Error, LocalizedError {
 
 
 public struct Tokenizer {
-    private var inplaceOperators: [String: InplaceOperator] = [:]
-    private var basicTwoOperandOperator: [String: TwoOperandOperator] = [:]
-    private var twoOperandOperator: [String: TwoOperandOperator] = [:]
-    
     private var precision: Int
 
     public mutating func setPrecision(newPrecision: Int) {
@@ -180,30 +176,26 @@ public struct Tokenizer {
         }
     }
 
-    public mutating func parse(_ input: String) throws -> ([Operator], [Number]) {
-        var operators: [Operator] = []
+    public mutating func parse(_ input: String) throws -> ([OpProtocol], [Number]) {
+        var operators: [OpProtocol] = []
         var numbers: [Number] = []
 
         var bloatedString = input
-        for key in basicTwoOperandOperator.keys {
-            if bloatedString.contains(key) {
-                bloatedString = bloatedString.replacingOccurrences(of: key, with: " \(key) ")
-            }
-        }
+        bloatedString = bloatedString.replacingOccurrences(of: "+", with: " add ")
+        bloatedString = bloatedString.replacingOccurrences(of: "-", with: " sub ")
+        bloatedString = bloatedString.replacingOccurrences(of: "*", with: " mul ")
+        bloatedString = bloatedString.replacingOccurrences(of: "/", with: " div ")
         print(bloatedString)
         let splitString = bloatedString.split(separator: " ")
         for splitSubSequence in splitString {
             let split = String(splitSubSequence)
             if split.isEmpty { continue }
-            if let op = inplaceOperators[String(split)] {
+            
+            if let op = SwiftGmpInplaceOperation(rawValue: split) {
                 operators.append(op)
                 continue
             }
-            if let op = basicTwoOperandOperator[String(split)] {
-                operators.append(op)
-                continue
-            }
-            if let op = twoOperandOperator[String(split)] {
+            if let op = SwiftGmpTwoOperantOperation(rawValue: split) {
                 operators.append(op)
                 continue
             }

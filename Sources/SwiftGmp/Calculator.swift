@@ -19,23 +19,22 @@ public class Calculator {
 
     public func calc(_ expression: String) -> String {
         do {
-            let (operators, numbers) = try tokenizer.parse(expression)
+            var (operators, numbers) = try tokenizer.parse(expression)
             if numbers.count == 0 {
                 return "missing number in expression"
             }
-//            while operators.count > 0 {
-//                let op = operators.first
-//                operators.removeFirst()
-//                if let inplace = op as? InplaceOperator {
-//                    if let n = numbers.first {
-//                        numbers.removeFirst()
-//                        let xx = inplace.operation
-//                        n.inplace_Z()
-////                        xx(n)
-//                    }
-//                }
-//            }
-            return "result"
+            while operators.count > 0 {
+                let op = operators.first
+                operators.removeFirst()
+                if let inline = op as? SwiftGmpInplaceOperation {
+                    if let n = numbers.first {
+                        numbers.removeFirst()
+                        n.swiftGmp.execute(inline)
+                        return n.debugDescription
+                    }
+                }
+            }
+            return "??"
         } catch {
             return error.localizedDescription
         }

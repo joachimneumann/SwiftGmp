@@ -9,7 +9,15 @@ extension SwiftGmpInplaceOperation {
     }
 }
 
-public enum SwiftGmpInplaceOperation {
+public protocol OpProtocol {
+    func name() -> String
+}
+
+public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
+    public func name() -> String {
+        "x"
+    }
+    
     case zero
     case pi
     case e
@@ -49,7 +57,11 @@ public enum SwiftGmpInplaceOperation {
     case atanD
 }
 
-public enum SwiftGmpTwoOperantOperation {
+public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
+    public func name() -> String {
+        "XX"
+    }
+    
     case add
     case sub
     case mul
