@@ -10,7 +10,6 @@ extension SwiftGmpInplaceOperation {
 }
 
 public protocol OpProtocol {
-    func name() -> String
     func isEqual(to other: OpProtocol) -> Bool
 }
 
@@ -21,12 +20,7 @@ extension OpProtocol where Self: Equatable {
     }
 }
 
-
 public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
-    public func name() -> String {
-        "x"
-    }
-    
     case zero
     case pi
     case e
@@ -67,15 +61,11 @@ public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
 }
 
 public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
-    public func name() -> String {
-        "XX"
-    }
-    
-    case add
-    case sub
-    case mul
-    case div
-    case pow_x_y
+    case add = "+"
+    case sub = "-"
+    case mul = "*"
+    case div = "/"
+    case pow_x_y = "**"
     case pow_y_x
     case sqrty
     case logy
@@ -83,13 +73,16 @@ public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
 }
 
 public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
-    public func name() -> String {
-        "x"
-    }
-    
-    case leftParenthesis
-    case rightParenthesis
+    case leftParenthesis = "("
+    case rightParenthesis = ")"
 }
+
+public var sortedByLengthOperators: [OpProtocol] {
+    all = SwiftGmpInplaceOperation.allCases.raw
+    
+    [SwiftGmpInplaceOperation.sin]
+}
+
 
 public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private(set) var bits: Int
