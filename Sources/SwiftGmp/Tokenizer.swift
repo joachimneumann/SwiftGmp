@@ -83,6 +83,11 @@ public struct Tokenizer {
     public init(precision: Int) {
         self.precision = precision
         
+        let input = "-5+(3.14/2)+1e3-4.223e-4+(2+3)"
+        let result = evaluate(input)
+        print("Result: \(result)")  // Expected: 1000.9995777
+
+        
 //        inplaceOperators["zero"]       = InplaceOperator(n.inplace_zero, 1, description: "zero")
 //        inplaceOperators["pi"]         = InplaceOperator(Number.inplace_π, 1, description: "π")
 //        inplaceOperators["e"]          = InplaceOperator(Number.inplace_e, 1, description: "e")
@@ -135,11 +140,8 @@ public struct Tokenizer {
     
     func checkString(string: String) -> Bool {
         let without_dot = string.replacingOccurrences(of: ".", with: "")
-        let digits = CharacterSet.decimalDigits
-        
-        let stringSet = CharacterSet(charactersIn: without_dot)
-
-        return digits.isSuperset(of: stringSet)
+        let match = without_dot.range(of: "^[0-9]*$", options: .regularExpression)
+        return match != nil
     }
 
     func is19orMinus(_ str: String.Element) -> Bool {
@@ -218,10 +220,6 @@ public struct Tokenizer {
                 }
             }
 
-            if split == "=" {
-                return (operators, numbers)
-            }
-            
             // some tokens have not been processed
             throw(TokenizerError.unprocessed(op: split))
         }
@@ -229,3 +227,140 @@ public struct Tokenizer {
     }
 }
 
+
+// Define token types
+enum Token: Equatable {
+    case number(String)
+    case plus
+    case minus
+    case div
+    case leftParen
+    case rightParen
+    case sin
+}
+
+// Tokenizer: Convert string into tokens
+func tokenize(_ input: String) -> [Token] {
+    var tokens: [Token] = []
+    var numberBuffer = ""
+    var index = input.startIndex
+
+    while index < input.endIndex {
+        let char = input[index]
+        
+        if char.isNumber || char == "." || char == "e" || char == "-" && numberBuffer.last == "e" {
+            numberBuffer.append(char)
+        } else if char == "+" {
+            if !numberBuffer.isEmpty {
+                tokens.append(.number(numberBuffer))
+                numberBuffer = ""
+            }
+            tokens.append(.plus)
+        } else if char == "-" {
+            if !numberBuffer.isEmpty {
+                tokens.append(.number(numberBuffer))
+                numberBuffer = ""
+            }
+            tokens.append(.minus)
+        } else if char == "/" {
+            if !numberBuffer.isEmpty {
+                tokens.append(.number(numberBuffer))
+                numberBuffer = ""
+            }
+            tokens.append(.div)
+        } else if char == "(" {
+            if !numberBuffer.isEmpty {
+                tokens.append(.number(numberBuffer))
+                numberBuffer = ""
+            }
+            tokens.append(.leftParen)
+        } else if char == ")" {
+            if !numberBuffer.isEmpty {
+                tokens.append(.number(numberBuffer))
+                numberBuffer = ""
+            }
+            tokens.append(.rightParen)
+        } else if char.isWhitespace {
+            if !numberBuffer.isEmpty {
+                tokens.append(.number(numberBuffer))
+                numberBuffer = ""
+            }
+        } else {
+            fatalError("Unexpected character: \(char)")
+        }
+        index = input.index(after: index)
+    }
+    
+    if !numberBuffer.isEmpty {
+        tokens.append(.number(numberBuffer))
+    }
+    
+    return tokens
+}
+
+// Parser/Evaluator: Evaluate tokens
+func parseExpression(_ tokens: inout [Token]) -> Double {
+    return -1.0
+//    var result = parseTerm(&tokens)
+//    
+//    while let token = tokens.first {
+//        switch token {
+//        case .plus:
+//            tokens.removeFirst()
+//            result += parseTerm(&tokens)
+//        case .minus:
+//            tokens.removeFirst()
+//            result -= parseTerm(&tokens)
+//        default:
+//            return result
+//        }
+//    }
+//    
+//    return result
+}
+
+// Parse a single term (numbers, negative numbers, parentheses, sin)
+func parseTerm(_ tokens: inout [Token]) -> Double {
+    return -1.0
+//    var result: Double
+//    
+//    guard let token = tokens.first else {
+//        fatalError("Unexpected end of input")
+//    }
+//    
+//    tokens.removeFirst()
+//    
+//    switch token {
+//    case .number(let value):
+//        result = value
+//    case .minus:
+//        result = -parseTerm(&tokens)  // Handle negative numbers
+//    case .leftParen:
+//        result = parseExpression(&tokens)
+//        guard let nextToken = tokens.first, nextToken == .rightParen else {
+//            fatalError("Expected closing parenthesis")
+//        }
+//        tokens.removeFirst()  // Discard right parenthesis
+//    case .sin:
+//        guard let nextToken = tokens.first, nextToken == .leftParen else {
+//            fatalError("Expected '(' after 'sin'")
+//        }
+//        tokens.removeFirst()  // Discard left parenthesis
+//        let angle = parseExpression(&tokens)
+//        guard let closingParen = tokens.first, closingParen == .rightParen else {
+//            fatalError("Expected closing parenthesis for 'sin'")
+//        }
+//        tokens.removeFirst()  // Discard right parenthesis
+//        result = sin(angle)
+//    default:
+//        fatalError("Unexpected token")
+//    }
+//    
+//    return result
+}
+
+// Main function to parse and evaluate input string
+func evaluate(_ input: String) -> Double {
+    var tokens = tokenize(input.replacingOccurrences(of: " ", with: ""))
+    return parseExpression(&tokens)
+}

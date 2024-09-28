@@ -132,7 +132,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_set(&ret.mpfr, &mpfr, MPFR_RNDN)
         return ret
     }
-    func toDouble() -> Double {
+    public func toDouble() -> Double {
         return mpfr_get_d(&mpfr, MPFR_RNDN)
     }
     static func memorySize(bits: Int) -> Int {
@@ -183,15 +183,15 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         var temp = self.mpfr;
         switch twoOperantOperation {
         case .add:
-            mpfr_add(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+            mpfr_add(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
         case .sub:
-            mpfr_sub(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+            mpfr_sub(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
         case .mul:
-            mpfr_mul(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+            mpfr_mul(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
         case .div:
-            mpfr_div(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+            mpfr_div(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
         case .pow_x_y:
-            mpfr_pow(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+            mpfr_pow(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
         case .pow_y_x:
             mpfr_pow(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
         case .sqrty:

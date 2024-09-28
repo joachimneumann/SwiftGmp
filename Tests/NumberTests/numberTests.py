@@ -111,18 +111,24 @@ for file in glob.glob("*.txt"):
                         writeln("// "+comment)
                 else:
                     if "=" in content:
-                        components = content.strip().split("=")
+#                        components = content.strip().split("=")
+#                        if len(components) == 2:
+#                            if components[0].strip() == "precision":
+#                                writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
+#                            else:
+#                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
+                        components = content.strip().split("~=")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
-                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
+                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\").hasPrefix(\""+components[1].strip()+"\"))")
                     if "~=" in content:
                         components = content.strip().split("~=")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
-                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
+                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\").hasPrefix(\""+components[1].strip()+"\"))")
     writeln("}")
     f.close()

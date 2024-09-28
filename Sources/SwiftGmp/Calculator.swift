@@ -18,25 +18,48 @@ public class Calculator {
     }
 
     public func calc(_ expression: String) -> String {
+        var operators: [OpProtocol]
+        var numbers: [Number]
+        
+        var trimmedExpression = expression.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedExpression.hasSuffix("=") {
+            trimmedExpression = String(trimmedExpression.dropLast())
+        }
         do {
-            var (operators, numbers) = try tokenizer.parse(expression)
-            if numbers.count == 0 {
-                return "missing number in expression"
-            }
-            while operators.count > 0 {
-                let op = operators.first
-                operators.removeFirst()
-                if let inline = op as? SwiftGmpInplaceOperation {
-                    if let n = numbers.first {
-                        numbers.removeFirst()
-                        n.swiftGmp.execute(inline)
-                        return n.debugDescription
-                    }
-                }
-            }
-            return "??"
+            (operators, numbers) = try tokenizer.parse(trimmedExpression)
         } catch {
             return error.localizedDescription
         }
+        if numbers.count == 0 && operators.count == 0 {
+            return ""
+        }
+        if operators.count == 0 {
+            return "no operator found"
+        }
+        if numbers.count == 0 {
+            return "no number found"
+        }
+        while operators.count > 0 {
+            let op = operators.first
+            operators.removeFirst()
+            if let inPlace = op as? SwiftGmpInplaceOperation {
+                if let n = numbers.first {
+                    n.swiftGmp.execute(inPlace)
+                }
+            } else if let twoOperants = op as? SwiftGmpTwoOperantOperation {
+                if let n1 = numbers.first {
+                    numbers.removeFirst()
+                    if numbers.first != nil {
+                        numbers.first!.swiftGmp.execute(twoOperants, other: n1.swiftGmp)
+                    }
+                }
+            }
+            if operators.count == 0 {
+                if let result = numbers.first {
+                    return String(result.swiftGmp.toDouble())
+                }
+            }
+        }
+        return "something went wrong"
     }
 }
