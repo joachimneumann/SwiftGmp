@@ -11,7 +11,16 @@ extension SwiftGmpInplaceOperation {
 
 public protocol OpProtocol {
     func name() -> String
+    func isEqual(to other: OpProtocol) -> Bool
 }
+
+extension OpProtocol where Self: Equatable {
+    public func isEqual(to other: OpProtocol) -> Bool {
+        guard let other = other as? Self else { return false }
+        return self == other
+    }
+}
+
 
 public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     public func name() -> String {
@@ -71,6 +80,15 @@ public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case sqrty
     case logy
     case EE
+}
+
+public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
+    public func name() -> String {
+        "x"
+    }
+    
+    case leftParenthesis
+    case rightParenthesis
 }
 
 public class SwiftGmp: Equatable, CustomDebugStringConvertible {

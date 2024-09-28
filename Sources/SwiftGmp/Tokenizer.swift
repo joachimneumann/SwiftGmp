@@ -83,9 +83,9 @@ public struct Tokenizer {
     public init(precision: Int) {
         self.precision = precision
         
-        let input = "-5+(3.14/2)+1e3-4.223e-4+(2+3)"
-        let result = evaluate(input)
-        print("Result: \(result)")  // Expected: 1000.9995777
+//        let input = "-5+(3.14/2)- -1e3-4.223e-4+(2+3)"
+//        let result = evaluate(input)
+//        print("Result: \(result)")  // Expected: 1000.9995777
 
         
 //        inplaceOperators["zero"]       = InplaceOperator(n.inplace_zero, 1, description: "zero")
@@ -138,229 +138,192 @@ public struct Tokenizer {
 //        twoOperandOperator["EE"]       = TwoOperandOperator(Number.EE, 1, description: "time to the the power of" )
     }
     
-    func checkString(string: String) -> Bool {
-        let without_dot = string.replacingOccurrences(of: ".", with: "")
-        let match = without_dot.range(of: "^[0-9]*$", options: .regularExpression)
-        return match != nil
-    }
+//    func checkString(string: String) -> Bool {
+//        let without_dot = string.replacingOccurrences(of: ".", with: "")
+//        let match = without_dot.range(of: "^[0-9]*$", options: .regularExpression)
+//        return match != nil
+//    }
+//
+//    func is19orMinus(_ str: String.Element) -> Bool {
+//        return str == "-" || (str >= "1" && str <= "9")
+//    }
+//    
+//    private func canBeNumber(_ str: String) throws -> Bool {
+//        guard str.filter({ $0 == "e" }).count <= 1 else { throw TokenizerError.invalidNumber(op: str) }
+//        guard str.filter({ $0 == "." }).count <= 2 else { throw TokenizerError.invalidNumber(op: str) }
+//        
+//        let without_e_minus = str.replacingFirstOccurrence(of: "e-", with: "")
+//        let without_e = without_e_minus.filter{ $0 != "e" }
+//        if !checkString(string: without_e) {
+//            throw TokenizerError.invalidNumber(op: str)
+//        }
+//
+//        func is19orMinus(_ str: String.Element) -> Bool {
+//            return str == "-" || (str >= "1" && str <= "9")
+//        }
+//             
+//        guard let firstChar = str.first else { return false } // Empty string case
+//        if firstChar == "." {
+//            guard let secondChar = str.dropFirst().first else { return false } // only .
+//            if is19orMinus(secondChar) {
+//                return true
+//            } else {
+//                throw TokenizerError.invalidNumber(op: str)
+//            }
+//        }
+//        if is19orMinus(firstChar) {
+//            return true
+//        } else {
+//            throw TokenizerError.invalidNumber(op: str)
+//        }
+//    }
 
-    func is19orMinus(_ str: String.Element) -> Bool {
-        return str == "-" || (str >= "1" && str <= "9")
-    }
-    
-    private func canBeNumber(_ str: String) throws -> Bool {
-        guard str.filter({ $0 == "e" }).count <= 1 else { throw TokenizerError.invalidNumber(op: str) }
-        guard str.filter({ $0 == "." }).count <= 2 else { throw TokenizerError.invalidNumber(op: str) }
-        
-        let without_e_minus = str.replacingFirstOccurrence(of: "e-", with: "")
-        let without_e = without_e_minus.filter{ $0 != "e" }
-        if !checkString(string: without_e) {
-            throw TokenizerError.invalidNumber(op: str)
-        }
+    public mutating func parse(_ input: String) throws -> ([any OpProtocol], [Number]) {
 
-        func is19orMinus(_ str: String.Element) -> Bool {
-            return str == "-" || (str >= "1" && str <= "9")
-        }
-             
-        guard let firstChar = str.first else { return false } // Empty string case
-        if firstChar == "." {
-            guard let secondChar = str.dropFirst().first else { return false } // only .
-            if is19orMinus(secondChar) {
-                return true
-            } else {
-                throw TokenizerError.invalidNumber(op: str)
-            }
-        }
-        if is19orMinus(firstChar) {
-            return true
-        } else {
-            throw TokenizerError.invalidNumber(op: str)
-        }
-    }
+//        func numberExpected() -> Bool {
+//            if numberBuffer.isEmpty && numbers.count == 0 {
+//                return true
+//            }
+//            return false
+//        }
 
-    public mutating func parse(_ input: String) throws -> ([OpProtocol], [Number]) {
-        var operators: [OpProtocol] = []
+        var operators: [any OpProtocol] = []
         var numbers: [Number] = []
 
-        var bloatedString = input
-        bloatedString = bloatedString.replacingOccurrences(of: "+", with: " add ")
-        bloatedString = bloatedString.replacingOccurrences(of: "-", with: " sub ")
-        bloatedString = bloatedString.replacingOccurrences(of: "*", with: " mul ")
-        bloatedString = bloatedString.replacingOccurrences(of: "/", with: " div ")
-        print(bloatedString)
-        let splitString = bloatedString.split(separator: " ")
-        for splitSubSequence in splitString {
-            let split = String(splitSubSequence)
-            if split.isEmpty { continue }
-            
-            if let op = SwiftGmpInplaceOperation(rawValue: split) {
-                operators.append(op)
-                continue
-            }
-            if let op = SwiftGmpTwoOperantOperation(rawValue: split) {
-                operators.append(op)
-                continue
-            }
-            if is19orMinus(split.first!) {
-                var okNumber: Bool = true
-                do {
-                    okNumber = try canBeNumber(split)
-                } catch {
-                    throw(TokenizerError.invalidNumber(op: split))
-                }
-                if okNumber {
-                    let n = Number(split, precision: precision)
-                    let tempGmp = SwiftGmp(withString: split, bits: n.bits(for: precision))
-                    if tempGmp.isValid && !tempGmp.isNan {
-                        numbers.append(n)
-                        continue
-                    } else {
-                        throw(TokenizerError.invalidNumber(op: split))
-                    }
-                }
-            }
-
-            // some tokens have not been processed
-            throw(TokenizerError.unprocessed(op: split))
-        }
-        return (operators, numbers)
-    }
-}
-
-
-// Define token types
-enum Token: Equatable {
-    case number(String)
-    case plus
-    case minus
-    case div
-    case leftParen
-    case rightParen
-    case sin
-}
-
-// Tokenizer: Convert string into tokens
-func tokenize(_ input: String) -> [Token] {
-    var tokens: [Token] = []
-    var numberBuffer = ""
-    var index = input.startIndex
-
-    while index < input.endIndex {
-        let char = input[index]
+        var numberBuffer = ""
+        var index = input.startIndex
+        var numberExpected = true
         
-        if char.isNumber || char == "." || char == "e" || char == "-" && numberBuffer.last == "e" {
-            numberBuffer.append(char)
-        } else if char == "+" {
-            if !numberBuffer.isEmpty {
-                tokens.append(.number(numberBuffer))
-                numberBuffer = ""
+        while index < input.endIndex {
+            let char = input[index]
+            
+            if char.isNumber || char == "." || char == "e" || (char == "-" && numberBuffer.last == "e") {
+                // Append characters that are part of a number (including scientific notation)
+                numberBuffer.append(char)
+            } else if char == "=" {
+                // Ignore for now
+            } else if char == "+" {
+                // If there's a number in the buffer, flush it as a token
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                }
+                operators.append(SwiftGmpTwoOperantOperation.add)
+                numberExpected = true
+            } else if char == "*" {
+                // If there's a number in the buffer, flush it as a token
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                }
+                operators.append(SwiftGmpTwoOperantOperation.mul)
+                numberExpected = true
+            } else if char == "/" {
+                // If there's a number in the buffer, flush it as a token
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                }
+                operators.append(SwiftGmpTwoOperantOperation.div)
+                numberExpected = true
+            } else if char == "-" {
+                if numberExpected {
+                    numberBuffer.append(char) // unary minus (e.g., -5)
+                } else {
+                    if !numberBuffer.isEmpty {
+                        numbers.append(Number(numberBuffer, precision: precision))
+                        numberBuffer = ""
+                    }
+                    operators.append(SwiftGmpTwoOperantOperation.sub)  // subtraction operator
+                }
+            } else if char == "(" {
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                }
+                operators.append(SwiftGmpParenthesisOperation.leftParenthesis)
+                numberExpected = true
+            } else if char == ")" {
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                }
+                operators.append(SwiftGmpParenthesisOperation.rightParenthesis)
+                numberExpected = true
+            } else if char.isWhitespace {
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                    numberExpected = false
+                }
+            } else if input[index...].hasPrefix("sin") {
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                }
+                operators.append(SwiftGmpInplaceOperation.sin)
+                index = input.index(index, offsetBy: 2) // Skip 'in' in 'sin'
+                numberExpected = true
+            } else {
+                fatalError("Unexpected character: \(char)")
             }
-            tokens.append(.plus)
-        } else if char == "-" {
-            if !numberBuffer.isEmpty {
-                tokens.append(.number(numberBuffer))
-                numberBuffer = ""
-            }
-            tokens.append(.minus)
-        } else if char == "/" {
-            if !numberBuffer.isEmpty {
-                tokens.append(.number(numberBuffer))
-                numberBuffer = ""
-            }
-            tokens.append(.div)
-        } else if char == "(" {
-            if !numberBuffer.isEmpty {
-                tokens.append(.number(numberBuffer))
-                numberBuffer = ""
-            }
-            tokens.append(.leftParen)
-        } else if char == ")" {
-            if !numberBuffer.isEmpty {
-                tokens.append(.number(numberBuffer))
-                numberBuffer = ""
-            }
-            tokens.append(.rightParen)
-        } else if char.isWhitespace {
-            if !numberBuffer.isEmpty {
-                tokens.append(.number(numberBuffer))
-                numberBuffer = ""
-            }
-        } else {
-            fatalError("Unexpected character: \(char)")
+            
+            index = input.index(after: index)
         }
-        index = input.index(after: index)
+        
+        if !numberBuffer.isEmpty {
+            numbers.append(Number(numberBuffer, precision: precision))
+        }
+        
+        return (operators, numbers)
+
+        
+
+//        var operators: [OpProtocol] = []
+//        var numbers: [Number] = []
+//
+//        var bloatedString = input
+//        bloatedString = bloatedString.replacingOccurrences(of: "+", with: " add ")
+//        bloatedString = bloatedString.replacingOccurrences(of: "-", with: " sub ")
+//        bloatedString = bloatedString.replacingOccurrences(of: "*", with: " mul ")
+//        bloatedString = bloatedString.replacingOccurrences(of: "/", with: " div ")
+//        print(bloatedString)
+//        let splitString = bloatedString.split(separator: " ")
+//        for splitSubSequence in splitString {
+//            let split = String(splitSubSequence)
+//            if split.isEmpty { continue }
+//            
+//            if let op = SwiftGmpInplaceOperation(rawValue: split) {
+//                operators.append(op)
+//                continue
+//            }
+//            if let op = SwiftGmpTwoOperantOperation(rawValue: split) {
+//                operators.append(op)
+//                continue
+//            }
+//            if is19orMinus(split.first!) {
+//                var okNumber: Bool = true
+//                do {
+//                    okNumber = try canBeNumber(split)
+//                } catch {
+//                    throw(TokenizerError.invalidNumber(op: split))
+//                }
+//                if okNumber {
+//                    let n = Number(split, precision: precision)
+//                    let tempGmp = SwiftGmp(withString: split, bits: n.bits(for: precision))
+//                    if tempGmp.isValid && !tempGmp.isNan {
+//                        numbers.append(n)
+//                        continue
+//                    } else {
+//                        throw(TokenizerError.invalidNumber(op: split))
+//                    }
+//                }
+//            }
+//
+//            // some tokens have not been processed
+//            throw(TokenizerError.unprocessed(op: split))
+//        }
+//        return (operators, numbers)
     }
-    
-    if !numberBuffer.isEmpty {
-        tokens.append(.number(numberBuffer))
-    }
-    
-    return tokens
 }
 
-// Parser/Evaluator: Evaluate tokens
-func parseExpression(_ tokens: inout [Token]) -> Double {
-    return -1.0
-//    var result = parseTerm(&tokens)
-//    
-//    while let token = tokens.first {
-//        switch token {
-//        case .plus:
-//            tokens.removeFirst()
-//            result += parseTerm(&tokens)
-//        case .minus:
-//            tokens.removeFirst()
-//            result -= parseTerm(&tokens)
-//        default:
-//            return result
-//        }
-//    }
-//    
-//    return result
-}
-
-// Parse a single term (numbers, negative numbers, parentheses, sin)
-func parseTerm(_ tokens: inout [Token]) -> Double {
-    return -1.0
-//    var result: Double
-//    
-//    guard let token = tokens.first else {
-//        fatalError("Unexpected end of input")
-//    }
-//    
-//    tokens.removeFirst()
-//    
-//    switch token {
-//    case .number(let value):
-//        result = value
-//    case .minus:
-//        result = -parseTerm(&tokens)  // Handle negative numbers
-//    case .leftParen:
-//        result = parseExpression(&tokens)
-//        guard let nextToken = tokens.first, nextToken == .rightParen else {
-//            fatalError("Expected closing parenthesis")
-//        }
-//        tokens.removeFirst()  // Discard right parenthesis
-//    case .sin:
-//        guard let nextToken = tokens.first, nextToken == .leftParen else {
-//            fatalError("Expected '(' after 'sin'")
-//        }
-//        tokens.removeFirst()  // Discard left parenthesis
-//        let angle = parseExpression(&tokens)
-//        guard let closingParen = tokens.first, closingParen == .rightParen else {
-//            fatalError("Expected closing parenthesis for 'sin'")
-//        }
-//        tokens.removeFirst()  // Discard right parenthesis
-//        result = sin(angle)
-//    default:
-//        fatalError("Unexpected token")
-//    }
-//    
-//    return result
-}
-
-// Main function to parse and evaluate input string
-func evaluate(_ input: String) -> Double {
-    var tokens = tokenize(input.replacingOccurrences(of: " ", with: ""))
-    return parseExpression(&tokens)
-}

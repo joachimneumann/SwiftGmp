@@ -30,14 +30,14 @@ let package = Package(
             path: "Sources/SwiftGmp_C_Target",
             publicHeadersPath: "include"
         ),
-//        .testTarget(
-//            name: "SwiftGmpTests",
-//            dependencies: ["SwiftGmp"]
-//        ),
-//        .testTarget(
-//            name: "NumberTests",
-//            dependencies: ["SwiftGmp"]
-//        )
+        .testTarget(
+            name: "SwiftGmpTests",
+            dependencies: ["SwiftGmp"]
+        ),
+        .testTarget(
+            name: "NumberTests",
+            dependencies: ["SwiftGmp"]
+        ),
         .testTarget(
             name: "TokenizerTests",
             dependencies: ["SwiftGmp"]
