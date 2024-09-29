@@ -335,10 +335,10 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
             let _180 = SwiftGmp(withString: "180", bits: bits)
             let _pi = SwiftGmp(bits: bits)
             _pi.execute(.pi)
-            SwiftGmp.deg2rad = _pi.copy()
-            SwiftGmp.deg2rad.execute(.div, other: _180)
-            SwiftGmp.rad2deg = _180.copy()
-            SwiftGmp.rad2deg.execute(.div, other: _pi)
+            SwiftGmp.deg2rad = _180.copy()
+            SwiftGmp.deg2rad.execute(.div, other: _pi)
+            SwiftGmp.rad2deg = SwiftGmp.deg2rad.copy()
+            SwiftGmp.rad2deg.execute(.rez)
             SwiftGmp.rad_deg_bits = bits
         }
     }

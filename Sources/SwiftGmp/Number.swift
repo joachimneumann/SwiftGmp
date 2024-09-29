@@ -26,7 +26,7 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     
     func setPrecision(_ newPrecision: Int) {
         precision = newPrecision
-        swiftGmp.setBits(precision)
+        swiftGmp.setBits(bits(for: precision))
     }
     
     public init(_ str: String, precision: Int) {
