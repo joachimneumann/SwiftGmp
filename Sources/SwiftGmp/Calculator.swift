@@ -54,7 +54,7 @@ public class Calculator {
             }
             if operators.count == 0 {
                 if let result = numbers.first {
-                    return String(result.swiftGmp.toDouble())
+                    return String(result.toDouble())
                 }
             }
         }

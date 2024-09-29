@@ -64,18 +64,17 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         }
         return _swiftGmp!
     }
-//    public func toDouble() -> Double? {
-//        if isStr {
-//            let asDouble = Double(str!)
-//            if (asDouble != nil) {
-//                return asDouble!
-//            } else {
-//                return nil
-//            }
-//        }
-//        return swiftGmp.toDouble()
-//    }
-//    
+    public func toDouble() -> Double {
+        if let str {
+            if let d = Double(str) {
+                return d
+            } else {
+                return Double.nan
+            }
+        }
+        return swiftGmp.toDouble()
+    }
+    
 //    public static func ==(lhs: Number, rhs: Number) -> Bool {
 //        if lhs.precision != rhs.precision { return false }
 //
@@ -167,124 +166,7 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
             return Number(swiftGmp.copy())
         }
     }
-//
-//    public func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
-//        guard let d = self.copy().toDouble() else { return false }
-//        return abs(d - other) <= precision
-//    }
-//    public func similarTo(_ other: Number, precision: Double = 1e-3) -> Bool {
-//        guard let d1 = self.copy().toDouble() else { return false }
-//        guard let d2 = other.copy().toDouble() else { return false }
-//        return abs(d1 - d2) <= precision
-//    }
-//
-//    //
-//    // inplace
-//    //
-////    public inPlace(op: InPlace) {
-//        
-//    }
-//    private func inplace_zero()       { swiftGmp.zero() }
-//    private func inplace_π()          { swiftGmp.π() }
-//    private func inplace_e()          { swiftGmp.e() }
-//    private func inplace_rand()       { swiftGmp.rand() }
-//    private func inplace_abs()        { swiftGmp.abs() }
-//    private func inplace_sqrt()       { swiftGmp.sqrt() }
-//    private func inplace_sqrt3()      { swiftGmp.sqrt3() }
-//    private func inplace_Z()          { swiftGmp.Z() }
-//    private func inplace_ln()         { swiftGmp.ln() }
-//    private func inplace_log10()      { swiftGmp.log10() }
-//    private func inplace_log2()       { swiftGmp.log2() }
-//    private func inplace_sin()        { swiftGmp.sin() }
-//    private func inplace_cos()        { swiftGmp.cos() }
-//    private func inplace_tan()        { swiftGmp.tan() }
-//    private func inplace_asin()       { swiftGmp.asin() }
-//    private func inplace_acos()       { swiftGmp.acos() }
-//    private func inplace_atan()       { swiftGmp.atan() }
-//    private func inplace_sinh()       { swiftGmp.sinh() }
-//    private func inplace_cosh()       { swiftGmp.cosh() }
-//    private func inplace_tanh()       { swiftGmp.tanh() }
-//    private func inplace_asinh()      { swiftGmp.asinh() }
-//    private func inplace_acosh()      { swiftGmp.acosh() }
-//    private func inplace_atanh()      { swiftGmp.atanh() }
-//    private func inplace_sqr()        { swiftGmp.sqr() }
-//    private func inplace_cubed()      { swiftGmp.cubed() }
-//    private func inplace_exp()        { swiftGmp.exp() }
-//    private func inplace_exp2()       { swiftGmp.exp2() }
-//    private func inplace_exp10()      { swiftGmp.exp10() }
-//    private func inplace_changeSign() { swiftGmp.changeSign() }
-//    private func inplace_rez()        { swiftGmp.rez() }
-//    private func inplace_fac()        { swiftGmp.fac() }
-//    private func inplace_sinD()       { swiftGmp.sinD() }
-//    private func inplace_cosD()       { swiftGmp.cosD() }
-//    private func inplace_tanD()       { swiftGmp.tanD() }
-//    private func inplace_asinD()      { swiftGmp.asinD() }
-//    private func inplace_acosD()      { swiftGmp.acosD() }
-//    private func inplace_atanD()      { swiftGmp.atanD() }
-//    
-//    //
-//    // twoOperant
-//    //
-//    public func add(other: Number)        { swiftGmp.add(other: other.swiftGmp) }
-//    public func sub(other: Number)        { swiftGmp.sub(other: other.swiftGmp) }
-//    public func mul(other: Number)        { swiftGmp.mul(other: other.swiftGmp) }
-//    public func div(other: Number)        { swiftGmp.div(other: other.swiftGmp) }
-//    public func pow_x_y(exponent: Number) { swiftGmp.pow_x_y(exponent: exponent.swiftGmp) }
-//    public func pow_y_x(base: Number)     { swiftGmp.pow_y_x(base: base.swiftGmp) }
-//    public func sqrty(exponent: Number)   { swiftGmp.sqrty(exponent: exponent.swiftGmp) }
-//    public func logy(base: Number)        { swiftGmp.logy(base: base.swiftGmp) }
-//    public func EE(other: Number)         { swiftGmp.EE(other: other.swiftGmp) }
-//    
-//    public func setValue(other number: Number) {
-//        if number.isStr {
-//            _str = number.str
-//            _swiftGmp = nil
-//        } else {
-//            swiftGmp.setValue(other: number.swiftGmp)
-//        }
-//    }
-//    
-//    public func append(_ digit: String) {
-//        if !isStr {
-//            _str = digit
-//            _swiftGmp = nil
-//        } else if _str == "0" {
-//            _str = digit
-//        } else {
-//            _str!.append(digit)
-//        }
-//    }
-//    
-//    public func appendDot() {
-//        if _str == nil {
-//            _str = "0."
-//            _swiftGmp = nil
-//        } else {
-//            if !_str!.contains(".") { _str!.append(".") }
-//        }
-//    }
-//    public var isNegative: Bool {
-//        get {
-//            if let _str {
-//                return _str.starts(with: "-")
-//            } else {
-//                return swiftGmp.isNegative()
-//            }
-//        }
-//    }
-//    public func changeSign() {
-//        if _str == nil {
-//            swiftGmp.changeSign()
-//        } else {
-//            if _str! == "0" { return }
-//            if _str!.starts(with: "-") {
-//                _str!.removeFirst()
-//            } else {
-//                _str! = "-" + _str!
-//            }
-//        }
-//    }
-//        
+
     func internalPrecision(for precision: Int) -> Int {
         return precision
 //        if precision <= 500 {
