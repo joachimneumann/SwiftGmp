@@ -101,7 +101,7 @@ public struct Tokenizer {
         while index < input.endIndex {
             let char = input[index]
             
-            if char.isNumber || char == "." || char == "e" || (char == "-" && numberBuffer.last == "e") {
+            if char.isNumber || char == "." || (char == "e" && !numberBuffer.isEmpty) || (char == "-" && numberBuffer.last == "e") {
                 // Append characters that are part of a number (including scientific notation)
                 numberBuffer.append(char)
             } else if char.isWhitespace {

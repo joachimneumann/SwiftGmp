@@ -333,11 +333,12 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     func check(bits: Int) {
         if bits != SwiftGmp.rad_deg_bits {
             let _180 = SwiftGmp(withString: "180", bits: bits)
-            SwiftGmp.deg2rad.execute(.pi)
+            let _pi = SwiftGmp(bits: bits)
+            _pi.execute(.pi)
+            SwiftGmp.deg2rad = _pi.copy()
             SwiftGmp.deg2rad.execute(.div, other: _180)
-            SwiftGmp.rad2deg.execute(.pi)
-            SwiftGmp.rad2deg.execute(.rez)
-            SwiftGmp.deg2rad.execute(.mul, other: _180)
+            SwiftGmp.rad2deg = _180.copy()
+            SwiftGmp.rad2deg.execute(.div, other: _pi)
             SwiftGmp.rad_deg_bits = bits
         }
     }

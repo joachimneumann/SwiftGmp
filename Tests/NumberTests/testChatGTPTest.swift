@@ -13,3000 +13,3000 @@ import SwiftGmp
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.012927")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("50.817846 + 68.530428")
     if let d = Double(result) {
         #expect(d.similarTo(Double("119.348274")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("68.115634 / 97.517606")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.698496")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("17.172385 + 71.542294")
     if let d = Double(result) {
         #expect(d.similarTo(Double("88.714679")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.651211 - 64.685904")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-25.034693")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("71.331751 / 12.865136")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5.544578")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.188656 * 41.325041")
     if let d = Double(result) {
         #expect(d.similarTo(Double("255.746463")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.94458 / 19.996754")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4.047886")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("88.315693 * 68.125939")
     if let d = Double(result) {
         #expect(d.similarTo(Double("6016.589514")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("77.9241 + 34.598681")
     if let d = Double(result) {
         #expect(d.similarTo(Double("112.522781")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("79.31113 / 15.064157")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5.26489")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.637647 * 58.307156")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5459.744891")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("99.836875 / 80.051363")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.24716")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("46.051561 - 23.047301")
     if let d = Double(result) {
         #expect(d.similarTo(Double("23.00426")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("53.750942 - 46.64676")
     if let d = Double(result) {
         #expect(d.similarTo(Double("7.104182")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("34.902253 + 79.196765")
     if let d = Double(result) {
         #expect(d.similarTo(Double("114.099018")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("41.585473 / 79.932095")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.52026")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("44.623381 - 78.659429")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-34.036048")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("17.83145 / 33.175151")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.537494")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("61.236168 / 93.237541")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.656776")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("21.699896 * 50.749272")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1101.253924")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("63.192287 / 64.230503")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.983836")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("95.071567 - 73.832131")
     if let d = Double(result) {
         #expect(d.similarTo(Double("21.239436")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("89.770876 * 40.95793")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3676.829255")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("59.795255 / 35.64017")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.677749")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("43.889693 + 38.70593")
     if let d = Double(result) {
         #expect(d.similarTo(Double("82.595623")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("18.687246 + 55.435883")
     if let d = Double(result) {
         #expect(d.similarTo(Double("74.123129")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("58.129587 + 84.201808")
     if let d = Double(result) {
         #expect(d.similarTo(Double("142.331395")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.588969 - 75.017759")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-69.42879")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("12.782436 - 22.377089")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-9.594653")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("92.102843 - 53.058159")
     if let d = Double(result) {
         #expect(d.similarTo(Double("39.044684")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("44.269269 * 88.118796")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3900.954684")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.130965 * 90.909822")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2921.020309")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("0.474176 * 91.957211")
     if let d = Double(result) {
         #expect(d.similarTo(Double("43.603902")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("37.152682 - 92.681725")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-55.529043")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("99.386825 / 62.475758")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.590806")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("56.005524 * 41.296364")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2312.824505")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("87.936743 / 84.010076")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.04674")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("60.344804 - 34.855243")
     if let d = Double(result) {
         #expect(d.similarTo(Double("25.489561")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.955536 / 71.350043")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.994471")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("3.081405 + 74.061566")
     if let d = Double(result) {
         #expect(d.similarTo(Double("77.142971")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("41.741724 - 65.889038")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-24.147314")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("35.76903 + 12.286746")
     if let d = Double(result) {
         #expect(d.similarTo(Double("48.055776")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.127467 * 41.197848")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2971.496422")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("97.695999 - 43.420576")
     if let d = Double(result) {
         #expect(d.similarTo(Double("54.275423")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("8.996259 * 75.571637")
     if let d = Double(result) {
         #expect(d.similarTo(Double("679.86202")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("28.115601 / 39.811977")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.70621")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("95.546103 * 39.272629")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3752.346656")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("49.269089 - 9.385887")
     if let d = Double(result) {
         #expect(d.similarTo(Double("39.883202")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.08327 - 19.372396")
     if let d = Double(result) {
         #expect(d.similarTo(Double("19.710874")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("53.404774 - 85.145849")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-31.741075")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("4.272812 - 27.511188")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-23.238376")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.600117 + 14.442485")
     if let d = Double(result) {
         #expect(d.similarTo(Double("35.042602")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("2.701371 + 15.38239")
     if let d = Double(result) {
         #expect(d.similarTo(Double("18.083761")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("33.961997 + 85.541724")
     if let d = Double(result) {
         #expect(d.similarTo(Double("119.503721")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("66.355797 - 36.760776")
     if let d = Double(result) {
         #expect(d.similarTo(Double("29.595021")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("18.185088 * 97.811252")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1778.706225")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("79.125319 * 91.722454")
     if let d = Double(result) {
         #expect(d.similarTo(Double("7257.568432")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("58.313262 - 9.456464")
     if let d = Double(result) {
         #expect(d.similarTo(Double("48.856798")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.742667 + 32.541706")
     if let d = Double(result) {
         #expect(d.similarTo(Double("105.284373")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("87.457541 / 66.828695")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.308682")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.182359 + 38.469985")
     if let d = Double(result) {
         #expect(d.similarTo(Double("49.652344")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.014369 + 29.501025")
     if let d = Double(result) {
         #expect(d.similarTo(Double("49.515394")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("91.643692 + 32.495255")
     if let d = Double(result) {
         #expect(d.similarTo(Double("124.138947")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("16.189502 / 74.620683")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.216957")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.627569 * 16.189757")
     if let d = Double(result) {
         #expect(d.similarTo(Double("366.334844")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("73.690941 / 98.73313")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.746365")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.991584 + 24.625791")
     if let d = Double(result) {
         #expect(d.similarTo(Double("105.617375")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("23.950864 / 34.61646")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.691892")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("2.706182 + 35.137254")
     if let d = Double(result) {
         #expect(d.similarTo(Double("37.843436")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("55.693971 + 87.857326")
     if let d = Double(result) {
         #expect(d.similarTo(Double("143.551297")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("19.801356 / 35.201236")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.562519")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.195557 + 55.823881")
     if let d = Double(result) {
         #expect(d.similarTo(Double("82.019438")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.926737 / 92.390922")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.016623")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("52.613184 - 2.867121")
     if let d = Double(result) {
         #expect(d.similarTo(Double("49.746063")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("52.80543 - 4.292984")
     if let d = Double(result) {
         #expect(d.similarTo(Double("48.512446")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.830967 * 86.834119")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1982.506905")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("94.91586 - 23.691441")
     if let d = Double(result) {
         #expect(d.similarTo(Double("71.224419")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("7.652716 * 93.798509")
     if let d = Double(result) {
         #expect(d.similarTo(Double("717.813351")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("37.483091 / 62.705197")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.597767")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("71.124738 / 85.678025")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.83014")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("71.165846 - 88.178268")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-17.012422")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("31.955162 + 51.13752")
     if let d = Double(result) {
         #expect(d.similarTo(Double("83.092682")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.78456 + 0.778496")
     if let d = Double(result) {
         #expect(d.similarTo(Double("71.563056")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.822773 + 47.142042")
     if let d = Double(result) {
         #expect(d.similarTo(Double("140.964815")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("64.691063 / 66.443741")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.973622")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("69.786451 - 89.997669")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-20.211218")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("24.243031 - 92.499174")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-68.256143")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("19.082381 * 36.261034")
     if let d = Double(result) {
         #expect(d.similarTo(Double("691.946866")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.818178 / 54.426106")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.731601")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("86.666221 + 15.538018")
     if let d = Double(result) {
         #expect(d.similarTo(Double("102.204239")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("1.206086 - 23.985463")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-22.779377")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.12549 + 78.11487")
     if let d = Double(result) {
         #expect(d.similarTo(Double("171.24036")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("62.791216 / 77.969075")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.805335")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("29.634264 - 34.682167")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-5.047903")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.634179 + 78.792589")
     if let d = Double(result) {
         #expect(d.similarTo(Double("90.426768")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("23.050193 - 75.11232")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-52.062127")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("94.419906 * 51.481133")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4860.843739")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.967609 * 93.762488")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3747.462459")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.976291 / 99.11258")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.120835")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.196582 + 48.631424")
     if let d = Double(result) {
         #expect(d.similarTo(Double("120.828006")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("55.127565 / 74.921373")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.735806")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("2.12243 / 34.45723")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.061596")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("49.725944 * 55.862281")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2777.804657")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("8.681463 + 56.765269")
     if let d = Double(result) {
         #expect(d.similarTo(Double("65.446732")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("1.508101 * 68.298919")
     if let d = Double(result) {
         #expect(d.similarTo(Double("103.001668")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("57.032746 / 11.776241")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4.843035")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("73.366532 - 33.232551")
     if let d = Double(result) {
         #expect(d.similarTo(Double("40.133981")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("90.038026 - 6.257582")
     if let d = Double(result) {
         #expect(d.similarTo(Double("83.780444")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("96.824437 * 56.618942")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5482.097183")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("84.344644 / 59.055717")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.428221")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("3.925836 - 89.718428")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-85.792592")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("77.156207 - 93.469201")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-16.312994")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.090155 / 21.919771")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.232218")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("19.030602 + 93.996764")
     if let d = Double(result) {
         #expect(d.similarTo(Double("113.027366")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("17.664115 * 95.742056")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1691.198688")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("52.129916 + 98.442839")
     if let d = Double(result) {
         #expect(d.similarTo(Double("150.572755")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("88.116382 - 26.107245")
     if let d = Double(result) {
         #expect(d.similarTo(Double("62.009137")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("1.684655 * 35.143308")
     if let d = Double(result) {
         #expect(d.similarTo(Double("59.20435")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("10.503897 - 62.829025")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-52.325128")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.193118 + 90.121882")
     if let d = Double(result) {
         #expect(d.similarTo(Double("95.315")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.945184 / 62.874348")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.523985")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("44.872147 / 39.545626")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.134693")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("40.346363 + 96.718852")
     if let d = Double(result) {
         #expect(d.similarTo(Double("137.065215")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("10.81021 - 41.657902")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-30.847692")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.746151 / 46.500323")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.575182")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("88.675257 / 75.38798")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.176252")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("77.690011 + 30.263029")
     if let d = Double(result) {
         #expect(d.similarTo(Double("107.95304")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("58.759077 / 30.54882")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.923448")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("88.078297 * 56.383116")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4966.128837")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("30.275551 / 77.913403")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.388579")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("44.949831 / 95.970968")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.468369")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("57.812285 + 38.070131")
     if let d = Double(result) {
         #expect(d.similarTo(Double("95.882416")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("59.51429 - 18.279188")
     if let d = Double(result) {
         #expect(d.similarTo(Double("41.235102")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.127279 + 72.658979")
     if let d = Double(result) {
         #expect(d.similarTo(Double("137.786258")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("42.541289 * 62.738136")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2668.961175")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("34.795104 / 49.554193")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.702163")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("2.505697 * 20.191147")
     if let d = Double(result) {
         #expect(d.similarTo(Double("50.592896")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("64.010212 / 28.39995")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.253885")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.864224 / 85.123169")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.080639")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("38.196608 / 61.786029")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.618208")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("57.241922 - 26.15532")
     if let d = Double(result) {
         #expect(d.similarTo(Double("31.086602")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.67777 * 89.555936")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2030.928919")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.728776 + 68.544946")
     if let d = Double(result) {
         #expect(d.similarTo(Double("74.273722")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("59.333817 - 56.923592")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.410225")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("85.265549 / 97.306894")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.876254")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.222455 + 34.158929")
     if let d = Double(result) {
         #expect(d.similarTo(Double("127.381384")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("84.340129 / 64.093667")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.315889")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("86.904099 / 78.682416")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.104492")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.550028 * 22.074715")
     if let d = Double(result) {
         #expect(d.similarTo(Double("144.590001")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("97.551723 + 55.117794")
     if let d = Double(result) {
         #expect(d.similarTo(Double("152.669517")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.562474 * 8.945287")
     if let d = Double(result) {
         #expect(d.similarTo(Double("58.703213")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.712561 + 55.871315")
     if let d = Double(result) {
         #expect(d.similarTo(Double("121.583876")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("83.263463 - 53.058938")
     if let d = Double(result) {
         #expect(d.similarTo(Double("30.204525")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("12.299057 * 45.260976")
     if let d = Double(result) {
         #expect(d.similarTo(Double("556.667324")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("40.893155 / 80.466412")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.508202")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("90.303122 / 18.840676")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4.792987")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("0.850323 + 83.436132")
     if let d = Double(result) {
         #expect(d.similarTo(Double("84.286455")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.027949 + 84.707717")
     if let d = Double(result) {
         #expect(d.similarTo(Double("104.735666")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("61.520892 * 9.546457")
     if let d = Double(result) {
         #expect(d.similarTo(Double("587.30655")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("27.730166 + 63.820423")
     if let d = Double(result) {
         #expect(d.similarTo(Double("91.550589")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("16.811707 + 69.071671")
     if let d = Double(result) {
         #expect(d.similarTo(Double("85.883378")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("38.725592 / 21.010346")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.843168")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.54684 - 72.525105")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-65.978265")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.915227 + 6.642652")
     if let d = Double(result) {
         #expect(d.similarTo(Double("46.557879")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("97.072229 * 91.234577")
     if let d = Double(result) {
         #expect(d.similarTo(Double("8856.343751")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("87.596152 * 9.815829")
     if let d = Double(result) {
         #expect(d.similarTo(Double("859.828849")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("17.25777 + 43.910584")
     if let d = Double(result) {
         #expect(d.similarTo(Double("61.168354")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("99.000982 / 14.729172")
     if let d = Double(result) {
         #expect(d.similarTo(Double("6.721422")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("64.124976 + 77.027962")
     if let d = Double(result) {
         #expect(d.similarTo(Double("141.152938")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.185158 + 86.541394")
     if let d = Double(result) {
         #expect(d.similarTo(Double("166.726552")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.262906 + 66.022066")
     if let d = Double(result) {
         #expect(d.similarTo(Double("105.284972")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.970765 / 58.942825")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.101298")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("97.099263 + 71.829515")
     if let d = Double(result) {
         #expect(d.similarTo(Double("168.928778")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("29.768218 + 94.171012")
     if let d = Double(result) {
         #expect(d.similarTo(Double("123.93923")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("15.69458 - 88.994152")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-73.299572")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("13.375384 - 27.123072")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-13.747688")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.966564 + 63.778245")
     if let d = Double(result) {
         #expect(d.similarTo(Double("84.744809")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("35.339072 / 86.651096")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.407832")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("53.926198 - 10.910446")
     if let d = Double(result) {
         #expect(d.similarTo(Double("43.015752")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("73.363096 + 26.854188")
     if let d = Double(result) {
         #expect(d.similarTo(Double("100.217284")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("76.614024 * 74.459197")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5704.618706")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("36.662236 + 60.467136")
     if let d = Double(result) {
         #expect(d.similarTo(Double("97.129372")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("82.079407 + 97.312778")
     if let d = Double(result) {
         #expect(d.similarTo(Double("179.392185")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("71.147055 + 55.314686")
     if let d = Double(result) {
         #expect(d.similarTo(Double("126.461741")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.564535 + 75.788161")
     if let d = Double(result) {
         #expect(d.similarTo(Double("156.352696")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("28.005722 * 35.359676")
     if let d = Double(result) {
         #expect(d.similarTo(Double("990.273256")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("60.853048 / 14.68687")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4.143364")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("27.880907 - 9.497255")
     if let d = Double(result) {
         #expect(d.similarTo(Double("18.383652")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("97.191688 + 2.061499")
     if let d = Double(result) {
         #expect(d.similarTo(Double("99.253187")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("53.261986 + 15.691992")
     if let d = Double(result) {
         #expect(d.similarTo(Double("68.953978")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.717794 * 73.543562")
     if let d = Double(result) {
         #expect(d.similarTo(Double("861.76831")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("69.317198 * 83.578221")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5793.408094")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("48.082249 / 31.256557")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.538309")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("59.622424 / 50.043763")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.191406")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.632774 + 98.925143")
     if let d = Double(result) {
         #expect(d.similarTo(Double("192.557917")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("15.272669 * 88.251607")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1347.837582")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("78.398989 - 51.509752")
     if let d = Double(result) {
         #expect(d.similarTo(Double("26.889237")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("48.962416 + 89.009251")
     if let d = Double(result) {
         #expect(d.similarTo(Double("137.971667")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("85.5997 * 94.774104")
     if let d = Double(result) {
         #expect(d.similarTo(Double("8112.63487")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("8.745174 * 91.144581")
     if let d = Double(result) {
         #expect(d.similarTo(Double("797.07522")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.066732 * 94.314237")
     if let d = Double(result) {
         #expect(d.similarTo(Double("8777.517819")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("94.168436 + 73.475628")
     if let d = Double(result) {
         #expect(d.similarTo(Double("167.644064")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("29.29042 - 54.144122")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-24.853702")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.603656 / 68.951934")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.472846")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.017363 / 21.099284")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.318471")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("1.789433 / 29.289003")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.061096")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.04425 / 58.061606")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.345224")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("78.533782 - 39.891802")
     if let d = Double(result) {
         #expect(d.similarTo(Double("38.64198")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("55.941154 * 45.784567")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2561.241513")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("97.673676 / 25.241437")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.869577")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.361657 / 26.535311")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.21957")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("43.043696 + 10.92823")
     if let d = Double(result) {
         #expect(d.similarTo(Double("53.971926")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.483266 + 74.303185")
     if let d = Double(result) {
         #expect(d.similarTo(Double("154.786451")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("98.536763 - 58.717627")
     if let d = Double(result) {
         #expect(d.similarTo(Double("39.819136")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("29.321839 - 56.247022")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-26.925183")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.595612 + 76.377835")
     if let d = Double(result) {
         #expect(d.similarTo(Double("98.973447")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("23.327587 - 43.442992")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-20.115405")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("48.2597 * 84.965538")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4100.411374")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("48.946952 - 78.129347")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-29.182395")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("41.214647 * 42.877304")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1767.172949")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("59.811775 / 22.838769")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.61887")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("90.237591 + 20.163291")
     if let d = Double(result) {
         #expect(d.similarTo(Double("110.400882")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.839661 * 97.271651")
     if let d = Double(result) {
         #expect(d.similarTo(Double("6890.690782")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("10.935885 / 50.213889")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.217786")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("41.566237 - 82.185268")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-40.619031")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("58.166051 - 93.917272")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-35.751221")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("49.351272 + 84.415107")
     if let d = Double(result) {
         #expect(d.similarTo(Double("133.766379")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("34.38881 - 43.557727")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-9.168917")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("49.015336 - 46.285881")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.729455")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("27.11216 - 68.536069")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-41.423909")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("91.569391 + 70.320176")
     if let d = Double(result) {
         #expect(d.similarTo(Double("161.889567")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("19.403201 - 72.036394")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-52.633193")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("52.089188 / 95.445109")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.54575")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("31.204198 / 57.46115")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.543049")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("95.669464 - 71.590286")
     if let d = Double(result) {
         #expect(d.similarTo(Double("24.079178")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("67.39495 - 91.617253")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-24.222303")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("87.737706 + 91.892735")
     if let d = Double(result) {
         #expect(d.similarTo(Double("179.630441")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("14.249792 + 25.727009")
     if let d = Double(result) {
         #expect(d.similarTo(Double("39.976801")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("3.954104 * 54.085848")
     if let d = Double(result) {
         #expect(d.similarTo(Double("213.861068")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("42.291863 - 19.988713")
     if let d = Double(result) {
         #expect(d.similarTo(Double("22.30315")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("93.388339 / 77.405116")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.206488")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("43.611937 / 96.158972")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.45354")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("34.09177 - 56.952652")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-22.860882")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("15.343612 + 61.476826")
     if let d = Double(result) {
         #expect(d.similarTo(Double("76.820438")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("13.207682 + 28.557278")
     if let d = Double(result) {
         #expect(d.similarTo(Double("41.76496")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("75.809365 - 29.781978")
     if let d = Double(result) {
         #expect(d.similarTo(Double("46.027387")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("83.50859 + 94.05625")
     if let d = Double(result) {
         #expect(d.similarTo(Double("177.56484")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("50.649361 * 10.052714")
     if let d = Double(result) {
         #expect(d.similarTo(Double("509.16354")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("9.250616 + 82.462055")
     if let d = Double(result) {
         #expect(d.similarTo(Double("91.712671")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.543059 * 54.200285")
     if let d = Double(result) {
         #expect(d.similarTo(Double("300.435378")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("53.874319 - 71.514554")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-17.640235")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.516047 / 45.112234")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.720781")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("15.563675 + 57.006144")
     if let d = Double(result) {
         #expect(d.similarTo(Double("72.569819")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("92.415411 + 3.122161")
     if let d = Double(result) {
         #expect(d.similarTo(Double("95.537572")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("81.038775 * 11.993301")
     if let d = Double(result) {
         #expect(d.similarTo(Double("971.922421")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("4.921527 - 83.010462")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-78.088935")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.820596 + 13.509753")
     if let d = Double(result) {
         #expect(d.similarTo(Double("36.330349")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("68.701655 / 56.972838")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.205867")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("82.11731 / 85.239085")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.963376")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.391945 * 16.183917")
     if let d = Double(result) {
         #expect(d.similarTo(Double("427.125047")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("25.543639 * 92.205389")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2355.26117")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("99.817681 * 26.042278")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2599.479798")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("33.780335 - 77.706936")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-43.926601")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("36.013507 - 36.983514")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-0.970007")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("40.708506 + 78.684214")
     if let d = Double(result) {
         #expect(d.similarTo(Double("119.39272")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("78.838803 - 50.389699")
     if let d = Double(result) {
         #expect(d.similarTo(Double("28.449104")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("68.884815 + 49.777974")
     if let d = Double(result) {
         #expect(d.similarTo(Double("118.662789")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("86.055204 * 4.138501")
     if let d = Double(result) {
         #expect(d.similarTo(Double("356.139548")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("0.63335 - 22.773793")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-22.140443")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("41.975577 + 77.735423")
     if let d = Double(result) {
         #expect(d.similarTo(Double("119.711")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.794443 / 45.545166")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.444598")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("16.368648 * 53.158496")
     if let d = Double(result) {
         #expect(d.similarTo(Double("870.132709")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("86.580096 + 20.071232")
     if let d = Double(result) {
         #expect(d.similarTo(Double("106.651328")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("79.079146 + 83.729381")
     if let d = Double(result) {
         #expect(d.similarTo(Double("162.808527")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("51.313679 / 62.940329")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.815275")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.502716 + 49.094778")
     if let d = Double(result) {
         #expect(d.similarTo(Double("81.597494")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("67.818719 / 73.114684")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.927566")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.381604 * 93.021006")
     if let d = Double(result) {
         #expect(d.similarTo(Double("6081.862578")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("23.243049 / 4.708298")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4.936614")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.301764 / 2.94652")
     if let d = Double(result) {
         #expect(d.similarTo(Double("24.538019")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("66.235736 / 18.391365")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.601458")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("40.516997 * 70.134655")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2841.645606")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("49.247898 - 43.456478")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5.79142")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("50.848695 * 65.567808")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3334.037471")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("12.917582 - 12.274207")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.643375")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("46.535071 - 14.089998")
     if let d = Double(result) {
         #expect(d.similarTo(Double("32.445073")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.942895 - 73.384117")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-50.441222")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("51.067597 + 38.759056")
     if let d = Double(result) {
         #expect(d.similarTo(Double("89.826653")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("68.254741 * 6.557788")
     if let d = Double(result) {
         #expect(d.similarTo(Double("447.600121")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.183455 + 40.415475")
     if let d = Double(result) {
         #expect(d.similarTo(Double("110.59893")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("73.161522 / 50.680554")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.443582")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.684301 * 45.163892")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1205.166888")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("43.689996 * 74.948244")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3274.488481")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("41.294614 / 76.283904")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.541328")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("46.749907 + 29.688602")
     if let d = Double(result) {
         #expect(d.similarTo(Double("76.438509")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("95.313245 * 79.595988")
     if let d = Double(result) {
         #expect(d.similarTo(Double("7586.551905")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("43.709077 - 40.916693")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.792384")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.81425 * 86.247694")
     if let d = Double(result) {
         #expect(d.similarTo(Double("587.713349")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("62.03049 - 43.681705")
     if let d = Double(result) {
         #expect(d.similarTo(Double("18.348785")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("43.451844 + 15.128377")
     if let d = Double(result) {
         #expect(d.similarTo(Double("58.580221")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("89.782494 + 6.225196")
     if let d = Double(result) {
         #expect(d.similarTo(Double("96.00769")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.740641 * 45.265621")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3292.650287")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.610329 + 55.511873")
     if let d = Double(result) {
         #expect(d.similarTo(Double("82.122202")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("44.942777 - 32.461504")
     if let d = Double(result) {
         #expect(d.similarTo(Double("12.481273")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("68.078666 - 96.240896")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-28.16223")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("76.169001 + 89.957778")
     if let d = Double(result) {
         #expect(d.similarTo(Double("166.126779")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("13.59354 * 83.145472")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1130.241299")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.398665 * 17.351545")
     if let d = Double(result) {
         #expect(d.similarTo(Double("353.948354")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("57.295311 / 62.902316")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.910862")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("27.868672 / 82.941034")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.336006")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("66.136471 * 30.767718")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2034.868289")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("96.68225 / 84.251627")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.147542")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("97.590075 * 63.073913")
     if let d = Double(result) {
         #expect(d.similarTo(Double("6155.3879")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.039936 / 30.305876")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.057219")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.984162 + 2.388544")
     if let d = Double(result) {
         #expect(d.similarTo(Double("68.372706")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("33.358707 + 61.848927")
     if let d = Double(result) {
         #expect(d.similarTo(Double("95.207634")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("96.088601 - 51.483188")
     if let d = Double(result) {
         #expect(d.similarTo(Double("44.605413")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("38.248182 * 79.801553")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3052.264323")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.995537 + 73.116777")
     if let d = Double(result) {
         #expect(d.similarTo(Double("146.112314")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("96.426585 - 17.353525")
     if let d = Double(result) {
         #expect(d.similarTo(Double("79.07306")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("69.788819 - 53.981731")
     if let d = Double(result) {
         #expect(d.similarTo(Double("15.807088")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("44.40269 + 15.967999")
     if let d = Double(result) {
         #expect(d.similarTo(Double("60.370689")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("29.864096 * 8.810747")
     if let d = Double(result) {
         #expect(d.similarTo(Double("263.124994")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("30.842336 / 24.442607")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.261827")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("7.864745 + 39.37684")
     if let d = Double(result) {
         #expect(d.similarTo(Double("47.241585")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("69.620905 - 9.241086")
     if let d = Double(result) {
         #expect(d.similarTo(Double("60.379819")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("9.399666 - 97.612966")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-88.2133")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("28.002016 - 87.190029")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-59.188013")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("44.381195 / 9.288776")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4.777938")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("31.590712 - 67.338696")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-35.747984")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("98.055377 / 80.405172")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.219516")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.874916 * 10.909515")
     if let d = Double(result) {
         #expect(d.similarTo(Double("718.663384")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("21.60362 * 49.993744")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1080.045848")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.398877 - 21.876408")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4.522469")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.812656 + 56.282371")
     if let d = Double(result) {
         #expect(d.similarTo(Double("96.095027")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("19.110064 - 95.227688")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-76.117624")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("75.960368 * 38.904353")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2955.188971")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("76.268466 * 62.03606")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4731.395133")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("34.281915 - 4.711604")
     if let d = Double(result) {
         #expect(d.similarTo(Double("29.570311")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("77.304292 * 75.066082")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5802.930322")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("25.336451 / 75.087532")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.337426")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("38.867444 + 26.531991")
     if let d = Double(result) {
         #expect(d.similarTo(Double("65.399435")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("79.751454 * 50.776681")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4049.514139")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.619602 + 38.609482")
     if let d = Double(result) {
         #expect(d.similarTo(Double("59.229084")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.139775 + 3.210734")
     if let d = Double(result) {
         #expect(d.similarTo(Double("29.350509")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("47.289157 + 73.603371")
     if let d = Double(result) {
         #expect(d.similarTo(Double("120.892528")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.543807 * 62.564364")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4413.528419")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("77.128486 - 88.450523")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-11.322037")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("67.340059 + 4.810931")
     if let d = Double(result) {
         #expect(d.similarTo(Double("72.15099")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("67.425242 - 27.099637")
     if let d = Double(result) {
         #expect(d.similarTo(Double("40.325605")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("82.357441 - 95.02233")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-12.664889")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("19.93342 - 13.339477")
     if let d = Double(result) {
         #expect(d.similarTo(Double("6.593943")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("38.173294 / 34.157592")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.117564")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("46.821754 * 23.191382")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1085.861183")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.952946 * 98.390657")
     if let d = Double(result) {
         #expect(d.similarTo(Double("7965.013543")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.66393 + 61.955686")
     if let d = Double(result) {
         #expect(d.similarTo(Double("94.619616")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("33.926921 - 94.417468")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-60.490547")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("50.730312 * 7.283638")
     if let d = Double(result) {
         #expect(d.similarTo(Double("369.501228")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("67.367076 - 87.591518")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-20.224442")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.7727 * 58.212212")
     if let d = Double(result) {
         #expect(d.similarTo(Double("685.314908")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("33.40446 - 79.692882")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-46.288422")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("8.372345 - 41.373909")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-33.001564")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("15.823929 * 55.582838")
     if let d = Double(result) {
         #expect(d.similarTo(Double("879.538882")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("9.103044 + 77.105665")
     if let d = Double(result) {
         #expect(d.similarTo(Double("86.208709")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("38.113412 - 52.172032")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-14.05862")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("55.193189 - 43.162351")
     if let d = Double(result) {
         #expect(d.similarTo(Double("12.030838")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("69.889072 * 14.356788")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1003.38259")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("74.490692 / 28.253236")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.636537")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("67.713376 - 48.499734")
     if let d = Double(result) {
         #expect(d.similarTo(Double("19.213642")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.798919 - 47.902509")
     if let d = Double(result) {
         #expect(d.similarTo(Double("22.89641")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("90.770667 * 2.760267")
     if let d = Double(result) {
         #expect(d.similarTo(Double("250.551277")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("14.664407 / 98.248077")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.149259")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.465744 * 45.764446")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3682.470196")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("95.708464 / 91.825749")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.042284")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("69.871886 - 48.754451")
     if let d = Double(result) {
         #expect(d.similarTo(Double("21.117435")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("52.516078 + 8.865697")
     if let d = Double(result) {
         #expect(d.similarTo(Double("61.381775")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("37.458091 - 54.131278")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-16.673187")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("98.908552 + 6.827819")
     if let d = Double(result) {
         #expect(d.similarTo(Double("105.736371")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("57.418903 * 17.87903")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1026.594289")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.911031 * 76.66066")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1603.053438")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("87.507724 * 58.633915")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5130.920451")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.406989 / 24.212435")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.320896")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("78.140735 - 11.550713")
     if let d = Double(result) {
         #expect(d.similarTo(Double("66.590022")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("82.459003 - 58.964603")
     if let d = Double(result) {
         #expect(d.similarTo(Double("23.4944")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("45.792115 / 88.318926")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.518486")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("58.751588 / 11.687671")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5.0268")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.356961 * 49.785978")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3502.790112")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("85.738537 + 15.82217")
     if let d = Double(result) {
         #expect(d.similarTo(Double("101.560707")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("83.038563 * 47.705108")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3961.363616")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("45.915743 + 29.205557")
     if let d = Double(result) {
         #expect(d.similarTo(Double("75.1213")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.416728 + 28.613054")
     if let d = Double(result) {
         #expect(d.similarTo(Double("94.029782")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("47.861776 - 91.793745")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-43.931969")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.13062 + 15.264101")
     if let d = Double(result) {
         #expect(d.similarTo(Double("95.394721")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("17.024705 * 70.930562")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1207.571894")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("48.696501 - 69.214711")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-20.51821")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.466003 - 22.263786")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-1.797783")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("94.923391 - 43.946236")
     if let d = Double(result) {
         #expect(d.similarTo(Double("50.977155")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("87.34236 - 2.553317")
     if let d = Double(result) {
         #expect(d.similarTo(Double("84.789043")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.191831 / 76.89839")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.938795")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("18.479029 + 89.949173")
     if let d = Double(result) {
         #expect(d.similarTo(Double("108.428202")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("28.454544 / 2.193007")
     if let d = Double(result) {
         #expect(d.similarTo(Double("12.975127")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.065607 * 55.951889")
     if let d = Double(result) {
         #expect(d.similarTo(Double("283.430281")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.802279 * 73.558794")
     if let d = Double(result) {
         #expect(d.similarTo(Double("868.16141")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("83.04682 / 43.449952")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.911321")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("37.181862 - 17.420228")
     if let d = Double(result) {
         #expect(d.similarTo(Double("19.761634")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.384335 + 74.891725")
     if let d = Double(result) {
         #expect(d.similarTo(Double("86.27606")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("89.876991 + 84.813928")
     if let d = Double(result) {
         #expect(d.similarTo(Double("174.690919")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("15.897304 / 37.406278")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.42499")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.98804 * 53.703673")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1234.542183")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("46.391667 / 17.196765")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.697697")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("21.967781 + 25.469047")
     if let d = Double(result) {
         #expect(d.similarTo(Double("47.436828")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("26.748584 / 71.031862")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.376572")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("22.120935 - 48.388998")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-26.268063")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("42.52713 * 47.220925")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2008.170416")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("15.51373 / 67.058935")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.231345")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("5.131439 / 69.6051")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.073722")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("59.789254 * 46.786012")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2797.300755")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("68.008921 / 22.140733")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.071665")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("58.531777 * 60.272506")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3527.85688")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("27.196757 + 85.881825")
     if let d = Double(result) {
         #expect(d.similarTo(Double("113.078582")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("65.953908 + 81.308789")
     if let d = Double(result) {
         #expect(d.similarTo(Double("147.262697")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("68.960315 + 4.299658")
     if let d = Double(result) {
         #expect(d.similarTo(Double("73.259973")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("34.687341 + 36.520121")
     if let d = Double(result) {
         #expect(d.similarTo(Double("71.207462")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("48.91872 * 62.375151")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3051.312547")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("75.438944 / 19.145965")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.940201")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("86.444951 / 76.63354")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.12803")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("40.401125 * 37.243151")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1504.665199")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("98.40084 - 25.369962")
     if let d = Double(result) {
         #expect(d.similarTo(Double("73.030878")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("62.47475 + 79.61332")
     if let d = Double(result) {
         #expect(d.similarTo(Double("142.08807")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("55.9989 / 69.81746")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.802076")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("88.907996 - 62.234094")
     if let d = Double(result) {
         #expect(d.similarTo(Double("26.673902")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("53.865569 - 18.313937")
     if let d = Double(result) {
         #expect(d.similarTo(Double("35.551632")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.205677 + 91.153163")
     if let d = Double(result) {
         #expect(d.similarTo(Double("171.35884")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("30.689128 + 87.966692")
     if let d = Double(result) {
         #expect(d.similarTo(Double("118.65582")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("45.797004 * 31.844065")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1458.362772")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("32.010265 - 17.196229")
     if let d = Double(result) {
         #expect(d.similarTo(Double("14.814036")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("0.305849 * 36.050132")
     if let d = Double(result) {
         #expect(d.similarTo(Double("11.025897")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("8.151876 * 15.614015")
     if let d = Double(result) {
         #expect(d.similarTo(Double("127.283514")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("90.909412 - 15.263186")
     if let d = Double(result) {
         #expect(d.similarTo(Double("75.646226")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("71.155629 - 44.359606")
     if let d = Double(result) {
         #expect(d.similarTo(Double("26.796023")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("92.859102 * 85.433584")
     if let d = Double(result) {
         #expect(d.similarTo(Double("7933.285891")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("73.00346 * 84.22062")
     if let d = Double(result) {
         #expect(d.similarTo(Double("6148.396663")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("42.947604 - 80.994412")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-38.046808")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("43.475523 + 80.791531")
     if let d = Double(result) {
         #expect(d.similarTo(Double("124.267054")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("57.681721 + 26.396956")
     if let d = Double(result) {
         #expect(d.similarTo(Double("84.078677")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("46.898604 / 7.879916")
     if let d = Double(result) {
         #expect(d.similarTo(Double("5.951663")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.851229 / 44.710176")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.153236")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("24.056599 - 38.629943")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-14.573344")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("8.097386 + 89.955477")
     if let d = Double(result) {
         #expect(d.similarTo(Double("98.052863")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("20.59809 + 53.741681")
     if let d = Double(result) {
         #expect(d.similarTo(Double("74.339771")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("39.246812 + 93.662499")
     if let d = Double(result) {
         #expect(d.similarTo(Double("132.909311")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("30.506839 * 95.474807")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2912.634566")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("62.356563 * 51.197054")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3192.472323")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.921235 - 54.963649")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-43.042414")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("18.551539 + 16.75744")
     if let d = Double(result) {
         #expect(d.similarTo(Double("35.308979")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("45.447951 * 96.014297")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4363.653065")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("59.214735 / 53.062722")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.115939")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("78.048861 / 50.237092")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1.55361")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("17.04362 * 60.753308")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1035.456295")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("13.813365 * 22.810971")
     if let d = Double(result) {
         #expect(d.similarTo(Double("315.096268")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("38.221801 * 73.22487")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2798.786409")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("56.537213 * 71.593595")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4047.70233")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("25.653624 + 48.76589")
     if let d = Double(result) {
         #expect(d.similarTo(Double("74.419514")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("9.633777 + 89.909307")
     if let d = Double(result) {
         #expect(d.similarTo(Double("99.543084")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("29.994098 - 69.773445")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-39.779347")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("66.371396 * 39.783085")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2640.458889")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("24.774465 / 34.959012")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.708672")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.705352 + 30.052723")
     if let d = Double(result) {
         #expect(d.similarTo(Double("102.758075")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("40.582006 * 29.086852")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1180.402802")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("80.77704 / 32.108029")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2.515789")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("29.111097 * 21.459677")
     if let d = Double(result) {
         #expect(d.similarTo(Double("624.714739")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("89.677357 + 89.677326")
     if let d = Double(result) {
         #expect(d.similarTo(Double("179.354683")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("70.199204 / 4.920883")
     if let d = Double(result) {
         #expect(d.similarTo(Double("14.265571")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.351792 - 2.407006")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.944786")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("7.134926 / 34.793509")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.205065")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("7.008562 + 12.261641")
     if let d = Double(result) {
         #expect(d.similarTo(Double("19.270203")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("95.876733 - 25.285925")
     if let d = Double(result) {
         #expect(d.similarTo(Double("70.590808")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("7.323621 - 73.928518")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-66.604897")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("71.812988 * 15.209191")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1092.217451")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("67.310808 * 3.310219")
     if let d = Double(result) {
         #expect(d.similarTo(Double("222.813516")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("6.79105 / 26.257765")
     if let d = Double(result) {
         #expect(d.similarTo(Double("0.25863")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("55.342458 * 27.865427")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1542.141223")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("46.959268 + 79.136649")
     if let d = Double(result) {
         #expect(d.similarTo(Double("126.095917")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("92.656006 * 24.266536")
     if let d = Double(result) {
         #expect(d.similarTo(Double("2248.440305")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("25.247652 * 23.567135")
     if let d = Double(result) {
         #expect(d.similarTo(Double("595.014823")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("11.380114 - 88.499878")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-77.119764")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("87.706847 * 55.115554")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4834.011462")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("79.970931 * 91.748788")
     if let d = Double(result) {
         #expect(d.similarTo(Double("7337.235994")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("82.61939 - 2.578508")
     if let d = Double(result) {
         #expect(d.similarTo(Double("80.040882")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("17.570511 * 57.214689")
     if let d = Double(result) {
         #expect(d.similarTo(Double("1005.291322")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("35.476465 - 64.903958")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-29.427493")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("85.748832 - 92.541535")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-6.792703")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("79.244677 / 21.411028")
     if let d = Double(result) {
         #expect(d.similarTo(Double("3.701115")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("16.957367 + 94.448624")
     if let d = Double(result) {
         #expect(d.similarTo(Double("111.405991")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("61.218005 - 25.087707")
     if let d = Double(result) {
         #expect(d.similarTo(Double("36.130298")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("56.86438 - 1.311804")
     if let d = Double(result) {
         #expect(d.similarTo(Double("55.552576")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("55.613175 * 83.272693")
     if let d = Double(result) {
         #expect(d.similarTo(Double("4631.058849")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("53.089693 + 20.187337")
     if let d = Double(result) {
         #expect(d.similarTo(Double("73.27703")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
     result = calculator.calc("72.862729 - 83.334709")
     if let d = Double(result) {
         #expect(d.similarTo(Double("-10.47198")!))
     } else {
-        #expect("valid" == result)
+        #expect(result == "valid")
     }
 }

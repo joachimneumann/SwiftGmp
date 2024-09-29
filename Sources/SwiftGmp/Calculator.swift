@@ -47,11 +47,9 @@ public class Calculator {
                     n.swiftGmp.execute(inPlace)
                 }
             } else if let twoOperants = op as? SwiftGmpTwoOperantOperation {
-                if let n1 = numbers.first {
-                    numbers.removeFirst()
-                    if numbers.first != nil {
-                        numbers.first!.swiftGmp.execute(twoOperants, other: n1.swiftGmp)
-                    }
+                if numbers.count >= 2 {
+                    let n1 = numbers.removeFirst()
+                    numbers.first!.swiftGmp.execute(twoOperants, other: n1.swiftGmp)
                 }
             }
             if operators.count == 0 {
