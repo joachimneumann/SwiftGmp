@@ -466,8 +466,8 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
 //    }
 //}
 //
-//public extension Double {
-//    func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
-//        abs(self - other) <= precision
-//    }
-//}
+public extension Double {
+    func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
+        abs(self - other) <= precision
+    }
+}

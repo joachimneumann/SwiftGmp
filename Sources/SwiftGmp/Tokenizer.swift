@@ -72,9 +72,9 @@ public enum TokenizerError: Error, LocalizedError {
 //    }
 //}
 
-
 public struct Tokenizer {
     private var precision: Int
+    public let allOperationsSorted: [OpProtocol]
 
     public mutating func setPrecision(newPrecision: Int) {
         precision = newPrecision
@@ -82,110 +82,14 @@ public struct Tokenizer {
 
     public init(precision: Int) {
         self.precision = precision
-        
-//        let input = "-5+(3.14/2)- -1e3-4.223e-4+(2+3)"
-//        let result = evaluate(input)
-//        print("Result: \(result)")  // Expected: 1000.9995777
-
-        
-//        inplaceOperators["zero"]       = InplaceOperator(n.inplace_zero, 1, description: "zero")
-//        inplaceOperators["pi"]         = InplaceOperator(Number.inplace_π, 1, description: "π")
-//        inplaceOperators["e"]          = InplaceOperator(Number.inplace_e, 1, description: "e")
-//        inplaceOperators["rand"]       = InplaceOperator(Number.inplace_rand, 1, description: "rand")
-//        inplaceOperators["abs"]        = InplaceOperator(Number.inplace_abs, 1, description: "abs")
-//        inplaceOperators["sqrt"]       = InplaceOperator(Number.inplace_sqrt, 1, description: "sqrt")
-//        inplaceOperators["sqrt3"]      = InplaceOperator(Number.inplace_sqrt3, 1, description: "sqrt3")
-//        inplaceOperators["zeta"]       = InplaceOperator(Number.inplace_Z, 1, description: "Z")
-//        inplaceOperators["ln"]         = InplaceOperator(Number.inplace_ln, 1, description: "ln")
-//        inplaceOperators["log10"]      = InplaceOperator(Number.inplace_log10, 1, description: "log10")
-//        inplaceOperators["log2"]       = InplaceOperator(Number.inplace_log2, 1, description: "log2")
-//        inplaceOperators["sin"]        = InplaceOperator(Number.inplace_sin, 1, description: "sin")
-//        inplaceOperators["cos"]        = InplaceOperator(Number.inplace_cos, 1, description: "cos")
-//        inplaceOperators["tan"]        = InplaceOperator(Number.inplace_tan, 1, description: "tan")
-//        inplaceOperators["asin"]       = InplaceOperator(Number.inplace_asin, 1, description: "asin")
-//        inplaceOperators["acos"]       = InplaceOperator(Number.inplace_acos, 1, description: "acos")
-//        inplaceOperators["atan"]       = InplaceOperator(Number.inplace_atan, 1, description: "atan")
-//        inplaceOperators["sinh"]       = InplaceOperator(Number.inplace_sinh, 1, description: "sinh")
-//        inplaceOperators["cosh"]       = InplaceOperator(Number.inplace_cosh, 1, description: "cosh")
-//        inplaceOperators["tanh"]       = InplaceOperator(Number.inplace_tanh, 1, description: "tanh")
-//        inplaceOperators["asinh"]      = InplaceOperator(Number.inplace_asinh, 1, description: "asinh")
-//        inplaceOperators["acosh"]      = InplaceOperator(Number.inplace_acosh, 1, description: "acosh")
-//        inplaceOperators["atanh"]      = InplaceOperator(Number.inplace_atanh, 1, description: "atanh")
-//        inplaceOperators["sqr"]     = InplaceOperator(Number.inplace_sqr, 1, description: "square")
-//        inplaceOperators["cubed"]      = InplaceOperator(Number.inplace_cubed, 1, description: "cubed")
-//        inplaceOperators["exp"]        = InplaceOperator(Number.inplace_exp, 1, description: "exp (to the power of e)")
-//        inplaceOperators["exp2"]       = InplaceOperator(Number.inplace_exp2, 1, description: "to the power of 2")
-//        inplaceOperators["exp10"]      = InplaceOperator(Number.inplace_exp10, 1, description: "to the power of 10")
-//        inplaceOperators["changeSign"] = InplaceOperator(Number.inplace_changeSign, 1, description: "changeSign")
-//        inplaceOperators["rez"]        = InplaceOperator(Number.inplace_rez, 1, description: "rez")
-//        inplaceOperators["fac"]        = InplaceOperator(Number.inplace_fac, 1, description: "fac")
-//        inplaceOperators["sinD"]       = InplaceOperator(Number.inplace_sinD, 1, description: "sinD")
-//        inplaceOperators["cosD"]       = InplaceOperator(Number.inplace_cosD, 1, description: "cosD")
-//        inplaceOperators["tanD"]       = InplaceOperator(Number.inplace_tanD, 1, description: "tanD")
-//        inplaceOperators["asinD"]      = InplaceOperator(Number.inplace_asinD, 1, description: "asinD")
-//        inplaceOperators["acosD"]      = InplaceOperator(Number.inplace_acosD, 1, description: "acosD")
-//        inplaceOperators["atand"]      = InplaceOperator(Number.inplace_atanD, 1, description: "atanD")
-//
-//        basicTwoOperandOperator["+"]   = TwoOperandOperator(Number.add, 1, description: "add" )
-//        basicTwoOperandOperator["-"]   = TwoOperandOperator(Number.sub, 1, description: "subtract" )
-//        basicTwoOperandOperator["*"]   = TwoOperandOperator(Number.mul, 1, description: "multiply" )
-//        basicTwoOperandOperator["/"]   = TwoOperandOperator(Number.div, 1, description: "divide" )
-//
-//        twoOperandOperator["pow_x_y"]  = TwoOperandOperator(Number.pow_x_y, 1, description: "x to the power of y" )
-//        twoOperandOperator["pow_y_x"]  = TwoOperandOperator(Number.pow_y_x, 1, description: "y to the power of x" )
-//        twoOperandOperator["sqrty"]    = TwoOperandOperator(Number.sqrty, 1, description: "y's root of x" )
-//        twoOperandOperator["logy"]     = TwoOperandOperator(Number.logy, 1, description: "log to the base of y" )
-//        twoOperandOperator["EE"]       = TwoOperandOperator(Number.EE, 1, description: "time to the the power of" )
+        let allOperations: [OpProtocol] = SwiftGmpInplaceOperation.allCases +
+                                          SwiftGmpTwoOperantOperation.allCases +
+                                          SwiftGmpParenthesisOperation.allCases
+        allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
-    
-//    func checkString(string: String) -> Bool {
-//        let without_dot = string.replacingOccurrences(of: ".", with: "")
-//        let match = without_dot.range(of: "^[0-9]*$", options: .regularExpression)
-//        return match != nil
-//    }
-//
-//    func is19orMinus(_ str: String.Element) -> Bool {
-//        return str == "-" || (str >= "1" && str <= "9")
-//    }
-//    
-//    private func canBeNumber(_ str: String) throws -> Bool {
-//        guard str.filter({ $0 == "e" }).count <= 1 else { throw TokenizerError.invalidNumber(op: str) }
-//        guard str.filter({ $0 == "." }).count <= 2 else { throw TokenizerError.invalidNumber(op: str) }
-//        
-//        let without_e_minus = str.replacingFirstOccurrence(of: "e-", with: "")
-//        let without_e = without_e_minus.filter{ $0 != "e" }
-//        if !checkString(string: without_e) {
-//            throw TokenizerError.invalidNumber(op: str)
-//        }
-//
-//        func is19orMinus(_ str: String.Element) -> Bool {
-//            return str == "-" || (str >= "1" && str <= "9")
-//        }
-//             
-//        guard let firstChar = str.first else { return false } // Empty string case
-//        if firstChar == "." {
-//            guard let secondChar = str.dropFirst().first else { return false } // only .
-//            if is19orMinus(secondChar) {
-//                return true
-//            } else {
-//                throw TokenizerError.invalidNumber(op: str)
-//            }
-//        }
-//        if is19orMinus(firstChar) {
-//            return true
-//        } else {
-//            throw TokenizerError.invalidNumber(op: str)
-//        }
-//    }
+
 
     public mutating func parse(_ input: String) throws -> ([any OpProtocol], [Number]) {
-
-//        func numberExpected() -> Bool {
-//            if numberBuffer.isEmpty && numbers.count == 0 {
-//                return true
-//            }
-//            return false
-//        }
 
         var operators: [any OpProtocol] = []
         var numbers: [Number] = []
@@ -200,8 +104,47 @@ public struct Tokenizer {
             if char.isNumber || char == "." || char == "e" || (char == "-" && numberBuffer.last == "e") {
                 // Append characters that are part of a number (including scientific notation)
                 numberBuffer.append(char)
+            } else if char.isWhitespace {
+                if !numberBuffer.isEmpty {
+                    numbers.append(Number(numberBuffer, precision: precision))
+                    numberBuffer = ""
+                    numberExpected = false
+                }
             } else if char == "=" {
                 // Ignore for now
+            } else if char == "-" {
+                if numberExpected {
+                    numberBuffer.append(char) // unary minus (e.g., -5)
+                } else {
+                    if !numberBuffer.isEmpty {
+                        numbers.append(Number(numberBuffer, precision: precision))
+                        numberBuffer = ""
+                    }
+                    operators.append(SwiftGmpTwoOperantOperation.sub)  // subtraction operator
+                }
+            } else {
+                var opFound = false
+                for op in allOperationsSorted {
+                    if input[index...].hasPrefix(op.getRawValue()) {
+                        opFound = true
+                        if !numberBuffer.isEmpty {
+                            numbers.append(Number(numberBuffer, precision: precision))
+                            numberBuffer = ""
+                        }
+                        operators.append(op)
+                        numberExpected = true
+                        index = input.index(index, offsetBy: op.getRawValue().count - 1)
+                    }
+                }
+                if !opFound {
+                    var failedCandidate: String = String(input[index...])
+                    if failedCandidate.contains(" ") {
+                        failedCandidate = String(failedCandidate.split(separator: " ").first!)
+                    }
+                    throw(TokenizerError.unknownOperator(op: failedCandidate))
+                }
+            }
+            /*
             } else if char == "+" {
                 // If there's a number in the buffer, flush it as a token
                 if !numberBuffer.isEmpty {
@@ -250,12 +193,6 @@ public struct Tokenizer {
                 }
                 operators.append(SwiftGmpParenthesisOperation.rightParenthesis)
                 numberExpected = true
-            } else if char.isWhitespace {
-                if !numberBuffer.isEmpty {
-                    numbers.append(Number(numberBuffer, precision: precision))
-                    numberBuffer = ""
-                    numberExpected = false
-                }
             } else if input[index...].hasPrefix("sin") {
                 if !numberBuffer.isEmpty {
                     numbers.append(Number(numberBuffer, precision: precision))
@@ -267,6 +204,7 @@ public struct Tokenizer {
             } else {
                 fatalError("Unexpected character: \(char)")
             }
+             */
             
             index = input.index(after: index)
         }

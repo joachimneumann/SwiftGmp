@@ -97,6 +97,7 @@ for file in glob.glob("*.txt"):
     writeln("")
     writeln("@Test func "+basename+"Test() {")
     writeln("    let calculator = Calculator(precision: 20)")
+    writeln("    var result: String")
     writeln("")
     with open(file) as file:
         for line in file:
@@ -110,25 +111,24 @@ for file in glob.glob("*.txt"):
                     if len(comment) > 0:
                         writeln("// "+comment)
                 else:
-                    if "=" in content:
-#                        components = content.strip().split("=")
-#                        if len(components) == 2:
-#                            if components[0].strip() == "precision":
-#                                writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
-#                            else:
-#                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
-                        components = content.strip().split("~=")
-                        if len(components) == 2:
-                            if components[0].strip() == "precision":
-                                writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
-                            else:
-                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\").hasPrefix(\""+components[1].strip()+"\"))")
                     if "~=" in content:
                         components = content.strip().split("~=")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
-                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\").hasPrefix(\""+components[1].strip()+"\"))")
+                                writeln("    result = calculator.calc(\""+components[0].strip()+"\")")
+                                writeln("    if let d = Double(result) {")
+                                writeln("        #expect(d.similarTo(Double(\""+components[1].strip()+"\")!))")
+                                writeln("    } else {")
+                                writeln("        #expect(result == \"valid\")")
+                                writeln("    }")
+                    elif "=" in content:
+                        components = content.strip().split("=")
+                        if len(components) == 2:
+                            if components[0].strip() == "precision":
+                                writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
+                            else:
+                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
     writeln("}")
     f.close()

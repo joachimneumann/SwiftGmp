@@ -10,6 +10,7 @@ extension SwiftGmpInplaceOperation {
 }
 
 public protocol OpProtocol {
+    func getRawValue() -> String
     func isEqual(to other: OpProtocol) -> Bool
 }
 
@@ -77,12 +78,23 @@ public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
     case rightParenthesis = ")"
 }
 
-public var sortedByLengthOperators: [OpProtocol] {
-    all = SwiftGmpInplaceOperation.allCases.raw
-    
-    [SwiftGmpInplaceOperation.sin]
+extension SwiftGmpInplaceOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
 }
 
+extension SwiftGmpTwoOperantOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+
+extension SwiftGmpParenthesisOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
 
 public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private(set) var bits: Int
@@ -97,6 +109,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         self.bits = bits
         mpfr_init2 (&mpfr, bits) // nan
     }
+    
     init(withString string: String, bits: Int) {
         self.bits = bits
         mpfr_init2 (&mpfr, bits)

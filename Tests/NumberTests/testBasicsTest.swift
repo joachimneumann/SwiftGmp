@@ -6,247 +6,750 @@ import SwiftGmp
 
 @Test func testBasicsTest() {
     let calculator = Calculator(precision: 20)
+    var result: String
 
-    #expect(calculator.calc("-5.0 abs").hasPrefix("5.0"))
-    #expect(calculator.calc("-5.0 abs").hasPrefix("5.0"))
-    #expect(calculator.calc("3.14 abs").hasPrefix("3.14"))
-    #expect(calculator.calc("3.14 abs").hasPrefix("3.14"))
-    #expect(calculator.calc("0.0 abs").hasPrefix("0.0"))
-    #expect(calculator.calc("0.0 abs").hasPrefix("0.0"))
-    #expect(calculator.calc("-100.25 abs").hasPrefix("100.25"))
-    #expect(calculator.calc("-100.25 abs").hasPrefix("100.25"))
-    #expect(calculator.calc("12.5 abs").hasPrefix("12.5"))
-    #expect(calculator.calc("12.5 abs").hasPrefix("12.5"))
-    #expect(calculator.calc("4.0 sqrt").hasPrefix("2.0"))
-    #expect(calculator.calc("4.0 sqrt").hasPrefix("2.0"))
-    #expect(calculator.calc("9.0 sqrt").hasPrefix("3.0"))
-    #expect(calculator.calc("9.0 sqrt").hasPrefix("3.0"))
-    #expect(calculator.calc("0.0 sqrt").hasPrefix("0.0"))
-    #expect(calculator.calc("0.0 sqrt").hasPrefix("0.0"))
-    #expect(calculator.calc("16.0 sqrt").hasPrefix("4.0"))
-    #expect(calculator.calc("16.0 sqrt").hasPrefix("4.0"))
-    #expect(calculator.calc("25.0 sqrt").hasPrefix("5.0"))
-    #expect(calculator.calc("25.0 sqrt").hasPrefix("5.0"))
-    #expect(calculator.calc("8.0 sqrt3").hasPrefix("2.0"))
-    #expect(calculator.calc("8.0 sqrt3").hasPrefix("2.0"))
-    #expect(calculator.calc("27.0 sqrt3").hasPrefix("3.0"))
-    #expect(calculator.calc("27.0 sqrt3").hasPrefix("3.0"))
-    #expect(calculator.calc("0.0 sqrt3").hasPrefix("0.0"))
-    #expect(calculator.calc("0.0 sqrt3").hasPrefix("0.0"))
-    #expect(calculator.calc("64.0 sqrt3").hasPrefix("4.0"))
-    #expect(calculator.calc("64.0 sqrt3").hasPrefix("4.0"))
-    #expect(calculator.calc("125.0 sqrt3").hasPrefix("5.0"))
-    #expect(calculator.calc("125.0 sqrt3").hasPrefix("5.0"))
-    #expect(calculator.calc("2 Z").hasPrefix("1.6449340668482264"))
-    #expect(calculator.calc("2 Z").hasPrefix("1.6449340668482264"))
-    #expect(calculator.calc("3 Z").hasPrefix("1.2020569031595942"))
-    #expect(calculator.calc("3 Z").hasPrefix("1.2020569031595942"))
-    #expect(calculator.calc("4 Z").hasPrefix("1.0823232337111381"))
-    #expect(calculator.calc("4 Z").hasPrefix("1.0823232337111381"))
-    #expect(calculator.calc("5 Z").hasPrefix("1.0369277551433699"))
-    #expect(calculator.calc("5 Z").hasPrefix("1.0369277551433699"))
-    #expect(calculator.calc("6 Z").hasPrefix("1.0173430619844490"))
-    #expect(calculator.calc("6 Z").hasPrefix("1.0173430619844490"))
-    #expect(calculator.calc("7 Z").hasPrefix("1.0083492773819228"))
-    #expect(calculator.calc("7 Z").hasPrefix("1.0083492773819228"))
-    #expect(calculator.calc("8 Z").hasPrefix("1.0040773561979440"))
-    #expect(calculator.calc("8 Z").hasPrefix("1.0040773561979440"))
-    #expect(calculator.calc("9 Z").hasPrefix("1.0009952070581464"))
-    #expect(calculator.calc("9 Z").hasPrefix("1.0009952070581464"))
-    #expect(calculator.calc("1.0 ln").hasPrefix("0.0"))
-    #expect(calculator.calc("1.0 ln").hasPrefix("0.0"))
-    #expect(calculator.calc("2.7183 ln").hasPrefix("1.0"))
-    #expect(calculator.calc("2.7183 ln").hasPrefix("1.0"))
-    #expect(calculator.calc("7.3891 ln").hasPrefix("2.0"))
-    #expect(calculator.calc("7.3891 ln").hasPrefix("2.0"))
-    #expect(calculator.calc("20.0855 ln").hasPrefix("3.0"))
-    #expect(calculator.calc("20.0855 ln").hasPrefix("3.0"))
-    #expect(calculator.calc("54.5982 ln").hasPrefix("4.0"))
-    #expect(calculator.calc("54.5982 ln").hasPrefix("4.0"))
-    #expect(calculator.calc("1.0 log10").hasPrefix("0.0"))
-    #expect(calculator.calc("1.0 log10").hasPrefix("0.0"))
-    #expect(calculator.calc("10.0 log10").hasPrefix("1.0"))
-    #expect(calculator.calc("10.0 log10").hasPrefix("1.0"))
-    #expect(calculator.calc("100.0 log10").hasPrefix("2.0"))
-    #expect(calculator.calc("100.0 log10").hasPrefix("2.0"))
-    #expect(calculator.calc("1000.0 log10").hasPrefix("3.0"))
-    #expect(calculator.calc("1000.0 log10").hasPrefix("3.0"))
-    #expect(calculator.calc("10000.0 log10").hasPrefix("4.0"))
-    #expect(calculator.calc("10000.0 log10").hasPrefix("4.0"))
-    #expect(calculator.calc("1.0 log2").hasPrefix("0.0"))
-    #expect(calculator.calc("1.0 log2").hasPrefix("0.0"))
-    #expect(calculator.calc("2.0 log2").hasPrefix("1.0"))
-    #expect(calculator.calc("2.0 log2").hasPrefix("1.0"))
-    #expect(calculator.calc("4.0 log2").hasPrefix("2.0"))
-    #expect(calculator.calc("4.0 log2").hasPrefix("2.0"))
-    #expect(calculator.calc("8.0 log2").hasPrefix("3.0"))
-    #expect(calculator.calc("8.0 log2").hasPrefix("3.0"))
-    #expect(calculator.calc("16.0 log2").hasPrefix("4.0"))
-    #expect(calculator.calc("16.0 log2").hasPrefix("4.0"))
-    #expect(calculator.calc("2.0 pow_x_2").hasPrefix("4.0"))
-    #expect(calculator.calc("2.0 pow_x_2").hasPrefix("4.0"))
-    #expect(calculator.calc("3.0 pow_x_2").hasPrefix("9.0"))
-    #expect(calculator.calc("3.0 pow_x_2").hasPrefix("9.0"))
-    #expect(calculator.calc("5.0 pow_x_2").hasPrefix("25.0"))
-    #expect(calculator.calc("5.0 pow_x_2").hasPrefix("25.0"))
-    #expect(calculator.calc("-4.0 pow_x_2").hasPrefix("16.0"))
-    #expect(calculator.calc("-4.0 pow_x_2").hasPrefix("16.0"))
-    #expect(calculator.calc("10.0 pow_x_2").hasPrefix("100.0"))
-    #expect(calculator.calc("10.0 pow_x_2").hasPrefix("100.0"))
-    #expect(calculator.calc("1.0 pow_e_x").hasPrefix("2.7183"))
-    #expect(calculator.calc("1.0 pow_e_x").hasPrefix("2.7183"))
-    #expect(calculator.calc("2.0 pow_e_x").hasPrefix("7.3891"))
-    #expect(calculator.calc("2.0 pow_e_x").hasPrefix("7.3891"))
-    #expect(calculator.calc("3.0 pow_e_x").hasPrefix("20.0855"))
-    #expect(calculator.calc("3.0 pow_e_x").hasPrefix("20.0855"))
-    #expect(calculator.calc("0.0 pow_e_x").hasPrefix("1.0"))
-    #expect(calculator.calc("0.0 pow_e_x").hasPrefix("1.0"))
-    #expect(calculator.calc("-1.0 pow_e_x").hasPrefix("0.3679"))
-    #expect(calculator.calc("-1.0 pow_e_x").hasPrefix("0.3679"))
-    #expect(calculator.calc("0.0 pow_10_x").hasPrefix("1.0"))
-    #expect(calculator.calc("0.0 pow_10_x").hasPrefix("1.0"))
-    #expect(calculator.calc("1.0 pow_10_x").hasPrefix("10.0"))
-    #expect(calculator.calc("1.0 pow_10_x").hasPrefix("10.0"))
-    #expect(calculator.calc("2.0 pow_10_x").hasPrefix("100.0"))
-    #expect(calculator.calc("2.0 pow_10_x").hasPrefix("100.0"))
-    #expect(calculator.calc("3.0 pow_10_x").hasPrefix("1000.0"))
-    #expect(calculator.calc("3.0 pow_10_x").hasPrefix("1000.0"))
-    #expect(calculator.calc("-1.0 pow_10_x").hasPrefix("0.1"))
-    #expect(calculator.calc("-1.0 pow_10_x").hasPrefix("0.1"))
-    #expect(calculator.calc("5.0 changeSign").hasPrefix("-5.0"))
-    #expect(calculator.calc("5.0 changeSign").hasPrefix("-5.0"))
-    #expect(calculator.calc("-3.14 changeSign").hasPrefix("3.14"))
-    #expect(calculator.calc("-3.14 changeSign").hasPrefix("3.14"))
-    #expect(calculator.calc("0.0 changeSign").hasPrefix("0.0"))
-    #expect(calculator.calc("0.0 changeSign").hasPrefix("0.0"))
-    #expect(calculator.calc("100.0 changeSign").hasPrefix("-100.0"))
-    #expect(calculator.calc("100.0 changeSign").hasPrefix("-100.0"))
-    #expect(calculator.calc("-50.0 changeSign").hasPrefix("50.0"))
-    #expect(calculator.calc("-50.0 changeSign").hasPrefix("50.0"))
-    #expect(calculator.calc("2.0 pow_x_3").hasPrefix("8.0"))
-    #expect(calculator.calc("2.0 pow_x_3").hasPrefix("8.0"))
-    #expect(calculator.calc("3.0 pow_x_3").hasPrefix("27.0"))
-    #expect(calculator.calc("3.0 pow_x_3").hasPrefix("27.0"))
-    #expect(calculator.calc("-4.0 pow_x_3").hasPrefix("-64.0"))
-    #expect(calculator.calc("-4.0 pow_x_3").hasPrefix("-64.0"))
-    #expect(calculator.calc("5.0 pow_x_3").hasPrefix("125.0"))
-    #expect(calculator.calc("5.0 pow_x_3").hasPrefix("125.0"))
-    #expect(calculator.calc("-2.0 pow_x_3").hasPrefix("-8.0"))
-    #expect(calculator.calc("-2.0 pow_x_3").hasPrefix("-8.0"))
-    #expect(calculator.calc("0.0 pow_2_x").hasPrefix("1.0"))
-    #expect(calculator.calc("0.0 pow_2_x").hasPrefix("1.0"))
-    #expect(calculator.calc("1.0 pow_2_x").hasPrefix("2.0"))
-    #expect(calculator.calc("1.0 pow_2_x").hasPrefix("2.0"))
-    #expect(calculator.calc("2.0 pow_2_x").hasPrefix("4.0"))
-    #expect(calculator.calc("2.0 pow_2_x").hasPrefix("4.0"))
-    #expect(calculator.calc("3.0 pow_2_x").hasPrefix("8.0"))
-    #expect(calculator.calc("3.0 pow_2_x").hasPrefix("8.0"))
-    #expect(calculator.calc("4.0 pow_2_x").hasPrefix("16.0"))
-    #expect(calculator.calc("4.0 pow_2_x").hasPrefix("16.0"))
-    #expect(calculator.calc("2.0 rez").hasPrefix("0.5"))
-    #expect(calculator.calc("2.0 rez").hasPrefix("0.5"))
-    #expect(calculator.calc("4.0 rez").hasPrefix("0.25"))
-    #expect(calculator.calc("4.0 rez").hasPrefix("0.25"))
-    #expect(calculator.calc("0.5 rez").hasPrefix("2.0"))
-    #expect(calculator.calc("0.5 rez").hasPrefix("2.0"))
-    #expect(calculator.calc("10.0 rez").hasPrefix("0.1"))
-    #expect(calculator.calc("10.0 rez").hasPrefix("0.1"))
-    #expect(calculator.calc("0.2 rez").hasPrefix("5.0"))
-    #expect(calculator.calc("0.2 rez").hasPrefix("5.0"))
-    #expect(calculator.calc("0.0 fac").hasPrefix("1.0"))
-    #expect(calculator.calc("0.0 fac").hasPrefix("1.0"))
-    #expect(calculator.calc("1.0 fac").hasPrefix("1.0"))
-    #expect(calculator.calc("1.0 fac").hasPrefix("1.0"))
-    #expect(calculator.calc("2.0 fac").hasPrefix("2.0"))
-    #expect(calculator.calc("2.0 fac").hasPrefix("2.0"))
-    #expect(calculator.calc("30 sinD").hasPrefix("0.5"))
-    #expect(calculator.calc("30 sinD").hasPrefix("0.5"))
-    #expect(calculator.calc("45 sinD").hasPrefix("0.7071"))
-    #expect(calculator.calc("45 sinD").hasPrefix("0.7071"))
-    #expect(calculator.calc("60 sinD").hasPrefix("0.8660"))
-    #expect(calculator.calc("60 sinD").hasPrefix("0.8660"))
-    #expect(calculator.calc("180 sinD").hasPrefix("0"))
-    #expect(calculator.calc("180 sinD").hasPrefix("0"))
-    #expect(calculator.calc("30 cosD").hasPrefix("0.8660"))
-    #expect(calculator.calc("30 cosD").hasPrefix("0.8660"))
-    #expect(calculator.calc("45 cosD").hasPrefix("0.7071"))
-    #expect(calculator.calc("45 cosD").hasPrefix("0.7071"))
-    #expect(calculator.calc("60 cosD").hasPrefix("0.5"))
-    #expect(calculator.calc("60 cosD").hasPrefix("0.5"))
-    #expect(calculator.calc("90 cosD").hasPrefix("0"))
-    #expect(calculator.calc("90 cosD").hasPrefix("0"))
-    #expect(calculator.calc("60 tanD").hasPrefix("1.7321"))
-    #expect(calculator.calc("60 tanD").hasPrefix("1.7321"))
-    #expect(calculator.calc("30 tanD").hasPrefix("0.5774"))
-    #expect(calculator.calc("30 tanD").hasPrefix("0.5774"))
-    #expect(calculator.calc("1.5708 sin").hasPrefix("1.0"))
-    #expect(calculator.calc("1.5708 sin").hasPrefix("1.0"))
-    #expect(calculator.calc("0.5236 cos").hasPrefix("0.8660"))
-    #expect(calculator.calc("0.5236 cos").hasPrefix("0.8660"))
-    #expect(calculator.calc("1.0472 sin").hasPrefix("0.8660"))
-    #expect(calculator.calc("1.0472 sin").hasPrefix("0.8660"))
-    #expect(calculator.calc("0.7854 tan").hasPrefix("1.0"))
-    #expect(calculator.calc("0.7854 tan").hasPrefix("1.0"))
-    #expect(calculator.calc("2.3562 sin").hasPrefix("0.7071"))
-    #expect(calculator.calc("2.3562 sin").hasPrefix("0.7071"))
-    #expect(calculator.calc("2.6180 cos").hasPrefix("-0.8660"))
-    #expect(calculator.calc("2.6180 cos").hasPrefix("-0.8660"))
-    #expect(calculator.calc("3.1416 sin").hasPrefix("0.0"))
-    #expect(calculator.calc("3.1416 sin").hasPrefix("0.0"))
-    #expect(calculator.calc("3.1416 cos").hasPrefix("-1.0"))
-    #expect(calculator.calc("3.1416 cos").hasPrefix("-1.0"))
-    #expect(calculator.calc("3.6652 sin").hasPrefix("-0.5"))
-    #expect(calculator.calc("3.6652 sin").hasPrefix("-0.5"))
-    #expect(calculator.calc("3.92699 cos").hasPrefix("-0.7071"))
-    #expect(calculator.calc("3.92699 cos").hasPrefix("-0.7071"))
-    #expect(calculator.calc("5.7596 sin").hasPrefix("-0.5"))
-    #expect(calculator.calc("5.7596 sin").hasPrefix("-0.5"))
-    #expect(calculator.calc("6.2832 sin").hasPrefix("0.0"))
-    #expect(calculator.calc("6.2832 sin").hasPrefix("0.0"))
-    #expect(calculator.calc("4.7124 cos").hasPrefix("0.0"))
-    #expect(calculator.calc("4.7124 cos").hasPrefix("0.0"))
-    #expect(calculator.calc("0.0 atan").hasPrefix("0.0"))
-    #expect(calculator.calc("0.0 atan").hasPrefix("0.0"))
-    #expect(calculator.calc("1.0 atan").hasPrefix("0.7854"))
-    #expect(calculator.calc("1.0 atan").hasPrefix("0.7854"))
-    #expect(calculator.calc("0.8660 acos").hasPrefix("0.5236"))
-    #expect(calculator.calc("0.8660 acos").hasPrefix("0.5236"))
-    #expect(calculator.calc("0.5 asin").hasPrefix("0.5236"))
-    #expect(calculator.calc("0.5 asin").hasPrefix("0.5236"))
-    #expect(calculator.calc("-1.0 atan").hasPrefix("-0.7854"))
-    #expect(calculator.calc("-1.0 atan").hasPrefix("-0.7854"))
-    #expect(calculator.calc("0.8660 asin").hasPrefix("1.0472"))
-    #expect(calculator.calc("0.8660 asin").hasPrefix("1.0472"))
-    #expect(calculator.calc("0.7854 sin").hasPrefix("0.7071"))
-    #expect(calculator.calc("0.7854 sin").hasPrefix("0.7071"))
-    #expect(calculator.calc("1.5708 cos").hasPrefix("0.0"))
-    #expect(calculator.calc("1.5708 cos").hasPrefix("0.0"))
-    #expect(calculator.calc("1.0472 tan").hasPrefix("1.7321"))
-    #expect(calculator.calc("1.0472 tan").hasPrefix("1.7321"))
-    #expect(calculator.calc("0.5236 sin").hasPrefix("0.5"))
-    #expect(calculator.calc("0.5236 sin").hasPrefix("0.5"))
-    #expect(calculator.calc("0.5236 tan").hasPrefix("0.5774"))
-    #expect(calculator.calc("0.5236 tan").hasPrefix("0.5774"))
-    #expect(calculator.calc("1.0472 cos").hasPrefix("0.5"))
-    #expect(calculator.calc("1.0472 cos").hasPrefix("0.5"))
-    #expect(calculator.calc("2.0944 sin").hasPrefix("0.8660"))
-    #expect(calculator.calc("2.0944 sin").hasPrefix("0.8660"))
-    #expect(calculator.calc("3.1416 tan").hasPrefix("0.0"))
-    #expect(calculator.calc("3.1416 tan").hasPrefix("0.0"))
-    #expect(calculator.calc("2.6180 sin").hasPrefix("0.5"))
-    #expect(calculator.calc("2.6180 sin").hasPrefix("0.5"))
-    #expect(calculator.calc("5.23599 cos").hasPrefix("0.5"))
-    #expect(calculator.calc("5.23599 cos").hasPrefix("0.5"))
-    #expect(calculator.calc("2.0944 cos").hasPrefix("-0.5"))
-    #expect(calculator.calc("2.0944 cos").hasPrefix("-0.5"))
-    #expect(calculator.calc("5.7596 cos").hasPrefix("0.8660"))
-    #expect(calculator.calc("5.7596 cos").hasPrefix("0.8660"))
-    #expect(calculator.calc("1.0 asin").hasPrefix("1.5708"))
-    #expect(calculator.calc("1.0 asin").hasPrefix("1.5708"))
-    #expect(calculator.calc("0.0 acos").hasPrefix("1.5708"))
-    #expect(calculator.calc("0.0 acos").hasPrefix("1.5708"))
-    #expect(calculator.calc("0.7071 acos").hasPrefix("0.7854"))
-    #expect(calculator.calc("0.7071 acos").hasPrefix("0.7854"))
-    #expect(calculator.calc("0.5774 atan").hasPrefix("0.5236"))
-    #expect(calculator.calc("0.5774 atan").hasPrefix("0.5236"))
+    #expect(calculator.calc("1 + 2") == "3")
+    #expect(calculator.calc("2 * 4") == "8")
+    #expect(calculator.calc("3 / 0") == "infinity")
+    #expect(calculator.calc("10/2") == "5")
+    result = calculator.calc("-5.0 abs")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("5.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.14 abs")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("3.14")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 abs")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-100.25 abs")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("100.25")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("12.5 abs")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("12.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("4.0 sqrt")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("9.0 sqrt")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("3.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 sqrt")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("16.0 sqrt")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("4.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("25.0 sqrt")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("5.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("8.0 sqrt3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("27.0 sqrt3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("3.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 sqrt3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("64.0 sqrt3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("4.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("125.0 sqrt3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("5.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    #expect(calculator.calc("1 zeta") == "infinity")
+    result = calculator.calc("2 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.6449340668482264")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.2020569031595942")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("4 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0823232337111381")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("5 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0369277551433699")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("6 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0173430619844490")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("7 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0083492773819228")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("8 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0040773561979440")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("9 zeta")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0009952070581464")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 ln")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.7183 ln")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("7.3891 ln")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("20.0855 ln")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("3.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("54.5982 ln")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("4.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 log10")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("10.0 log10")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("100.0 log10")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1000.0 log10")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("3.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("10000.0 log10")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("4.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 log2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 log2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("4.0 log2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("8.0 log2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("3.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("16.0 log2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("4.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 pow_x_2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("4.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.0 pow_x_2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("9.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("5.0 pow_x_2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("25.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-4.0 pow_x_2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("16.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("10.0 pow_x_2")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("100.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 pow_e_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.7183")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 pow_e_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("7.3891")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.0 pow_e_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("20.0855")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 pow_e_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-1.0 pow_e_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.3679")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 pow_10_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 pow_10_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("10.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 pow_10_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("100.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.0 pow_10_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1000.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-1.0 pow_10_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.1")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("5.0 changeSign")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-5.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-3.14 changeSign")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("3.14")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 changeSign")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("100.0 changeSign")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-100.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-50.0 changeSign")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("50.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 pow_x_3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("8.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.0 pow_x_3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("27.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-4.0 pow_x_3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-64.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("5.0 pow_x_3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("125.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-2.0 pow_x_3")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-8.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 pow_2_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 pow_2_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 pow_2_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("4.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.0 pow_2_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("8.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("4.0 pow_2_x")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("16.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 rez")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("4.0 rez")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.25")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.5 rez")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("10.0 rez")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.1")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.2 rez")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("5.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 fac")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 fac")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0 fac")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("2.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("30 sinD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("45 sinD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.7071")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("60 sinD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.8660")!))
+    } else {
+        #expect("valid" == result)
+    }
+    #expect(calculator.calc("90 sinD") == "1")
+    #expect(calculator.calc("0 sinD") == "0")
+    result = calculator.calc("180 sinD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    #expect(calculator.calc("270 sinD") == "-1")
+    result = calculator.calc("30 cosD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.8660")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("45 cosD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.7071")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("60 cosD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("90 cosD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    #expect(calculator.calc("45 tanD") == "1")
+    result = calculator.calc("60 tanD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.7321")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("30 tanD")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5774")!))
+    } else {
+        #expect("valid" == result)
+    }
+    #expect(calculator.calc("0 tanD") == "0")
+    #expect(calculator.calc("0 asinD") == "0")
+    #expect(calculator.calc("0 acosD") == "90")
+    #expect(calculator.calc("0.5 asinD") == "30")
+    #expect(calculator.calc("0.5 acosD") == "60")
+    #expect(calculator.calc("1 atanD") == "45")
+    #expect(calculator.calc("0 atanD") == "0")
+    result = calculator.calc("1.5708 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.5236 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.8660")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0472 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.8660")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.7854 tan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.3562 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.7071")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.6180 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.8660")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.1416 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.1416 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-1.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.6652 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.92699 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.7071")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("5.7596 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("6.2832 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("4.7124 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 atan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 atan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.7854")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.8660 acos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5236")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.5 asin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5236")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("-1.0 atan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.7854")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.8660 asin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.0472")!))
+    } else {
+        #expect("valid" == result)
+    }
+    #expect(calculator.calc("1.0 acos") == "0")
+    #expect(calculator.calc("0.0 sin") == "0")
+    result = calculator.calc("0.7854 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.7071")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.5708 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0472 tan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.7321")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.5236 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.5236 tan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5774")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0472 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0944 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.8660")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("3.1416 tan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.0")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.6180 sin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("5.23599 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("2.0944 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.5")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("5.7596 cos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.8660")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("1.0 asin")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.5708")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.0 acos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("1.5708")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.7071 acos")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.7854")!))
+    } else {
+        #expect("valid" == result)
+    }
+    result = calculator.calc("0.5774 atan")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.5236")!))
+    } else {
+        #expect("valid" == result)
+    }
 }
