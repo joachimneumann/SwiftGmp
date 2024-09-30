@@ -96,6 +96,83 @@ extension SwiftGmpParenthesisOperation {
     }
 }
 
+enum Operator {
+    case inPlace(SwiftGmpInplaceOperation) // e.g., sin, log
+    case binary(SwiftGmpTwoOperantOperation) // e.g., +, -, *, /
+    case constant(SwiftGmp) // e.g., pi, e
+    case parenthesesLeft
+    case parenthesesRight
+    
+    var priority: Int {
+        switch self {
+        case .binary(let op):
+            if op == .mul || op == .div { return 2 } // Higher precedence for * and /
+            return 1 // Lower precedence for + and -
+        case .inPlace:
+            return 3 // Highest precedence for in-place operators like sin, log
+        case .parenthesesLeft, .parenthesesRight:
+            return 0 // Parentheses control grouping, not direct precedence
+        case .constant:
+            return 4 // Constants should be directly evaluated
+        }
+    }
+}
+
+func shuntingYard(_ tokens: [Operator]) -> [Operator] {
+    var output: [Operator] = []
+    var operatorStack: [Operator] = []
+    
+    for token in tokens {
+        switch token {
+        case .constant, .inPlace:
+            output.append(token) // Directly add constants and in-place operators to output
+        case .binary:
+            while let top = operatorStack.last, top.priority >= token.priority {
+                output.append(operatorStack.removeLast()) // Pop from operator stack to output
+            }
+            operatorStack.append(token) // Push current operator onto the stack
+        case .parenthesesLeft:
+            operatorStack.append(token) // Push '(' onto the stack
+        case .parenthesesRight:
+            while let top = operatorStack.last, case .parenthesesLeft = top {
+                output.append(operatorStack.removeLast()) // Pop until '(' is found
+            }
+            _ = operatorStack.popLast() // Remove the '('
+        }
+    }
+    
+    while !operatorStack.isEmpty {
+        output.append(operatorStack.removeLast()) // Append remaining operators
+    }
+    
+    return output
+}
+
+func evaluatePostfix(_ tokens: [Operator]) -> SwiftGmp {
+    var stack: [SwiftGmp] = []
+    
+    for token in tokens {
+        switch token {
+        case .constant(let value):
+            stack.append(value) // Push constants to the stack
+        case .inPlace(let operation):
+            if let operand = stack.popLast() {
+                operand.execute(operation)
+                stack.append(operand) // Apply in-place operator
+            }
+        case .binary(let operation):
+            if let rhs = stack.popLast(), let lhs = stack.popLast() {
+                lhs.execute(operation, other: rhs)
+                stack.append(lhs) // Apply binary operator
+            }
+        default:
+            break
+        }
+    }
+    
+    return stack.last ?? SwiftGmp(bits: 20)
+}
+
 public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private(set) var bits: Int
     private static var rad_deg_bits: Int = 10
@@ -108,6 +185,20 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     init(bits: Int) {
         self.bits = bits
         mpfr_init2 (&mpfr, bits) // nan
+        
+        
+        let expression: [Operator] = [
+            .constant(Number("1", precision: 20).swiftGmp),
+            .binary(.add),
+            .constant(Number("3", precision: 20).swiftGmp),
+            .binary(.mul),
+            .constant(Number("10", precision: 20).swiftGmp)
+        ]
+
+        let postfixExpression = shuntingYard(expression)
+        let result = evaluatePostfix(postfixExpression)
+
+        print(result.toDouble()) // Output: 31
     }
     
     init(withString string: String, bits: Int) {
