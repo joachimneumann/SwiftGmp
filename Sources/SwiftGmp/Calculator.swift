@@ -34,6 +34,8 @@ public class Calculator {
         case "MR":
             if memory != nil {
                 display = memory!.copy()
+            } else {
+                throw TokenizerError.memoryEmpty
             }
             break
         case "MC":

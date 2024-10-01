@@ -11,6 +11,7 @@ public enum TokenizerError: Error, LocalizedError {
     case unknownOperator(op: String)
     case invalidNumber(op: String)
     case unprocessed(op: String)
+    case memoryEmpty
     
     public var errorDescription: String? {
         switch self {
@@ -20,17 +21,33 @@ public enum TokenizerError: Error, LocalizedError {
             return "Invalid number: \(op)"
         case .unprocessed(let op):
             return "unknown: \(op)"
+        case .memoryEmpty:
+            return "memory empty"
         }
     }
 }
 
+extension Array {
+    public var secondLast: Element? {
+        if count > 1 { return self[count - 2] }
+        return nil
+    }
+}
+extension Array {
+    public var thirdLast: Element? {
+        if count > 2 { return self[count - 3] }
+        return nil
+    }
+}
+
 public struct Token {
-    var tokens: [TokenEnum] = []
+    public var tokens: [TokenEnum] = []
     private var precision: Int
 
     public enum TokenEnum {
         case constant(SwiftGmpConstantOperation) // e.g., pi, e
         case inPlace(SwiftGmpInplaceOperation) // e.g., sin, log
+        case percent // %
         case twoOperant(SwiftGmpTwoOperantOperation) // e.g., +, -, *, /
         case number(Number) // e.g., -5.3
         case parenthesesLeft
@@ -41,7 +58,7 @@ public struct Token {
             case .twoOperant(let op):
                 if op == .mul || op == .div { return 2 } // Higher precedence for * and /
                 return 1 // Lower precedence for + and -
-            case .inPlace, .constant:
+            case .inPlace, .constant, .percent:
                 return 3 // Highest precedence for in-place operators like sin, log
             case .parenthesesLeft, .parenthesesRight:
                 return 0 // Parentheses control grouping, not direct precedence
@@ -67,10 +84,11 @@ public struct Token {
     }
     public init(precision: Int) {
         self.precision = precision
-        let allOperations: [OpProtocol] = SwiftGmpInplaceOperation.allCases +
-                                          SwiftGmpTwoOperantOperation.allCases +
-                                          SwiftGmpParenthesisOperation.allCases +
-                                          SwiftGmpConstantOperation.allCases
+        let allOperations: [OpProtocol] =
+        SwiftGmpInplaceOperation.allCases +
+        SwiftGmpTwoOperantOperation.allCases +
+        SwiftGmpParenthesisOperation.allCases +
+        SwiftGmpConstantOperation.allCases
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
 
@@ -81,7 +99,7 @@ public struct Token {
         var lastOperatorWasTwoOperant: Bool = false
         for token in tokens {
             switch token {
-            case .number, .inPlace, .constant:
+            case .number, .inPlace, .constant, .percent:
                 output.append(token) // Directly add constants and in-place operators to output
                 lastOperatorWasTwoOperant = false
             case .twoOperant:
@@ -144,7 +162,17 @@ public struct Token {
                     lhs.swiftGmp.execute(operation, other: rhs.swiftGmp)
                     stack.append(lhs) // Apply binary operator
                 }
-            default:
+            case .percent:
+                // this operation in an inplace operation, but if no number is found
+                // it creates a zero out of thin air and then perated on the zero.
+                if let number = stack.popLast() {
+                    let _001 = Number("0.01", precision: precision)
+                    number.swiftGmp.execute(.mul, other: _001.swiftGmp)
+                    stack.append(number)
+                }
+            case .parenthesesLeft:
+                break
+            case .parenthesesRight:
                 break
             }
         }
@@ -197,6 +225,13 @@ public struct Token {
                     }
                     tokens.append(.twoOperant(.sub))  // subtraction operator
                 }
+            } else if char == "%" {
+                if !numberBuffer.isEmpty {
+                    tokens.append(.number(Number(numberBuffer, precision: precision)))
+                    numberBuffer = ""
+                }
+                tokens.append(.percent)
+                numberExpected = true
             } else {
                 var opFound = false
                 for op in allOperationsSorted {

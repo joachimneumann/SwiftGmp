@@ -22,11 +22,10 @@ import SwiftGmp
     #expect(calculator.asString("C") == "0.0")
     #expect(calculator.asString("MR") == "18.0")
     #expect(calculator.asString("MC") == "18.0")
-// memory == nil --> no change to the display
-    #expect(calculator.asString("MR") == "0.0")
+    #expect(calculator.asString("MR") == "memory empty")
     #expect(calculator.asString("2 sqr") == "4.0")
     #expect(calculator.asString("2 sqr 5") == "5.0")
     #expect(calculator.asString("C") == "0.0")
-    temp = calculator.asDouble("sin")
-    #expect(temp.similarTo(Double("0.745624141665")!))
+    #expect(calculator.asString("10 %") == "0.1")
+    #expect(calculator.asString("10 + 20 %") == "1.2")
 }

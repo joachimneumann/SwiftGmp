@@ -16,7 +16,7 @@ def write(content):
 def writeln(content):
     write(content)
     write("\n")
-    
+
 precision = 20
 
 def isRepresentableAsDouble(string):
@@ -25,11 +25,11 @@ def isRepresentableAsDouble(string):
     if "." in string:
         while test[-1] == "0":
             test.removeLast()
-        
-    
+
+
     if len(test) > 16:
         return False
-    
+
     if "." in string:
         if test == "3":
             test = test[:-1]
