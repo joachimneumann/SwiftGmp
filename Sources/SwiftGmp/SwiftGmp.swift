@@ -210,8 +210,6 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     static var randstate: gmp_randstate_t? = nil
     
     public func execute(_ twoOperantOperation: SwiftGmpTwoOperantOperation, other: SwiftGmp) {
-        print(self.toDouble())
-        print(other.toDouble())
         var temp = self.mpfr;
         switch twoOperantOperation {
         case .add:
