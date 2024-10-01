@@ -3,12 +3,6 @@ import SwiftGmp_C_Target
 
 var globalUnsignedLongInt: CUnsignedLong = 0
 
-extension SwiftGmpInplaceOperation {
-    init() {
-        self = .zero
-    }
-}
-
 public protocol OpProtocol {
     func getRawValue() -> String
     func isEqual(to other: OpProtocol) -> Bool
@@ -21,11 +15,16 @@ extension OpProtocol where Self: Equatable {
     }
 }
 
-public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
+public enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
+    // this operation in an inplace operation, but if no number is found
+    // it creates a zero out of thin air and then perated on the zero.
     case zero
     case pi
     case e
     case rand
+}
+
+public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     case abs
     case sqrt
     case sqrt3
@@ -96,39 +95,22 @@ extension SwiftGmpParenthesisOperation {
     }
 }
 
-
-
-enum Operator {
-    case inPlace(SwiftGmpInplaceOperation) // e.g., sin, log
-    case binary(SwiftGmpTwoOperantOperation) // e.g., +, -, *, /
-    case constant(SwiftGmp) // e.g., pi, e
-    case parenthesesLeft
-    case parenthesesRight
-    
-    var priority: Int {
-        switch self {
-        case .binary(let op):
-            if op == .mul || op == .div { return 2 } // Higher precedence for * and /
-            return 1 // Lower precedence for + and -
-        case .inPlace:
-            return 3 // Highest precedence for in-place operators like sin, log
-        case .parenthesesLeft, .parenthesesRight:
-            return 0 // Parentheses control grouping, not direct precedence
-        case .constant:
-            return 4 // Constants should be directly evaluated
-        }
+extension SwiftGmpConstantOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
     }
 }
+
 
 public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private(set) var bits: Int
     private static var rad_deg_bits: Int = 10
     private static var deg2rad: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
     private static var rad2deg: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
-
+    
     /// init with zeros. The struct will be initialized correctly in init() with mpfr_init2()
     private var mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
-
+    
     init(bits: Int) {
         self.bits = bits
         mpfr_init2 (&mpfr, bits) // nan
@@ -139,7 +121,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_init2 (&mpfr, bits)
         mpfr_set_str (&mpfr, string, 10, MPFR_RNDN)
     }
-
+    
     deinit {
         mpfr_clear(&mpfr)
     }
@@ -158,20 +140,20 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         let diff = self.toDouble() - other
         return Swift.abs(diff) <= precision
     }
-
+    
     public var debugDescription: String {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         let (mantissa, exponent) = mantissaExponent(len: 100)
         return "\(mantissa) \(exponent)"
     }
-
+    
     static func isValidSwiftGmpString(_ gmpString: String, bits: Int) -> Bool {
         var temp_mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
         mpfr_init2 (&temp_mpfr, bits)
         return mpfr_set_str (&temp_mpfr, gmpString, 10, MPFR_RNDN) == 0
     }
-
+    
     //
     // copy and convert
     //
@@ -196,11 +178,11 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         charArray.withUnsafeBufferPointer { ptr in
             mantissa = String(cString: ptr.baseAddress!)
         }
-
+        
         var zeroCharacterSet = CharacterSet()
         zeroCharacterSet.insert(charactersIn: "0")
         mantissa = mantissa.trimmingCharacters(in: zeroCharacterSet)
-
+        
         return (mantissa, exponent - 1)
     }
     
@@ -255,8 +237,8 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
             execute(.mul, other: other)
         }
     }
-    public func execute(_ inplaceOp: SwiftGmpInplaceOperation) {
-        switch inplaceOp {
+    public func execute(_ constOp: SwiftGmpConstantOperation) {
+        switch constOp {
         case .zero:
             mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
         case .pi:
@@ -270,6 +252,10 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
                 __gmp_randseed_ui(&SwiftGmp.randstate!, UInt.random(in: 0..<UInt.max));
             }
             mpfr_urandom(&mpfr, &SwiftGmp.randstate!, MPFR_RNDN)
+        }
+    }
+    public func execute(_ inplaceOp: SwiftGmpInplaceOperation) {
+        switch inplaceOp {
         case .abs:
             var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN)
         case .sqrt:
@@ -351,7 +337,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         }
     }
     
-//    func inPlace(op: inplaceType) { op(self)() }
+    //    func inPlace(op: inplaceType) { op(self)() }
     /// in the second argument, I a simultaneously using the same memory
     /// Option 1: &mpfr -> &copy().mpfr
     /// Option 2: in the build settings set exclusiv access to memory to compiletime enfocement only

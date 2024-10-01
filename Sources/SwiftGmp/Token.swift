@@ -29,9 +29,10 @@ public struct Token {
     private var precision: Int
 
     enum TokenEnum {
+        case constant(SwiftGmpConstantOperation) // e.g., pi, e
         case inPlace(SwiftGmpInplaceOperation) // e.g., sin, log
         case twoOperant(SwiftGmpTwoOperantOperation) // e.g., +, -, *, /
-        case number(Number) // e.g., pi, e
+        case number(Number) // e.g., -5.3
         case parenthesesLeft
         case parenthesesRight
         
@@ -40,7 +41,7 @@ public struct Token {
             case .twoOperant(let op):
                 if op == .mul || op == .div { return 2 } // Higher precedence for * and /
                 return 1 // Lower precedence for + and -
-            case .inPlace:
+            case .inPlace, .constant:
                 return 3 // Highest precedence for in-place operators like sin, log
             case .parenthesesLeft, .parenthesesRight:
                 return 0 // Parentheses control grouping, not direct precedence
@@ -68,7 +69,8 @@ public struct Token {
         self.precision = precision
         let allOperations: [OpProtocol] = SwiftGmpInplaceOperation.allCases +
                                           SwiftGmpTwoOperantOperation.allCases +
-                                          SwiftGmpParenthesisOperation.allCases
+                                          SwiftGmpParenthesisOperation.allCases +
+                                          SwiftGmpConstantOperation.allCases
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
 
@@ -79,7 +81,7 @@ public struct Token {
         var lastOperatorWasTwoOperant: Bool = false
         for token in tokens {
             switch token {
-            case .number, .inPlace:
+            case .number, .inPlace, .constant:
                 output.append(token) // Directly add constants and in-place operators to output
                 lastOperatorWasTwoOperant = false
             case .twoOperant:
@@ -127,6 +129,15 @@ public struct Token {
                 if let number = stack.popLast() {
                     number.swiftGmp.execute(operation)
                     stack.append(number) // Apply in-place operator
+                }
+            case .constant(let operation):
+                if let number = stack.popLast() {
+                    number.swiftGmp.execute(operation)
+                    stack.append(number) // Apply in-place operator
+                } else {
+                    let zero = Number("0", precision: precision)
+                    zero.swiftGmp.execute(operation)
+                    stack.append(zero)
                 }
             case .twoOperant(let operation):
                 if let rhs = stack.popLast(), let lhs = stack.popLast() {
@@ -197,6 +208,8 @@ public struct Token {
                         }
                         if let inPlace = op as? SwiftGmpInplaceOperation {
                             tokens.append(.inPlace(inPlace))
+                        } else if let constant = op as? SwiftGmpConstantOperation {
+                            tokens.append(.constant(constant))
                         } else if let twoOperant = op as? SwiftGmpTwoOperantOperation {
                             tokens.append(.twoOperant(twoOperant))
                         } else if op.getRawValue() == "(" {
