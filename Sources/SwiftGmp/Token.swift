@@ -28,7 +28,7 @@ public struct Token {
     var tokens: [TokenEnum] = []
     private var precision: Int
 
-    enum TokenEnum {
+    public enum TokenEnum {
         case constant(SwiftGmpConstantOperation) // e.g., pi, e
         case inPlace(SwiftGmpInplaceOperation) // e.g., sin, log
         case twoOperant(SwiftGmpTwoOperantOperation) // e.g., +, -, *, /
@@ -51,7 +51,7 @@ public struct Token {
         }
     }
     
-    public mutating func setPrecision(newPrecision: Int) {
+    public mutating func setPrecision(_ newPrecision: Int) {
         self.precision = newPrecision
         for token in tokens {
             if case .number(let n) = token {

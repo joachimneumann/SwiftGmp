@@ -1,0 +1,22 @@
+1 + 2 * 3 = 7.0
+1 sin sin ~= 0.745624141665
+4.5 = 4.5
+MC = 4.5
+M+ = 4.5
+M+ = 4.5
+M+ = 4.5
+M+ = 4.5
+MR = 18.0
+// clearing memory, no change to the display
+C = 0.0
+MR = 18.0
+MC = 18.0
+// memory == nil --> no change to the display
+MR = 0.0
+2 sqr = 4.0
+2 sqr 5 = 5.0
+C = 0.0
+1
+sin
+sin ~= 0.745624141665
+

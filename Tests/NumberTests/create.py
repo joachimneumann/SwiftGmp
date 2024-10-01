@@ -97,7 +97,7 @@ for file in glob.glob("*.txt"):
     writeln("")
     writeln("@Test func "+basename+"Test() {")
     writeln("    let calculator = Calculator(precision: 20)")
-    writeln("    var result: String")
+    writeln("    var temp: Double = 0.0")
     writeln("")
     with open(file) as file:
         for line in file:
@@ -117,18 +117,14 @@ for file in glob.glob("*.txt"):
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
-                                writeln("    result = calculator.calc(\""+components[0].strip()+"\")")
-                                writeln("    if let d = Double(result) {")
-                                writeln("        #expect(d.similarTo(Double(\""+components[1].strip()+"\")!))")
-                                writeln("    } else {")
-                                writeln("        #expect(result == \"valid\")")
-                                writeln("    }")
+                                writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
+                                writeln("    #expect(temp.similarTo(Double(\""+components[1].strip()+"\")!))")
                     elif "=" in content:
                         components = content.strip().split("=")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
-                                writeln("    #expect(calculator.calc(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
+                                writeln("    #expect(calculator.asString(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
     writeln("}")
     f.close()

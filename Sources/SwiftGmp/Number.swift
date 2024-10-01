@@ -159,7 +159,7 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         }
     }
 
-    fileprivate func copy() -> Number {
+    func copy() -> Number {
         if isStr {
             return Number(str!, precision: precision)
         } else {
