@@ -3,19 +3,19 @@ import SwiftGmp_C_Target
 
 var globalUnsignedLongInt: CUnsignedLong = 0
 
-public protocol OpProtocol {
+protocol OpProtocol {
     func getRawValue() -> String
     func isEqual(to other: OpProtocol) -> Bool
 }
 
 extension OpProtocol where Self: Equatable {
-    public func isEqual(to other: OpProtocol) -> Bool {
+    func isEqual(to other: OpProtocol) -> Bool {
         guard let other = other as? Self else { return false }
         return self == other
     }
 }
 
-public enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
+enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
     // this operation in an inplace operation, but if no number is found
     // it creates a zero out of thin air and then perated on the zero.
     case zero
@@ -24,7 +24,7 @@ public enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
     case rand
 }
 
-public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
+enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     case abs
     case sqrt
     case sqrt3
@@ -60,7 +60,7 @@ public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     case atanD
 }
 
-public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
+enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case add = "+"
     case sub = "-"
     case mul = "*"
@@ -72,37 +72,37 @@ public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case EE
 }
 
-public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
+enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
     case left = "("
     case right = ")"
 }
 
 extension SwiftGmpInplaceOperation {
-    public func getRawValue() -> String {
+    func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension SwiftGmpTwoOperantOperation {
-    public func getRawValue() -> String {
+    func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension SwiftGmpParenthesisOperation {
-    public func getRawValue() -> String {
+    func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension SwiftGmpConstantOperation {
-    public func getRawValue() -> String {
+    func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 
-public class SwiftGmp: Equatable, CustomDebugStringConvertible {
+class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private(set) var bits: Int
     private static var rad_deg_bits: Int = 10
     private static var deg2rad: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
@@ -126,7 +126,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_clear(&mpfr)
     }
     
-    public static func == (lhs: SwiftGmp, rhs: SwiftGmp) -> Bool {
+    static func == (lhs: SwiftGmp, rhs: SwiftGmp) -> Bool {
         return mpfr_cmp(&lhs.mpfr, &rhs.mpfr) == 0
     }
     
@@ -141,7 +141,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         return Swift.abs(diff) <= precision
     }
     
-    public var debugDescription: String {
+    var debugDescription: String {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         let (mantissa, exponent) = mantissaExponent(len: 100)
@@ -162,7 +162,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_set(&ret.mpfr, &mpfr, MPFR_RNDN)
         return ret
     }
-    public func toDouble() -> Double {
+    func toDouble() -> Double {
         return mpfr_get_d(&mpfr, MPFR_RNDN)
     }
     static func memorySize(bits: Int) -> Int {
@@ -209,7 +209,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     
     static var randstate: gmp_randstate_t? = nil
     
-    public func execute(_ twoOperantOperation: SwiftGmpTwoOperantOperation, other: SwiftGmp) {
+    func execute(_ twoOperantOperation: SwiftGmpTwoOperantOperation, other: SwiftGmp) {
         var temp = self.mpfr;
         switch twoOperantOperation {
         case .add:
@@ -235,7 +235,7 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
             execute(.mul, other: other)
         }
     }
-    public func execute(_ constOp: SwiftGmpConstantOperation) {
+    func execute(_ constOp: SwiftGmpConstantOperation) {
         switch constOp {
         case .zero:
             mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
@@ -252,7 +252,8 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
             mpfr_urandom(&mpfr, &SwiftGmp.randstate!, MPFR_RNDN)
         }
     }
-    public func execute(_ inplaceOp: SwiftGmpInplaceOperation) {
+    
+    func execute(_ inplaceOp: SwiftGmpInplaceOperation) {
         switch inplaceOp {
         case .abs:
             var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN)
@@ -353,8 +354,8 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         }
     }
     
-    public typealias swiftGmpInplaceType = (SwiftGmp) -> () -> ()
-    public typealias swiftGmpTwoOperantsType = (SwiftGmp) -> (SwiftGmp) -> ()
+    typealias swiftGmpInplaceType = (SwiftGmp) -> () -> ()
+    typealias swiftGmpTwoOperantsType = (SwiftGmp) -> (SwiftGmp) -> ()
     
     func setValue(other: SwiftGmp) {
         mpfr_set(&mpfr, &other.mpfr, MPFR_RNDN)

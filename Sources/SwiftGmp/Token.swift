@@ -7,13 +7,13 @@
 
 import Foundation
 
-public enum TokenizerError: Error, LocalizedError {
+enum TokenizerError: Error, LocalizedError {
     case unknownOperator(op: String)
     case invalidNumber(op: String)
     case unprocessed(op: String)
     case memoryEmpty
     
-    public var errorDescription: String? {
+    var errorDescription: String? {
         switch self {
         case .unknownOperator(let op):
             return "Unknown operator: \(op)"
@@ -28,23 +28,23 @@ public enum TokenizerError: Error, LocalizedError {
 }
 
 extension Array {
-    public var secondLast: Element? {
+    var secondLast: Element? {
         if count > 1 { return self[count - 2] }
         return nil
     }
 }
 extension Array {
-    public var thirdLast: Element? {
+    var thirdLast: Element? {
         if count > 2 { return self[count - 3] }
         return nil
     }
 }
 
-public struct Token {
-    public var tokens: [TokenEnum] = []
+struct Token {
+    var tokens: [TokenEnum] = []
     private var precision: Int
 
-    public enum TokenEnum {
+    enum TokenEnum {
         case constant(SwiftGmpConstantOperation)     // pi, e, rand
         case inPlace(SwiftGmpInplaceOperation)       // sin, log, etc
         case percent                                 // %
@@ -68,7 +68,7 @@ public struct Token {
         }
     }
     
-    public mutating func setPrecision(_ newPrecision: Int) {
+    mutating func setPrecision(_ newPrecision: Int) {
         self.precision = newPrecision
         for token in tokens {
             if case .number(let n) = token {
@@ -77,12 +77,12 @@ public struct Token {
         }
     }
 
-    public let allOperationsSorted: [OpProtocol]
+    let allOperationsSorted: [OpProtocol]
 
-    public mutating func clear() {
+    mutating func clear() {
         tokens = []
     }
-    public init(precision: Int) {
+    init(precision: Int) {
         self.precision = precision
         let allOperations: [OpProtocol] =
         SwiftGmpInplaceOperation.allCases +
@@ -92,7 +92,7 @@ public struct Token {
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
     
-    public mutating func tokenize(_ input: String) throws {
+    mutating func tokenize(_ input: String) throws {
         var numberBuffer = ""
         var index = input.startIndex
         var numberExpected = true

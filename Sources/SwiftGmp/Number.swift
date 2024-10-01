@@ -8,40 +8,40 @@
 
 import Foundation
 
-public class Number: CustomDebugStringConvertible, Separators, ShowAs {
+class Number: CustomDebugStringConvertible, Separators, ShowAs {
     var showAsInt: Bool = false
     var showAsFloat: Bool = false
     
     var decimalSeparator: DecimalSeparator = DecimalSeparator.dot
     var groupingSeparator: GroupingSeparator = GroupingSeparator.none
     
-    public var debugDescription: String {
+    var debugDescription: String {
         if let _str {
             return "\(_str) precision \(precision) string"
         }
         return "\(_swiftGmp!.toDouble())  precision \(precision) gmp"
     }
 
-    public private(set) var precision: Int = 0
+    private(set) var precision: Int = 0
     
     func setPrecision(_ newPrecision: Int) {
         precision = newPrecision
         swiftGmp.setBits(bits(for: precision))
     }
     
-    public init(_ str: String, precision: Int) {
+    init(_ str: String, precision: Int) {
         _str = str
         _swiftGmp = nil
         self.precision = precision
     }
 
-    public init(precision: Int) {
+    init(precision: Int) {
         _str = "0"
         _swiftGmp = nil
         self.precision = precision
     }
 
-    public init(_ d: Double, precision: Int) {
+    init(_ d: Double, precision: Int) {
         _str = nil
         _swiftGmp = SwiftGmp(withString: String(d), bits: bits(for: precision))
     }
@@ -57,14 +57,14 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     private var isStr: Bool { _str != nil }
     private var isSwiftGmp: Bool { _swiftGmp != nil }
     private var str: String? { return _str }
-    public var swiftGmp: SwiftGmp {
+    var swiftGmp: SwiftGmp {
         if isStr {
             _swiftGmp = SwiftGmp(withString: _str!, bits: bits(for: precision))
             _str = nil
         }
         return _swiftGmp!
     }
-    public func toDouble() -> Double {
+    func toDouble() -> Double {
         if let str {
             if let d = Double(str) {
                 return d
@@ -75,7 +75,7 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         return swiftGmp.toDouble()
     }
     
-//    public static func ==(lhs: Number, rhs: Number) -> Bool {
+//    static func ==(lhs: Number, rhs: Number) -> Bool {
 //        if lhs.precision != rhs.precision { return false }
 //
 //        let selfIsStr = lhs.isStr
@@ -88,71 +88,71 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
 //        let r = rhs
 //        return l.swiftGmp == r.swiftGmp
 //    }
-//    public static func !=(lhs: Number, rhs: Number) -> Bool {
+//    static func !=(lhs: Number, rhs: Number) -> Bool {
 //        return !(lhs == rhs)
 //    }
-//    public static func +(lhs: Number, rhs: Number) -> Number {
+//    static func +(lhs: Number, rhs: Number) -> Number {
 //        return Number(lhs.swiftGmp + rhs.swiftGmp)
 //    }
-//    public static func +(lhs: Double, rhs: Number) -> Number {
+//    static func +(lhs: Double, rhs: Number) -> Number {
 //        let l = Number(lhs, precision: rhs.precision)
 //        return Number(l.swiftGmp + rhs.swiftGmp)
 //    }
-//    public static func +(lhs: Number, rhs: Double) -> Number {
+//    static func +(lhs: Number, rhs: Double) -> Number {
 //        let r = Number(rhs, precision: lhs.precision)
 //        return Number(lhs.swiftGmp + r.swiftGmp)
 //    }
 //
-//    public static func -(lhs: Number, rhs: Number) -> Number {
+//    static func -(lhs: Number, rhs: Number) -> Number {
 //        return Number(lhs.swiftGmp - rhs.swiftGmp)
 //    }
-//    public static func -(lhs: Double, rhs: Number) -> Number {
+//    static func -(lhs: Double, rhs: Number) -> Number {
 //        let l = Number(lhs, precision: rhs.precision)
 //        return Number(l.swiftGmp - rhs.swiftGmp)
 //    }
-//    public static func -(lhs: Number, rhs: Double) -> Number {
+//    static func -(lhs: Number, rhs: Double) -> Number {
 //        let r = Number(rhs, precision: lhs.precision)
 //        return Number(lhs.swiftGmp - r.swiftGmp)
 //    }
 //
-//    public static func *(lhs: Number, rhs: Number) -> Number {
+//    static func *(lhs: Number, rhs: Number) -> Number {
 //        return Number(lhs.swiftGmp * rhs.swiftGmp)
 //    }
-//    public static func *(lhs: Double, rhs: Number) -> Number {
+//    static func *(lhs: Double, rhs: Number) -> Number {
 //        let l = Number(lhs, precision: rhs.precision)
 //        return Number(l.swiftGmp * rhs.swiftGmp)
 //    }
-//    public static func *(lhs: Number, rhs: Double) -> Number {
+//    static func *(lhs: Number, rhs: Double) -> Number {
 //        let r = Number(rhs, precision: lhs.precision)
 //        return Number(lhs.swiftGmp * r.swiftGmp)
 //    }
 //
-//    public static func /(lhs: Number, rhs: Number) -> Number {
+//    static func /(lhs: Number, rhs: Number) -> Number {
 //        return Number(lhs.swiftGmp / rhs.swiftGmp)
 //    }
-//    public static func /(lhs: Double, rhs: Number) -> Number {
+//    static func /(lhs: Double, rhs: Number) -> Number {
 //        let l = Number(lhs, precision: rhs.precision)
 //        return Number(l.swiftGmp / rhs.swiftGmp)
 //    }
-//    public static func /(lhs: Number, rhs: Double) -> Number {
+//    static func /(lhs: Number, rhs: Double) -> Number {
 //        let r = Number(rhs, precision: lhs.precision)
 //        return Number(lhs.swiftGmp / r.swiftGmp)
 //    }
 //
-    public var isNaN: Bool {
+    var isNaN: Bool {
         get {
             if isStr { return false }
             return swiftGmp.isNan
         }
     }
-    public var isValid: Bool {
+    var isValid: Bool {
         get {
             if isStr { return true }
             return swiftGmp.isValid
         }
     }
 
-    public var isInfinity: Bool {
+    var isInfinity: Bool {
         get {
             if isStr { return str == "infinity" }
             return swiftGmp.isInf
@@ -216,7 +216,7 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         }
     }
         
-    private func fromStringNumber(
+    private func stringRepresentation(
         _ stringNumber: String,
         separators: Separators,
         showAs: ShowAs,
@@ -234,9 +234,9 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         return NumberRepresentation(left: signAndSeparator)
     }
     
-    public func representation() -> NumberRepresentation {
+    func representation() -> NumberRepresentation {
         if let str = _str {
-            return fromStringNumber(str, separators: self, showAs: self, forceScientific: false)
+            return stringRepresentation(str, separators: self, showAs: self, forceScientific: false)
         }
         
         if swiftGmp.isNan {
@@ -254,10 +254,10 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
         mantissaLength = precision
         let (mantissa, exponent) = swiftGmp.mantissaExponent(len: mantissaLength)
         
-        return fromMantissaAndExponent(mantissa, exponent, separators: self, showAs: self, forceScientific: false)
+        return mantissaAndExponentRepresentation(mantissa, exponent, separators: self, showAs: self, forceScientific: false)
     }
     
-    private func fromMantissaAndExponent(
+    private func mantissaAndExponentRepresentation(
         _ mantissa_: String,
         _ exponent: Int,
         separators: Separators,
@@ -342,13 +342,13 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
 }
 //
 //
-//public extension String {
+//extension String {
 //    func position(of char: Character) -> Int? {
 //        return firstIndex(of: char)?.utf16Offset(in: self)
 //    }
 //}
 //
-public extension Double {
+extension Double {
     func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
         if abs(self) > 1000 {
             return abs(self - other) <= precision * abs(self)
