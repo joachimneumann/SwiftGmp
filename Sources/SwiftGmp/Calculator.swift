@@ -71,7 +71,9 @@ public class Calculator {
 
     public func asString(_ expression: String) -> String {
         do { try add(expression) } catch { return error.localizedDescription }
-        return String(display.toDouble())
+        var result = String(display.toDouble())
+        if result == "-0.0" { result = "0.0"}
+        return result
     }
     public func asDouble(_ expression: String) -> Double {
         do { try add(expression) } catch { return Double.nan }

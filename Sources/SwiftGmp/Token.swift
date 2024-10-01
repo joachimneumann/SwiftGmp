@@ -91,7 +91,92 @@ public struct Token {
         SwiftGmpConstantOperation.allCases
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
-
+    
+    public mutating func tokenize(_ input: String) throws {
+        var numberBuffer = ""
+        var index = input.startIndex
+        var numberExpected = true
+        
+        while index < input.endIndex {
+            let char = input[index]
+            
+            if char.isNumber || char == "." || (char == "e" && !numberBuffer.isEmpty) || (char == "-" && numberBuffer.last == "e") {
+                // Append characters that are part of a number (including scientific notation)
+                numberBuffer.append(char)
+            } else if char.isWhitespace {
+                if !numberBuffer.isEmpty {
+                    tokens.append(.number(Number(numberBuffer, precision: precision)))
+                    numberBuffer = ""
+                    numberExpected = false
+                }
+            } else if char == "=" {
+                // Ignore for now
+            } else if char == "-" {
+                var unaryMinus = numberExpected
+                let count = input[index...].count
+                let nextIndex = input.index(index, offsetBy: 1)
+                let afterMinus: Character = input[nextIndex]
+                if count > 1 && afterMinus == " " {
+                    unaryMinus = false
+                }
+                
+                if unaryMinus {
+                    numberBuffer.append(char) // unary minus (e.g., -5)
+                } else {
+                    if !numberBuffer.isEmpty {
+                        tokens.append(.number(Number(numberBuffer, precision: precision)))
+                        numberBuffer = ""
+                    }
+                    tokens.append(.twoOperant(.sub))  // subtraction operator
+                }
+            } else if char == "%" {
+                if !numberBuffer.isEmpty {
+                    tokens.append(.number(Number(numberBuffer, precision: precision)))
+                    numberBuffer = ""
+                }
+                tokens.append(.percent)
+                numberExpected = true
+            } else {
+                var opFound = false
+                for op in allOperationsSorted {
+                    if !opFound && input[index...].hasPrefix(op.getRawValue()) {
+                        opFound = true
+                        if !numberBuffer.isEmpty {
+                            tokens.append(.number(Number(numberBuffer, precision: precision)))
+                            numberBuffer = ""
+                        }
+                        if let inPlace = op as? SwiftGmpInplaceOperation {
+                            tokens.append(.inPlace(inPlace))
+                        } else if let constant = op as? SwiftGmpConstantOperation {
+                            tokens.append(.constant(constant))
+                        } else if let twoOperant = op as? SwiftGmpTwoOperantOperation {
+                            tokens.append(.twoOperant(twoOperant))
+                        } else if op.getRawValue() == "(" {
+                            tokens.append(.parenthesesLeft)
+                        } else if op.getRawValue() == ")" {
+                            tokens.append(.parenthesesRight)
+                        } else {
+                            throw TokenizerError.unknownOperator(op: op.getRawValue())
+                        }
+                        numberExpected = true
+                        index = input.index(index, offsetBy: op.getRawValue().count - 1)
+                    }
+                }
+                if !opFound {
+                    var failedCandidate: String = String(input[index...])
+                    if failedCandidate.contains(" ") {
+                        failedCandidate = String(failedCandidate.split(separator: " ").first!)
+                    }
+                    throw(TokenizerError.unknownOperator(op: failedCandidate))
+                }
+            }
+            index = input.index(after: index)
+        }
+        
+        if !numberBuffer.isEmpty {
+            tokens.append(.number(Number(numberBuffer, precision: precision)))
+        }
+    }
     mutating func shuntingYard() {
         var output: [TokenEnum] = []
         var operatorStack: [TokenEnum] = []
@@ -199,90 +284,6 @@ public struct Token {
     }
 
 
-    public mutating func tokenize(_ input: String) throws {
-        var numberBuffer = ""
-        var index = input.startIndex
-        var numberExpected = true
-        
-        while index < input.endIndex {
-            let char = input[index]
-            
-            if char.isNumber || char == "." || (char == "e" && !numberBuffer.isEmpty) || (char == "-" && numberBuffer.last == "e") {
-                // Append characters that are part of a number (including scientific notation)
-                numberBuffer.append(char)
-            } else if char.isWhitespace {
-                if !numberBuffer.isEmpty {
-                    tokens.append(.number(Number(numberBuffer, precision: precision)))
-                    numberBuffer = ""
-                    numberExpected = false
-                }
-            } else if char == "=" {
-                // Ignore for now
-            } else if char == "-" {
-                var unaryMinus = numberExpected
-                let count = input[index...].count
-                let nextIndex = input.index(index, offsetBy: 1)
-                let afterMinus: Character = input[nextIndex]
-                if count > 1 && afterMinus == " " {
-                    unaryMinus = false
-                }
-                
-                if unaryMinus {
-                    numberBuffer.append(char) // unary minus (e.g., -5)
-                } else {
-                    if !numberBuffer.isEmpty {
-                        tokens.append(.number(Number(numberBuffer, precision: precision)))
-                        numberBuffer = ""
-                    }
-                    tokens.append(.twoOperant(.sub))  // subtraction operator
-                }
-            } else if char == "%" {
-                if !numberBuffer.isEmpty {
-                    tokens.append(.number(Number(numberBuffer, precision: precision)))
-                    numberBuffer = ""
-                }
-                tokens.append(.percent)
-                numberExpected = true
-            } else {
-                var opFound = false
-                for op in allOperationsSorted {
-                    if !opFound && input[index...].hasPrefix(op.getRawValue()) {
-                        opFound = true
-                        if !numberBuffer.isEmpty {
-                            tokens.append(.number(Number(numberBuffer, precision: precision)))
-                            numberBuffer = ""
-                        }
-                        if let inPlace = op as? SwiftGmpInplaceOperation {
-                            tokens.append(.inPlace(inPlace))
-                        } else if let constant = op as? SwiftGmpConstantOperation {
-                            tokens.append(.constant(constant))
-                        } else if let twoOperant = op as? SwiftGmpTwoOperantOperation {
-                            tokens.append(.twoOperant(twoOperant))
-                        } else if op.getRawValue() == "(" {
-                            tokens.append(.parenthesesLeft)
-                        } else if op.getRawValue() == ")" {
-                            tokens.append(.parenthesesRight)
-                        } else {
-                            throw TokenizerError.unknownOperator(op: op.getRawValue())
-                        }
-                        numberExpected = true
-                        index = input.index(index, offsetBy: op.getRawValue().count - 1)
-                    }
-                }
-                if !opFound {
-                    var failedCandidate: String = String(input[index...])
-                    if failedCandidate.contains(" ") {
-                        failedCandidate = String(failedCandidate.split(separator: " ").first!)
-                    }
-                    throw(TokenizerError.unknownOperator(op: failedCandidate))
-                }
-            }
-            index = input.index(after: index)
-        }
-        
-        if !numberBuffer.isEmpty {
-            tokens.append(.number(Number(numberBuffer, precision: precision)))
-        }
-    }
+    
 }
 
