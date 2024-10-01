@@ -27,5 +27,6 @@ import SwiftGmp
     #expect(calculator.asString("2 sqr 5") == "5.0")
     #expect(calculator.asString("C") == "0.0")
     #expect(calculator.asString("10 %") == "0.1")
-    #expect(calculator.asString("10 + 20 %") == "1.2")
+    #expect(calculator.asString("10 + 20 %") == "12.0")
+    #expect(calculator.asString("3 * 10 %") == "0.9")
 }

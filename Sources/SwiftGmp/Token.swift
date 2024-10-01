@@ -45,11 +45,11 @@ public struct Token {
     private var precision: Int
 
     public enum TokenEnum {
-        case constant(SwiftGmpConstantOperation) // e.g., pi, e
-        case inPlace(SwiftGmpInplaceOperation) // e.g., sin, log
-        case percent // %
-        case twoOperant(SwiftGmpTwoOperantOperation) // e.g., +, -, *, /
-        case number(Number) // e.g., -5.3
+        case constant(SwiftGmpConstantOperation)     // pi, e, rand
+        case inPlace(SwiftGmpInplaceOperation)       // sin, log, etc
+        case percent                                 // %
+        case twoOperant(SwiftGmpTwoOperantOperation) // +, -, *, /, x^y, etc
+        case number(Number)                          // -5.3
         case parenthesesLeft
         case parenthesesRight
         
@@ -139,7 +139,9 @@ public struct Token {
     mutating func evaluatePostfix() -> Number {
         var stack: [Number] = []
         
-        for token in tokens {
+        while tokens.count > 0 {
+            let token = tokens.first
+            tokens.removeFirst()
             switch token {
             case .number(let number):
                 stack.append(number) // Push constants to the stack
@@ -165,14 +167,23 @@ public struct Token {
             case .percent:
                 // this operation in an inplace operation, but if no number is found
                 // it creates a zero out of thin air and then perated on the zero.
-                if let number = stack.popLast() {
-                    let _001 = Number("0.01", precision: precision)
+                let _001 = Number("0.01", precision: precision)
+                if let n1 = stack.last,  case .twoOperant(let op) = tokens.last, let n2 = stack.secondLast {
+                    tokens.removeLast()
+                    stack.removeLast()
+                    stack.removeLast()
+                    n1.swiftGmp.execute(.mul, other: _001.swiftGmp)
+                    n1.swiftGmp.execute(.mul, other: n2.swiftGmp)
+                    n2.swiftGmp.execute(op, other: n1.swiftGmp)
+                    stack.append(n2)
+                } else if let number = stack.popLast() {
                     number.swiftGmp.execute(.mul, other: _001.swiftGmp)
                     stack.append(number)
+                } else {
+                    // do nothing?
                 }
-            case .parenthesesLeft:
                 break
-            case .parenthesesRight:
+            default:
                 break
             }
         }
