@@ -11,13 +11,10 @@ MR = 18.0
 C = 0.0
 MR = 18.0
 MC = 18.0
-// memory == nil --> no change to the display
-MR = 0.0
+MR = memory empty
 2 sqr = 4.0
 2 sqr 5 = 5.0
 C = 0.0
-1
-sin
-sin ~= 0.745624141665
+1 sin sin ~= 0.745624141665
 10 % = 0.1
 

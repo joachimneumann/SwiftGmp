@@ -118,7 +118,7 @@ for file in glob.glob("*.txt"):
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
                                 writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
-                                writeln("    #expect(temp.similarTo(Double(\""+components[1].strip()+"\")!))")
+                                writeln("    #expect(temp.similarTo("+components[1].strip()+"))")
                     elif "=" in content:
                         components = content.strip().split("=")
                         if len(components) == 2:

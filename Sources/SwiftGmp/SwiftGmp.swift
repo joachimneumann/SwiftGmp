@@ -49,7 +49,7 @@ public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     case exp
     case exp2
     case exp10
-    case changeSign
+    case changeSign = "+/-"
     case rez
     case fac
     case sinD
