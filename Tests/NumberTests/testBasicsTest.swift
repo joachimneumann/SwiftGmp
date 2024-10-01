@@ -8,7 +8,7 @@ import SwiftGmp
     let calculator = Calculator(precision: 20)
     var result: String
 
-    #expect(calculator.calc("1 + 3 * 10") == "31")
+    #expect(calculator.calc("1 + 3 * 10") == "31.0")
     #expect(calculator.calc("1 + 2") == "3.0")
     #expect(calculator.calc("2 * 4") == "8.0")
     #expect(calculator.calc("3 / 0") == "inf")

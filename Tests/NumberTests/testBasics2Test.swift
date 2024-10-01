@@ -22,10 +22,10 @@ import SwiftGmp
     #expect(calculator.calc("999999999 + 1") == "1000000000.0")
     #expect(calculator.calc("-1987.50 + 1987") == "-0.5")
     #expect(calculator.calc("6 * 2 + 8") == "20.0")
-// 1500 - 2000 = -500 + 0.25 = -499.75
-// 1500 - 2000 = -500 + 1.23456789 = -498.765432
-// 1500 - 2000 = -500 + 123456789 = 123456289.0
-// 1500 - 2000 = -500.0
+    #expect(calculator.calc("1500 - 2000 + 0.25") == "-499.75")
+    #expect(calculator.calc("1500 - 2000 + 1.23456789") == "-498.76543211")
+    #expect(calculator.calc("1500 - 2000 + 123456789") == "123456289.0")
+    #expect(calculator.calc("1500 - 2000") == "-500.0")
     #expect(calculator.calc("9 - 3") == "6.0")
     #expect(calculator.calc("-3 - 0") == "-3.0")
     #expect(calculator.calc("3 - 0") == "3.0")
@@ -34,10 +34,9 @@ import SwiftGmp
     #expect(calculator.calc("9 - 1.35") == "7.65")
     #expect(calculator.calc("0.29 - 1.35") == "-1.06")
     #expect(calculator.calc("7.1234567 - 2.2109876") == "4.9124691")
-// 1000 + - 10.99 = 989.01
-// -1.0 + - 989.99
-// 50 + - 60 = -10.0
-// -5 + - 20 = -25.0
+    #expect(calculator.calc("1000 + - 10.99") == "989.01")
+    #expect(calculator.calc("50 + - 60") == "-10.0")
+    #expect(calculator.calc("-5 + - 20") == "-25.0")
     #expect(calculator.calc("-1.33 - 2") == "-3.33")
     #expect(calculator.calc("123456789 - 210987654") == "-87530865.0")
     #expect(calculator.calc("7.12345678 - 2.21098765") == "4.91246913")

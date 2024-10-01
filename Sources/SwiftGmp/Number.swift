@@ -59,7 +59,7 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
     private var str: String? { return _str }
     public var swiftGmp: SwiftGmp {
         if isStr {
-            _swiftGmp = SwiftGmp(withString: str!, bits: bits(for: precision))
+            _swiftGmp = SwiftGmp(withString: _str!, bits: bits(for: precision))
             _str = nil
         }
         return _swiftGmp!
@@ -350,6 +350,10 @@ public class Number: CustomDebugStringConvertible, Separators, ShowAs {
 //
 public extension Double {
     func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
-        abs(self - other) <= precision
+        if abs(self) > 1000 {
+            return abs(self - other) <= precision * abs(self)
+        } else {
+            return abs(self - other) <= precision
+        }
     }
 }

@@ -73,11 +73,6 @@ public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case EE
 }
 
-public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
-    case leftParenthesis = "("
-    case rightParenthesis = ")"
-}
-
 extension SwiftGmpInplaceOperation {
     public func getRawValue() -> String {
         return self.rawValue
@@ -90,11 +85,6 @@ extension SwiftGmpTwoOperantOperation {
     }
 }
 
-extension SwiftGmpParenthesisOperation {
-    public func getRawValue() -> String {
-        return self.rawValue
-    }
-}
 
 enum Operator {
     case inPlace(SwiftGmpInplaceOperation) // e.g., sin, log
@@ -118,61 +108,6 @@ enum Operator {
     }
 }
 
-func shuntingYard(_ tokens: [Operator]) -> [Operator] {
-    var output: [Operator] = []
-    var operatorStack: [Operator] = []
-    
-    for token in tokens {
-        switch token {
-        case .constant, .inPlace:
-            output.append(token) // Directly add constants and in-place operators to output
-        case .binary:
-            while let top = operatorStack.last, top.priority >= token.priority {
-                output.append(operatorStack.removeLast()) // Pop from operator stack to output
-            }
-            operatorStack.append(token) // Push current operator onto the stack
-        case .parenthesesLeft:
-            operatorStack.append(token) // Push '(' onto the stack
-        case .parenthesesRight:
-            while let top = operatorStack.last, case .parenthesesLeft = top {
-                output.append(operatorStack.removeLast()) // Pop until '(' is found
-            }
-            _ = operatorStack.popLast() // Remove the '('
-        }
-    }
-    
-    while !operatorStack.isEmpty {
-        output.append(operatorStack.removeLast()) // Append remaining operators
-    }
-    
-    return output
-}
-
-func evaluatePostfix(_ tokens: [Operator]) -> SwiftGmp {
-    var stack: [SwiftGmp] = []
-    
-    for token in tokens {
-        switch token {
-        case .constant(let value):
-            stack.append(value) // Push constants to the stack
-        case .inPlace(let operation):
-            if let operand = stack.popLast() {
-                operand.execute(operation)
-                stack.append(operand) // Apply in-place operator
-            }
-        case .binary(let operation):
-            if let rhs = stack.popLast(), let lhs = stack.popLast() {
-                lhs.execute(operation, other: rhs)
-                stack.append(lhs) // Apply binary operator
-            }
-        default:
-            break
-        }
-    }
-    
-    return stack.last ?? SwiftGmp(bits: 20)
-}
-
 public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private(set) var bits: Int
     private static var rad_deg_bits: Int = 10
@@ -187,18 +122,18 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_init2 (&mpfr, bits) // nan
         
         
-        let expression: [Operator] = [
-            .constant(Number("1", precision: 20).swiftGmp),
-            .binary(.add),
-            .constant(Number("3", precision: 20).swiftGmp),
-            .binary(.mul),
-            .constant(Number("10", precision: 20).swiftGmp)
-        ]
-
-        let postfixExpression = shuntingYard(expression)
-        let result = evaluatePostfix(postfixExpression)
-
-        print(result.toDouble()) // Output: 31
+//        let expression: [Operator] = [
+//            .constant(Number("1", precision: 20).swiftGmp),
+//            .binary(.add),
+//            .constant(Number("3", precision: 20).swiftGmp),
+//            .binary(.mul),
+//            .constant(Number("10", precision: 20).swiftGmp)
+//        ]
+//
+//        let postfixExpression = shuntingYard(expression)
+//        let result = evaluatePostfix(postfixExpression)
+//
+//        print(result.toDouble()) // Output: 31
     }
     
     init(withString string: String, bits: Int) {
@@ -295,20 +230,22 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     static var randstate: gmp_randstate_t? = nil
     
     public func execute(_ twoOperantOperation: SwiftGmpTwoOperantOperation, other: SwiftGmp) {
+        print(self.toDouble())
+        print(other.toDouble())
         var temp = self.mpfr;
         switch twoOperantOperation {
         case .add:
-            mpfr_add(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
+            mpfr_add(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
         case .sub:
-            mpfr_sub(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
+            mpfr_sub(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
         case .mul:
-            mpfr_mul(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
+            mpfr_mul(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
         case .div:
-            mpfr_div(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
+            mpfr_div(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
         case .pow_x_y:
-            mpfr_pow(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
+            mpfr_pow(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
         case .pow_y_x:
-            mpfr_pow(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
+            mpfr_pow(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
         case .sqrty:
             other.execute(.rez)
             execute(.pow_x_y, other: other)
@@ -426,10 +363,10 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
             let _180 = SwiftGmp(withString: "180", bits: bits)
             let _pi = SwiftGmp(bits: bits)
             _pi.execute(.pi)
-            SwiftGmp.deg2rad = _180.copy()
-            SwiftGmp.deg2rad.execute(.div, other: _pi)
-            SwiftGmp.rad2deg = SwiftGmp.deg2rad.copy()
-            SwiftGmp.rad2deg.execute(.rez)
+            SwiftGmp.rad2deg = _180.copy()
+            SwiftGmp.rad2deg.execute(.div, other: _pi)
+            SwiftGmp.deg2rad = SwiftGmp.rad2deg.copy()
+            SwiftGmp.deg2rad.execute(.rez)
             SwiftGmp.rad_deg_bits = bits
         }
     }
