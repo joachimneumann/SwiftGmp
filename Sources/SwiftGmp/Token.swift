@@ -104,9 +104,6 @@ public struct Token {
                         output.append(operatorStack.removeLast()) // Pop until '(' is found
                     }
                 }
-//                while let top = operatorStack.last, case .parenthesesLeft = top {
-//                    output.append(operatorStack.removeLast()) // Pop until '(' is found
-//                }
                 _ = operatorStack.popLast() // Remove the '('
                 lastOperatorWasTwoOperant = false
             }

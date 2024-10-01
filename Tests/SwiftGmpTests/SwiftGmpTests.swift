@@ -21,19 +21,10 @@ import Testing
     x1.execute(.mul, other: x2)
     #expect(x1.toDouble() == 18)
 
-//    #expect((x1+x2).toDouble() == 5)
-//    #expect((x2+x1).toDouble() == 5)
-//    
-//    #expect((x1-x2).toDouble() == -1)
-//    #expect((x2-x1).toDouble() == 1)
-//    
-//    #expect((x1*x2).toDouble() == 6)
-//    #expect((x2*x1).toDouble() == 6)
-//    
-//    #expect((x1/x2).isApproximately(0.666))
-//    #expect((x2/x1).toDouble() == 1.5)
-//    
-//    x2.rez()
-//    #expect(x2.isApproximately(0.33333))
+    x1.execute(.add, other: x2)
+    #expect(x1.toDouble() == 15)
+    
+    x2.execute(.rez)
+    #expect(x2.isApproximately(-0.33333))
 }
 
