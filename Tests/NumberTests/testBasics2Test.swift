@@ -91,14 +91,40 @@ import SwiftGmp
     } else {
         #expect(result == "valid")
     }
-// 1500 - 2000 = 500 / 3.12 = -160.25641
-// 1500 - 2000 = 500 / 312 = -1.6025641
-// 6 * 2 = 12 / 8 = 1.5
-// 1500 / 0 = Error
-// 6 / 0 = Error
-// 1.23456789 / 2.10987654 = 0.585137503
-// 1500 - 2000 = -500 / 1234.56789 = -0.405000004
-// 1500 - 2000 = -500 / 123456789 = -0.00000405000004
+    result = calculator.calc("(1500 - 2000) / 3.12")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-160.25641")!))
+    } else {
+        #expect(result == "valid")
+    }
+    result = calculator.calc("(1500 - 2000) / 312")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-1.6025641")!))
+    } else {
+        #expect(result == "valid")
+    }
+    #expect(calculator.calc("(6 * 2) / 8") == "1.5")
+    #expect(calculator.calc("1500 / 0") == "inf")
+    #expect(calculator.calc("6 / 0") == "inf")
+    #expect(calculator.calc("-6 / 0") == "-inf")
+    result = calculator.calc("1.23456789 / 2.10987654")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("0.585137503")!))
+    } else {
+        #expect(result == "valid")
+    }
+    result = calculator.calc("(1500 - 2000) / 1234.56789")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.405000004")!))
+    } else {
+        #expect(result == "valid")
+    }
+    result = calculator.calc("(1500 - 2000) / 123456789")
+    if let d = Double(result) {
+        #expect(d.similarTo(Double("-0.00000405000004")!))
+    } else {
+        #expect(result == "valid")
+    }
 // -12.3 C = 0
 // 12.3 C = 0
 // -123 C = 0
@@ -108,19 +134,18 @@ import SwiftGmp
 // -1234.56789 C = 0
 // -123456789 C = 0
 // 123456789 C = 0
-// .11111 = 0.11111
-// 0000 = 0
-// 000.11111 = 0.11111
-// 06 = 6
-// 6 * 06 = 6
-// 1111.11111 = 1111.11111
-// 123.567 = 123.567
-// 0.6 = 0.6
-// .6 = 0.6
-// 6 * 0.6 = 0.6
-// 6 * .6 = 0.6
-// 1.1 = 1.1
-// 12.3456789 = 12.3456789
-// - - 21 = 21
-// 0123456789 = 123456789
+    #expect(calculator.calc(".11111") == "0.11111")
+    #expect(calculator.calc("0000") == "0.0")
+    #expect(calculator.calc("000.11111") == "0.11111")
+    #expect(calculator.calc("06") == "6.0")
+    #expect(calculator.calc("6 * 06") == "36.0")
+    #expect(calculator.calc("1111.11111") == "1111.11111")
+    #expect(calculator.calc("123.567") == "123.567")
+    #expect(calculator.calc("0.6") == "0.6")
+    #expect(calculator.calc(".6") == "0.6")
+    #expect(calculator.calc("6 * 0.6") == "3.6")
+    #expect(calculator.calc("6 * .6") == "3.6")
+    #expect(calculator.calc("1.1") == "1.1")
+    #expect(calculator.calc("12.3456789") == "12.3456789")
+    #expect(calculator.calc("0123456789") == "123456789.0")
 }

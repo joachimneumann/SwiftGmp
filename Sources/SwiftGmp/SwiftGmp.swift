@@ -73,6 +73,11 @@ public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case EE
 }
 
+public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
+    case left = "("
+    case right = ")"
+}
+
 extension SwiftGmpInplaceOperation {
     public func getRawValue() -> String {
         return self.rawValue
@@ -84,6 +89,13 @@ extension SwiftGmpTwoOperantOperation {
         return self.rawValue
     }
 }
+
+extension SwiftGmpParenthesisOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+
 
 
 enum Operator {
@@ -120,20 +132,6 @@ public class SwiftGmp: Equatable, CustomDebugStringConvertible {
     init(bits: Int) {
         self.bits = bits
         mpfr_init2 (&mpfr, bits) // nan
-        
-        
-//        let expression: [Operator] = [
-//            .constant(Number("1", precision: 20).swiftGmp),
-//            .binary(.add),
-//            .constant(Number("3", precision: 20).swiftGmp),
-//            .binary(.mul),
-//            .constant(Number("10", precision: 20).swiftGmp)
-//        ]
-//
-//        let postfixExpression = shuntingYard(expression)
-//        let result = evaluatePostfix(postfixExpression)
-//
-//        print(result.toDouble()) // Output: 31
     }
     
     init(withString string: String, bits: Int) {

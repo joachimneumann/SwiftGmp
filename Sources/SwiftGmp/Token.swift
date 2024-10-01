@@ -67,7 +67,8 @@ public struct Token {
     public init(precision: Int) {
         self.precision = precision
         let allOperations: [OpProtocol] = SwiftGmpInplaceOperation.allCases +
-                                          SwiftGmpTwoOperantOperation.allCases
+                                          SwiftGmpTwoOperantOperation.allCases +
+                                          SwiftGmpParenthesisOperation.allCases
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
 
@@ -95,9 +96,17 @@ public struct Token {
                 operatorStack.append(token) // Push '(' onto the stack
                 lastOperatorWasTwoOperant = false
             case .parenthesesRight:
-                while let top = operatorStack.last, case .parenthesesLeft = top {
-                    output.append(operatorStack.removeLast()) // Pop until '(' is found
+                var stillLooking = true
+                while stillLooking, let top = operatorStack.last {
+                    if case .parenthesesLeft = top {
+                        stillLooking = false
+                    } else {
+                        output.append(operatorStack.removeLast()) // Pop until '(' is found
+                    }
                 }
+//                while let top = operatorStack.last, case .parenthesesLeft = top {
+//                    output.append(operatorStack.removeLast()) // Pop until '(' is found
+//                }
                 _ = operatorStack.popLast() // Remove the '('
                 lastOperatorWasTwoOperant = false
             }
@@ -183,7 +192,7 @@ public struct Token {
             } else {
                 var opFound = false
                 for op in allOperationsSorted {
-                    if input[index...].hasPrefix(op.getRawValue()) {
+                    if !opFound && input[index...].hasPrefix(op.getRawValue()) {
                         opFound = true
                         if !numberBuffer.isEmpty {
                             tokens.append(.number(Number(numberBuffer, precision: precision)))
