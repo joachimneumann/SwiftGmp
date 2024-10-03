@@ -122,6 +122,12 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_set_str (&mpfr, string, 10, MPFR_RNDN)
     }
     
+    init(withSwiftGmp: SwiftGmp, bits: Int) {
+        mpfr_init2 (&mpfr, bits) // nan
+        mpfr_set(&mpfr, &withSwiftGmp.mpfr, MPFR_RNDN)
+        self.bits = bits
+    }
+    
     deinit {
         mpfr_clear(&mpfr)
     }
@@ -168,6 +174,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     static func memorySize(bits: Int) -> Int {
         mpfr_custom_get_size(bits)
     }
+    
     func mantissaExponent(len: Int) -> (String, Int) {
         var exponent: mpfr_exp_t = 0
         
@@ -352,13 +359,6 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             SwiftGmp.deg2rad.execute(.rez)
             SwiftGmp.rad_deg_bits = bits
         }
-    }
-    
-    typealias swiftGmpInplaceType = (SwiftGmp) -> () -> ()
-    typealias swiftGmpTwoOperantsType = (SwiftGmp) -> (SwiftGmp) -> ()
-    
-    func setValue(other: SwiftGmp) {
-        mpfr_set(&mpfr, &other.mpfr, MPFR_RNDN)
     }
     
     func x_double_up_arrow_y(other: SwiftGmp) {

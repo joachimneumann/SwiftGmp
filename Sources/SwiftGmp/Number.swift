@@ -8,137 +8,109 @@
 
 import Foundation
 
-class Number: CustomDebugStringConvertible, Separators, ShowAs {
-    var showAsInt: Bool = false
-    var showAsFloat: Bool = false
-    
-    var decimalSeparator: DecimalSeparator = DecimalSeparator.dot
-    var groupingSeparator: GroupingSeparator = GroupingSeparator.none
-    
-    var debugDescription: String {
-        if let _str {
-            return "\(_str) precision \(precision) string"
+class Number: CustomDebugStringConvertible {
+    private(set) var precision: Int = 0
+    private var str: String?
+    private var _swiftGmp: SwiftGmp?
+
+    private var isStr: Bool { str != nil }
+    private var isSwiftGmp: Bool { _swiftGmp != nil }
+
+    var swiftGmp: SwiftGmp {
+        if isStr {
+            _swiftGmp = SwiftGmp(withString: str!, bits: bits(for: precision))
+            str = nil
         }
-        return "\(_swiftGmp!.toDouble())  precision \(precision) gmp"
+        return _swiftGmp!
     }
 
-    private(set) var precision: Int = 0
-    
     func setPrecision(_ newPrecision: Int) {
         precision = newPrecision
         swiftGmp.setBits(bits(for: precision))
     }
     
     init(_ str: String, precision: Int) {
-        _str = str
-        _swiftGmp = nil
+        self.str = str
+        self._swiftGmp = nil
         self.precision = precision
     }
 
     init(precision: Int) {
-        _str = "0"
+        str = "0"
         _swiftGmp = nil
         self.precision = precision
     }
 
     init(_ d: Double, precision: Int) {
-        _str = nil
+        str = nil
         _swiftGmp = SwiftGmp(withString: String(d), bits: bits(for: precision))
     }
-    private init(_ gmp: SwiftGmp) {
-        _str = nil
-        _swiftGmp = gmp.copy()
-        self.precision = precision(for: gmp.bits)
+    private init(_ swiftGmp: SwiftGmp) {
+        str = nil
+        _swiftGmp = swiftGmp.copy()
+        self.precision = precision(for: swiftGmp.bits)
     }
 
-    private var _str: String?
-    private var _swiftGmp: SwiftGmp?
-//    
-    private var isStr: Bool { _str != nil }
-    private var isSwiftGmp: Bool { _swiftGmp != nil }
-    private var str: String? { return _str }
-    var swiftGmp: SwiftGmp {
-        if isStr {
-            _swiftGmp = SwiftGmp(withString: _str!, bits: bits(for: precision))
-            _str = nil
-        }
-        return _swiftGmp!
-    }
-    func toDouble() -> Double {
-        if let str {
-            if let d = Double(str) {
-                return d
-            } else {
-                return Double.nan
-            }
-        }
-        return swiftGmp.toDouble()
+    func bits(for precision: Int) -> Int {
+        Int(Double(generousPrecision(for: precision)) * 3.32192809489)
     }
     
-//    static func ==(lhs: Number, rhs: Number) -> Bool {
-//        if lhs.precision != rhs.precision { return false }
-//
-//        let selfIsStr = lhs.isStr
-//        let otherIsStr = rhs.isStr
-//        if selfIsStr && otherIsStr {
-//            return lhs.str == rhs.str
+    func generousPrecision(for precision: Int) -> Int {
+        return precision + 20
+//        if precision <= 500 {
+//            return 1000
+//        } else if precision <= 10000 {
+//            return 2 * precision
+//        } else if precision <= 100000 {
+//            return Int(round(1.5*Double(precision)))
+//        } else {
+//            return precision + 50000
 //        }
-//
-//        let l = lhs
-//        let r = rhs
-//        return l.swiftGmp == r.swiftGmp
-//    }
-//    static func !=(lhs: Number, rhs: Number) -> Bool {
-//        return !(lhs == rhs)
-//    }
-//    static func +(lhs: Number, rhs: Number) -> Number {
-//        return Number(lhs.swiftGmp + rhs.swiftGmp)
-//    }
-//    static func +(lhs: Double, rhs: Number) -> Number {
-//        let l = Number(lhs, precision: rhs.precision)
-//        return Number(l.swiftGmp + rhs.swiftGmp)
-//    }
-//    static func +(lhs: Number, rhs: Double) -> Number {
-//        let r = Number(rhs, precision: lhs.precision)
-//        return Number(lhs.swiftGmp + r.swiftGmp)
-//    }
-//
-//    static func -(lhs: Number, rhs: Number) -> Number {
-//        return Number(lhs.swiftGmp - rhs.swiftGmp)
-//    }
-//    static func -(lhs: Double, rhs: Number) -> Number {
-//        let l = Number(lhs, precision: rhs.precision)
-//        return Number(l.swiftGmp - rhs.swiftGmp)
-//    }
-//    static func -(lhs: Number, rhs: Double) -> Number {
-//        let r = Number(rhs, precision: lhs.precision)
-//        return Number(lhs.swiftGmp - r.swiftGmp)
-//    }
-//
-//    static func *(lhs: Number, rhs: Number) -> Number {
-//        return Number(lhs.swiftGmp * rhs.swiftGmp)
-//    }
-//    static func *(lhs: Double, rhs: Number) -> Number {
-//        let l = Number(lhs, precision: rhs.precision)
-//        return Number(l.swiftGmp * rhs.swiftGmp)
-//    }
-//    static func *(lhs: Number, rhs: Double) -> Number {
-//        let r = Number(rhs, precision: lhs.precision)
-//        return Number(lhs.swiftGmp * r.swiftGmp)
-//    }
-//
-//    static func /(lhs: Number, rhs: Number) -> Number {
-//        return Number(lhs.swiftGmp / rhs.swiftGmp)
-//    }
-//    static func /(lhs: Double, rhs: Number) -> Number {
-//        let l = Number(lhs, precision: rhs.precision)
-//        return Number(l.swiftGmp / rhs.swiftGmp)
-//    }
-//    static func /(lhs: Number, rhs: Double) -> Number {
-//        let r = Number(rhs, precision: lhs.precision)
-//        return Number(lhs.swiftGmp / r.swiftGmp)
-//    }
-//
+    }
+
+    func precision(for bits: Int) -> Int {
+        Int(Double(precision) / 3.32192809489)
+    }
+
+    func copy() -> Number {
+        if isStr {
+            return Number(str!, precision: precision)
+        } else {
+            return Number(swiftGmp.copy())
+        }
+    }
+
+    var R: Representation {
+        let asGmp: SwiftGmp
+        // reduce precision for rounding
+        // this transforms last bit errors like 0.500000...001  and 0.49999...999 into 0.5
+        if let str = str {
+            let temp = SwiftGmp(withString: str, bits: bits(for: precision))
+            asGmp = SwiftGmp(withSwiftGmp: temp, bits: bits(for: precision))
+        } else {
+            asGmp = SwiftGmp(withSwiftGmp: swiftGmp, bits: bits(for: precision))
+        }
+
+        if asGmp.isNan {
+            return Representation(error: "not a number")
+        }
+        if asGmp.isInf {
+            if asGmp.isNegative() {
+                return Representation(error: "-inf")
+            } else {
+                return Representation(error: "inf")
+            }
+        }
+
+        if asGmp.isZero {
+            return Representation(mantissa: "0", exponent: 0)
+        }
+
+        let mantissaLength: Int = precision // approximation: accept integers with length = precision
+        let (mantissa, exponent) = asGmp.mantissaExponent(len: mantissaLength)
+        return Representation(mantissa: mantissa, exponent: exponent)
+    }
+
     var isNaN: Bool {
         get {
             if isStr { return false }
@@ -154,190 +126,17 @@ class Number: CustomDebugStringConvertible, Separators, ShowAs {
 
     var isInfinity: Bool {
         get {
-            if isStr { return str == "infinity" }
+            if isStr { return str == "inf" || str == "-inf"}
             return swiftGmp.isInf
         }
     }
-
-    func copy() -> Number {
-        if isStr {
-            return Number(str!, precision: precision)
-        } else {
-            return Number(swiftGmp.copy())
-        }
-    }
-
-    func internalPrecision(for precision: Int) -> Int {
-        return precision
-//        if precision <= 500 {
-//            return 1000
-//        } else if precision <= 10000 {
-//            return 2 * precision
-//        } else if precision <= 100000 {
-//            return Int(round(1.5*Double(precision)))
-//        } else {
-//            return precision + 50000
-//        }
-    }
     
-    func bits(for precision: Int) -> Int {
-        Int(Double(internalPrecision(for: precision)) * 3.32192809489)
+    var debugDescription: String {
+        if let str {
+            return "\(str) precision \(precision) string"
+        }
+        return "\(_swiftGmp!.toDouble())  precision \(precision) gmp"
     }
-    func precision(for bits: Int) -> Int {
-        Int(Double(precision) / 3.32192809489)
-    }
-
-
-    private func withSeparators(numberString: String, isNegative: Bool, separators: Separators) -> String {
-        var integerPart: String
-        let fractionalPart: String
-        
-        if numberString.contains(".") {
-            integerPart = numberString.before(first: ".")
-            fractionalPart = numberString.after(first: ".")
-        } else {
-            /// integer
-            integerPart = numberString
-            fractionalPart = ""
-        }
-        
-        if let c = separators.groupingSeparator.character {
-            var count = integerPart.count
-            while count >= 4 {
-                count = count - 3
-                integerPart.insert(c, at: integerPart.index(integerPart.startIndex, offsetBy: count))
-            }
-        }
-        let minusSign = isNegative ? "-" : ""
-        if numberString.contains(".") {
-            return minusSign + integerPart + separators.decimalSeparator.string + fractionalPart
-        } else {
-            return minusSign + integerPart
-        }
-    }
-        
-    private func stringRepresentation(
-        _ stringNumber: String,
-        separators: Separators,
-        showAs: ShowAs,
-        forceScientific: Bool) -> NumberRepresentation {
-        
-        assert(!stringNumber.contains(","))
-        assert(!stringNumber.contains("e"))
-            
-        let signAndSeparator: String
-        if stringNumber.starts(with: "-") {
-            signAndSeparator = withSeparators(numberString: String(stringNumber.dropFirst()), isNegative: true, separators: separators)
-        } else {
-            signAndSeparator = withSeparators(numberString: stringNumber, isNegative: false, separators: separators)
-        }
-        return NumberRepresentation(left: signAndSeparator)
-    }
-    
-    func representation() -> NumberRepresentation {
-        if let str = _str {
-            return stringRepresentation(str, separators: self, showAs: self, forceScientific: false)
-        }
-        
-        if swiftGmp.isNan {
-            return NumberRepresentation(left: "not a number")
-        }
-        if swiftGmp.isInf {
-            return NumberRepresentation(left: "infinity")
-        }
-
-        if swiftGmp.isZero {
-            return NumberRepresentation(left: "0")
-        }
-
-        let mantissaLength: Int
-        mantissaLength = precision
-        let (mantissa, exponent) = swiftGmp.mantissaExponent(len: mantissaLength)
-        
-        return mantissaAndExponentRepresentation(mantissa, exponent, separators: self, showAs: self, forceScientific: false)
-    }
-    
-    private func mantissaAndExponentRepresentation(
-        _ mantissa_: String,
-        _ exponent: Int,
-        separators: Separators,
-        showAs: ShowAs,
-        forceScientific: Bool) -> NumberRepresentation {
-
-        //print("showAs", showAs.showAsInt, showAs.showAsFloat)
-        var returnValue: NumberRepresentation = NumberRepresentation(left: "error")
-        var mantissa = mantissa_
-        
-        if mantissa.isEmpty {
-            mantissa = "0"
-        }
-        
-        /// negative? Special treatment
-        let isNegative = mantissa.first == "-"
-        if isNegative {
-            mantissa.removeFirst()
-        }
-        
-        /// Can be displayed as Integer?
-        /*
-         123,456,789,012,345,678,901,123,456 --> 400 pixel
-         What can be displayed in 200 pixel?
-         - I dont want the separator as leading character!
-         */
-        if mantissa.count <= exponent + 1 && !forceScientific { /// smaller than because of possible trailing zeroes in the integer
-            mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
-            let withSeparators = withSeparators(numberString: mantissa, isNegative: isNegative, separators: separators)
-            returnValue.left = withSeparators
-            return returnValue
-        }
-        
-        /// Is floating point XXX,xxx?
-        if exponent >= 0 && !forceScientific {
-            var floatString = mantissa
-            let index = floatString.index(floatString.startIndex, offsetBy: exponent+1)
-            //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
-            floatString.insert(".", at: index)
-            floatString = withSeparators(numberString: floatString, isNegative: isNegative, separators: separators)
-            returnValue.left = floatString
-            return returnValue
-            /// is the comma visible in the first line and is there at least one digit after the comma?
-        }
-        
-        /// is floating point 0,xxxx
-        /// additional requirement: first non-zero digit in first line. If not -> Scientific
-        if exponent < 0 && !forceScientific {
-            let minusSign = isNegative ? "-" : ""
-            
-            var testFloat = minusSign + "0" + separators.decimalSeparator.string
-            var floatString = mantissa
-            for _ in 0..<(-1*exponent - 1) {
-                floatString = "0" + floatString
-                testFloat += "0"
-            }
-            testFloat += "x"
-            floatString = minusSign + "0" + separators.decimalSeparator.string + floatString
-            returnValue.left = floatString
-            return returnValue
-        }
-        
-        mantissa = mantissa_
-        if isNegative {
-            mantissa.removeFirst()
-        }
-        
-        let secondIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
-        mantissa.insert(".", at: secondIndex)
-        if mantissa.count == 2 {
-            // 4.
-            mantissa.append("0")
-        }
-        mantissa = withSeparators(numberString: mantissa, isNegative: isNegative, separators: separators)
-        let exponentString = "e\(exponent)"
-        returnValue.left = mantissa
-        returnValue.right = exponentString
-        return returnValue
-    }
-
 
 }
 //
@@ -349,7 +148,7 @@ class Number: CustomDebugStringConvertible, Separators, ShowAs {
 //}
 //
 extension Double {
-    func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
+    public func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
         if abs(self) > 1000 {
             return abs(self - other) <= precision * abs(self)
         } else {
