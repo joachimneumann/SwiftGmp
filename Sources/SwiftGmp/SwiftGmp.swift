@@ -1,8 +1,6 @@
 import Foundation
 import SwiftGmp_C_Target
 
-var globalUnsignedLongInt: CUnsignedLong = 0
-
 protocol OpProtocol {
     func getRawValue() -> String
     func isEqual(to other: OpProtocol) -> Bool
@@ -108,22 +106,21 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private static var deg2rad: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
     private static var rad2deg: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
     
-    /// init with zeros. The struct will be initialized correctly in init() with mpfr_init2()
-    private var mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
-    
+    private var mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: nil)
+
     init(bits: Int) {
         self.bits = bits
-        mpfr_init2 (&mpfr, bits) // nan
+        mpfr_init2(&mpfr, bits) // nan
     }
     
     init(withString string: String, bits: Int) {
         self.bits = bits
-        mpfr_init2 (&mpfr, bits)
+        mpfr_init2(&mpfr, bits) // nan
         mpfr_set_str (&mpfr, string, 10, MPFR_RNDN)
     }
     
     init(withSwiftGmp: SwiftGmp, bits: Int) {
-        mpfr_init2 (&mpfr, bits) // nan
+        mpfr_init2(&mpfr, bits) // nan
         mpfr_set(&mpfr, &withSwiftGmp.mpfr, MPFR_RNDN)
         self.bits = bits
     }
@@ -155,7 +152,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     static func isValidSwiftGmpString(_ gmpString: String, bits: Int) -> Bool {
-        var temp_mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
+        var temp_mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: nil)
         mpfr_init2 (&temp_mpfr, bits)
         return mpfr_set_str (&temp_mpfr, gmpString, 10, MPFR_RNDN) == 0
     }
@@ -362,7 +359,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     func x_double_up_arrow_y(other: SwiftGmp) {
-        var temp: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: &globalUnsignedLongInt)
+        var temp: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: nil)
         mpfr_init2 (&temp, mpfr_get_prec(&mpfr))
         mpfr_set(&temp, &mpfr, MPFR_RNDN)
         
