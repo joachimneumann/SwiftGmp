@@ -4,7 +4,7 @@
 import Testing
 import SwiftGmp
 
-@Test func basics2Test() {
+@MainActor @Test func basics2Test() {
     let calculator = Calculator(precision: 20)
     var temp: Double = 0.0
 

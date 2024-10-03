@@ -5,6 +5,7 @@
 //  Created by Joachim Neumann on 27.09.24.
 //
 
+@MainActor
 public class Calculator {
     private var token: Token
     private var display: Number

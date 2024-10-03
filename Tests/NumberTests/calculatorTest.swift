@@ -4,7 +4,7 @@
 import Testing
 import SwiftGmp
 
-@Test func calculatorTest() {
+@MainActor @Test func calculatorTest() {
     let calculator = Calculator(precision: 20)
     var temp: Double = 0.0
 //
@@ -16,7 +16,7 @@ import SwiftGmp
     #expect(calculator.asString("M+") == "4.5")
     #expect(calculator.asString("M+") == "4.5")
     #expect(calculator.asString("M+") == "4.5")
-//    #expect(calculator.asString("M+") == "4.5")
+    #expect(calculator.asString("M+") == "4.5")
     #expect(calculator.asString("MR") == "18")
 // clearing memory, no change to the display
     #expect(calculator.asString("C") == "0")
