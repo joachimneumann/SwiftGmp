@@ -1,4 +1,4 @@
-1 + 2 * 3 = 7.0
+1 + 2 * 3 = 7
 1 sin sin ~= 0.745624141665
 4.5 = 4.5
 MC = 4.5
@@ -6,15 +6,15 @@ M+ = 4.5
 M+ = 4.5
 M+ = 4.5
 M+ = 4.5
-MR = 18.0
+MR = 18
 // clearing memory, no change to the display
-C = 0.0
-MR = 18.0
-MC = 18.0
+C = 0
+MR = 18
+MC = 18
 MR = memory empty
-2 sqr = 4.0
-2 sqr 5 = 5.0
-C = 0.0
+2 sqr = 4
+2 sqr 5 = 5
+C = 0
 1 sin sin ~= 0.745624141665
 10 % = 0.1
 

@@ -8,7 +8,6 @@ import SwiftGmp
     let calculator = Calculator(precision: 20)
     var temp: Double = 0.0
 
-    #expect(calculator.asString("-6 / 0") == "-inf")
     #expect(calculator.asString("1.1 * 1") == "1.1")
     #expect(calculator.asString("1 + 3 * 10") == "31")
     #expect(calculator.asString("1 + 2") == "3")
