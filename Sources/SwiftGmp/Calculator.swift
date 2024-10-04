@@ -5,7 +5,7 @@
 //  Created by Joachim Neumann on 27.09.24.
 //
 
-public actor Calculator {
+public class Calculator {
     private var token: Token
     private var display: Number
     private var precision: Int
@@ -15,13 +15,13 @@ public actor Calculator {
         token = Token(precision: precision)
         display = Number("0", precision: precision)
     }
-    public func setPrecision(newPrecision: Int) async {
+    public func setPrecision(newPrecision: Int) {
         self.precision = newPrecision
-        await token.setPrecision(newPrecision)
+        token.setPrecision(newPrecision)
         display.setPrecision(precision)
     }
 
-    private func add(_ expression: String) async throws {
+    private func add(_ expression: String) throws {
         var trimmedExpression = expression.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmedExpression.hasSuffix("=") {
             trimmedExpression = String(trimmedExpression.dropLast())
@@ -29,7 +29,7 @@ public actor Calculator {
         var needsEvaluation = false
         switch trimmedExpression {
         case "C":
-            await token.clear()
+            token.clear()
             display = Number("0", precision: precision)
         case "MR":
             if memory != nil {
@@ -57,33 +57,43 @@ public actor Calculator {
             break
         default:
             do {
-                try await token.tokenize(trimmedExpression)
+                try token.tokenize(trimmedExpression)
                 needsEvaluation = true
             } catch {
                 throw error
             }
         }
         if needsEvaluation {
-            await token.shuntingYard()
-            display = await token.evaluatePostfix()
+            token.shuntingYard()
+            display = token.evaluatePostfix()
         }
     }
 
-    public func asString(_ expression: String) async -> String {
+    private func evaluate(_ expression: String) -> Representation {
         if display.precision == 0 {
             assert(false)
         }
-        do { try await add(expression) } catch { return error.localizedDescription }
-        var result = String(display.R.toString())
+        do { try add(expression) } catch { return Representation(error: error.localizedDescription) }
+        return display.R
+    }
+    
+    public func asString(_ expression: String) -> String {
+        let R = evaluate(expression)
+        var result = String(R.toString())
         if result == "-0.0" { result = "0.0"}
         return result
     }
-    public func asDouble(_ expression: String) async -> Double {
-        if display.precision == 0 {
-            assert(false)
-        }
-        do { try await add(expression) } catch { return Double.nan }
-        return display.R.toDouble()
+    
+    public func asDouble(_ expression: String) -> Double {
+        let R = evaluate(expression)
+        if R.error != nil { return Double.nan }
+        return R.toDouble()
+    }
+    
+    public func asLR(_ expression: String) -> (String, String?) {
+        let R = evaluate(expression)
+        if let error = R.error { return (error, nil) }
+        return (R.LR())
     }
 }
 

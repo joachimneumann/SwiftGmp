@@ -4,29 +4,29 @@
 import Testing
 import SwiftGmp
 
-@Test func calculatorTest() async {
+@Test func calculatorTest() {
     let calculator = Calculator(precision: 20)
     var temp: Double = 0.0
 
-    #expect((await calculator.asString("1 + 2 * 3")) == "7")
-    temp = await calculator.asDouble("1 sin sin")
+    #expect(calculator.asString("1 + 2 * 3") == "7")
+    temp = calculator.asDouble("1 sin sin")
     #expect(temp.similarTo(0.745624141665))
-    #expect((await calculator.asString("4.5")) == "4.5")
-    #expect((await calculator.asString("MC")) == "4.5")
-    #expect((await calculator.asString("M+")) == "4.5")
-    #expect((await calculator.asString("M+")) == "4.5")
-    #expect((await calculator.asString("M+")) == "4.5")
-    #expect((await calculator.asString("M+")) == "4.5")
-    #expect((await calculator.asString("MR")) == "18")
+    #expect(calculator.asString("4.5") == "4.5")
+    #expect(calculator.asString("MC") == "4.5")
+    #expect(calculator.asString("M+") == "4.5")
+    #expect(calculator.asString("M+") == "4.5")
+    #expect(calculator.asString("M+") == "4.5")
+    #expect(calculator.asString("M+") == "4.5")
+    #expect(calculator.asString("MR") == "18")
 // clearing memory, no change to the display
-    #expect((await calculator.asString("C")) == "0")
-    #expect((await calculator.asString("MR")) == "18")
-    #expect((await calculator.asString("MC")) == "18")
-    #expect((await calculator.asString("MR")) == "memory empty")
-    #expect((await calculator.asString("2 sqr")) == "4")
-    #expect((await calculator.asString("2 sqr 5")) == "5")
-    #expect((await calculator.asString("C")) == "0")
-    temp = await calculator.asDouble("1 sin sin")
+    #expect(calculator.asString("C") == "0")
+    #expect(calculator.asString("MR") == "18")
+    #expect(calculator.asString("MC") == "18")
+    #expect(calculator.asString("MR") == "memory empty")
+    #expect(calculator.asString("2 sqr") == "4")
+    #expect(calculator.asString("2 sqr 5") == "5")
+    #expect(calculator.asString("C") == "0")
+    temp = calculator.asDouble("1 sin sin")
     #expect(temp.similarTo(0.745624141665))
-    #expect((await calculator.asString("10 %")) == "0.1")
+    #expect(calculator.asString("10 %") == "0.1")
 }

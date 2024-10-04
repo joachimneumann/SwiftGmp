@@ -5,9 +5,9 @@
 //  Created by Joachim Neumann on 25.09.24.
 //
 
-public struct Representation {
+struct Representation {
 
-    private var error: String?
+    var error: String?
     private var mantissa: String?
     private var exponent: Int?
     private var isNegative: Bool
@@ -35,7 +35,7 @@ public struct Representation {
         var groupingSeparator: GroupingSeparator { get }
     }
 
-    public enum DecimalSeparator: String, Codable, CaseIterable{
+    enum DecimalSeparator: String, Codable, CaseIterable{
         case comma
         case dot
         var character: Character {
@@ -52,7 +52,7 @@ public struct Representation {
             }
         }
     }
-    public enum GroupingSeparator: String, Codable, CaseIterable{
+    enum GroupingSeparator: String, Codable, CaseIterable{
         case comma
         case dot
         case none
@@ -74,7 +74,7 @@ public struct Representation {
     }
 
 
-    public var allInOneLine: String {
+    var allInOneLine: String {
         if let error { return error }
         guard var mantissa = mantissa else { return "Invalid" }
         guard let exponent = exponent else { return "Invalid" }
@@ -92,16 +92,18 @@ public struct Representation {
             return Double.nan
         }
     }
-    
-    func toString(groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> String {
-        guard error == nil else { return error! }
-        guard var mantissa = mantissa else { return "Invalid" }
-        guard let exponent = exponent else { return "Invalid" }
+
+    func LR(groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> (String, String?) {
+        guard error == nil else { return (error!, nil) }
+        guard var mantissa = mantissa else { return ("Invalid", nil) }
+        guard let exponent = exponent else { return ("Invalid", nil) }
         
         if mantissa.count <= exponent + 1 {
             // integer
             mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
-            return (isNegative ? "-" : "") + injectSeparators(numberString: mantissa, groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
+            let intString = (isNegative ? "-" : "") +
+            injectSeparators(numberString: mantissa, groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
+            return (intString, nil)
         } else {
             // float
             if exponent >= 0 {
@@ -109,22 +111,26 @@ public struct Representation {
                 let index = floatString.index(floatString.startIndex, offsetBy: exponent+1)
                 //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
                 floatString.insert(decimalSeparator.character, at: index)
-                return (isNegative ? "-" : "") + floatString
+                return ((isNegative ? "-" : "") + floatString, nil)
             }
             if exponent < 0 {
                 var floatString = mantissa
                 for _ in 0..<(-1*exponent - 1) {
                     floatString = "0" + floatString
                 }
-                return (isNegative ? "-" : "") + "0" + decimalSeparator.string + floatString
+                return ((isNegative ? "-" : "") + "0" + decimalSeparator.string + floatString, nil)
             }
             
             // scientific notation required
             let secondIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
             mantissa.insert(decimalSeparator.character, at: secondIndex)
             let exponentString = "e\(exponent)"
-            return (isNegative ? "-" : "") + mantissa+exponentString
+            return ((isNegative ? "-" : "") + mantissa+exponentString, nil)
         }
+    }
+
+    func toString(groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> String {
+        return LR().0
     }
 
     private func injectSeparators(numberString: String, groupingSeparator: GroupingSeparator, decimalSeparator: DecimalSeparator) -> String {

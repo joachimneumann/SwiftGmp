@@ -40,7 +40,7 @@ extension Array {
     }
 }
 
-actor Token {
+class Token {
     var tokens: [TokenEnum] = []
     private var precision: Int
 
