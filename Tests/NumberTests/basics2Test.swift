@@ -6,7 +6,6 @@ import SwiftGmp
 
 @Test func basics2Test() {
     let calculator = Calculator(precision: 20)
-    var temp: Double = 0.0
 
     #expect(calculator.asString("1500 + 2000") == "3500")
     #expect(calculator.asString("1 + 2") == "3")
@@ -49,6 +48,7 @@ import SwiftGmp
     #expect(calculator.asString("-1500 * 2000") == "-3000000")
     #expect(calculator.asString("-1.212 * 8") == "-9.696")
     #expect(calculator.asString("-8 * 1.212") == "-9.696")
+    var temp: Double
     temp = calculator.asDouble("1.23456789 * 2.10987654")
     #expect(temp.similarTo(2.60478583))
     temp = calculator.asDouble("123456789 * 210987654")

@@ -6,8 +6,22 @@
 //
 
 public class Calculator {
+    public enum Digit: String {
+        case null  = "0"
+        case one   = "1"
+        case two   = "2"
+        case three = "3"
+        case four  = "4"
+        case five  = "5"
+        case six   = "6"
+        case seven = "7"
+        case eight = "8"
+        case nine  = "9"
+        case dot  = "."
+    }
+    
     private var token: Token
-    private var display: Number
+    var display: Number
     private var precision: Int
     private var memory: Number?
     public var maxOutputLength: Int? = nil
@@ -22,6 +36,36 @@ public class Calculator {
         display.setPrecision(precision)
     }
 
+    public func press(_ digit: Digit) {
+        if display.isStr {
+            display.appendDigit(digit)
+        }
+    }
+    public func press(_ constant: SwiftGmpConstantOperation) {
+        token.newToken(constant)
+        token.numberExpected = false
+        display.swiftGmp.execute(constant)
+    }
+    
+    public func press(_ inPlace: SwiftGmpInplaceOperation) {
+        token.tokens.append(.inPlace(inPlace))
+        token.numberExpected = false
+//        token.shuntingYard()
+//        display = token.evaluatePostfix()
+    }
+    
+    public func press(_ twoOperant: SwiftGmpTwoOperantOperation) {
+        token.tokens.append(.twoOperant(twoOperant))
+        token.numberExpected = true
+//        evaluate()
+    }
+    
+    public func evaluate() {
+        token.shuntingYard()
+        display = token.evaluatePostfix()
+    }
+
+    
     private func add(_ expression: String) throws {
         var trimmedExpression = expression.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmedExpression.hasSuffix("=") {
@@ -80,7 +124,7 @@ public class Calculator {
     
     public func asString(_ expression: String) -> String {
         let R = evaluate(expression)
-        var result = String(R.toString(maxOutputLength: maxOutputLength))
+        var result = R.leftRight(maxOutputLength: maxOutputLength ?? Int.max).string
         if result == "-0.0" { result = "0.0"}
         return result
     }
@@ -88,13 +132,13 @@ public class Calculator {
     public func asDouble(_ expression: String) -> Double {
         let R = evaluate(expression)
         if R.error != nil { return Double.nan }
-        return R.toDouble()
+        return R.double
     }
     
-    public func asLR(_ expression: String, maxOutputLength: Int) -> (String, String?) {
+    public func asLR(_ expression: String, maxOutputLength: Int) -> LR {
         let R = evaluate(expression)
-        if let error = R.error { return (error, nil) }
-        return (R.LR(maxOutputLength: maxOutputLength))
+        if let error = R.error { return LR(error, nil) }
+        return (R.leftRight(maxOutputLength: maxOutputLength))
     }
 }
 

@@ -97,8 +97,8 @@ for file in glob.glob("*.txt"):
     writeln("")
     writeln("@Test func "+basename+"Test() {")
     writeln("    let calculator = Calculator(precision: 20)")
-    writeln("    var temp: Double = 0.0")
     writeln("")
+    tempDeclared = False
     with open(file) as file:
         for line in file:
             line = line.strip()
@@ -111,20 +111,17 @@ for file in glob.glob("*.txt"):
                     if len(comment) > 0:
                         writeln("// "+comment)
                 else:
+                    content = content.replace("_", "")
                     if "~=" in content:
                         components = content.strip().split("~=")
-                        components[1] = components[1].replace("_", "")
                         if len(components) == 2:
-                            if components[0].strip() == "precision":
-                                writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
-                            elif components[0].strip() == "maxOutputLength":
-                                writeln("    calculator.maxOutputLength = "+components[1].strip())
-                            else:
-                                writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
-                                writeln("    #expect(temp.similarTo("+components[1].strip()+"))")
+                            if not tempDeclared:
+                                tempDeclared = True
+                                writeln("    var temp: Double")
+                            writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
+                            writeln("    #expect(temp.similarTo("+components[1].strip()+"))")
                     elif "=" in content:
                         components = content.strip().split("=")
-                        components[1] = components[1].replace("_", "")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")

@@ -43,6 +43,7 @@ extension Array {
 class Token {
     var tokens: [TokenEnum] = []
     private var precision: Int
+    var numberExpected = true
 
     enum TokenEnum {
         case constant(SwiftGmpConstantOperation)     // pi, e, rand
@@ -92,10 +93,47 @@ class Token {
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
     
+    func newToken(_ constant: SwiftGmpConstantOperation) {
+        if numberExpected {
+            tokens.append(.constant(constant))
+        } else {
+            var added = false
+            if case .number(_) = tokens.last {
+                tokens.removeLast()
+                tokens.append(.constant(constant))
+                added = true
+            }
+            if case .constant(_) = tokens.last {
+                tokens.removeLast()
+                tokens.append(.constant(constant))
+                added = true
+            }
+            assert(added, "Expected a number or a constant but found ")
+        }
+    }
+    
+    func newToken(_ number: Number) {
+        if numberExpected {
+            tokens.append(.number(number))
+        } else {
+            var added = false
+            if case .number(_) = tokens.last {
+                tokens.removeLast()
+                tokens.append(.number(number))
+                added = true
+            }
+            if case .constant(_) = tokens.last {
+                tokens.removeLast()
+                tokens.append(.number(number))
+                added = true
+            }
+            assert(added, "Expected a number or a constant but found ")
+        }
+    }
+    
     func tokenize(_ input: String) throws {
         var numberBuffer = ""
         var index = input.startIndex
-        var numberExpected = true
         
         while index < input.endIndex {
             let char = input[index]
@@ -124,14 +162,14 @@ class Token {
                     numberBuffer.append(char) // unary minus (e.g., -5)
                 } else {
                     if !numberBuffer.isEmpty {
-                        tokens.append(.number(Number(numberBuffer, precision: precision)))
+                        newToken(Number(numberBuffer, precision: precision))
                         numberBuffer = ""
                     }
                     tokens.append(.twoOperant(.sub))  // subtraction operator
                 }
             } else if char == "%" {
                 if !numberBuffer.isEmpty {
-                    tokens.append(.number(Number(numberBuffer, precision: precision)))
+                    newToken(Number(numberBuffer, precision: precision))
                     numberBuffer = ""
                 }
                 tokens.append(.percent)
@@ -142,23 +180,28 @@ class Token {
                     if !opFound && input[index...].hasPrefix(op.getRawValue()) {
                         opFound = true
                         if !numberBuffer.isEmpty {
-                            tokens.append(.number(Number(numberBuffer, precision: precision)))
+                            newToken(Number(numberBuffer, precision: precision))
                             numberBuffer = ""
+                            numberExpected = false
                         }
                         if let inPlace = op as? SwiftGmpInplaceOperation {
                             tokens.append(.inPlace(inPlace))
+                            numberExpected = true
                         } else if let constant = op as? SwiftGmpConstantOperation {
-                            tokens.append(.constant(constant))
+                            newToken(constant)
+                            numberExpected = false
                         } else if let twoOperant = op as? SwiftGmpTwoOperantOperation {
                             tokens.append(.twoOperant(twoOperant))
+                            numberExpected = true
                         } else if op.getRawValue() == "(" {
                             tokens.append(.parenthesesLeft)
+                            numberExpected = true
                         } else if op.getRawValue() == ")" {
                             tokens.append(.parenthesesRight)
+                            numberExpected = false
                         } else {
                             throw TokenizerError.unknownOperator(op: op.getRawValue())
                         }
-                        numberExpected = true
                         index = input.index(index, offsetBy: op.getRawValue().count - 1)
                     }
                 }
@@ -174,7 +217,7 @@ class Token {
         }
         
         if !numberBuffer.isEmpty {
-            tokens.append(.number(Number(numberBuffer, precision: precision)))
+            newToken(Number(numberBuffer, precision: precision))
         }
     }
     func shuntingYard() {
@@ -236,14 +279,17 @@ class Token {
                     stack.append(number) // Apply in-place operator
                 }
             case .constant(let operation):
-                if let number = stack.popLast() {
-                    number.swiftGmp.execute(operation)
-                    stack.append(number) // Apply in-place operator
-                } else {
-                    let zero = Number("0", precision: precision)
-                    zero.swiftGmp.execute(operation)
-                    stack.append(zero)
-                }
+                let zero = Number("0", precision: precision)
+                zero.swiftGmp.execute(operation)
+                stack.append(zero)
+//                if let number = stack.popLast() {
+//                    number.swiftGmp.execute(operation)
+//                    stack.append(number) // Apply in-place operator
+//                } else {
+//                    let zero = Number("0", precision: precision)
+//                    zero.swiftGmp.execute(operation)
+//                    stack.append(zero)
+//                }
             case .twoOperant(let operation):
                 if let rhs = stack.popLast(), let lhs = stack.popLast() {
                     lhs.swiftGmp.execute(operation, other: rhs.swiftGmp)
@@ -280,6 +326,7 @@ class Token {
             ret = Number(precision: 0)
         }
         tokens = []
+        numberExpected = true
         return ret
     }
 

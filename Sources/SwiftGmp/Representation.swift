@@ -5,8 +5,28 @@
 //  Created by Joachim Neumann on 25.09.24.
 //
 
-struct Representation {
+public struct LR {
+    var left: String
+    var right: String?
+    init(_ left: String, _ right: String? = nil) {
+        self.left = left
+        self.right = right
+    }
+    
+    var string: String {
+        left + (right ?? "")
+    }
 
+    var double: Double {
+        if let d = Double(string) {
+            return d
+        } else {
+            return Double.nan
+        }
+    }
+}
+
+struct Representation {
     var error: String?
     private var mantissa: String?
     private var exponent: Int?
@@ -35,7 +55,7 @@ struct Representation {
         var groupingSeparator: GroupingSeparator { get }
     }
 
-    enum DecimalSeparator: String, Codable, CaseIterable{
+    enum DecimalSeparator: String, Codable, CaseIterable {
         case comma
         case dot
         var character: Character {
@@ -52,7 +72,7 @@ struct Representation {
             }
         }
     }
-    enum GroupingSeparator: String, Codable, CaseIterable{
+    enum GroupingSeparator: String, Codable, CaseIterable {
         case comma
         case dot
         case none
@@ -72,38 +92,22 @@ struct Representation {
             }
         }
     }
-
-
-    var allInOneLine: String {
-        if let error { return error }
-        guard var mantissa = mantissa else { return "Invalid" }
-        guard let exponent = exponent else { return "Invalid" }
-        let secondIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
-        mantissa.insert(".", at: secondIndex)
-        return (isNegative ? "-" : "") + "\(mantissa)e\(exponent)"
-    }
     
-    func toDouble() -> Double {
-        guard error == nil else { return Double.nan }
-        guard mantissa != nil else { return Double.nan }
-        if let d = Double(allInOneLine) {
-            return d
-        } else {
-            return Double.nan
-        }
+    var double: Double {
+        leftRight(maxOutputLength: 10).double
     }
 
-    func LR(maxOutputLength: Int, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> (String, String?) {
-        guard error == nil else { return (error!, nil) }
-        guard var mantissa = mantissa else { return ("Invalid", nil) }
-        guard let exponent = exponent else { return ("Invalid", nil) }
+    func leftRight(maxOutputLength: Int, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> LR {
+        guard error == nil else { return LR(error!, nil) }
+        guard var mantissa = mantissa else { return LR("Invalid", nil) }
+        guard let exponent = exponent else { return LR("Invalid", nil) }
         
         if mantissa.count <= exponent + 1 && exponent <= maxOutputLength {
             // integer
             mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
             let intString = (isNegative ? "-" : "") +
             injectSeparators(numberString: mantissa, groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
-            return (intString, nil)
+            return LR(intString, nil)
         } else {
             // float
             if exponent >= 0 && exponent <= maxOutputLength - 3 {
@@ -112,14 +116,14 @@ struct Representation {
                 //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
                 floatString.insert(decimalSeparator.character, at: index)
                 let maxLength = maxOutputLength - (isNegative ? 1 : 0)
-                return ((isNegative ? "-" : "") + floatString.prefix(maxLength), nil)
+                return LR((isNegative ? "-" : "") + floatString.prefix(maxLength), nil)
             }
             if exponent < 0 {
                 var floatString = mantissa
                 for _ in 0..<(-1*exponent - 1) {
                     floatString = "0" + floatString
                 }
-                return ((isNegative ? "-" : "") + "0" + decimalSeparator.string + floatString, nil)
+                return LR((isNegative ? "-" : "") + "0" + decimalSeparator.string + floatString, nil)
             }
             
             // scientific notation required
@@ -128,14 +132,10 @@ struct Representation {
             if mantissa.count == 2 { mantissa.append("0") }
             let exponentString = "e\(exponent)"
             let maxLength = maxOutputLength - (isNegative ? 1 : 0) - exponentString.count
-            return ((isNegative ? "-" : "") + String(mantissa.prefix(maxLength))+exponentString, nil)
+            return LR((isNegative ? "-" : "") + String(mantissa.prefix(maxLength)), exponentString)
         }
     }
-
-    func toString(maxOutputLength: Int?, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> String {
-        return LR(maxOutputLength: maxOutputLength ?? Int.max).0
-    }
-
+    
     private func injectSeparators(numberString: String, groupingSeparator: GroupingSeparator, decimalSeparator: DecimalSeparator) -> String {
         if numberString.starts(with: "-") {
             return "-" + nonNegativeInjectSeparators(numberString: String(numberString.dropFirst()), groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
@@ -155,103 +155,6 @@ struct Representation {
         }
         return ret
     }
-            
-//    func representation(forceScientific: Bool) -> Representation {
-//        if let str = str {
-//            let signAndSeparator: String
-//            if str.starts(with: "-") {
-//                signAndSeparator = withSeparators(numberString: String(str.dropFirst()), isNegative: true)
-//            } else {
-//                signAndSeparator = withSeparators(numberString: str, isNegative: false)
-//            }
-//            return Representation(left: signAndSeparator)
-//        }
-//        
-//        if swiftGmp.isNan {
-//            return Representation(left: "not a number")
-//        }
-//        if swiftGmp.isInf {
-//            return Representation(left: "infinity")
-//        }
-//
-//        if swiftGmp.isZero {
-//            return Representation(left: "0")
-//        }
-//
-//        let mantissaLength: Int
-//        mantissaLength = precision // approximation: accept integers with length = precision
-//        var (mantissa, exponent) = swiftGmp.mantissaExponent(len: mantissaLength)
-//        
-//        var returnValue: Representation = Representation(left: "error")
-//        
-//        if mantissa.isEmpty {
-//            mantissa = "0"
-//        }
-//        
-//        /// negative? Special treatment
-//        let isNegative = mantissa.first == "-"
-//        if isNegative {
-//            mantissa.removeFirst()
-//        }
-//        
-//        /// Can be displayed as Integer?
-//        /*
-//         123,456,789,012,345,678,901,123,456 --> 400 pixel
-//         What can be displayed in 200 pixel?
-//         - I dont want the separator as leading character!
-//         */
-//        if mantissa.count <= exponent + 1 && !forceScientific { /// smaller than because of possible trailing zeroes in the integer
-//            mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
-//            let withSeparators = withSeparators(numberString: mantissa, isNegative: isNegative)
-//            returnValue.left = withSeparators
-//            return returnValue
-//        }
-//        
-//        /// Is floating point XXX,xxx?
-//        if exponent >= 0 && !forceScientific {
-//            var floatString = mantissa
-//            let index = floatString.index(floatString.startIndex, offsetBy: exponent+1)
-//            //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
-//            floatString.insert(".", at: index)
-//            floatString = withSeparators(numberString: floatString, isNegative: isNegative)
-//            returnValue.left = floatString
-//            return returnValue
-//            /// is the comma visible in the first line and is there at least one digit after the comma?
-//        }
-//        
-//        /// is floating point 0,xxxx
-//        /// additional requirement: first non-zero digit in first line. If not -> Scientific
-//        if exponent < 0 && !forceScientific {
-//            let minusSign = isNegative ? "-" : ""
-//            
-//            var testFloat = minusSign + "0" + decimalSeparator.string
-//            var floatString = mantissa
-//            for _ in 0..<(-1*exponent - 1) {
-//                floatString = "0" + floatString
-//                testFloat += "0"
-//            }
-//            testFloat += "x"
-//            floatString = minusSign + "0" + decimalSeparator.string + floatString
-//            returnValue.left = floatString
-//            return returnValue
-//        }
-//        
-//        if isNegative {
-//            mantissa.removeFirst()
-//        }
-//        
-//        let secondIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
-//        mantissa.insert(".", at: secondIndex)
-//        if mantissa.count == 2 {
-//            // 4.
-//            mantissa.append("0")
-//        }
-//        mantissa = withSeparators(numberString: mantissa, isNegative: isNegative)
-//        let exponentString = "e\(exponent)"
-//        returnValue.left = mantissa
-//        returnValue.right = exponentString
-//        return returnValue
-//    }
 
 }
 

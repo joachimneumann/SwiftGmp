@@ -6,7 +6,6 @@ import SwiftGmp
 
 @Test func basics1Test() {
     let calculator = Calculator(precision: 20)
-    var temp: Double = 0.0
 
     #expect(calculator.asString("1.1 * 1") == "1.1")
     #expect(calculator.asString("1 + 3 * 10") == "31")
@@ -26,6 +25,7 @@ import SwiftGmp
     #expect(calculator.asString("153.4 - 154") == "-0.6")
     #expect(calculator.asString("153.4 - 155") == "-1.6")
     #expect(calculator.asString("153.4 - 165") == "-11.6")
+    var temp: Double
     temp = calculator.asDouble("pi")
     #expect(temp.similarTo(3.14159))
     temp = calculator.asDouble("4.0 sqrt")
@@ -38,6 +38,7 @@ import SwiftGmp
     #expect(temp.similarTo(4))
     temp = calculator.asDouble("25.0 sqrt")
     #expect(temp.similarTo(5))
+    #expect(calculator.asString("-1 sqrt") == "not a number")
     temp = calculator.asDouble("8.0 sqrt3")
     #expect(temp.similarTo(2))
     temp = calculator.asDouble("27.0 sqrt3")

@@ -13,7 +13,7 @@ extension OpProtocol where Self: Equatable {
     }
 }
 
-enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
+public enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
     // this operation in an inplace operation, but if no number is found
     // it creates a zero out of thin air and then perated on the zero.
     case zero
@@ -22,7 +22,7 @@ enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
     case rand
 }
 
-enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
+public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     case abs
     case sqrt
     case sqrt3
@@ -58,7 +58,7 @@ enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     case atanD
 }
 
-enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
+public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case add = "+"
     case sub = "-"
     case mul = "*"
@@ -70,7 +70,7 @@ enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case EE
 }
 
-enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
+public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
     case left = "("
     case right = ")"
 }

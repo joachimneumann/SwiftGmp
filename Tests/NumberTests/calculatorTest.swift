@@ -2,13 +2,27 @@
 //       It will be overwritten sooner or later.
 
 import Testing
-import SwiftGmp
+@testable import SwiftGmp
 
 @Test func calculatorTest() {
     let calculator = Calculator(precision: 20)
-    var temp: Double = 0.0
+
+    #expect(calculator.asString("pi + e") == "5.85987448")
+
+    calculator.press(Calculator.Digit.one)
+    calculator.press(Calculator.Digit.one)
+    calculator.press(Calculator.Digit.seven)
+    calculator.press(Calculator.Digit.dot)
+    calculator.press(Calculator.Digit.three)
+    #expect(calculator.display.R.leftRight(maxOutputLength: 10).string == "117.3")
+    calculator.press(SwiftGmpConstantOperation.pi)
+    #expect(calculator.display.R.leftRight(maxOutputLength: 10).string == "3.14159265")
+    calculator.press(SwiftGmpTwoOperantOperation.add)
+    calculator.press(SwiftGmpConstantOperation.e)
+    #expect(calculator.display.R.leftRight(maxOutputLength: 10).string == "5.85987448")
 
     #expect(calculator.asString("1 + 2 * 3") == "7")
+    var temp: Double
     temp = calculator.asDouble("1 sin sin")
     #expect(temp.similarTo(0.745624141665))
     #expect(calculator.asString("4.5") == "4.5")

@@ -13,7 +13,7 @@ class Number: CustomDebugStringConvertible {
     private var str: String?
     private var _swiftGmp: SwiftGmp?
 
-    private var isStr: Bool { str != nil }
+    var isStr: Bool { str != nil }
     private var isSwiftGmp: Bool { _swiftGmp != nil }
 
     var swiftGmp: SwiftGmp {
@@ -39,6 +39,15 @@ class Number: CustomDebugStringConvertible {
         str = "0"
         _swiftGmp = nil
         self.precision = precision
+    }
+    
+    public func appendDigit(_ digit: Calculator.Digit) {
+        if str != nil {
+            str!.append(digit.rawValue)
+        } else {
+            _swiftGmp = nil
+            str = digit.rawValue
+        }
     }
 
     init(_ d: Double, precision: Int) {

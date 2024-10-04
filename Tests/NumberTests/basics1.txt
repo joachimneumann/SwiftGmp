@@ -24,6 +24,7 @@ pi ~= 3.14159
 0.0 sqrt ~= 0
 16.0 sqrt ~= 4
 25.0 sqrt ~= 5
+-1 sqrt = not a number
 
 8.0 sqrt3 ~= 2
 27.0 sqrt3 ~= 3

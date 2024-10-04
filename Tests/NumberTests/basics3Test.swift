@@ -6,12 +6,12 @@ import SwiftGmp
 
 @Test func basics3Test() {
     let calculator = Calculator(precision: 20)
-    var temp: Double = 0.0
 
     #expect(calculator.asString("4.0 sqr") == "16")
     #expect(calculator.asString("2.0 sqr") == "4")
     #expect(calculator.asString("5.0 cubed") == "125")
     #expect(calculator.asString("2.0 cubed") == "8")
+    var temp: Double
     temp = calculator.asDouble("1.0 exp")
     #expect(temp.similarTo(2.7183))
     temp = calculator.asDouble("2.0 exp")
