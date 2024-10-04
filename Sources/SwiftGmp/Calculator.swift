@@ -86,3 +86,13 @@ public actor Calculator {
         return display.R.toDouble()
     }
 }
+
+extension Double {
+    public func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
+        if abs(self) > 1000 {
+            return abs(self - other) <= precision * abs(self)
+        } else {
+            return abs(self - other) <= precision
+        }
+    }
+}

@@ -138,20 +138,3 @@ class Number: CustomDebugStringConvertible {
     }
 
 }
-//
-//
-//extension String {
-//    func position(of char: Character) -> Int? {
-//        return firstIndex(of: char)?.utf16Offset(in: self)
-//    }
-//}
-//
-extension Double {
-    public func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
-        if abs(self) > 1000 {
-            return abs(self - other) <= precision * abs(self)
-        } else {
-            return abs(self - other) <= precision
-        }
-    }
-}
