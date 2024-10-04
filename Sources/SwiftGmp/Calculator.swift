@@ -10,6 +10,7 @@ public class Calculator {
     private var display: Number
     private var precision: Int
     private var memory: Number?
+    public var maxOutputLength: Int? = nil
     public init(precision: Int) {
         self.precision = precision
         token = Token(precision: precision)
@@ -79,7 +80,7 @@ public class Calculator {
     
     public func asString(_ expression: String) -> String {
         let R = evaluate(expression)
-        var result = String(R.toString())
+        var result = String(R.toString(maxOutputLength: maxOutputLength))
         if result == "-0.0" { result = "0.0"}
         return result
     }
@@ -90,10 +91,10 @@ public class Calculator {
         return R.toDouble()
     }
     
-    public func asLR(_ expression: String) -> (String, String?) {
+    public func asLR(_ expression: String, maxOutputLength: Int) -> (String, String?) {
         let R = evaluate(expression)
         if let error = R.error { return (error, nil) }
-        return (R.LR())
+        return (R.LR(maxOutputLength: maxOutputLength))
     }
 }
 

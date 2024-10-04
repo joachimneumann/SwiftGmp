@@ -113,17 +113,23 @@ for file in glob.glob("*.txt"):
                 else:
                     if "~=" in content:
                         components = content.strip().split("~=")
+                        components[1] = components[1].replace("_", "")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
+                            elif components[0].strip() == "maxOutputLength":
+                                writeln("    calculator.maxOutputLength = "+components[1].strip())
                             else:
                                 writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
                                 writeln("    #expect(temp.similarTo("+components[1].strip()+"))")
                     elif "=" in content:
                         components = content.strip().split("=")
+                        components[1] = components[1].replace("_", "")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
+                            elif components[0].strip() == "maxOutputLength":
+                                writeln("    calculator.maxOutputLength = "+components[1].strip())
                             else:
                                 writeln("    #expect(calculator.asString(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
     writeln("}")

@@ -93,12 +93,12 @@ struct Representation {
         }
     }
 
-    func LR(groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> (String, String?) {
+    func LR(maxOutputLength: Int, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> (String, String?) {
         guard error == nil else { return (error!, nil) }
         guard var mantissa = mantissa else { return ("Invalid", nil) }
         guard let exponent = exponent else { return ("Invalid", nil) }
         
-        if mantissa.count <= exponent + 1 {
+        if mantissa.count <= exponent + 1 && exponent <= maxOutputLength {
             // integer
             mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
             let intString = (isNegative ? "-" : "") +
@@ -106,12 +106,13 @@ struct Representation {
             return (intString, nil)
         } else {
             // float
-            if exponent >= 0 {
+            if exponent >= 0 && exponent <= maxOutputLength - 3 {
                 var floatString = mantissa
                 let index = floatString.index(floatString.startIndex, offsetBy: exponent+1)
                 //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
                 floatString.insert(decimalSeparator.character, at: index)
-                return ((isNegative ? "-" : "") + floatString, nil)
+                let maxLength = maxOutputLength - (isNegative ? 1 : 0)
+                return ((isNegative ? "-" : "") + floatString.prefix(maxLength), nil)
             }
             if exponent < 0 {
                 var floatString = mantissa
@@ -124,13 +125,15 @@ struct Representation {
             // scientific notation required
             let secondIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
             mantissa.insert(decimalSeparator.character, at: secondIndex)
+            if mantissa.count == 2 { mantissa.append("0") }
             let exponentString = "e\(exponent)"
-            return ((isNegative ? "-" : "") + mantissa+exponentString, nil)
+            let maxLength = maxOutputLength - (isNegative ? 1 : 0) - exponentString.count
+            return ((isNegative ? "-" : "") + String(mantissa.prefix(maxLength))+exponentString, nil)
         }
     }
 
-    func toString(groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> String {
-        return LR().0
+    func toString(maxOutputLength: Int?, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> String {
+        return LR(maxOutputLength: maxOutputLength ?? Int.max).0
     }
 
     private func injectSeparators(numberString: String, groupingSeparator: GroupingSeparator, decimalSeparator: DecimalSeparator) -> String {
