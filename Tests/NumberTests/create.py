@@ -95,7 +95,7 @@ for file in glob.glob("*.txt"):
     writeln("import Testing")
     writeln("import SwiftGmp")
     writeln("")
-    writeln("@Test func "+basename+"Test() {")
+    writeln("@Test func "+basename+"Test() async {")
     writeln("    let calculator = Calculator(precision: 20)")
     writeln("    var temp: Double = 0.0")
     writeln("")
@@ -115,16 +115,16 @@ for file in glob.glob("*.txt"):
                         components = content.strip().split("~=")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
-                                writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
+                                writeln("    await calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
-                                writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
+                                writeln("    temp = await calculator.asDouble(\""+components[0].strip()+"\")")
                                 writeln("    #expect(temp.similarTo("+components[1].strip()+"))")
                     elif "=" in content:
                         components = content.strip().split("=")
                         if len(components) == 2:
                             if components[0].strip() == "precision":
-                                writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
+                                writeln("    await calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             else:
-                                writeln("    #expect(calculator.asString(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
+                                writeln("    #expect((await calculator.asString(\""+components[0].strip()+"\")) == \""+components[1].strip()+"\")")
     writeln("}")
     f.close()

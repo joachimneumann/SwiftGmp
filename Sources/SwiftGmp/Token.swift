@@ -40,7 +40,7 @@ extension Array {
     }
 }
 
-struct Token {
+actor Token {
     var tokens: [TokenEnum] = []
     private var precision: Int
 
@@ -68,7 +68,7 @@ struct Token {
         }
     }
     
-    mutating func setPrecision(_ newPrecision: Int) {
+    func setPrecision(_ newPrecision: Int) {
         self.precision = newPrecision
         for token in tokens {
             if case .number(let n) = token {
@@ -79,7 +79,7 @@ struct Token {
 
     let allOperationsSorted: [OpProtocol]
 
-    mutating func clear() {
+    func clear() {
         tokens = []
     }
     init(precision: Int) {
@@ -92,7 +92,7 @@ struct Token {
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
     
-    mutating func tokenize(_ input: String) throws {
+    func tokenize(_ input: String) throws {
         var numberBuffer = ""
         var index = input.startIndex
         var numberExpected = true
@@ -177,7 +177,7 @@ struct Token {
             tokens.append(.number(Number(numberBuffer, precision: precision)))
         }
     }
-    mutating func shuntingYard() {
+    func shuntingYard() {
         var output: [TokenEnum] = []
         var operatorStack: [TokenEnum] = []
         
@@ -221,7 +221,7 @@ struct Token {
         tokens = output
     }
     
-    mutating func evaluatePostfix() -> Number {
+    func evaluatePostfix() -> Number {
         var stack: [Number] = []
         
         while tokens.count > 0 {

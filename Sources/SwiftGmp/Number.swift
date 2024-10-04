@@ -18,7 +18,7 @@ class Number: CustomDebugStringConvertible {
 
     var swiftGmp: SwiftGmp {
         if isStr {
-            _swiftGmp = SwiftGmp(withString: str!, bits: bits(for: precision))
+            _swiftGmp = SwiftGmp(withString: str!, bits: generousBits(for: precision))
             str = nil
         }
         return _swiftGmp!
@@ -26,7 +26,7 @@ class Number: CustomDebugStringConvertible {
 
     func setPrecision(_ newPrecision: Int) {
         precision = newPrecision
-        swiftGmp.setBits(bits(for: precision))
+        swiftGmp.setBits(generousBits(for: precision))
     }
     
     init(_ str: String, precision: Int) {
@@ -43,18 +43,18 @@ class Number: CustomDebugStringConvertible {
 
     init(_ d: Double, precision: Int) {
         str = nil
-        _swiftGmp = SwiftGmp(withString: String(d), bits: bits(for: precision))
+        _swiftGmp = SwiftGmp(withString: String(d), bits: generousBits(for: precision))
     }
-    private init(_ swiftGmp: SwiftGmp) {
+    private init(_ swiftGmp: SwiftGmp, precision: Int) {
         str = nil
         _swiftGmp = swiftGmp.copy()
-        self.precision = precision(for: swiftGmp.bits)
+        self.precision = precision
     }
 
-    func bits(for precision: Int) -> Int {
+    func generousBits(for precision: Int) -> Int {
         Int(Double(generousPrecision(for: precision)) * 3.32192809489)
     }
-    
+
     func generousPrecision(for precision: Int) -> Int {
         return precision + 20
 //        if precision <= 500 {
@@ -68,15 +68,15 @@ class Number: CustomDebugStringConvertible {
 //        }
     }
 
-    func precision(for bits: Int) -> Int {
-        Int(Double(precision) / 3.32192809489)
+    func exactPrecision(for precision: Int) -> Int {
+        return precision
     }
 
     func copy() -> Number {
         if isStr {
             return Number(str!, precision: precision)
         } else {
-            return Number(swiftGmp.copy())
+            return Number(swiftGmp.copy(), precision: precision)
         }
     }
 
@@ -85,10 +85,9 @@ class Number: CustomDebugStringConvertible {
         // reduce precision for rounding
         // this transforms last bit errors like 0.500000...001  and 0.49999...999 into 0.5
         if let str = str {
-            let temp = SwiftGmp(withString: str, bits: bits(for: precision))
-            asGmp = SwiftGmp(withSwiftGmp: temp, bits: bits(for: precision))
+            asGmp = SwiftGmp(withString: str, bits: generousBits(for: precision))
         } else {
-            asGmp = SwiftGmp(withSwiftGmp: swiftGmp, bits: bits(for: precision))
+            asGmp = SwiftGmp(withSwiftGmp: swiftGmp, bits: generousBits(for: precision))
         }
 
         if asGmp.isNan {

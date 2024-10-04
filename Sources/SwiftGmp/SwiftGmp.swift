@@ -106,7 +106,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private static var deg2rad: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
     private static var rad2deg: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
     
-    private var mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: nil)
+    private var mpfr = mpfr_t()
 
     init(bits: Int) {
         self.bits = bits
@@ -115,14 +115,16 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     
     init(withString string: String, bits: Int) {
         self.bits = bits
+
         mpfr_init2(&mpfr, bits) // nan
         mpfr_set_str (&mpfr, string, 10, MPFR_RNDN)
     }
     
     init(withSwiftGmp: SwiftGmp, bits: Int) {
+        self.bits = bits
+
         mpfr_init2(&mpfr, bits) // nan
         mpfr_set(&mpfr, &withSwiftGmp.mpfr, MPFR_RNDN)
-        self.bits = bits
     }
     
     deinit {
