@@ -1,13 +1,13 @@
 import Foundation
 import SwiftGmp_C_Target
 
-protocol OpProtocol {
+public protocol OpProtocol {
     func getRawValue() -> String
     func isEqual(to other: OpProtocol) -> Bool
 }
 
 extension OpProtocol where Self: Equatable {
-    func isEqual(to other: OpProtocol) -> Bool {
+    public func isEqual(to other: OpProtocol) -> Bool {
         guard let other = other as? Self else { return false }
         return self == other
     }
@@ -76,25 +76,25 @@ public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
 }
 
 extension SwiftGmpInplaceOperation {
-    func getRawValue() -> String {
+    public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension SwiftGmpTwoOperantOperation {
-    func getRawValue() -> String {
+    public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension SwiftGmpParenthesisOperation {
-    func getRawValue() -> String {
+    public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension SwiftGmpConstantOperation {
-    func getRawValue() -> String {
+    public func getRawValue() -> String {
         return self.rawValue
     }
 }
