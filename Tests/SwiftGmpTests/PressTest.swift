@@ -12,10 +12,10 @@ import Testing
     let calculator = Calculator(precision: 20)
     calculator .maxOutputLength = 10
     
-    calculator.press(.pi)
-    calculator.press(.pi)
-    calculator.press(.pi)
-    calculator.press(.pi)
+    calculator.press(ConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
     // buffer: empty
     // tokens: pi
     // numberExpected = false
@@ -23,14 +23,14 @@ import Testing
     #expect(calculator.token.tokens.count == 1)
     #expect(calculator.lr.string == "3.14159265")
     
-    calculator.press(.two)
+    calculator.press(DigitOperation.two)
     // buffer: 2
     // tokens: empty
     // numberExpected = false
     #expect(calculator.lr.string == "2")
     #expect(calculator.token.tokens.count == 0)
     
-    calculator.press(.sqr)
+    calculator.press(InplaceOperation.sqr)
     // buffer: empty
     // tokens: 2
     // ->
@@ -39,7 +39,7 @@ import Testing
     #expect(calculator.lr.string == "4")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(.add)
+    calculator.press(TwoOperantOperation.add)
     // buffer: empty
     // tokens: 2, add
     #expect(calculator.lr.string == "4")
@@ -53,7 +53,7 @@ import Testing
     #expect(calculator.lr.string == "4")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(.clear)
+    calculator.press(AuxOperation.clear)
     // buffer: empty
     // tokens: 0
     #expect(calculator.lr.string == "0")
@@ -71,19 +71,19 @@ import Testing
     #expect(calculator.lr.string == "20")
     #expect(calculator.token.tokens.count == 0)
     
-    calculator.press(.sqr)
+    calculator.press(InplaceOperation.sqr)
     // buffer: empty
     // tokens: 400
     #expect(calculator.lr.string == "400")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(.add)
+    calculator.press(TwoOperantOperation.add)
     // buffer: empty
     // tokens: 400, add
     #expect(calculator.lr.string == "400")
     #expect(calculator.token.tokens.count == 2)
     
-    calculator.press(.six)
+    calculator.press(DigitOperation.six)
     // buffer: 6
     // tokens: 400, add
     #expect(calculator.lr.string == "6")
@@ -95,21 +95,21 @@ import Testing
     #expect(calculator.lr.string == "406")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(.pi)
+    calculator.press(ConstantOperation.pi)
     #expect(calculator.lr.string == "3.14159265")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(.e)
+    calculator.press(ConstantOperation.e)
     #expect(calculator.lr.string == "2.71828182")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(.add)
+    calculator.press(TwoOperantOperation.add)
     // buffer: empty
     // tokens: 400, add
     #expect(calculator.lr.string == "2.71828182")
     #expect(calculator.token.tokens.count == 2)
     
-    calculator.press(.six)
+    calculator.press(DigitOperation.six)
     #expect(calculator.lr.string == "6")
     #expect(calculator.token.tokens.count == 2)
     
@@ -123,35 +123,35 @@ import Testing
     ////    #expect(calculator.asString("10 + pi 1") == "11")
     ////    #expect(calculator.asString("10 + pi") == "13.1415926")
     //
-    calculator.press(.two)
+    calculator.press(DigitOperation.two)
     #expect(calculator.lr.string == "2")
-    calculator.press(.sqr)
+    calculator.press(InplaceOperation.sqr)
     #expect(calculator.lr.string == "4")
-    calculator.press(.five)
+    calculator.press(DigitOperation.five)
     #expect(calculator.lr.string == "5")
     calculator.evaluate()
     #expect(calculator.lr.string == "5")
-    calculator.press(.clear)
+    calculator.press(AuxOperation.clear)
     ////    #expect(calculator.asString("2 sqr 5") == "5")
     //
-    calculator.press(.three)
+    calculator.press(DigitOperation.three)
     #expect(calculator.lr.string == "3")
-    calculator.press(.add)
+    calculator.press(TwoOperantOperation.add)
     #expect(calculator.lr.string == "3")
-    calculator.press(.five)
+    calculator.press(DigitOperation.five)
     #expect(calculator.lr.string == "5")
-    calculator.press(.sqr)
+    calculator.press(InplaceOperation.sqr)
     #expect(calculator.lr.string == "25")
-    calculator.press(.pi)
+    calculator.press(ConstantOperation.pi)
     #expect(calculator.lr.string == "3.14159265")
     calculator.evaluate()
     #expect(calculator.lr.string == "6.14159265")
     
-    calculator.press(.e)
-    calculator.press(.pi)
+    calculator.press(ConstantOperation.e)
+    calculator.press(ConstantOperation.pi)
     #expect(calculator.lr.string == "3.14159265")
-    calculator.press(.add)
-    calculator.press(.e)
+    calculator.press(TwoOperantOperation.add)
+    calculator.press(ConstantOperation.e)
     #expect(calculator.lr.string == "2.71828182")
     calculator.evaluate()
     #expect(calculator.lr.string == "5.85987448")

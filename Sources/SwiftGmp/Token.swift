@@ -52,8 +52,6 @@ class Token {
             switch self {
             case .inPlace(let op):
                 "inPlace \(op)"
-            case .percent:
-                "op percent"
             case .twoOperant(let op):
                 "twoOperant \(op)"
             case .swiftGmp(let s):
@@ -66,7 +64,6 @@ class Token {
         }
         
         case inPlace(InplaceOperation)       // sin, log, etc
-        case percent                                 // %
         case twoOperant(TwoOperantOperation) // +, -, *, /, x^y, etc
         case swiftGmp(SwiftGmp)                          // -5.3
         case parenthesesLeft
@@ -77,7 +74,7 @@ class Token {
             case .twoOperant(let op):
                 if op == .mul || op == .div { return 2 } // Higher precedence for * and /
                 return 1 // Lower precedence for + and -
-            case .inPlace, .percent:
+            case .inPlace:
                 return 3 // Highest precedence for in-place operators like sin, log
             case .parenthesesLeft, .parenthesesRight:
                 return 0 // Parentheses control grouping, not direct precedence
@@ -103,13 +100,33 @@ class Token {
         tokens = []
     }
     
+    func percent() {
+        // this operation in an inplace operation, but if no number is found
+        // it creates a zero out of thin air and then oerates on the zero.
+//        let _001 = SwiftGmp(withString: "0.01", bits: generousBits(for: precision))
+//        if let n1 = stack.last,  case .twoOperant(let op) = tokens.last, let n2 = stack.secondLast {
+//            tokens.removeLast()
+//            stack.removeLast()
+//            stack.removeLast()
+//            n1.execute(.mul, other: _001)
+//            n1.execute(.mul, other: n2)
+//            n2.execute(op, other: n1)
+//            stack.append(n2)
+//        } else if let swiftGmp = stack.popLast() {
+//            swiftGmp.execute(.mul, other: _001)
+//            stack.append(swiftGmp)
+//        } else {
+//            // do nothing?
+//        }
+    }
     init(precision: Int) {
         self.precision = precision
         let allOperations: [OpProtocol] =
         InplaceOperation.allCases +
         TwoOperantOperation.allCases +
         ParenthesisOperation.allCases +
-        ConstantOperation.allCases
+        ConstantOperation.allCases +
+        AuxOperation.allCases
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
     
@@ -117,8 +134,6 @@ class Token {
         guard !tokens.isEmpty else { return true }
         switch tokens.last! {
         case .inPlace(_):
-            return false
-        case .percent:
             return false
         case .twoOperant(_):
             return true
@@ -201,9 +216,6 @@ class Token {
     func newToken(_ inPlace: InplaceOperation) {
         tokens.append(.inPlace(inPlace))
     }
-    func newTokenPercent() {
-        tokens.append(.percent)
-    }
     func newTokenParenthesesLeft() {
         tokens.append(.parenthesesLeft)
     }
@@ -264,12 +276,6 @@ class Token {
                     }
                     newToken(TwoOperantOperation.sub) // subtraction operator
                 }
-            } else if char == "%" {
-                if !numberBuffer.isEmpty {
-                    newToken(SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision)))
-                    numberBuffer = ""
-                }
-                newTokenPercent()
             } else {
                 var opFound = false
                 for op in allOperationsSorted {
@@ -319,7 +325,7 @@ class Token {
         var lastOperatorWasTwoOperant: Bool = false
         for token in tokens {
             switch token {
-            case .swiftGmp, .inPlace, .percent:
+            case .swiftGmp, .inPlace:
                 output.append(token) // Directly add constants and in-place operators to output
                 lastOperatorWasTwoOperant = false
             case .twoOperant:
@@ -377,25 +383,6 @@ class Token {
                         stack.append(lhs) // Apply binary operator
                     }
                 }
-            case .percent:
-                // this operation in an inplace operation, but if no number is found
-                // it creates a zero out of thin air and then oerates on the zero.
-                let _001 = SwiftGmp(withString: "0.01", bits: generousBits(for: precision))
-                if let n1 = stack.last,  case .twoOperant(let op) = tokens.last, let n2 = stack.secondLast {
-                    tokens.removeLast()
-                    stack.removeLast()
-                    stack.removeLast()
-                    n1.execute(.mul, other: _001)
-                    n1.execute(.mul, other: n2)
-                    n2.execute(op, other: n1)
-                    stack.append(n2)
-                } else if let swiftGmp = stack.popLast() {
-                    swiftGmp.execute(.mul, other: _001)
-                    stack.append(swiftGmp)
-                } else {
-                    // do nothing?
-                }
-                break
             default:
                 break
             }

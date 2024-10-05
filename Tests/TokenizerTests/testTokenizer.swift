@@ -56,14 +56,14 @@
 ////        #expect(operators.count == 1)
 ////        #expect(operators[0].isEqual(to: SwiftGmpTwoOperantOperation.sub))
 ////
-////        (operators, numbers) = try tokenizer.parse("3 * 4")
+////        (operators, numbers) = try tokenizer.parse("3 x 4")
 ////        #expect(numbers.count == 2)
 ////        #expect(numbers[0].toDouble() == 3)
 ////        #expect(numbers[1].toDouble() == 4)
 ////        #expect(operators.count == 1)
 ////        #expect(operators[0].isEqual(to: SwiftGmpTwoOperantOperation.mul))
 ////
-////        (operators, numbers) = try tokenizer.parse("3 * -4")
+////        (operators, numbers) = try tokenizer.parse("3 x -4")
 ////        #expect(numbers.count == 2)
 ////        #expect(numbers[0].toDouble() == 3)
 ////        #expect(numbers[1].toDouble() == -4)
@@ -119,14 +119,14 @@
 ////        #expect(operators.count == 1)
 ////        #expect(operators[0].isEqual(to: SwiftGmpTwoOperantOperation.div))
 ////
-////        (operators, numbers) = try tokenizer.parse("-3e-4 * 5e-6")
+////        (operators, numbers) = try tokenizer.parse("-3e-4 x 5e-6")
 ////        #expect(numbers.count == 2)
 ////        #expect(numbers[0].toDouble() == -3e-4)
 ////        #expect(numbers[1].toDouble() == 5e-6)
 ////        #expect(operators.count == 1)
 ////        #expect(operators[0].isEqual(to: SwiftGmpTwoOperantOperation.mul))
 ////
-////        (operators, numbers) = try tokenizer.parse("-3e-4 * -5e-6")
+////        (operators, numbers) = try tokenizer.parse("-3e-4 x -5e-6")
 ////        #expect(numbers.count == 2)
 ////        #expect(numbers[0].toDouble() == -3e-4)
 ////        #expect(numbers[1].toDouble() == -5e-6)

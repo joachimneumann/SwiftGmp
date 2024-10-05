@@ -128,18 +128,18 @@ for file in glob.glob("*.txt"):
                             elif components[0].strip() == "maxOutputLength":
                                 writeln("    calculator.maxOutputLength = "+components[1].strip())
                             elif components[0].strip() == "C":
-                                writeln("    calculator.press(.clear)")
+                                writeln("    calculator.press(AuxOperation.clear)")
                                 writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
                             elif components[0].strip() == "DISPLAY":
                                 writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
                             elif components[0].strip() == "MC":
-                                writeln("    calculator.press(.clearM)")
+                                writeln("    calculator.press(MemoryOperation.clearM)")
                             elif components[0].strip() == "MR":
-                                writeln("    calculator.press(.recallM)")
+                                writeln("    calculator.press(MemoryOperation.recallM)")
                             elif components[0].strip() == "M+":
-                                writeln("    calculator.press(.addToM)")
+                                writeln("    calculator.press(MemoryOperation.addToM)")
                             elif components[0].strip() == "M-":
-                                writeln("    calculator.press(.subFromM)")
+                                writeln("    calculator.press(MemoryOperation.subFromM)")
                             else:
                                 writeln("    #expect(calculator.evaluateString(\""+components[0].strip()+"\").string == \""+components[1].strip()+"\")")
     writeln("}")

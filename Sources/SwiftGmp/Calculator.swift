@@ -12,69 +12,82 @@ public class Calculator {
     public var maxOutputLength: Int? = nil
     public init(precision: Int) {
         token = Token(precision: precision)
-        displayBuffer = "0"
+        displayBuffer = ""
     }
     public func setPrecision(newPrecision: Int) {
         token.setPrecision(newPrecision)
     }
 
-    public func press(_ digit: DigitOperation) {
-        if !token.numberExpected {
-            assert(token.tokens.count > 0)
-            token.removeLastSwiftGmp()
-        }
-        if displayBuffer == "0" || displayBuffer == "" {
-            displayBuffer = digit.rawValue
+    public func press(_ op: OpProtocol) {
+        if let digitOp = op as? DigitOperation {
+            if !token.numberExpected {
+                assert(token.tokens.count > 0)
+                token.removeLastSwiftGmp()
+            }
+            if displayBuffer == "0" || displayBuffer == "" {
+                displayBuffer = digitOp.rawValue
+            } else {
+                displayBuffer.append(digitOp.rawValue)
+            }
+        } else if let auxOp = op as? AuxOperation {
+            switch auxOp {
+            case .clear:
+                token.clear()
+                displayBuffer = ""
+            case .equal:
+                if !displayBuffer.isEmpty { displayToToken() }
+                token.shuntingYard()
+                token.evaluatePostfix()
+            case .percent:
+                token.percent()
+            }
+        } else if let memOp = op as? MemoryOperation {
+            switch memOp {
+            case .recallM:
+                guard let memory = self.memory else { return }
+                displayBuffer = ""
+                token.newToken(memory)
+            case .addToM:
+                if !displayBuffer.isEmpty { displayToToken() }
+                guard let last = token.lastSwiftGmp else { return }
+                if self.memory == nil {
+                    self.memory = last
+                } else {
+                    let mutableMemory = self.memory!.copy()
+                    mutableMemory.execute(.add, other: last)
+                    self.memory = mutableMemory.copy()
+                }
+            case .subFromM:
+                if !displayBuffer.isEmpty { displayToToken() }
+                guard let last = token.lastSwiftGmp else { return }
+                if self.memory == nil {
+                    self.memory = last
+                } else {
+                    let mutableMemory = self.memory!.copy()
+                    mutableMemory.execute(TwoOperantOperation.sub, other: last)
+                    self.memory = mutableMemory.copy()
+                }
+            case .clearM:
+                memory = nil
+            }
+        } else if let constOp = op as? ConstantOperation {
+            displayBuffer = ""
+            token.newToken(constOp)
+        } else if let inPlaceOp = op as? InplaceOperation {
+            guard inPlaceAllowed else { return }
+            if let last = token.lastSwiftGmp {
+                last.execute(inPlaceOp)
+            } else {
+                fatalError("last token not a SwiftGmp")
+            }
+        } else if let twoOperantOp = op as? TwoOperantOperation {
+            displayToToken()
+            token.newToken(twoOperantOp)
         } else {
-            displayBuffer.append(digit.rawValue)
+            fatalError("Unsupported operation")
         }
     }
     
-    public func press(_ op: AuxOperation) {
-        switch op {
-        case .clear:
-            token.clear()
-            displayBuffer = ""
-        case .equal:
-            break
-        }
-    }
-
-    public func press(_ m: MemoryOperation) {
-        switch m {
-        case .recallM:
-            guard let memory = self.memory else { return }
-            displayBuffer = ""
-            token.newToken(memory)
-        case .addToM:
-            if !displayBuffer.isEmpty { displayToToken() }
-            guard let last = token.lastSwiftGmp else { return }
-            if self.memory == nil {
-                self.memory = last
-            } else {
-                let mutableMemory = self.memory!.copy()
-                mutableMemory.execute(.add, other: last)
-                self.memory = mutableMemory.copy()
-            }
-        case .subFromM:
-            if !displayBuffer.isEmpty { displayToToken() }
-            guard let last = token.lastSwiftGmp else { return }
-            if self.memory == nil {
-                self.memory = last
-            } else {
-                let mutableMemory = self.memory!.copy()
-                mutableMemory.execute(TwoOperantOperation.sub, other: last)
-                self.memory = mutableMemory.copy()
-            }
-        case .clearM:
-            memory = nil
-        }
-    }
-
-    public func press(_ constant: ConstantOperation) {
-        displayBuffer = ""
-        token.newToken(constant)
-    }
     private func displayToToken() {
         if !displayBuffer.isEmpty {
             token.newSwiftGmpToken(displayBuffer)
@@ -85,20 +98,7 @@ public class Calculator {
         displayToToken()
         return token.lastSwiftGmp != nil
     }
-    public func press(_ inPlace: InplaceOperation) {
-        guard inPlaceAllowed else { return }
-        if let last = token.lastSwiftGmp {
-            last.execute(inPlace)
-        } else {
-            fatalError("last token not a SwiftGmp")
-        }
-    }
-    
-    public func press(_ twoOperant: TwoOperantOperation) {
-        displayToToken()
-        token.newToken(twoOperant)
-    }
-    
+
     public func evaluate() {
         displayToToken()
         guard !token.tokens.isEmpty else { return }

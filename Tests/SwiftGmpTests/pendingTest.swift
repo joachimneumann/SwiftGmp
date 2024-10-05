@@ -10,9 +10,9 @@ import Testing
 
 @Test func pendingTest() {
     let calculator = Calculator(precision: 40)
-    calculator.press(.one)
-    calculator.press(.sqr)
-    calculator.press(.add)
+    calculator.press(DigitOperation.one)
+    calculator.press(InplaceOperation.sqr)
+    calculator.press(TwoOperantOperation.add)
 
     let pending = calculator.token.pendingOperators
     #expect(pending.count == 1)

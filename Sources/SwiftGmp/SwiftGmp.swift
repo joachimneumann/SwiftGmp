@@ -144,8 +144,6 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     func execute(_ constOp: ConstantOperation) {
         switch constOp {
-        case .zero:
-            mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
         case .pi:
             mpfr_const_pi(&mpfr, MPFR_RNDN)
         case .e:

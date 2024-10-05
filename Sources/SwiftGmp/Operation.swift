@@ -24,12 +24,13 @@ public enum DigitOperation: String, OpProtocol, CaseIterable {
     case seven = "7"
     case eight = "8"
     case nine  = "9"
-    case dot  = "."
+    case dot  = ","
 }
 
 public enum AuxOperation: String, OpProtocol, CaseIterable {
-    case clear
-    case equal
+    case clear = "C"
+    case equal = "="
+    case percent = "%"
 }
 
 public enum MemoryOperation: String, OpProtocol, CaseIterable {
@@ -42,14 +43,13 @@ public enum MemoryOperation: String, OpProtocol, CaseIterable {
 public enum ConstantOperation: String, OpProtocol, CaseIterable {
     // this operation in an inplace operation, but if no number is found
     // it creates a zero out of thin air and then perated on the zero.
-    case zero
-    case pi
-    case e
-    case rand
+    case pi = "π"
+    case e = "e"
+    case rand = "rand"
 }
 
 public enum InplaceOperation: String, OpProtocol, CaseIterable {
-    case abs
+    case abs = "abs"
     case sqrt
     case sqrt3
     case zeta
@@ -73,7 +73,7 @@ public enum InplaceOperation: String, OpProtocol, CaseIterable {
     case exp
     case exp2
     case exp10
-    case changeSign = "+/-"
+    case changeSign = "±"
     case rez
     case fac
     case sinD
@@ -87,7 +87,7 @@ public enum InplaceOperation: String, OpProtocol, CaseIterable {
 public enum TwoOperantOperation: String, OpProtocol, CaseIterable {
     case add = "+"
     case sub = "-"
-    case mul = "*"
+    case mul = "x"
     case div = "/"
     case pow_x_y = "**"
     case pow_y_x
