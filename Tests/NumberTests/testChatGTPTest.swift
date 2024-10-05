@@ -9,6 +9,7 @@ import SwiftGmp
 
     calculator.setPrecision(newPrecision: 20)
     var temp: Double
+    var result: Bool
     temp = calculator.asDouble("81.651654 / 40.563652")
     #expect(temp.similarTo(2.012927))
     temp = calculator.asDouble("50.817846 + 68.530428")

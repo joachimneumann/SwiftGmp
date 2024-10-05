@@ -118,6 +118,7 @@ for file in glob.glob("*.txt"):
                             if not tempDeclared:
                                 tempDeclared = True
                                 writeln("    var temp: Double")
+                                writeln("    var result: Bool")
                             writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
                             writeln("    #expect(temp.similarTo("+components[1].strip()+"))")
                     elif "=" in content:
@@ -127,7 +128,24 @@ for file in glob.glob("*.txt"):
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             elif components[0].strip() == "maxOutputLength":
                                 writeln("    calculator.maxOutputLength = "+components[1].strip())
+                            elif components[0].strip() == "C":
+                                writeln("    calculator.clear()")
+                                writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
+                            elif components[0].strip() == "DISPLAY":
+                                writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
+                            elif components[0].strip() == "MC":
+                                writeln("    result = calculator.memory(.clear)")
+                                writeln("    #expect(result == "+components[1].strip()+")")
+                            elif components[0].strip() == "MR":
+                                writeln("    result = calculator.memory(.recall)")
+                                writeln("    #expect(result == "+components[1].strip()+")")
+                            elif components[0].strip() == "M+":
+                                writeln("    result = calculator.memory(.add)")
+                                writeln("    #expect(result == "+components[1].strip()+")")
+                            elif components[0].strip() == "M-":
+                                writeln("    result = calculator.memory(.sub)")
+                                writeln("    #expect(result == "+components[1].strip()+")")
                             else:
-                                writeln("    #expect(calculator.asString(\""+components[0].strip()+"\") == \""+components[1].strip()+"\")")
+                                writeln("    #expect(calculator.evaluateString(\""+components[0].strip()+"\").string == \""+components[1].strip()+"\")")
     writeln("}")
     f.close()

@@ -13,7 +13,7 @@ public struct LR {
         self.right = right
     }
     
-    var string: String {
+    public var string: String {
         left + (right ?? "")
     }
 
@@ -98,16 +98,16 @@ struct Representation {
     }
 
     func leftRight(maxOutputLength: Int, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> LR {
-        guard error == nil else { return LR(error!, nil) }
-        guard var mantissa = mantissa else { return LR("Invalid", nil) }
-        guard let exponent = exponent else { return LR("Invalid", nil) }
+        guard error == nil else { return LR(error!) }
+        guard var mantissa = mantissa else { return LR("Invalid") }
+        guard let exponent = exponent else { return LR("Invalid") }
         
         if mantissa.count <= exponent + 1 && exponent <= maxOutputLength {
             // integer
             mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
             let intString = (isNegative ? "-" : "") +
             injectSeparators(numberString: mantissa, groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
-            return LR(intString, nil)
+            return LR(intString)
         } else {
             // float
             if exponent >= 0 && exponent <= maxOutputLength - 3 {
@@ -116,14 +116,14 @@ struct Representation {
                 //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
                 floatString.insert(decimalSeparator.character, at: index)
                 let maxLength = maxOutputLength - (isNegative ? 1 : 0)
-                return LR((isNegative ? "-" : "") + floatString.prefix(maxLength), nil)
+                return LR((isNegative ? "-" : "") + floatString.prefix(maxLength))
             }
             if exponent < 0 {
                 var floatString = mantissa
                 for _ in 0..<(-1*exponent - 1) {
                     floatString = "0" + floatString
                 }
-                return LR((isNegative ? "-" : "") + "0" + decimalSeparator.string + floatString, nil)
+                return LR((isNegative ? "-" : "") + "0" + decimalSeparator.string + floatString)
             }
             
             // scientific notation required
