@@ -13,6 +13,29 @@ extension OpProtocol where Self: Equatable {
     }
 }
 
+
+
+public enum SwiftGmpDigitOperation: String, OpProtocol, CaseIterable {
+    case zero  = "0"
+    case one   = "1"
+    case two   = "2"
+    case three = "3"
+    case four  = "4"
+    case five  = "5"
+    case six   = "6"
+    case seven = "7"
+    case eight = "8"
+    case nine  = "9"
+    case dot  = "."
+}
+
+public enum SwiftGmpMemoryOperation: String, OpProtocol, CaseIterable {
+    case recall = "MR"
+    case add    = "M+"
+    case sub    = "M-"
+    case clear  = "MC"
+}
+
 public enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
     // this operation in an inplace operation, but if no number is found
     // it creates a zero out of thin air and then perated on the zero.
@@ -73,6 +96,20 @@ public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
 public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
     case left = "("
     case right = ")"
+}
+
+
+
+extension SwiftGmpDigitOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+
+extension SwiftGmpMemoryOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
 }
 
 extension SwiftGmpInplaceOperation {

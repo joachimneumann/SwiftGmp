@@ -6,26 +6,6 @@
 //
 
 public class Calculator {
-    public enum Digit: String {
-        case zero  = "0"
-        case one   = "1"
-        case two   = "2"
-        case three = "3"
-        case four  = "4"
-        case five  = "5"
-        case six   = "6"
-        case seven = "7"
-        case eight = "8"
-        case nine  = "9"
-        case dot  = "."
-    }
-    public enum Memory: String {
-        case recall = "MR"
-        case add    = "M+"
-        case sub    = "M-"
-        case clear  = "MC"
-    }
-
     var token: Token
     var displayBuffer: String
     private var memory: SwiftGmp?
@@ -38,7 +18,7 @@ public class Calculator {
         token.setPrecision(newPrecision)
     }
 
-    public func press(_ digit: Digit) {
+    public func press(_ digit: SwiftGmpDigitOperation) {
         if !token.numberExpected {
             assert(token.tokens.count > 0)
             token.removeLastSwiftGmp()
@@ -50,7 +30,7 @@ public class Calculator {
         }
     }
     
-    public func memory(_ m: Memory) -> Bool {
+    public func memory(_ m: SwiftGmpMemoryOperation) -> Bool {
         switch m {
         case .recall:
             guard let memory = self.memory else { return false }
