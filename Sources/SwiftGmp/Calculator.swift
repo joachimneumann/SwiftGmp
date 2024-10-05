@@ -28,16 +28,13 @@ public class Calculator {
 
     var token: Token
     var displayBuffer: String
-    private var precision: Int
     private var memory: SwiftGmp?
     public var maxOutputLength: Int? = nil
     public init(precision: Int) {
-        self.precision = precision
         token = Token(precision: precision)
         displayBuffer = "0"
     }
     public func setPrecision(newPrecision: Int) {
-        self.precision = newPrecision
         token.setPrecision(newPrecision)
     }
 
@@ -94,7 +91,7 @@ public class Calculator {
     }
     private func displayToToken() {
         if !displayBuffer.isEmpty {
-            token.newToken(SwiftGmp(withString: displayBuffer, bits: token.generousBits(for: precision)))
+            token.newSwiftGmpToken(displayBuffer)
         }
         displayBuffer = ""
     }
@@ -153,7 +150,7 @@ public class Calculator {
             return LR("0")
         }
 
-        let mantissaLength: Int = precision // approximation: accept integers with length = precision
+        let mantissaLength: Int = token.precision // approximation: accept integers with length = precision
         let (mantissa, exponent) = last.mantissaExponent(len: mantissaLength)
         let R = Representation(mantissa: mantissa, exponent: exponent)
         return R.leftRight(maxOutputLength: maxOutputLength ?? 10)
@@ -185,37 +182,6 @@ public class Calculator {
             return Double.nan
         }
     }
-    
-//    private func add(_ expression: String) throws {
-//        var trimmedExpression = expression.trimmingCharacters(in: .whitespacesAndNewlines)
-//        if trimmedExpression.hasSuffix("=") {
-//            trimmedExpression = String(trimmedExpression.dropLast())
-//        }
-//        var needsEvaluation = false
-//        switch trimmedExpression {
-//        case "C":
-//            clear()
-//        default:
-//            do {
-//                try token.tokenize(trimmedExpression)
-//                needsEvaluation = true
-//            } catch {
-//                throw error
-//            }
-//        }
-//        if needsEvaluation {
-//            token.shuntingYard()
-////            display = Number(token.evaluatePostfix(), precision: precision)
-//        }
-//    }
-
-//    private func evaluate(_ expression: String) -> Representation {
-//        if display.precision == 0 {
-//            assert(false)
-//        }
-//        do { try add(expression) } catch { return Representation(error: error.localizedDescription) }
-//        return display.R
-//    }
 }
 
 extension Double {

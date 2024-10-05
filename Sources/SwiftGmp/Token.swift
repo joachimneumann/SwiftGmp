@@ -45,7 +45,7 @@ extension Array {
 
 class Token {
     var tokens: [TokenEnum] = []
-    private var precision: Int
+    var precision: Int
 
     enum TokenEnum: CustomDebugStringConvertible {
         var debugDescription: String {
@@ -90,12 +90,12 @@ class Token {
     
     func setPrecision(_ newPrecision: Int) {
         self.precision = newPrecision
-        /// TODO set bits
-//        for token in tokens {
-//            if case .swiftGmp(let swiftGmp) = token {
-//                swiftGmp.setBits(generousBits(for: newPrecision))
-//            }
-//        }
+        // TODO set bits
+        for token in tokens {
+            if case .swiftGmp(let swiftGmp) = token {
+                swiftGmp.setBits(generousBits(for: newPrecision))
+            }
+        }
     }
 
     let allOperationsSorted: [OpProtocol]
@@ -160,7 +160,6 @@ class Token {
         return
     }
 
-    
     func newToken(_ constant: SwiftGmpConstantOperation) {
         if numberExpected {
             let temp = SwiftGmp(withString: "0", bits: generousBits(for: precision))
@@ -174,10 +173,12 @@ class Token {
             }
         }
     }
-
     
     func newToken(_ swiftGmp: SwiftGmp) {
         tokens.append(.swiftGmp(swiftGmp))
+    }
+    func newSwiftGmpToken(_ s: String) {
+        tokens.append(.swiftGmp(SwiftGmp(withString: s, bits: generousBits(for: precision))))
     }
 
     func newToken(_ twoOperant: SwiftGmpTwoOperantOperation) {
