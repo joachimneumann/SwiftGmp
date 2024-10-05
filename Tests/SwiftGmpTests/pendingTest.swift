@@ -9,12 +9,10 @@ import Testing
 @testable import SwiftGmp
 
 @Test func pendingTest() {
-    var result: Bool
     let calculator = Calculator(precision: 40)
     calculator.press(.one)
-    result = calculator.press(.sqr)
-    result = calculator.press(.add)
-    #expect(result)
+    calculator.press(.sqr)
+    calculator.press(.add)
 
     let pending = calculator.token.pendingOperators
     #expect(pending.count == 1)

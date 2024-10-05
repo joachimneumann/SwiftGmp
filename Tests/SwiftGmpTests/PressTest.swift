@@ -10,7 +10,6 @@ import Testing
 
 @Test func PressTest() {
     let calculator = Calculator(precision: 20)
-    var opResult: Bool
     calculator .maxOutputLength = 10
     
     calculator.press(.pi)
@@ -31,7 +30,7 @@ import Testing
     #expect(calculator.lr.string == "2")
     #expect(calculator.token.tokens.count == 0)
     
-    opResult = calculator.press(.sqr)
+    calculator.press(.sqr)
     // buffer: empty
     // tokens: 2
     // ->
@@ -40,7 +39,7 @@ import Testing
     #expect(calculator.lr.string == "4")
     #expect(calculator.token.tokens.count == 1)
     
-    opResult = calculator.press(.add)
+    calculator.press(.add)
     // buffer: empty
     // tokens: 2, add
     #expect(calculator.lr.string == "4")
@@ -72,13 +71,13 @@ import Testing
     #expect(calculator.lr.string == "20")
     #expect(calculator.token.tokens.count == 0)
     
-    opResult = calculator.press(.sqr)
+    calculator.press(.sqr)
     // buffer: empty
     // tokens: 400
     #expect(calculator.lr.string == "400")
     #expect(calculator.token.tokens.count == 1)
     
-    opResult = calculator.press(.add)
+    calculator.press(.add)
     // buffer: empty
     // tokens: 400, add
     #expect(calculator.lr.string == "400")
@@ -104,7 +103,7 @@ import Testing
     #expect(calculator.lr.string == "2.71828182")
     #expect(calculator.token.tokens.count == 1)
     
-    opResult = calculator.press(.add)
+    calculator.press(.add)
     // buffer: empty
     // tokens: 400, add
     #expect(calculator.lr.string == "2.71828182")
@@ -126,7 +125,7 @@ import Testing
     //
     calculator.press(.two)
     #expect(calculator.lr.string == "2")
-    opResult = calculator.press(.sqr)
+    calculator.press(.sqr)
     #expect(calculator.lr.string == "4")
     calculator.press(.five)
     #expect(calculator.lr.string == "5")
@@ -137,11 +136,11 @@ import Testing
     //
     calculator.press(.three)
     #expect(calculator.lr.string == "3")
-    opResult = calculator.press(.add)
+    calculator.press(.add)
     #expect(calculator.lr.string == "3")
     calculator.press(.five)
     #expect(calculator.lr.string == "5")
-    opResult = calculator.press(.sqr)
+    calculator.press(.sqr)
     #expect(calculator.lr.string == "25")
     calculator.press(.pi)
     #expect(calculator.lr.string == "3.14159265")
@@ -151,8 +150,7 @@ import Testing
     calculator.press(.e)
     calculator.press(.pi)
     #expect(calculator.lr.string == "3.14159265")
-    opResult = calculator.press(.add)
-    #expect(opResult)
+    calculator.press(.add)
     calculator.press(.e)
     #expect(calculator.lr.string == "2.71828182")
     calculator.evaluate()

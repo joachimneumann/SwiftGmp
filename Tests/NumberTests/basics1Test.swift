@@ -26,7 +26,6 @@ import SwiftGmp
     #expect(calculator.evaluateString("153.4 - 155").string == "-1.6")
     #expect(calculator.evaluateString("153.4 - 165").string == "-11.6")
     var temp: Double
-    var result: Bool
     temp = calculator.asDouble("pi")
     #expect(temp.similarTo(3.14159))
     temp = calculator.asDouble("4.0 sqrt")

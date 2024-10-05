@@ -12,7 +12,6 @@ import SwiftGmp
     #expect(calculator.evaluateString("5.0 cubed").string == "125")
     #expect(calculator.evaluateString("2.0 cubed").string == "8")
     var temp: Double
-    var result: Bool
     temp = calculator.asDouble("1.0 exp")
     #expect(temp.similarTo(2.7183))
     temp = calculator.asDouble("2.0 exp")

@@ -49,7 +49,6 @@ import SwiftGmp
     #expect(calculator.evaluateString("-1.212 * 8").string == "-9.696")
     #expect(calculator.evaluateString("-8 * 1.212").string == "-9.696")
     var temp: Double
-    var result: Bool
     temp = calculator.asDouble("1.23456789 * 2.10987654")
     #expect(temp.similarTo(2.60478583))
     temp = calculator.asDouble("123456789 * 210987654")
