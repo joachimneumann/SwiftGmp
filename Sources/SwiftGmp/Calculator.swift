@@ -30,25 +30,35 @@ public class Calculator {
         }
     }
     
-    public func memory(_ m: MemoryOperation) -> Bool {
+    public func press(_ op: AuxOperation) {
+        switch op {
+        case .clear:
+            token.clear()
+            displayBuffer = ""
+        case .equal:
+            break
+        }
+    }
+
+    public func press(_ m: MemoryOperation) -> Bool {
         switch m {
-        case .recall:
+        case .recallM:
             guard let memory = self.memory else { return false }
             displayBuffer = ""
             token.newToken(memory)
             return true
-        case .add:
+        case .addToM:
             if !displayBuffer.isEmpty { displayToToken() }
             guard let last = token.lastSwiftGmp else { return false }
             if self.memory == nil {
                 self.memory = last
             } else {
                 let mutableMemory = self.memory!.copy()
-                mutableMemory.execute(TwoOperantOperation.add, other: last)
+                mutableMemory.execute(.add, other: last)
                 self.memory = mutableMemory.copy()
             }
             return true
-        case .sub:
+        case .subFromM:
             if !displayBuffer.isEmpty { displayToToken() }
             guard let last = token.lastSwiftGmp else { return false }
             if self.memory == nil {
@@ -59,7 +69,7 @@ public class Calculator {
                 self.memory = mutableMemory.copy()
             }
             return true
-        case .clear:
+        case .clearM:
             memory = nil
             return true
         }
@@ -79,7 +89,7 @@ public class Calculator {
         displayToToken()
         return token.lastSwiftGmp != nil
     }
-    public func operate(_ inPlace: InplaceOperation) -> Bool {
+    public func press(_ inPlace: InplaceOperation) -> Bool {
         guard inPlaceAllowed else { return false }
         if let last = token.lastSwiftGmp {
             last.execute(inPlace)
@@ -89,7 +99,7 @@ public class Calculator {
         return true
     }
     
-    public func operate(_ twoOperant: TwoOperantOperation) -> Bool {
+    public func press(_ twoOperant: TwoOperantOperation) -> Bool {
         displayToToken()
         token.newToken(twoOperant)
         return true
@@ -100,11 +110,6 @@ public class Calculator {
         guard !token.tokens.isEmpty else { return }
         token.shuntingYard()
         token.evaluatePostfix()
-    }
-
-    public func clear() {
-        token.clear()
-        displayBuffer = ""
     }
     
     public var lr: LR {

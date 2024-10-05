@@ -129,21 +129,21 @@ for file in glob.glob("*.txt"):
                             elif components[0].strip() == "maxOutputLength":
                                 writeln("    calculator.maxOutputLength = "+components[1].strip())
                             elif components[0].strip() == "C":
-                                writeln("    calculator.clear()")
+                                writeln("    calculator.press(.clear)")
                                 writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
                             elif components[0].strip() == "DISPLAY":
                                 writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
                             elif components[0].strip() == "MC":
-                                writeln("    result = calculator.memory(.clear)")
+                                writeln("    result = calculator.press(.clearM)")
                                 writeln("    #expect(result == "+components[1].strip()+")")
                             elif components[0].strip() == "MR":
-                                writeln("    result = calculator.memory(.recall)")
+                                writeln("    result = calculator.press(.recallM)")
                                 writeln("    #expect(result == "+components[1].strip()+")")
                             elif components[0].strip() == "M+":
-                                writeln("    result = calculator.memory(.add)")
+                                writeln("    result = calculator.press(.addToM)")
                                 writeln("    #expect(result == "+components[1].strip()+")")
                             elif components[0].strip() == "M-":
-                                writeln("    result = calculator.memory(.sub)")
+                                writeln("    result = calculator.press(.subFromM)")
                                 writeln("    #expect(result == "+components[1].strip()+")")
                             else:
                                 writeln("    #expect(calculator.evaluateString(\""+components[0].strip()+"\").string == \""+components[1].strip()+"\")")

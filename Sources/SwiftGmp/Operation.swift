@@ -27,11 +27,16 @@ public enum DigitOperation: String, OpProtocol, CaseIterable {
     case dot  = "."
 }
 
+public enum AuxOperation: String, OpProtocol, CaseIterable {
+    case clear
+    case equal
+}
+
 public enum MemoryOperation: String, OpProtocol, CaseIterable {
-    case recall = "MR"
-    case add    = "M+"
-    case sub    = "M-"
-    case clear  = "MC"
+    case recallM  = "MR"
+    case addToM   = "M+"
+    case subFromM = "M-"
+    case clearM   = "MC"
 }
 
 public enum ConstantOperation: String, OpProtocol, CaseIterable {
@@ -96,7 +101,11 @@ public enum ParenthesisOperation: String, OpProtocol, CaseIterable {
     case right = ")"
 }
 
-
+extension AuxOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
 
 extension DigitOperation {
     public func getRawValue() -> String {

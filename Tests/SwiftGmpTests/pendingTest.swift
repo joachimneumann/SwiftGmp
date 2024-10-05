@@ -12,8 +12,8 @@ import Testing
     var result: Bool
     let calculator = Calculator(precision: 40)
     calculator.press(.one)
-    result = calculator.operate(.sqr)
-    result = calculator.operate(.add)
+    result = calculator.press(.sqr)
+    result = calculator.press(.add)
     #expect(result)
 
     let pending = calculator.token.pendingOperators
