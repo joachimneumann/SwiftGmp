@@ -8,7 +8,7 @@
 import Testing
 @testable import SwiftGmp
 
-@Test func DEBUG_TESTS() {
+@Test func PressTest() {
     let calculator = Calculator(precision: 20)
     var opResult: Bool
     calculator .maxOutputLength = 10

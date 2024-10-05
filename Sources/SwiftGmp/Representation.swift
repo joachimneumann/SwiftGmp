@@ -6,9 +6,9 @@
 //
 
 public struct LR {
-    var left: String
-    var right: String?
-    init(_ left: String, _ right: String? = nil) {
+    public var left: String
+    public var right: String?
+    public init(_ left: String, _ right: String? = nil) {
         self.left = left
         self.right = right
     }

@@ -60,7 +60,6 @@ class Token {
                 String(s.toDouble())
             case .parenthesesLeft:
                 "op ("
-
             case .parenthesesRight:
                 "op )"
             }
@@ -103,6 +102,7 @@ class Token {
     func clear() {
         tokens = []
     }
+    
     init(precision: Int) {
         self.precision = precision
         let allOperations: [OpProtocol] =
@@ -129,6 +129,19 @@ class Token {
         case .parenthesesRight:
             return false
         }
+    }
+    
+    var pendingOperators: [OpProtocol] {
+        var ret: [OpProtocol] = []
+        for token in tokens {
+            if case .inPlace(let op) = token {
+                ret.append(op)
+            }
+            if case .twoOperant(let op) = token {
+                ret.append(op)
+            }
+        }
+        return ret
     }
     
     var inPlaceAllowed: Bool {
