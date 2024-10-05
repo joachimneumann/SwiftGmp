@@ -116,7 +116,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     
     static var randstate: gmp_randstate_t? = nil
     
-    func execute(_ twoOperantOperation: SwiftGmpTwoOperantOperation, other: SwiftGmp) {
+    func execute(_ twoOperantOperation: TwoOperantOperation, other: SwiftGmp) {
         var temp = self.mpfr;
         switch twoOperantOperation {
         case .add:
@@ -142,7 +142,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             execute(.mul, other: other)
         }
     }
-    func execute(_ constOp: SwiftGmpConstantOperation) {
+    func execute(_ constOp: ConstantOperation) {
         switch constOp {
         case .zero:
             mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
@@ -160,7 +160,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         }
     }
     
-    func execute(_ inplaceOp: SwiftGmpInplaceOperation) {
+    func execute(_ inplaceOp: InplaceOperation) {
         switch inplaceOp {
         case .abs:
             var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN)

@@ -18,7 +18,7 @@ public class Calculator {
         token.setPrecision(newPrecision)
     }
 
-    public func press(_ digit: SwiftGmpDigitOperation) {
+    public func press(_ digit: DigitOperation) {
         if !token.numberExpected {
             assert(token.tokens.count > 0)
             token.removeLastSwiftGmp()
@@ -30,7 +30,7 @@ public class Calculator {
         }
     }
     
-    public func memory(_ m: SwiftGmpMemoryOperation) -> Bool {
+    public func memory(_ m: MemoryOperation) -> Bool {
         switch m {
         case .recall:
             guard let memory = self.memory else { return false }
@@ -44,7 +44,7 @@ public class Calculator {
                 self.memory = last
             } else {
                 let mutableMemory = self.memory!.copy()
-                mutableMemory.execute(SwiftGmpTwoOperantOperation.add, other: last)
+                mutableMemory.execute(TwoOperantOperation.add, other: last)
                 self.memory = mutableMemory.copy()
             }
             return true
@@ -55,7 +55,7 @@ public class Calculator {
                 self.memory = last
             } else {
                 let mutableMemory = self.memory!.copy()
-                mutableMemory.execute(SwiftGmpTwoOperantOperation.sub, other: last)
+                mutableMemory.execute(TwoOperantOperation.sub, other: last)
                 self.memory = mutableMemory.copy()
             }
             return true
@@ -65,7 +65,7 @@ public class Calculator {
         }
     }
 
-    public func press(_ constant: SwiftGmpConstantOperation) {
+    public func press(_ constant: ConstantOperation) {
         displayBuffer = ""
         token.newToken(constant)
     }
@@ -79,7 +79,7 @@ public class Calculator {
         displayToToken()
         return token.lastSwiftGmp != nil
     }
-    public func operate(_ inPlace: SwiftGmpInplaceOperation) -> Bool {
+    public func operate(_ inPlace: InplaceOperation) -> Bool {
         guard inPlaceAllowed else { return false }
         if let last = token.lastSwiftGmp {
             last.execute(inPlace)
@@ -89,7 +89,7 @@ public class Calculator {
         return true
     }
     
-    public func operate(_ twoOperant: SwiftGmpTwoOperantOperation) -> Bool {
+    public func operate(_ twoOperant: TwoOperantOperation) -> Bool {
         displayToToken()
         token.newToken(twoOperant)
         return true

@@ -13,7 +13,7 @@ extension OpProtocol where Self: Equatable {
 }
 
 
-public enum SwiftGmpDigitOperation: String, OpProtocol, CaseIterable {
+public enum DigitOperation: String, OpProtocol, CaseIterable {
     case zero  = "0"
     case one   = "1"
     case two   = "2"
@@ -27,14 +27,14 @@ public enum SwiftGmpDigitOperation: String, OpProtocol, CaseIterable {
     case dot  = "."
 }
 
-public enum SwiftGmpMemoryOperation: String, OpProtocol, CaseIterable {
+public enum MemoryOperation: String, OpProtocol, CaseIterable {
     case recall = "MR"
     case add    = "M+"
     case sub    = "M-"
     case clear  = "MC"
 }
 
-public enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
+public enum ConstantOperation: String, OpProtocol, CaseIterable {
     // this operation in an inplace operation, but if no number is found
     // it creates a zero out of thin air and then perated on the zero.
     case zero
@@ -43,7 +43,7 @@ public enum SwiftGmpConstantOperation: String, OpProtocol, CaseIterable {
     case rand
 }
 
-public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
+public enum InplaceOperation: String, OpProtocol, CaseIterable {
     case abs
     case sqrt
     case sqrt3
@@ -79,7 +79,7 @@ public enum SwiftGmpInplaceOperation: String, OpProtocol, CaseIterable {
     case atanD
 }
 
-public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
+public enum TwoOperantOperation: String, OpProtocol, CaseIterable {
     case add = "+"
     case sub = "-"
     case mul = "*"
@@ -91,44 +91,44 @@ public enum SwiftGmpTwoOperantOperation: String, OpProtocol, CaseIterable {
     case EE
 }
 
-public enum SwiftGmpParenthesisOperation: String, OpProtocol, CaseIterable {
+public enum ParenthesisOperation: String, OpProtocol, CaseIterable {
     case left = "("
     case right = ")"
 }
 
 
 
-extension SwiftGmpDigitOperation {
+extension DigitOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
-extension SwiftGmpMemoryOperation {
+extension MemoryOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
-extension SwiftGmpInplaceOperation {
+extension InplaceOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
-extension SwiftGmpTwoOperantOperation {
+extension TwoOperantOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
-extension SwiftGmpParenthesisOperation {
+extension ParenthesisOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
-extension SwiftGmpConstantOperation {
+extension ConstantOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }

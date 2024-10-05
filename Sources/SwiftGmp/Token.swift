@@ -65,9 +65,9 @@ class Token {
             }
         }
         
-        case inPlace(SwiftGmpInplaceOperation)       // sin, log, etc
+        case inPlace(InplaceOperation)       // sin, log, etc
         case percent                                 // %
-        case twoOperant(SwiftGmpTwoOperantOperation) // +, -, *, /, x^y, etc
+        case twoOperant(TwoOperantOperation) // +, -, *, /, x^y, etc
         case swiftGmp(SwiftGmp)                          // -5.3
         case parenthesesLeft
         case parenthesesRight
@@ -106,10 +106,10 @@ class Token {
     init(precision: Int) {
         self.precision = precision
         let allOperations: [OpProtocol] =
-        SwiftGmpInplaceOperation.allCases +
-        SwiftGmpTwoOperantOperation.allCases +
-        SwiftGmpParenthesisOperation.allCases +
-        SwiftGmpConstantOperation.allCases
+        InplaceOperation.allCases +
+        TwoOperantOperation.allCases +
+        ParenthesisOperation.allCases +
+        ConstantOperation.allCases
         allOperationsSorted = allOperations.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
     
@@ -173,7 +173,7 @@ class Token {
         return
     }
 
-    func newToken(_ constant: SwiftGmpConstantOperation) {
+    func newToken(_ constant: ConstantOperation) {
         if numberExpected {
             let temp = SwiftGmp(withString: "0", bits: generousBits(for: precision))
             temp.execute(constant)
@@ -194,11 +194,11 @@ class Token {
         tokens.append(.swiftGmp(SwiftGmp(withString: s, bits: generousBits(for: precision))))
     }
 
-    func newToken(_ twoOperant: SwiftGmpTwoOperantOperation) {
+    func newToken(_ twoOperant: TwoOperantOperation) {
         tokens.append(.twoOperant(twoOperant))
     }
     
-    func newToken(_ inPlace: SwiftGmpInplaceOperation) {
+    func newToken(_ inPlace: InplaceOperation) {
         tokens.append(.inPlace(inPlace))
     }
     func newTokenPercent() {
@@ -262,7 +262,7 @@ class Token {
                         newToken(SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision)))
                         numberBuffer = ""
                     }
-                    newToken(SwiftGmpTwoOperantOperation.sub) // subtraction operator
+                    newToken(TwoOperantOperation.sub) // subtraction operator
                 }
             } else if char == "%" {
                 if !numberBuffer.isEmpty {
@@ -279,11 +279,11 @@ class Token {
                             newToken(SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision)))
                             numberBuffer = ""
                         }
-                        if let inPlace = op as? SwiftGmpInplaceOperation {
+                        if let inPlace = op as? InplaceOperation {
                             newToken(inPlace)
-                        } else if let constant = op as? SwiftGmpConstantOperation {
+                        } else if let constant = op as? ConstantOperation {
                             newToken(constant)
-                        } else if let twoOperant = op as? SwiftGmpTwoOperantOperation {
+                        } else if let twoOperant = op as? TwoOperantOperation {
                             newToken(twoOperant)
                         } else if op.getRawValue() == "(" {
                             newTokenParenthesesLeft()

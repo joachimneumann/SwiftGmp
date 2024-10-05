@@ -13,10 +13,10 @@ import Testing
     var opResult: Bool
     calculator .maxOutputLength = 10
     
-    calculator.press(SwiftGmpConstantOperation.pi)
-    calculator.press(SwiftGmpConstantOperation.pi)
-    calculator.press(SwiftGmpConstantOperation.pi)
-    calculator.press(SwiftGmpConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
     // buffer: empty
     // tokens: pi
     // numberExpected = false
@@ -31,7 +31,7 @@ import Testing
     #expect(calculator.lr.string == "2")
     #expect(calculator.token.tokens.count == 0)
     
-    opResult = calculator.operate(SwiftGmpInplaceOperation.sqr)
+    opResult = calculator.operate(InplaceOperation.sqr)
     // buffer: empty
     // tokens: 2
     // ->
@@ -40,7 +40,7 @@ import Testing
     #expect(calculator.lr.string == "4")
     #expect(calculator.token.tokens.count == 1)
     
-    opResult = calculator.operate(SwiftGmpTwoOperantOperation.add)
+    opResult = calculator.operate(TwoOperantOperation.add)
     // buffer: empty
     // tokens: 2, add
     #expect(calculator.lr.string == "4")
@@ -72,13 +72,13 @@ import Testing
     #expect(calculator.lr.string == "20")
     #expect(calculator.token.tokens.count == 0)
     
-    opResult = calculator.operate(SwiftGmpInplaceOperation.sqr)
+    opResult = calculator.operate(InplaceOperation.sqr)
     // buffer: empty
     // tokens: 400
     #expect(calculator.lr.string == "400")
     #expect(calculator.token.tokens.count == 1)
     
-    opResult = calculator.operate(SwiftGmpTwoOperantOperation.add)
+    opResult = calculator.operate(TwoOperantOperation.add)
     // buffer: empty
     // tokens: 400, add
     #expect(calculator.lr.string == "400")
@@ -96,15 +96,15 @@ import Testing
     #expect(calculator.lr.string == "406")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(SwiftGmpConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
     #expect(calculator.lr.string == "3.14159265")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(SwiftGmpConstantOperation.e)
+    calculator.press(ConstantOperation.e)
     #expect(calculator.lr.string == "2.71828182")
     #expect(calculator.token.tokens.count == 1)
     
-    opResult = calculator.operate(SwiftGmpTwoOperantOperation.add)
+    opResult = calculator.operate(TwoOperantOperation.add)
     // buffer: empty
     // tokens: 400, add
     #expect(calculator.lr.string == "2.71828182")
@@ -126,7 +126,7 @@ import Testing
     //
     calculator.press(Calculator.Digit.two)
     #expect(calculator.lr.string == "2")
-    opResult = calculator.operate(SwiftGmpInplaceOperation.sqr)
+    opResult = calculator.operate(InplaceOperation.sqr)
     #expect(calculator.lr.string == "4")
     calculator.press(Calculator.Digit.five)
     #expect(calculator.lr.string == "5")
@@ -137,23 +137,23 @@ import Testing
     //
     calculator.press(Calculator.Digit.three)
     #expect(calculator.lr.string == "3")
-    opResult = calculator.operate(SwiftGmpTwoOperantOperation.add)
+    opResult = calculator.operate(TwoOperantOperation.add)
     #expect(calculator.lr.string == "3")
     calculator.press(Calculator.Digit.five)
     #expect(calculator.lr.string == "5")
-    opResult = calculator.operate(SwiftGmpInplaceOperation.sqr)
+    opResult = calculator.operate(InplaceOperation.sqr)
     #expect(calculator.lr.string == "25")
-    calculator.press(SwiftGmpConstantOperation.pi)
+    calculator.press(ConstantOperation.pi)
     #expect(calculator.lr.string == "3.14159265")
     calculator.evaluate()
     #expect(calculator.lr.string == "6.14159265")
     
-    calculator.press(SwiftGmpConstantOperation.e)
-    calculator.press(SwiftGmpConstantOperation.pi)
+    calculator.press(ConstantOperation.e)
+    calculator.press(ConstantOperation.pi)
     #expect(calculator.lr.string == "3.14159265")
-    opResult = calculator.operate(SwiftGmpTwoOperantOperation.add)
+    opResult = calculator.operate(TwoOperantOperation.add)
     #expect(opResult)
-    calculator.press(SwiftGmpConstantOperation.e)
+    calculator.press(ConstantOperation.e)
     #expect(calculator.lr.string == "2.71828182")
     calculator.evaluate()
     #expect(calculator.lr.string == "5.85987448")
