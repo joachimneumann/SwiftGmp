@@ -169,7 +169,6 @@ class Token {
         case .percent:
             return false
         }
-        return false
     }
 
     var pendingOperators: [OpProtocol] {
@@ -235,7 +234,7 @@ class Token {
         
         // check from the end
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
-            if case .twoOperant(let op) = tokens[index] {
+            if case .twoOperant = tokens[index] {
                 return true
             }
         }

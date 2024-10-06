@@ -22,7 +22,7 @@ let package = Package(
         .target(
             name: "SwiftGmp",
             dependencies: ["swiftgmp", "SwiftGmp_C_Target"],
-            exclude: ["../../Tests/NumberTests/create.py"]
+            exclude: ["../../Tests/FromTxtTests/create.py"]
         ),
         .target(
             name: "SwiftGmp_C_Target",

@@ -109,6 +109,14 @@ public class Calculator {
         token.evaluatePostfix()
     }
     
+    func withSeparators(_ s: String) -> String {
+        injectGrouping(numberString: s, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+    }
+    public var lrWithSeparators: LR {
+        var lr = lr
+        lr.left = withSeparators(lr.left)
+        return lr
+    }
     public var lr: LR {
         if !displayBuffer.isEmpty {
             return LR(displayBuffer)
@@ -135,7 +143,7 @@ public class Calculator {
         let mantissaLength: Int = token.precision // approximation: accept integers with length = precision
         let (mantissa, exponent) = last.mantissaExponent(len: mantissaLength)
         let R = Representation(mantissa: mantissa, exponent: exponent)
-        return R.leftRight(maxOutputLength: maxOutputLength ?? 10, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        return R.leftRight(maxOutputLength: maxOutputLength ?? 10)
     }
     
     public func evaluateString(_ expression: String) -> LR {

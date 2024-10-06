@@ -5,6 +5,36 @@
 //  Created by Joachim Neumann on 25.09.24.
 //
 
+func injectGrouping(numberString: String, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
+    if numberString.starts(with: "-") {
+        return "-" + nonNegativeInjectGrouping(numberString: String(numberString.dropFirst()), decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+    } else {
+        return nonNegativeInjectGrouping(numberString: numberString, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+    }
+}
+
+private func nonNegativeInjectGrouping(numberString: String, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
+    let parts = numberString.split(separator: decimalSeparator.character)
+    if parts.count == 2 {
+        return nonNegativeInjectGrouping(
+            numberString: String(parts[0]),
+            decimalSeparator: decimalSeparator,
+            separateGroups: separateGroups) +
+        String(decimalSeparator.character) +
+        parts[1]
+    } else {
+        var ret: String = numberString
+        if separateGroups {
+            var count = ret.count
+            while count >= 4 {
+                count = count - 3
+                ret.insert(decimalSeparator.groupCharacter, at: ret.index(ret.startIndex, offsetBy: count))
+            }
+        }
+        return ret
+    }
+}
+
 public struct LR {
     public var left: String
     public var right: String?
@@ -16,7 +46,12 @@ public struct LR {
     public var string: String {
         left + (right ?? "")
     }
-
+    public func withSeperators(decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
+        let x = self.string
+        let y = injectGrouping(numberString: x, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        return y
+    }
+    
     var double: Double {
         if let d = Double(string) {
             return d
@@ -42,7 +77,7 @@ public enum DecimalSeparator: String, Codable, CaseIterable {
             String(character)
         }
     }
-    var groupCharacter: Character {
+    public var groupCharacter: Character {
         get {
             switch self {
             case .comma: return "."
@@ -78,10 +113,10 @@ struct Representation {
     }
 
     var double: Double {
-        leftRight(maxOutputLength: 10, decimalSeparator: .dot, separateGroups: false).double
+        leftRight(maxOutputLength: 10).double
     }
 
-    func leftRight(maxOutputLength: Int, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> LR {
+    func leftRight(maxOutputLength: Int) -> LR {
         // Ensure there are no errors and that mantissa and exponent are valid
         guard error == nil else { return LR(error!) }
         guard var mantissa = mantissa else { return LR("Invalid") }
@@ -93,29 +128,13 @@ struct Representation {
         if mantissa.count <= exponent + 1 && exponent <= maxOutputLength {
             // Pad mantissa with zeros to match the exponent
             mantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
-            // Inject grouping separators if needed
-            let intString: String = isNegativeSign + injectGrouping(
-                numberString: mantissa,
-                decimalSeparator: decimalSeparator,
-                separateGroups: separateGroups)
-            return LR(intString)
+            return LR(isNegativeSign + mantissa)
         }
         // Floating-point representation without scientific notation
         else if exponent >= 0 && exponent <= maxOutputLength - 3 {
             var floatString: String = mantissa
             let decimalIndex = floatString.index(floatString.startIndex, offsetBy: exponent + 1)
-            floatString.insert(decimalSeparator.character, at: decimalIndex)
-            if separateGroups {
-                let parts = floatString.split(separator: decimalSeparator.character)
-                if parts.count == 2 {
-                    floatString = injectGrouping(
-                        numberString: String(parts[0]),
-                        decimalSeparator: decimalSeparator,
-                        separateGroups: separateGroups) +
-                    String(decimalSeparator.character) +
-                    parts[1]
-                }
-            }
+            floatString.insert(DecimalSeparator.dot.character, at: decimalIndex)
             let maxLength: Int = maxOutputLength - isNegativeSign.count
             let outputString: String = isNegativeSign + String(floatString.prefix(maxLength))
             return LR(outputString)
@@ -124,14 +143,14 @@ struct Representation {
         else if exponent < 0 {
             let zerosToInsert: Int = abs(exponent) - 1
             let leadingZeros: String = String(repeating: "0", count: zerosToInsert)
-            let floatString: String = isNegativeSign + "0" + decimalSeparator.string + leadingZeros + mantissa
+            let floatString: String = isNegativeSign + "0" + String(DecimalSeparator.dot.character) + leadingZeros + mantissa
             return LR(String(floatString.prefix(maxOutputLength)))
         }
         // Scientific notation representation
         else {
             var sciMantissa: String = mantissa
             let decimalIndex = sciMantissa.index(sciMantissa.startIndex, offsetBy: 1)
-            sciMantissa.insert(decimalSeparator.character, at: decimalIndex)
+            sciMantissa.insert(DecimalSeparator.dot.character, at: decimalIndex)
             if sciMantissa.count == 2 {
                 sciMantissa.append("0")
             }
@@ -141,25 +160,6 @@ struct Representation {
             let outputString: String = isNegativeSign + mantissaPrefix + exponentString
             return LR(outputString)
         }
-    }
-    private func injectGrouping(numberString: String, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
-        if numberString.starts(with: "-") {
-            return "-" + nonNegativeInjectGrouping(numberString: String(numberString.dropFirst()), decimalSeparator: decimalSeparator, separateGroups: separateGroups)
-        } else {
-            return nonNegativeInjectGrouping(numberString: numberString, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
-        }
-    }
-
-    private func nonNegativeInjectGrouping(numberString: String, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
-        var ret: String = numberString
-        if separateGroups {
-            var count = ret.count
-            while count >= 4 {
-                count = count - 3
-                ret.insert(decimalSeparator.groupCharacter, at: ret.index(ret.startIndex, offsetBy: count))
-            }
-        }
-        return ret
     }
 
 }
