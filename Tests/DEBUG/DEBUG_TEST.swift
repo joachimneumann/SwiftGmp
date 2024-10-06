@@ -7,7 +7,10 @@ import Testing
     let calculator = Calculator(precision: 20)
     // var opResult: Bool
     let x = calculator.evaluateString("10 %")
+    #expect(x.string == "0.1")
     #expect(calculator.evaluateString("10 %").string == "0.1")
+    let temp = calculator.asDouble("200 + e %")
+    #expect(temp ~= 205.436563)
 
     
     let lr = calculator.evaluateString("1.1 x 1")

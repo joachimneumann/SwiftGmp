@@ -138,10 +138,10 @@ class Token {
         let x1: [InplaceOperation] = InplaceOperation.allCases
         let x2: [TwoOperantOperation] = TwoOperantOperation.allCases
         let x3: [ConstantOperation] = ConstantOperation.allCases
-        let x4: [ConstantOperation] = ConstantOperation.allCases
-        let x5: [ClearOperation] = ClearOperation.allCases
-        let x6: [EqualOperation] = EqualOperation.allCases
-        let x7: [ParenthesisOperation] = ParenthesisOperation.allCases
+        let x4: [ClearOperation] = ClearOperation.allCases
+        let x5: [EqualOperation] = EqualOperation.allCases
+        let x6: [ParenthesisOperation] = ParenthesisOperation.allCases
+        let x7: [PercentOperation] = PercentOperation.allCases
         var allOperationsUnsorted: [OpProtocol] = []
         allOperationsUnsorted.append(contentsOf: x1)
         allOperationsUnsorted.append(contentsOf: x2)
@@ -396,6 +396,8 @@ class Token {
                         // Add the corresponding token based on the operation type
                         if let inPlace = op as? InplaceOperation {
                             newToken(inPlace)
+                        } else if let _ = op as? PercentOperation {
+                            self.percent()
                         } else if let constant = op as? ConstantOperation {
                             newToken(constant)
                         } else if let twoOperant = op as? TwoOperantOperation {
