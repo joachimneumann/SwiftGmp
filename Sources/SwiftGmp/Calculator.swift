@@ -75,6 +75,7 @@ public class Calculator {
             token.shuntingYard()
             token.evaluatePostfix()
         } else if let _ = op as? PercentOperation {
+            displayToToken()
             token.percent()
         } else if let twoOperantOp = op as? TwoOperantOperation {
             displayToToken()
@@ -84,9 +85,9 @@ public class Calculator {
         }
     }
     
-    private func displayToToken() {
+    func displayToToken() {
         if !displayBuffer.isEmpty {
-            token.newSwiftGmpToken(displayBuffer)
+            token.newSwiftGmpToken(displayBuffer.replacingOccurrences(of: ",", with: "."))
         }
         displayBuffer = ""
     }

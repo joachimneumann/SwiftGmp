@@ -119,13 +119,9 @@ class Token {
         let _001 = SwiftGmp(withString: "0.01", bits: generousBits(for: precision))
         if let n1 = lastSwiftGmp {
             if let n2 = secondLastSwiftGmp {
-                if let op = lastTwoOperant {
-                    dropLastSwiftGmp()
-                    dropLastSwiftGmp()
+                if hasTwoOperant {
                     n1.execute(.mul, other: _001)
                     n1.execute(.mul, other: n2)
-                    n1.execute(op, other: n2)
-                    newToken(n1)
                 }
             } else {
                 n1.execute(.mul, other: _001)
@@ -234,16 +230,16 @@ class Token {
         return nil
     }
 
-    var lastTwoOperant: TwoOperantOperation? {
-        guard !tokens.isEmpty else { return nil }
+    var hasTwoOperant: Bool {
+        guard !tokens.isEmpty else { return false }
         
         // check from the end
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
             if case .twoOperant(let op) = tokens[index] {
-                return op
+                return true
             }
         }
-        return nil
+        return false
     }
 
     func removeLastSwiftGmp() {

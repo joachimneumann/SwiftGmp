@@ -30,6 +30,7 @@ import SwiftGmp
     var temp: Double
     temp = calculator.asDouble("100 + e %")
     #expect(temp.similarTo(102.7183))
+    #expect(calculator.evaluateString("0.1 %").string == "0.001")
     temp = calculator.asDouble("π")
     #expect(temp.similarTo(3.14159))
     temp = calculator.asDouble("4.0 sqrt")
