@@ -44,7 +44,7 @@ import Testing
     // tokens: 2, add
     #expect(calculator.lr.string == "4")
     #expect(calculator.token.tokens[0].debugDescription == "4.0")
-    #expect(calculator.token.tokens[1].debugDescription == "twoOperant add")
+    #expect(calculator.token.tokens[1].debugDescription == "+")
     #expect(calculator.token.tokens.count == 2)
     
     calculator.evaluate()

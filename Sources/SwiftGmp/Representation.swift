@@ -98,44 +98,56 @@ struct Representation {
     }
 
     func leftRight(maxOutputLength: Int, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> LR {
+        // Ensure there are no errors and that mantissa and exponent are valid
         guard error == nil else { return LR(error!) }
         guard var mantissa = mantissa else { return LR("Invalid") }
         guard let exponent = exponent else { return LR("Invalid") }
-        
+
+        let isNegativeSign: String = isNegative ? "-" : ""
+
+        // Integer representation
         if mantissa.count <= exponent + 1 && exponent <= maxOutputLength {
-            // integer
-            mantissa = mantissa.padding(toLength: exponent+1, withPad: "0", startingAt: 0)
-            let intString = (isNegative ? "-" : "") +
-            injectSeparators(numberString: mantissa, groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
+            // Pad mantissa with zeros to match the exponent
+            mantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
+            // Inject grouping separators if needed
+            let intString: String = isNegativeSign + injectSeparators(
+                numberString: mantissa,
+                groupingSeparator: groupingSeparator,
+                decimalSeparator: decimalSeparator
+            )
             return LR(intString)
-        } else {
-            // float
-            if exponent >= 0 && exponent <= maxOutputLength - 3 {
-                var floatString = mantissa
-                let index = floatString.index(floatString.startIndex, offsetBy: exponent+1)
-                //var indexInt: Int = floatString.distance(from: floatString.startIndex, to: index)
-                floatString.insert(decimalSeparator.character, at: index)
-                let maxLength = maxOutputLength - (isNegative ? 1 : 0)
-                return LR((isNegative ? "-" : "") + floatString.prefix(maxLength))
+        }
+        // Floating-point representation without scientific notation
+        else if exponent >= 0 && exponent <= maxOutputLength - 3 {
+            var floatString: String = mantissa
+            let decimalIndex = floatString.index(floatString.startIndex, offsetBy: exponent + 1)
+            floatString.insert(decimalSeparator.character, at: decimalIndex)
+            let maxLength: Int = maxOutputLength - isNegativeSign.count
+            let outputString: String = isNegativeSign + String(floatString.prefix(maxLength))
+            return LR(outputString)
+        }
+        // Floating-point representation with leading zeros (exponent is negative)
+        else if exponent < 0 {
+            let zerosToInsert: Int = abs(exponent) - 1
+            let leadingZeros: String = String(repeating: "0", count: zerosToInsert)
+            let floatString: String = isNegativeSign + "0" + decimalSeparator.string + leadingZeros + mantissa
+            return LR(floatString)
+        }
+        // Scientific notation representation
+        else {
+            var sciMantissa: String = mantissa
+            let decimalIndex = sciMantissa.index(sciMantissa.startIndex, offsetBy: 1)
+            sciMantissa.insert(decimalSeparator.character, at: decimalIndex)
+            if sciMantissa.count == 2 {
+                sciMantissa.append("0")
             }
-            if exponent < 0 {
-                var floatString = mantissa
-                for _ in 0..<(-1*exponent - 1) {
-                    floatString = "0" + floatString
-                }
-                return LR((isNegative ? "-" : "") + "0" + decimalSeparator.string + floatString)
-            }
-            
-            // scientific notation required
-            let secondIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
-            mantissa.insert(decimalSeparator.character, at: secondIndex)
-            if mantissa.count == 2 { mantissa.append("0") }
-            let exponentString = "e\(exponent)"
-            let maxLength = maxOutputLength - (isNegative ? 1 : 0) - exponentString.count
-            return LR((isNegative ? "-" : "") + String(mantissa.prefix(maxLength)), exponentString)
+            let exponentString: String = "e\(exponent)"
+            let maxLength: Int = maxOutputLength - isNegativeSign.count - exponentString.count
+            let mantissaPrefix: String = String(sciMantissa.prefix(maxLength))
+            let outputString: String = isNegativeSign + mantissaPrefix + exponentString
+            return LR(outputString)
         }
     }
-    
     private func injectSeparators(numberString: String, groupingSeparator: GroupingSeparator, decimalSeparator: DecimalSeparator) -> String {
         if numberString.starts(with: "-") {
             return "-" + nonNegativeInjectSeparators(numberString: String(numberString.dropFirst()), groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
