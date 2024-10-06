@@ -53,7 +53,7 @@ import Testing
     #expect(calculator.lr.string == "4")
     #expect(calculator.token.tokens.count == 1)
     
-    calculator.press(AuxOperation.clear)
+    calculator.press(ClearOperation.clear)
     // buffer: empty
     // tokens: 0
     #expect(calculator.lr.string == "0")
@@ -131,7 +131,7 @@ import Testing
     #expect(calculator.lr.string == "5")
     calculator.evaluate()
     #expect(calculator.lr.string == "5")
-    calculator.press(AuxOperation.clear)
+    calculator.press(ClearOperation.clear)
     ////    #expect(calculator.asString("2 sqr 5") == "5")
     //
     calculator.press(DigitOperation.three)

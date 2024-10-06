@@ -25,7 +25,7 @@ import SwiftGmp
     calculator.press(MemoryOperation.recallM)
     #expect(calculator.lr.string == "18")
 // clearing memory, no change to the display
-    calculator.press(AuxOperation.clear)
+    calculator.press(ClearOperation.clear)
     #expect(calculator.lr.string == "0")
     calculator.press(MemoryOperation.recallM)
     #expect(calculator.lr.string == "18")
@@ -35,7 +35,7 @@ import SwiftGmp
     #expect(calculator.lr.string == "18")
     #expect(calculator.evaluateString("2 sqr").string == "4")
     #expect(calculator.evaluateString("2 sqr 5").string == "5")
-    calculator.press(AuxOperation.clear)
+    calculator.press(ClearOperation.clear)
     #expect(calculator.lr.string == "0")
     temp = calculator.asDouble("1 sin sin")
     #expect(temp.similarTo(0.745624141665))

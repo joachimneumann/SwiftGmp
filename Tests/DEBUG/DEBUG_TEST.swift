@@ -6,6 +6,10 @@ import Testing
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 20)
     // var opResult: Bool
+    let x = calculator.evaluateString("10 %")
+    #expect(calculator.evaluateString("10 %").string == "0.1")
+
+    
     let lr = calculator.evaluateString("1.1 * 1")
     #expect(lr.string == "1.1")
     

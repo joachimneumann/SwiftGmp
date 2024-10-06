@@ -128,7 +128,7 @@ for file in glob.glob("*.txt"):
                             elif components[0].strip() == "maxOutputLength":
                                 writeln("    calculator.maxOutputLength = "+components[1].strip())
                             elif components[0].strip() == "C":
-                                writeln("    calculator.press(AuxOperation.clear)")
+                                writeln("    calculator.press(ClearOperation.clear)")
                                 writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
                             elif components[0].strip() == "DISPLAY":
                                 writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")

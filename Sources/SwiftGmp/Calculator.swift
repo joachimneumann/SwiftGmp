@@ -29,18 +29,6 @@ public class Calculator {
             } else {
                 displayBuffer.append(digitOp.rawValue)
             }
-        } else if let auxOp = op as? AuxOperation {
-            switch auxOp {
-            case .clear:
-                token.clear()
-                displayBuffer = ""
-            case .equal:
-                if !displayBuffer.isEmpty { displayToToken() }
-                token.shuntingYard()
-                token.evaluatePostfix()
-            case .percent:
-                token.percent()
-            }
         } else if let memOp = op as? MemoryOperation {
             switch memOp {
             case .recallM:
@@ -80,6 +68,14 @@ public class Calculator {
             } else {
                 fatalError("last token not a SwiftGmp")
             }
+        } else if let _ = op as? ClearOperation {
+            token.clear()
+            displayBuffer = ""
+        } else if let _ = op as? EqualOperation {
+            token.shuntingYard()
+            token.evaluatePostfix()
+        } else if let _ = op as? PercentOperation {
+            token.percent()
         } else if let twoOperantOp = op as? TwoOperantOperation {
             displayToToken()
             token.newToken(twoOperantOp)

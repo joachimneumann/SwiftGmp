@@ -27,9 +27,13 @@ public enum DigitOperation: String, OpProtocol, CaseIterable {
     case dot  = ","
 }
 
-public enum AuxOperation: String, OpProtocol, CaseIterable {
+public enum ClearOperation: String, OpProtocol, CaseIterable {
     case clear = "C"
+}
+public enum EqualOperation: String, OpProtocol, CaseIterable {
     case equal = "="
+}
+public enum PercentOperation: String, OpProtocol, CaseIterable {
     case percent = "%"
 }
 
@@ -101,7 +105,17 @@ public enum ParenthesisOperation: String, OpProtocol, CaseIterable {
     case right = ")"
 }
 
-extension AuxOperation {
+extension ClearOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+extension EqualOperation {
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+extension PercentOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
