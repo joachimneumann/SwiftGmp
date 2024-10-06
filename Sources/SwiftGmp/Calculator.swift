@@ -24,11 +24,12 @@ public class Calculator {
                 assert(token.tokens.count > 0)
                 token.removeLastSwiftGmp()
             }
-            if displayBuffer == "0" || displayBuffer == "" {
-                displayBuffer = digitOp.rawValue
-            } else {
-                displayBuffer.append(digitOp.rawValue)
+            if digitOp == .dot {
+                if displayBuffer == "" {
+                    displayBuffer = "0"
+                }
             }
+            displayBuffer.append(digitOp.rawValue)
         } else if let memOp = op as? MemoryOperation {
             switch memOp {
             case .recallM:
@@ -72,8 +73,11 @@ public class Calculator {
             token.clear()
             displayBuffer = ""
         } else if let _ = op as? EqualOperation {
-            token.shuntingYard()
-            token.evaluatePostfix()
+            if !token.tokens.isEmpty {
+                displayToToken()
+                token.shuntingYard()
+                token.evaluatePostfix()
+            }
         } else if let _ = op as? PercentOperation {
             displayToToken()
             token.percent()
