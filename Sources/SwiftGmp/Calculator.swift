@@ -11,7 +11,7 @@ public class Calculator {
     private var memory: SwiftGmp?
     public var maxOutputLength: Int? = nil
     public var decimalSeparator: DecimalSeparator = .dot
-    public var groupingSeparator: GroupingSeparator = .none
+    public var separateGroups: Bool = false
     public init(precision: Int) {
         token = Token(precision: precision)
         displayBuffer = ""
@@ -135,7 +135,7 @@ public class Calculator {
         let mantissaLength: Int = token.precision // approximation: accept integers with length = precision
         let (mantissa, exponent) = last.mantissaExponent(len: mantissaLength)
         let R = Representation(mantissa: mantissa, exponent: exponent)
-        return R.leftRight(maxOutputLength: maxOutputLength ?? 10, decimalSeparator: decimalSeparator, groupingSeparator: groupingSeparator)
+        return R.leftRight(maxOutputLength: maxOutputLength ?? 10, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
     }
     
     public func evaluateString(_ expression: String) -> LR {
