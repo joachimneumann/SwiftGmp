@@ -26,12 +26,52 @@ public struct LR {
     }
 }
 
+public enum DecimalSeparator: String, Codable, CaseIterable {
+    case comma
+    case dot
+    var character: Character {
+        get {
+            switch self {
+            case .comma: return ","
+            case .dot: return "."
+            }
+        }
+    }
+    var string: String {
+        get {
+            String(character)
+        }
+    }
+}
+
+public enum GroupingSeparator: String, Codable, CaseIterable {
+    case comma
+    case dot
+    case none
+    var character: Character? {
+        get {
+            switch self {
+            case .none: return nil
+            case .comma: return ","
+            case .dot: return "."
+            }
+        }
+    }
+    var string: String {
+        get {
+            guard let character = character else { return "" }
+            return String(character)
+        }
+    }
+}
+
+
 struct Representation {
     var error: String?
     private var mantissa: String?
     private var exponent: Int?
     private var isNegative: Bool
-    
+
     init(error: String) {
         self.error = error
         self.mantissa = nil
@@ -50,54 +90,11 @@ struct Representation {
         self.exponent = exponent
     }
 
-    protocol Separators {
-        var decimalSeparator: DecimalSeparator   { get }
-        var groupingSeparator: GroupingSeparator { get }
-    }
-
-    enum DecimalSeparator: String, Codable, CaseIterable {
-        case comma
-        case dot
-        var character: Character {
-            get {
-                switch self {
-                case .comma: return ","
-                case .dot: return "."
-                }
-            }
-        }
-        var string: String {
-            get {
-                String(character)
-            }
-        }
-    }
-    enum GroupingSeparator: String, Codable, CaseIterable {
-        case comma
-        case dot
-        case none
-        var character: Character? {
-            get {
-                switch self {
-                case .none: return nil
-                case .comma: return ","
-                case .dot: return "."
-                }
-            }
-        }
-        var string: String {
-            get {
-                guard let character = character else { return "" }
-                return String(character)
-            }
-        }
-    }
-    
     var double: Double {
-        leftRight(maxOutputLength: 10).double
+        leftRight(maxOutputLength: 10, decimalSeparator: .dot, groupingSeparator: .none).double
     }
 
-    func leftRight(maxOutputLength: Int, groupingSeparator: GroupingSeparator = .none, decimalSeparator: DecimalSeparator = .dot) -> LR {
+    func leftRight(maxOutputLength: Int, decimalSeparator: DecimalSeparator, groupingSeparator: GroupingSeparator) -> LR {
         // Ensure there are no errors and that mantissa and exponent are valid
         guard error == nil else { return LR(error!) }
         guard var mantissa = mantissa else { return LR("Invalid") }
@@ -110,11 +107,9 @@ struct Representation {
             // Pad mantissa with zeros to match the exponent
             mantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
             // Inject grouping separators if needed
-            let intString: String = isNegativeSign + injectSeparators(
+            let intString: String = isNegativeSign + injectGrouping(
                 numberString: mantissa,
-                groupingSeparator: groupingSeparator,
-                decimalSeparator: decimalSeparator
-            )
+                groupingSeparator: groupingSeparator)
             return LR(intString)
         }
         // Floating-point representation without scientific notation
@@ -122,6 +117,12 @@ struct Representation {
             var floatString: String = mantissa
             let decimalIndex = floatString.index(floatString.startIndex, offsetBy: exponent + 1)
             floatString.insert(decimalSeparator.character, at: decimalIndex)
+            if groupingSeparator != .none {
+                let parts = floatString.split(separator: decimalSeparator.character)
+                if parts.count == 2 {
+                    floatString = injectGrouping(numberString: String(parts[0]), groupingSeparator: groupingSeparator) + String(decimalSeparator.character) + parts[1]
+                }
+            }
             let maxLength: Int = maxOutputLength - isNegativeSign.count
             let outputString: String = isNegativeSign + String(floatString.prefix(maxLength))
             return LR(outputString)
@@ -131,7 +132,7 @@ struct Representation {
             let zerosToInsert: Int = abs(exponent) - 1
             let leadingZeros: String = String(repeating: "0", count: zerosToInsert)
             let floatString: String = isNegativeSign + "0" + decimalSeparator.string + leadingZeros + mantissa
-            return LR(floatString)
+            return LR(String(floatString.prefix(maxOutputLength)))
         }
         // Scientific notation representation
         else {
@@ -148,15 +149,15 @@ struct Representation {
             return LR(outputString)
         }
     }
-    private func injectSeparators(numberString: String, groupingSeparator: GroupingSeparator, decimalSeparator: DecimalSeparator) -> String {
+    private func injectGrouping(numberString: String, groupingSeparator: GroupingSeparator) -> String {
         if numberString.starts(with: "-") {
-            return "-" + nonNegativeInjectSeparators(numberString: String(numberString.dropFirst()), groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
+            return "-" + nonNegativeInjectGrouping(numberString: String(numberString.dropFirst()), groupingSeparator: groupingSeparator)
         } else {
-            return nonNegativeInjectSeparators(numberString: numberString, groupingSeparator: groupingSeparator, decimalSeparator: decimalSeparator)
+            return nonNegativeInjectGrouping(numberString: numberString, groupingSeparator: groupingSeparator)
         }
     }
 
-    private func nonNegativeInjectSeparators(numberString: String, groupingSeparator: GroupingSeparator, decimalSeparator: DecimalSeparator) -> String {
+    private func nonNegativeInjectGrouping(numberString: String, groupingSeparator: GroupingSeparator) -> String {
         var ret: String = numberString
         if let c = groupingSeparator.character {
             var count = ret.count

@@ -2,23 +2,13 @@
 //       It will be overwritten sooner or later.
 
 import Testing
-@testable import SwiftGmp
+import SwiftGmp
 
 @Test func calculatorTest() {
     let calculator = Calculator(precision: 20)
 
     #expect(calculator.evaluateString("1 + 2 x 3").string == "7")
     var temp: Double
-    
-    calculator.press(ClearOperation.clear)
-    calculator.press(DigitOperation.dot)
-    calculator.press(DigitOperation.one)
-    #expect(calculator.lr.string == ",1")
-    calculator.displayToToken()
-    #expect(calculator.lr.string == "0.1")
-    calculator.press(PercentOperation.percent)
-    #expect(calculator.lr.string == "0.001")
-
     temp = calculator.asDouble("1 sin sin")
     #expect(temp.similarTo(0.745624141665))
     #expect(calculator.evaluateString("4.5").string == "4.5")

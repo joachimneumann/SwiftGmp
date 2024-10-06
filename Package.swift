@@ -35,7 +35,7 @@ let package = Package(
             dependencies: ["SwiftGmp"]
         ),
         .testTarget(
-            name: "NumberTests",
+            name: "FromTxtTests",
             dependencies: ["SwiftGmp"]
         ),
         .testTarget(

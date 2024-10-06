@@ -25,9 +25,11 @@ import SwiftGmp
     #expect(calculator.evaluateString("153.4 - 154").string == "-0.6")
     #expect(calculator.evaluateString("153.4 - 155").string == "-1.6")
     #expect(calculator.evaluateString("153.4 - 165").string == "-11.6")
+    var temp: Double
+    temp = calculator.asDouble("1 / 7")
+    #expect(temp.similarTo(0.1428571))
     #expect(calculator.evaluateString("10 %").string == "0.1")
     #expect(calculator.evaluateString("200 + 20 %").string == "240")
-    var temp: Double
     temp = calculator.asDouble("100 + e %")
     #expect(temp.similarTo(102.7183))
     #expect(calculator.evaluateString("0.1 %").string == "0.001")

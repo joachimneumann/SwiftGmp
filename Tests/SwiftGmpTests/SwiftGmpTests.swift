@@ -1,7 +1,7 @@
 import Testing
 @testable import SwiftGmp
 
-@Test func example() {
+@Test func anotherTest() {
     let nan = SwiftGmp(bits: 20)
     #expect(!nan.isValid)
     #expect(nan.debugDescription == "nan")
