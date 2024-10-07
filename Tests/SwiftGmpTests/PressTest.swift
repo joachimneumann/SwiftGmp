@@ -11,6 +11,36 @@ import Testing
 @Test func pressTest() {
     let calculator = Calculator(precision: 20)
     calculator .maxOutputLength = 10
+
+    #expect(calculator.lr.string == "0")
+    calculator.press(DigitOperation.dot)
+    let x1 = calculator.lr.string
+    #expect(x1 == "0.")
+    calculator.press(DigitOperation.dot)
+    calculator.press(DigitOperation.dot)
+    calculator.press(DigitOperation.dot)
+    calculator.press(DigitOperation.dot)
+    #expect(calculator.lr.string == "0.")
+    calculator.press(DigitOperation.one)
+    #expect(calculator.lr.string == "0.1")
+    calculator.press(DigitOperation.dot)
+    #expect(calculator.lr.string == "0.1")
+    calculator.press(DigitOperation.one)
+    #expect(calculator.lr.string == "0.11")
+    calculator.press(DigitOperation.dot)
+    #expect(calculator.lr.string == "0.11")
+
+    calculator.press(ClearOperation.clear)
+    calculator.press(DigitOperation.one)
+    #expect(calculator.lr.string == "1")
+    calculator.press(DigitOperation.dot)
+    let l = calculator.lr.string
+    #expect(l == "1.")
+    calculator.press(DigitOperation.dot)
+    calculator.press(DigitOperation.dot)
+    calculator.press(DigitOperation.dot)
+    #expect(calculator.lr.string == "1.")
+
     
     calculator.press(ConstantOperation.pi)
     calculator.press(ConstantOperation.pi)

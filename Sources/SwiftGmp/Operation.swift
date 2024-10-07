@@ -24,7 +24,7 @@ public enum DigitOperation: String, OpProtocol, CaseIterable {
     case seven = "7"
     case eight = "8"
     case nine  = "9"
-    case dot  = ","
+    case dot  = "."
 }
 
 public enum ClearOperation: String, OpProtocol, CaseIterable {

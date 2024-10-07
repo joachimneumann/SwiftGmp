@@ -27,11 +27,15 @@ public class Calculator {
                 token.removeLastSwiftGmp()
             }
             if digitOp == .dot {
+                if displayBuffer.contains(DecimalSeparator.dot.rawValue) { return }
                 if displayBuffer == "" {
-                    displayBuffer = "0"
+                    displayBuffer = "0" + DecimalSeparator.dot.rawValue
+                } else {
+                    displayBuffer.append(digitOp.rawValue)
                 }
+            } else {
+                displayBuffer.append(digitOp.rawValue)
             }
-            displayBuffer.append(digitOp.rawValue)
         } else if let memOp = op as? MemoryOperation {
             switch memOp {
             case .recallM:
@@ -110,7 +114,12 @@ public class Calculator {
     }
     
     func withSeparators(_ s: String) -> String {
-        injectGrouping(numberString: s, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        var ret = s
+        if decimalSeparator != .dot {
+            ret = ret.replacingOccurrences(of: DecimalSeparator.dot.rawValue, with: decimalSeparator.rawValue)
+        }
+        ret = injectGrouping(numberString: ret, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        return ret
     }
     public var lrWithSeparators: LR {
         var lr = lr
@@ -158,7 +167,7 @@ public class Calculator {
             try token.stringToTokenArray(trimmedExpression)
             token.shuntingYard()
             token.evaluatePostfix()
-            return lr
+            return lrWithSeparators
         } catch {
             return LR(error.localizedDescription)
         }

@@ -7,18 +7,23 @@ import Testing
     var x = calculator.evaluateString("10000.1")
     #expect(x.string == "10000.1")
 
-//    x
     calculator.decimalSeparator = .comma
     x = calculator.evaluateString("10000.1")
     #expect(x.string == "10000,1")
+    #expect(calculator.lr.string == "10000.1")
+    #expect(calculator.lrWithSeparators.string == "10000,1")
 
     calculator.decimalSeparator = .dot
-    calculator.groupingSeparator = .comma
+    calculator.separateGroups = true
     x = calculator.evaluateString("10000.1")
     #expect(x.string == "10,000.1")
+    #expect(calculator.lr.string == "10000.1")
+    #expect(calculator.lrWithSeparators.string == "10,000.1")
 
     calculator.decimalSeparator = .comma
-    calculator.groupingSeparator = .dot
+    calculator.separateGroups = true
     x = calculator.evaluateString("10000.1")
     #expect(x.string == "10.000,1")
+    #expect(calculator.lr.string == "10000.1")
+    #expect(calculator.lrWithSeparators.string == "10.000,1")
 }

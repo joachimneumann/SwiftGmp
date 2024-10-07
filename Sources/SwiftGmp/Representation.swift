@@ -20,7 +20,7 @@ private func nonNegativeInjectGrouping(numberString: String, decimalSeparator: D
             numberString: String(parts[0]),
             decimalSeparator: decimalSeparator,
             separateGroups: separateGroups) +
-        String(decimalSeparator.character) +
+            decimalSeparator.rawValue +
         parts[1]
     } else {
         var ret: String = numberString
@@ -62,19 +62,14 @@ public struct LR {
 }
 
 public enum DecimalSeparator: String, Codable, CaseIterable {
-    case comma
-    case dot
+    case comma = ","
+    case dot = "."
     public var character: Character {
         get {
             switch self {
             case .comma: return ","
             case .dot: return "."
             }
-        }
-    }
-    var string: String {
-        get {
-            String(character)
         }
     }
     public var groupCharacter: Character {
@@ -143,7 +138,7 @@ struct Representation {
         else if exponent < 0 {
             let zerosToInsert: Int = abs(exponent) - 1
             let leadingZeros: String = String(repeating: "0", count: zerosToInsert)
-            let floatString: String = isNegativeSign + "0" + String(DecimalSeparator.dot.character) + leadingZeros + mantissa
+            let floatString: String = isNegativeSign + "0" + DecimalSeparator.dot.rawValue + leadingZeros + mantissa
             return LR(String(floatString.prefix(maxOutputLength)))
         }
         // Scientific notation representation
