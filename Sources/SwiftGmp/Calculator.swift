@@ -9,10 +9,11 @@ public class Calculator {
     var token: Token
     var displayBuffer: String
     private var memory: SwiftGmp?
-    public var maxOutputLength: Int? = nil
+    public var maxOutputLength: Int
     public var decimalSeparator: DecimalSeparator = .dot
     public var separateGroups: Bool = false
-    public init(precision: Int) {
+    public init(precision: Int, maxOutputLength: Int = 12) {
+        self.maxOutputLength = maxOutputLength
         token = Token(precision: precision)
         displayBuffer = ""
     }
@@ -121,14 +122,31 @@ public class Calculator {
         ret = injectGrouping(numberString: ret, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
         return ret
     }
-    public var lrWithSeparators: LR {
+    public func addSeparators(lr: LR) -> LR {
         var lr = lr
         lr.left = withSeparators(lr.left)
         return lr
     }
     public var lr: LR {
         if !displayBuffer.isEmpty {
-            return LR(displayBuffer)
+            let parts = displayBuffer.split(separator: decimalSeparator.rawValue)
+            if parts.count == 1 {
+                // Integer
+                if displayBuffer.count <= maxOutputLength {
+                    return LR(displayBuffer)
+                }
+            } else if parts.count == 2 {
+                // float
+                if parts[0].count <= maxOutputLength - 2 { // minimum dot and one digit
+                    return LR(String(displayBuffer.prefix(maxOutputLength)))
+                }
+            }
+            // convert displaybuffer to swiftGmp and return that
+            // keep the content of the displaBuffer
+            let temp = SwiftGmp(withString: displayBuffer, bits: token.generousBits(for: token.precision))
+            let (mantissa, exponent) = temp.mantissaExponent(len: 2*maxOutputLength)
+            let R = Representation(mantissa: mantissa, exponent: exponent)
+            return R.leftRight(maxOutputLength: maxOutputLength)
         }
         guard let last = token.lastSwiftGmp else {
             // displayBuffer is empty and no swiftGmp in tokens --> after clean(), revert to "0"
@@ -152,7 +170,7 @@ public class Calculator {
         let mantissaLength: Int = token.precision // approximation: accept integers with length = precision
         let (mantissa, exponent) = last.mantissaExponent(len: mantissaLength)
         let R = Representation(mantissa: mantissa, exponent: exponent)
-        return R.leftRight(maxOutputLength: maxOutputLength ?? 10)
+        return R.leftRight(maxOutputLength: maxOutputLength)
     }
     
     public func evaluateString(_ expression: String) -> LR {
@@ -167,7 +185,8 @@ public class Calculator {
             try token.stringToTokenArray(trimmedExpression)
             token.shuntingYard()
             token.evaluatePostfix()
-            return lrWithSeparators
+            let lr = lr
+            return addSeparators(lr: lr)
         } catch {
             return LR(error.localizedDescription)
         }

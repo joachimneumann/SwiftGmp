@@ -120,7 +120,7 @@ struct Representation {
         let isNegativeSign: String = isNegative ? "-" : ""
 
         // Integer representation
-        if mantissa.count <= exponent + 1 && exponent <= maxOutputLength {
+        if mantissa.count <= exponent + 1 && exponent < maxOutputLength {
             // Pad mantissa with zeros to match the exponent
             mantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
             return LR(isNegativeSign + mantissa)
