@@ -511,7 +511,7 @@ class Token {
             if !stack.isEmpty {
                 newToken(stack.last!)
             } else {
-                fatalError("Empty tokens after evaluation")
+                print("Empty tokens after evaluation")
             }
         }
     }

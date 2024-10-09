@@ -15,7 +15,6 @@ import Testing
     calculator.press(TwoOperantOperation.add)
 
     var pending = calculator.pendingOperators
-    #expect(pending.count == 0)
     #expect(pending.count == 1)
     
     calculator.press(DigitOperation.one)

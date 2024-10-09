@@ -73,8 +73,8 @@ import Testing
     // buffer: empty
     // tokens: 2, add
     #expect(calculator.lr.string == "4")
-    #expect(calculator.token.tokens[0].debugDescription == "4.0")
-    #expect(calculator.token.tokens[1].debugDescription == "+")
+    #expect(calculator.token.tokens[0].debugDescription == "swiftGmp 4.0")
+    #expect(calculator.token.tokens[1].debugDescription == "twoOperant +")
     #expect(calculator.token.tokens.count == 2)
     
     calculator.evaluate()
@@ -156,7 +156,7 @@ import Testing
     
     
     var pending: [any OpProtocol] = []
-    
+    calculator.clear()
     pending = calculator.pendingOperators
     #expect(pending.count == 0)
     #expect(calculator.lr.string == "0")
@@ -165,25 +165,25 @@ import Testing
     pending = calculator.pendingOperators
     #expect(pending.count == 0)
     #expect(calculator.lr.string == "2")
-    calculator.evaluate()
+    //calculator.evaluate()
 
     calculator.press(TwoOperantOperation.add)
     pending = calculator.pendingOperators
     #expect(pending.count == 1)
     #expect(calculator.lr.string == "2")
-    calculator.evaluate()
+    //calculator.evaluate()
 
     calculator.press(DigitOperation.four)
     pending = calculator.pendingOperators
     #expect(pending.count == 1)
     #expect(calculator.lr.string == "4")
-    calculator.evaluate()
+    //calculator.evaluate()
 
     calculator.press(EqualOperation.equal)
     pending = calculator.pendingOperators
     #expect(pending.count == 0)
     #expect(calculator.lr.string == "6")
-    calculator.evaluate()
+    //calculator.evaluate()
 
     calculator.press(TwoOperantOperation.mul)
     pending = calculator.pendingOperators

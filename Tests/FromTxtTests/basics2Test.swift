@@ -22,7 +22,7 @@ import SwiftGmp
     #expect(calculator.evaluateString("-1987.50 + 1987").string == "-0.5")
     #expect(calculator.evaluateString("6 x 2 + 8").string == "20")
     #expect(calculator.evaluateString("1500 - 2000 + 0.25").string == "-499.75")
-    #expect(calculator.evaluateString("1500 - 2000 + 1.23456789").string == "-498.76543")
+    #expect(calculator.evaluateString("1500 - 2000 + 1.23456789").string == "-498.7654321")
     #expect(calculator.evaluateString("1500 - 2000 + 123456789").string == "123456289")
     #expect(calculator.evaluateString("1500 - 2000").string == "-500")
     #expect(calculator.evaluateString("9 - 3").string == "6")

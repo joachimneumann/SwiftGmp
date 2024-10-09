@@ -17,7 +17,7 @@ import SwiftGmp
     #expect(calculator.evaluateString("1e48").string == "1000000000000000000000000000000000000000000000000")
     calculator.maxOutputLength = 10
     #expect(calculator.evaluateString("1e9").string == "1000000000")
-    #expect(calculator.evaluateString("1e10").string == "10000000000")
+    #expect(calculator.evaluateString("1e10").string == "1.0e10")
     #expect(calculator.evaluateString("1e11").string == "1.0e11")
     #expect(calculator.evaluateString("1e12").string == "1.0e12")
     #expect(calculator.evaluateString("1e15").string == "1.0e15")

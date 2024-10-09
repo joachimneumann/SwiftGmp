@@ -44,6 +44,14 @@ public class Calculator {
         return ret
     }
 
+    public func clear() {
+        token.clear()
+        displayBuffer = ""
+        for op in token.allOperationsSorted {
+            isAllowedOperator[op.getRawValue()] = true
+            isPendingOperator[op.getRawValue()] = false
+        }
+    }
     public func press(_ op: any OpProtocol) {
         if let digitOp = op as? DigitOperation {
             if !token.numberExpected {
@@ -100,8 +108,7 @@ public class Calculator {
                 fatalError("last token not a SwiftGmp")
             }
         } else if let _ = op as? ClearOperation {
-            token.clear()
-            displayBuffer = ""
+            clear()
         } else if let _ = op as? EqualOperation {
             if !token.tokens.isEmpty {
                 displayToToken()
