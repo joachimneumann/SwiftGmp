@@ -119,7 +119,8 @@ public class Calculator {
                 }
             }
             token.newToken(twoOperantOp)
-            token.evaluate()
+            token.shuntingYard()
+            token.evaluatePostfix()
         } else {
             fatalError("Unsupported operation")
         }
