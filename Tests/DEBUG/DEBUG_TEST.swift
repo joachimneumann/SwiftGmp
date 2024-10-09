@@ -5,12 +5,37 @@ import Testing
 
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 20)
+    
+    calculator.press(DigitOperation.one)
+    calculator.press(TwoOperantOperation.div)
+    calculator.press(DigitOperation.zero)
+    calculator.press(EqualOperation.equal)
+    #expect(calculator.token.lastSwiftGmp!.isValid == false)
+    #expect(calculator.lr.string == "inf")
+    let invalid = calculator.invalidOperators
+    #expect(invalid.count > 1)
+    calculator.press(ClearOperation.clear)
+
+    calculator.press(DigitOperation.one)
+    calculator.press(InplaceOperation.sqr)
+    calculator.press(TwoOperantOperation.add)
+    let pending = calculator.pendingOperators
+    #expect(pending.count == 1)
+    calculator.press(ClearOperation.clear)
+
+    calculator.press(TwoOperantOperation.mul)
+    calculator.press(TwoOperantOperation.sub)
+    calculator.press(TwoOperantOperation.add)
+    calculator.press(EqualOperation.equal)
+    #expect(calculator.lr.string == "0")
+
+    
     // var opResult: Bool
     let x = calculator.evaluateString("10 %")
     #expect(x.string == "0.1")
     #expect(calculator.evaluateString("10 %").string == "0.1")
     let temp = calculator.asDouble("200 + e %")
-    #expect(temp ~= 205.436563)
+    #expect(temp ~= 205.43656365)
 
     
     let lr = calculator.evaluateString("1.1 x 1")

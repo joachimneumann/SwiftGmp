@@ -1,12 +1,13 @@
 import Foundation
 
-public protocol OpProtocol {
+public protocol OpProtocol: Equatable {
+    var requiresValidNumber: Bool { get }
     func getRawValue() -> String
-    func isEqual(to other: OpProtocol) -> Bool
+    func isEqual(to other: any OpProtocol) -> Bool
 }
 
 extension OpProtocol where Self: Equatable {
-    public func isEqual(to other: OpProtocol) -> Bool {
+    public func isEqual(to other: any OpProtocol) -> Bool {
         guard let other = other as? Self else { return false }
         return self == other
     }
@@ -105,53 +106,75 @@ public enum ParenthesisOperation: String, OpProtocol, CaseIterable {
     case right = ")"
 }
 
-extension ClearOperation {
-    public func getRawValue() -> String {
-        return self.rawValue
-    }
-}
-extension EqualOperation {
-    public func getRawValue() -> String {
-        return self.rawValue
-    }
-}
-extension PercentOperation {
+
+extension DigitOperation {
+    public var requiresValidNumber: Bool { false }
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
-extension DigitOperation {
+extension ClearOperation {
+    public var requiresValidNumber: Bool { false }
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+extension EqualOperation {
+    public var requiresValidNumber: Bool { false }
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+
+extension PercentOperation {
+    public var requiresValidNumber: Bool { false }
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension MemoryOperation {
-    public func getRawValue() -> String {
-        return self.rawValue
+    public var requiresValidNumber: Bool {
+        switch self {
+        case .clearM:
+            return false
+        case .recallM:
+            return true
+        case .addToM:
+            return true
+        case .subFromM:
+            return true
+        }
     }
-}
-
-extension InplaceOperation {
-    public func getRawValue() -> String {
-        return self.rawValue
-    }
-}
-
-extension TwoOperantOperation {
-    public func getRawValue() -> String {
-        return self.rawValue
-    }
-}
-
-extension ParenthesisOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 
 extension ConstantOperation {
+    public var requiresValidNumber: Bool { false }
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+
+extension InplaceOperation {
+    public var requiresValidNumber: Bool { true }
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+
+extension TwoOperantOperation {
+    public var requiresValidNumber: Bool { true }
+    public func getRawValue() -> String {
+        return self.rawValue
+    }
+}
+
+extension ParenthesisOperation {
+    public var requiresValidNumber: Bool { true }
     public func getRawValue() -> String {
         return self.rawValue
     }

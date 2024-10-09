@@ -20,8 +20,38 @@ public class Calculator {
     public func setPrecision(newPrecision: Int) {
         token.setPrecision(newPrecision)
     }
+    
+    public var pendingOperators: [any OpProtocol] {
+        var ret: [any OpProtocol] = []
+        for t in token.tokens {
+            if case .inPlace(let op) = t {
+                ret.append(op)
+            }
+            if case .twoOperant(let op) = t {
+                ret.append(op)
+            }
+        }
+        return ret
+    }
 
-    public func press(_ op: OpProtocol) {
+    public var invalidOperators: [any OpProtocol] {
+        var ret: [any OpProtocol] = []
+
+        if let last = token.lastSwiftGmp {
+            if !last.isValid {
+                for op in token.allOperationsSorted {
+                    if op.requiresValidNumber {
+                        ret.append(op)
+                    }
+                }
+            }
+        }
+        return ret
+    }
+
+
+
+    public func press(_ op: any OpProtocol) {
         if let digitOp = op as? DigitOperation {
             if !token.numberExpected {
                 assert(token.tokens.count > 0)
@@ -89,6 +119,11 @@ public class Calculator {
             displayToToken()
             token.percent()
         } else if let twoOperantOp = op as? TwoOperantOperation {
+            if !token.tokens.isEmpty {
+                if case .twoOperant = token.tokens.last {
+                    token.tokens.removeLast()
+                }
+            }
             displayToToken()
             token.newToken(twoOperantOp)
         } else {
@@ -99,8 +134,8 @@ public class Calculator {
     func displayToToken() {
         if !displayBuffer.isEmpty {
             token.newSwiftGmpToken(displayBuffer.replacingOccurrences(of: ",", with: "."))
+            displayBuffer = ""
         }
-        displayBuffer = ""
     }
     private var inPlaceAllowed: Bool {
         displayToToken()

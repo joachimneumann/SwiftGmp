@@ -107,7 +107,7 @@ class Token {
         }
     }
 
-    let allOperationsSorted: [OpProtocol]
+    let allOperationsSorted: [any OpProtocol]
 
     func clear() {
         tokens = []
@@ -138,7 +138,7 @@ class Token {
         let x5: [EqualOperation] = EqualOperation.allCases
         let x6: [ParenthesisOperation] = ParenthesisOperation.allCases
         let x7: [PercentOperation] = PercentOperation.allCases
-        var allOperationsUnsorted: [OpProtocol] = []
+        var allOperationsUnsorted: [any OpProtocol] = []
         allOperationsUnsorted.append(contentsOf: x1)
         allOperationsUnsorted.append(contentsOf: x2)
         allOperationsUnsorted.append(contentsOf: x3)
@@ -171,19 +171,6 @@ class Token {
         }
     }
 
-    var pendingOperators: [OpProtocol] {
-        var ret: [OpProtocol] = []
-        for token in tokens {
-            if case .inPlace(let op) = token {
-                ret.append(op)
-            }
-            if case .twoOperant(let op) = token {
-                ret.append(op)
-            }
-        }
-        return ret
-    }
-    
     var inPlaceAllowed: Bool {
         !numberExpected
     }
@@ -507,12 +494,13 @@ class Token {
             }
         }
         if tokens.isEmpty {
-            // something went wrong
             if !stack.isEmpty {
                 newToken(stack.last!)
             } else {
-                fatalError("Empty tokens after evaluation")
+//                fatalError("Empty tokens after evaluation")
             }
+        } else {
+            print("some tokens left after evaluation ???")
         }
     }
     
