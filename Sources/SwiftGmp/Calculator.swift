@@ -113,14 +113,7 @@ public class Calculator {
             token.percent()
         } else if let twoOperantOp = op as? TwoOperantOperation {
             displayToToken()
-            if !token.tokens.isEmpty {
-                if case .twoOperant = token.tokens.last {
-                    token.tokens.removeLast()
-                }
-            }
             token.newToken(twoOperantOp)
-            token.shuntingYard()
-            token.evaluatePostfix()
         } else {
             fatalError("Unsupported operation")
         }

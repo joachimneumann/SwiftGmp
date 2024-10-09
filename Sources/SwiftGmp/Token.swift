@@ -48,25 +48,25 @@ class Token {
     var precision: Int
 
     enum TokenEnum: CustomDebugStringConvertible {
-        var debugDescription: String {
-            switch self {
-            case .inPlace(let op):
-                "inPlace \(op.getRawValue())"
-            case .twoOperant(let op):
-                "twoOperant \(op.getRawValue())"
-            case .swiftGmp(let s):
-                "swiftGmp \(String(s.toDouble()))"
-            case .parenthesesLeft:
-                "("
-            case .parenthesesRight:
-                ")"
-            case .clear:
-                "C"
-            case .equal:
-                "="
-            case .percent:
-                "%"
-            }
+    var debugDescription: String {
+        switch self {
+        case .inPlace(let op):
+            "inPlace \(op.getRawValue())"
+        case .twoOperant(let op):
+            "twoOperant \(op.getRawValue())"
+        case .swiftGmp(let s):
+            "swiftGmp \(String(s.toDouble()))"
+        case .parenthesesLeft:
+            "("
+        case .parenthesesRight:
+            ")"
+        case .clear:
+            "C"
+        case .equal:
+            "="
+        case .percent:
+            "%"
+        }
         }
         
         case inPlace(InplaceOperation)       // sin, log, etc
@@ -96,7 +96,7 @@ class Token {
             }
         }
     }
-//    
+//
     func setPrecision(_ newPrecision: Int) {
         self.precision = newPrecision
         // TODO set bits
@@ -148,7 +148,7 @@ class Token {
         allOperationsUnsorted.append(contentsOf: x7)
         allOperationsSorted = allOperationsUnsorted.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
-//    
+//
     var numberExpected: Bool {
         guard !tokens.isEmpty else { return true }
         switch tokens.last! {
@@ -171,6 +171,19 @@ class Token {
         }
     }
 
+    var pendingOperators: [any OpProtocol] {
+        var ret: [any OpProtocol] = []
+        for token in tokens {
+            if case .inPlace(let op) = token {
+                ret.append(op)
+            }
+            if case .twoOperant(let op) = token {
+                ret.append(op)
+            }
+        }
+        return ret
+    }
+    
     var inPlaceAllowed: Bool {
         !numberExpected
     }
@@ -257,6 +270,9 @@ class Token {
     
     func newToken(_ swiftGmp: SwiftGmp) {
         tokens.append(.swiftGmp(swiftGmp))
+    }
+    func newSwiftGmpToken(_ s: String) {
+        tokens.append(.swiftGmp(SwiftGmp(withString: s, bits: generousBits(for: precision))))
     }
 
     func newToken(_ twoOperant: TwoOperantOperation) {
@@ -491,13 +507,12 @@ class Token {
             }
         }
         if tokens.isEmpty {
+            // something went wrong
             if !stack.isEmpty {
                 newToken(stack.last!)
             } else {
-//                fatalError("Empty tokens after evaluation")
+                fatalError("Empty tokens after evaluation")
             }
-        } else {
-            print("some tokens left after evaluation ???")
         }
     }
     
