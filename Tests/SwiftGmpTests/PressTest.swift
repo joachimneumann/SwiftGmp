@@ -153,6 +153,53 @@ import Testing
     ////    #expect(calculator.asString("10 + pi 1") == "11")
     ////    #expect(calculator.asString("10 + pi") == "13.1415926")
     //
+    
+    
+    var pending: [any OpProtocol] = []
+    
+    pending = calculator.pendingOperators
+    #expect(pending.count == 0)
+    #expect(calculator.lr.string == "0")
+    
+    calculator.press(DigitOperation.two)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 0)
+    #expect(calculator.lr.string == "2")
+    calculator.evaluate()
+
+    calculator.press(TwoOperantOperation.add)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 1)
+    #expect(calculator.lr.string == "2")
+    calculator.evaluate()
+
+    calculator.press(DigitOperation.four)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 1)
+    #expect(calculator.lr.string == "4")
+    calculator.evaluate()
+
+    calculator.press(EqualOperation.equal)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 0)
+    #expect(calculator.lr.string == "6")
+    calculator.evaluate()
+
+    calculator.press(TwoOperantOperation.mul)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 1)
+    #expect(calculator.lr.string == "6")
+    
+    calculator.press(DigitOperation.two)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 1)
+    #expect(calculator.lr.string == "2")
+    
+    calculator.press(EqualOperation.equal)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 0)
+    #expect(calculator.lr.string == "12")
+    
     calculator.press(DigitOperation.two)
     #expect(calculator.lr.string == "2")
     calculator.press(InplaceOperation.sqr)
@@ -185,4 +232,13 @@ import Testing
     #expect(calculator.lr.string == "2.71828182")
     calculator.evaluate()
     #expect(calculator.lr.string == "5.85987448")
+    
+    calculator.press(ClearOperation.clear)
+    calculator.press(DigitOperation.one)
+    calculator.press(TwoOperantOperation.add)
+    calculator.press(DigitOperation.two)
+    calculator.press(TwoOperantOperation.mul)
+    pending = calculator.pendingOperators
+    #expect(pending.count == 2)
+
 }

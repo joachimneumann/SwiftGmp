@@ -14,7 +14,8 @@ import Testing
     calculator.press(InplaceOperation.sqr)
     calculator.press(TwoOperantOperation.add)
 
-    let pending = calculator.token.pendingOperators
+    var pending = calculator.pendingOperators
+    #expect(pending.count == 0)
     #expect(pending.count == 1)
     
     calculator.press(DigitOperation.one)
@@ -30,7 +31,7 @@ import Testing
     calculator.press(DigitOperation.one)
     calculator.press(InplaceOperation.sqr)
     calculator.press(TwoOperantOperation.add)
-    let pending = calculator.pendingOperators
+    pending = calculator.pendingOperators
     #expect(pending.count == 1)
     calculator.press(ClearOperation.clear)
 

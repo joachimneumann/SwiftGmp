@@ -21,35 +21,28 @@ public class Calculator {
         token.setPrecision(newPrecision)
     }
     
-    public var pendingOperators: [any OpProtocol] {
+    public var isAllowedOperator: [String: Bool] = [:]
+    public var isPendingOperator: [String: Bool] = [:]
+    public var allOperationsSorted: [any OpProtocol] { token.allOperationsSorted }
+    var invalidOperators: [any OpProtocol] {
         var ret: [any OpProtocol] = []
-        for t in token.tokens {
-            if case .inPlace(let op) = t {
-                ret.append(op)
-            }
-            if case .twoOperant(let op) = t {
-                ret.append(op)
+        for op in allOperationsSorted {
+            if let allowed = isAllowedOperator[op.getRawValue()] {
+                if !allowed { ret.append(op) }
             }
         }
         return ret
     }
 
-    public var invalidOperators: [any OpProtocol] {
+    var pendingOperators: [any OpProtocol] {
         var ret: [any OpProtocol] = []
-
-        if let last = token.lastSwiftGmp {
-            if !last.isValid {
-                for op in token.allOperationsSorted {
-                    if op.requiresValidNumber {
-                        ret.append(op)
-                    }
-                }
+        for op in allOperationsSorted {
+            if let pending = isPendingOperator[op.getRawValue()] {
+                if pending { ret.append(op) }
             }
         }
         return ret
     }
-
-
 
     public func press(_ op: any OpProtocol) {
         if let digitOp = op as? DigitOperation {
@@ -119,21 +112,45 @@ public class Calculator {
             displayToToken()
             token.percent()
         } else if let twoOperantOp = op as? TwoOperantOperation {
+            displayToToken()
             if !token.tokens.isEmpty {
                 if case .twoOperant = token.tokens.last {
                     token.tokens.removeLast()
                 }
             }
-            displayToToken()
             token.newToken(twoOperantOp)
+            token.evaluate()
         } else {
             fatalError("Unsupported operation")
+        }
+
+        for op in token.allOperationsSorted {
+            isAllowedOperator[op.getRawValue()] = true
+            isPendingOperator[op.getRawValue()] = false
+        }
+        for t in token.tokens {
+            if case .inPlace(let op) = t {
+                isPendingOperator[op.getRawValue()] = true
+            }
+            if case .twoOperant(let op) = t {
+                isPendingOperator[op.getRawValue()] = true
+            }
+        }
+        if let last = token.lastSwiftGmp {
+            if !last.isValid {
+                for op in token.allOperationsSorted {
+                    if op.requiresValidNumber {
+                        isAllowedOperator[op.getRawValue()] = false
+                    }
+                }
+            }
         }
     }
     
     func displayToToken() {
         if !displayBuffer.isEmpty {
-            token.newSwiftGmpToken(displayBuffer.replacingOccurrences(of: ",", with: "."))
+            let swiftGmp = SwiftGmp(withString: displayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
+            token.newToken(swiftGmp)
             displayBuffer = ""
         }
     }
@@ -161,6 +178,9 @@ public class Calculator {
         var lr = lr
         lr.left = withSeparators(lr.left)
         return lr
+    }
+    public var lrWithSeparators: LR {
+        addSeparators(lr: lr)
     }
     public var lr: LR {
         if !displayBuffer.isEmpty {

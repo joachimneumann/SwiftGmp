@@ -51,11 +51,11 @@ class Token {
         var debugDescription: String {
             switch self {
             case .inPlace(let op):
-                "\(op.getRawValue())"
+                "inPlace \(op.getRawValue())"
             case .twoOperant(let op):
-                "\(op.getRawValue())"
+                "twoOperant \(op.getRawValue())"
             case .swiftGmp(let s):
-                String(s.toDouble())
+                "swiftGmp \(String(s.toDouble()))"
             case .parenthesesLeft:
                 "("
             case .parenthesesRight:
@@ -257,9 +257,6 @@ class Token {
     
     func newToken(_ swiftGmp: SwiftGmp) {
         tokens.append(.swiftGmp(swiftGmp))
-    }
-    func newSwiftGmpToken(_ s: String) {
-        tokens.append(.swiftGmp(SwiftGmp(withString: s, bits: generousBits(for: precision))))
     }
 
     func newToken(_ twoOperant: TwoOperantOperation) {
