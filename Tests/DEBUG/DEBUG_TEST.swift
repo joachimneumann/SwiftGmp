@@ -6,23 +6,33 @@ import Testing
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 20)
     
-    // 1 + 3 * 2 = 7
-    calculator.press(DigitOperation.one)
-    calculator.press(TwoOperantOperation.add)
-    calculator.press(DigitOperation.three)
-    calculator.press(TwoOperantOperation.mul)
-    calculator.press(DigitOperation.two)
-    calculator.press(EqualOperation.equal)
-    #expect(calculator.lr.string == "7")
-
     // 4 * 3 + 2 = 6
     calculator.press(DigitOperation.four)
+    #expect(calculator.lr.string == "4")
     calculator.press(TwoOperantOperation.mul)
+    #expect(calculator.lr.string == "4")
     calculator.press(DigitOperation.three)
+    #expect(calculator.lr.string == "3")
     calculator.press(TwoOperantOperation.add)
+    #expect(calculator.lr.string == "12")
     calculator.press(DigitOperation.two)
+    #expect(calculator.lr.string == "2")
     calculator.press(EqualOperation.equal)
     #expect(calculator.lr.string == "14")
+
+    // 1 + 3 * 2 = 7
+    calculator.press(DigitOperation.one)
+    #expect(calculator.lr.string == "1")
+    calculator.press(TwoOperantOperation.add)
+    #expect(calculator.lr.string == "1")
+    calculator.press(DigitOperation.three)
+    #expect(calculator.lr.string == "3")
+    calculator.press(TwoOperantOperation.mul)
+    #expect(calculator.lr.string == "3")
+    calculator.press(DigitOperation.two)
+    #expect(calculator.lr.string == "2")
+    calculator.press(EqualOperation.equal)
+    #expect(calculator.lr.string == "7")
 
     // 4 * (3 + 2) = 20
     calculator.press(DigitOperation.four)

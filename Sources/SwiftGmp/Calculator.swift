@@ -112,7 +112,7 @@ public class Calculator {
         } else if let _ = op as? EqualOperation {
             if !token.tokens.isEmpty {
                 displayToToken()
-                token.shuntingYard()
+                token.tokens = token.shuntingYard()
                 print("----after shuntingYard()")
                 for t in token.tokens {
                     print(t)
@@ -160,7 +160,7 @@ public class Calculator {
                 }
             }
         }
-//        token.shuntingYard()
+        let upToNow = token.shuntingYard()
         print("----")
         for t in token.tokens {
             print(t)
@@ -185,7 +185,7 @@ public class Calculator {
     public func evaluate() {
         displayToToken()
         guard !token.tokens.isEmpty else { return }
-        token.shuntingYard()
+        token.tokens = token.shuntingYard()
         token.evaluatePostfix()
     }
     
@@ -261,7 +261,7 @@ public class Calculator {
 
         do {
             try token.stringToTokenArray(trimmedExpression)
-            token.shuntingYard()
+            token.tokens = token.shuntingYard()
             token.evaluatePostfix()
             let lr = lr
             return addSeparators(lr: lr)

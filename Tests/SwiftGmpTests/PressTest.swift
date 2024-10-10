@@ -12,6 +12,35 @@ import Testing
     let calculator = Calculator(precision: 20)
     calculator .maxOutputLength = 10
 
+    // 1 + 3 * 2 = 7
+    calculator.press(DigitOperation.one)
+    calculator.press(TwoOperantOperation.add)
+    calculator.press(DigitOperation.three)
+    calculator.press(TwoOperantOperation.mul)
+    calculator.press(DigitOperation.two)
+    calculator.press(EqualOperation.equal)
+    #expect(calculator.lr.string == "7")
+
+    // 4 * 3 + 2 = 6
+    calculator.press(DigitOperation.four)
+    calculator.press(TwoOperantOperation.mul)
+    calculator.press(DigitOperation.three)
+    calculator.press(TwoOperantOperation.add)
+    calculator.press(DigitOperation.two)
+    calculator.press(EqualOperation.equal)
+    #expect(calculator.lr.string == "14")
+
+    // 4 * (3 + 2) = 20
+    calculator.press(DigitOperation.four)
+    calculator.press(TwoOperantOperation.mul)
+    calculator.press(ParenthesisOperation.left)
+    calculator.press(DigitOperation.three)
+    calculator.press(TwoOperantOperation.add)
+    calculator.press(DigitOperation.two)
+    calculator.press(ParenthesisOperation.right)
+    calculator.press(EqualOperation.equal)
+    #expect(calculator.lr.string == "14")
+    
     #expect(calculator.lr.string == "0")
     calculator.press(DigitOperation.dot)
     let x1 = calculator.lr.string

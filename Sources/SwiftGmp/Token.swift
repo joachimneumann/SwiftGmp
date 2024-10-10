@@ -431,7 +431,7 @@ class Token {
         }
     }
     
-    func shuntingYard() {
+    func shuntingYard() -> [TokenEnum] {
         var output: [TokenEnum] = []
         var operatorStack: [TokenEnum] = []
         
@@ -478,7 +478,7 @@ class Token {
             output.append(operatorStack.removeLast()) // Append remaining operators
         }
         
-        tokens = output
+        return output
     }
     
     func evaluatePostfix() {
