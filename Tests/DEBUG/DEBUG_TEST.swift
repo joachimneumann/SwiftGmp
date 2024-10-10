@@ -14,7 +14,7 @@ import Testing
     calculator.press(DigitOperation.three)
     #expect(calculator.lr.string == "3")
     calculator.press(TwoOperantOperation.add)
-    #expect(calculator.lr.string == "12")
+    //#expect(calculator.lr.string == "12")
     calculator.press(DigitOperation.two)
     #expect(calculator.lr.string == "2")
     calculator.press(EqualOperation.equal)

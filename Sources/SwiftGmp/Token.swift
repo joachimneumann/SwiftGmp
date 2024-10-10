@@ -46,27 +46,27 @@ extension Array {
 class Token {
     var tokens: [TokenEnum] = []
     var precision: Int
-
+    
     enum TokenEnum: CustomDebugStringConvertible {
-    var debugDescription: String {
-        switch self {
-        case .inPlace(let op):
-            "inPlace    \(op.getRawValue())"
-        case .twoOperant(let op):
-            "twoOperant \(op.getRawValue())"
-        case .swiftGmp(let s):
-            "swiftGmp   \(String(s.toDouble()))"
-        case .parenthesesLeft:
-            "           ("
-        case .parenthesesRight:
-            "           )"
-        case .clear:
-            "           C"
-        case .equal:
-            "           ="
-        case .percent:
-            "           %"
-        }
+        var debugDescription: String {
+            switch self {
+            case .inPlace(let op):
+                "inPlace    \(op.getRawValue())"
+            case .twoOperant(let op):
+                "twoOperant \(op.getRawValue())"
+            case .swiftGmp(let s):
+                "swiftGmp   \(String(s.toDouble()))"
+            case .parenthesesLeft:
+                "           ("
+            case .parenthesesRight:
+                "           )"
+            case .clear:
+                "           C"
+            case .equal:
+                "           ="
+            case .percent:
+                "           %"
+            }
         }
         
         case inPlace(InplaceOperation)       // sin, log, etc
@@ -96,7 +96,7 @@ class Token {
             }
         }
     }
-//
+    //
     func setPrecision(_ newPrecision: Int) {
         self.precision = newPrecision
         // TODO set bits
@@ -106,16 +106,16 @@ class Token {
             }
         }
     }
-
+    
     let allOperationsSorted: [any OpProtocol]
-
+    
     func clear() {
         tokens = []
     }
     
     func percent() {
-//         this operation in an inplace operation, but if no number is found
-//         it creates a zero out of thin air and then oerates on the zero.
+        //         this operation in an inplace operation, but if no number is found
+        //         it creates a zero out of thin air and then oerates on the zero.
         let _001 = SwiftGmp(withString: "0.01", bits: generousBits(for: precision))
         if let n1 = lastSwiftGmp {
             if let n2 = secondLastSwiftGmp {
@@ -148,7 +148,7 @@ class Token {
         allOperationsUnsorted.append(contentsOf: x7)
         allOperationsSorted = allOperationsUnsorted.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
-//
+    //
     var numberExpected: Bool {
         guard !tokens.isEmpty else { return true }
         switch tokens.last! {
@@ -170,7 +170,7 @@ class Token {
             return false
         }
     }
-
+    
     var pendingOperators: [any OpProtocol] {
         var ret: [any OpProtocol] = []
         for token in tokens {
@@ -187,7 +187,7 @@ class Token {
     var inPlaceAllowed: Bool {
         !numberExpected
     }
-  
+    
     func dropLastSwiftGmp() {
         guard !tokens.isEmpty else { return }
         
@@ -211,7 +211,7 @@ class Token {
         }
         return nil
     }
-
+    
     var secondLastSwiftGmp: SwiftGmp? {
         guard !tokens.isEmpty else { return nil }
         
@@ -228,7 +228,7 @@ class Token {
         }
         return nil
     }
-
+    
     var hasTwoOperant: Bool {
         guard !tokens.isEmpty else { return false }
         
@@ -240,10 +240,10 @@ class Token {
         }
         return false
     }
-
+    
     func removeLastSwiftGmp() {
         guard !tokens.isEmpty else { return }
-
+        
         // check from the end
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
             if case .swiftGmp(_) = tokens[index] {
@@ -253,7 +253,7 @@ class Token {
         }
         return
     }
-
+    
     func newToken(_ constant: ConstantOperation) {
         if numberExpected {
             let temp = SwiftGmp(withString: "0", bits: generousBits(for: precision))
@@ -274,7 +274,7 @@ class Token {
     func newSwiftGmpToken(_ s: String) {
         tokens.append(.swiftGmp(SwiftGmp(withString: s, bits: generousBits(for: precision))))
     }
-
+    
     func newToken(_ twoOperant: TwoOperantOperation) {
         tokens.append(.twoOperant(twoOperant))
     }
@@ -288,7 +288,7 @@ class Token {
     func newTokenPercent() {
         tokens.append(.percent)
     }
-
+    
     func newToken(_ inPlace: InplaceOperation) {
         tokens.append(.inPlace(inPlace))
     }
@@ -303,17 +303,17 @@ class Token {
     }
     func generousPrecision(for precision: Int) -> Int {
         return precision + 20
-//        if precision <= 500 {
-//            return 1000
-//        } else if precision <= 10000 {
-//            return 2 * precision
-//        } else if precision <= 100000 {
-//            return Int(round(1.5*Double(precision)))
-//        } else {
-//            return precision + 50000
-//        }
+        //        if precision <= 500 {
+        //            return 1000
+        //        } else if precision <= 10000 {
+        //            return 2 * precision
+        //        } else if precision <= 100000 {
+        //            return Int(round(1.5*Double(precision)))
+        //        } else {
+        //            return precision + 50000
+        //        }
     }
-
+    
     func stringToTokenArray(_ input: String) throws {
         var numberBuffer: String = ""
         var index: String.Index = input.startIndex
@@ -481,25 +481,57 @@ class Token {
         return output
     }
     
+    func partiallyEvaluatePostfix(tempTokens xx: [TokenEnum]) -> SwiftGmp? {
+        var tempTokens = xx
+        var swiftGmpStack: [SwiftGmp] = []
+        
+        for index in 0 ..< tempTokens.count {
+            if case .swiftGmp(let swiftGmp) = tempTokens[index] {
+                swiftGmpStack.append(swiftGmp)
+            }
+        }
+        if swiftGmpStack.count >= 2 {
+            for index in 0 ..< tempTokens.count {
+                let tempToken = tempTokens[index]
+                if case .twoOperant(let operation) = tempToken {
+                    // Is there another operator that has a lower priority? --> Execute!
+                    if index < tempTokens.count - 1 {
+                        let nextToken = tempTokens[index + 1]
+                        if case .twoOperant = nextToken {
+                            if nextToken.priority < tempToken.priority {
+                                if let rhs = swiftGmpStack.popLast(), let lhs = swiftGmpStack.popLast() {
+                                    let copy = lhs.copy()
+                                    copy.execute(operation, other: rhs)
+                                    swiftGmpStack.append(copy) // Apply binary operator
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return swiftGmpStack.last
+    }
+    
     func evaluatePostfix() {
-        var stack: [SwiftGmp] = []
+        var swiftGmpStack: [SwiftGmp] = []
         
         while tokens.count > 0 {
             let token = tokens.first
             tokens.removeFirst()
             switch token {
             case .swiftGmp(let swiftGmp):
-                stack.append(swiftGmp) // Push constants to the stack
+                swiftGmpStack.append(swiftGmp) // Push constants to the stack
             case .inPlace(let operation):
-                if let swiftGmp = stack.popLast() {
+                if let swiftGmp = swiftGmpStack.popLast() {
                     swiftGmp.execute(operation)
-                    stack.append(swiftGmp) // Apply in-place operator
+                    swiftGmpStack.append(swiftGmp) // Apply in-place operator
                 }
             case .twoOperant(let operation):
-                if stack.count >= 2 {
-                    if let rhs = stack.popLast(), let lhs = stack.popLast() {
+                if swiftGmpStack.count >= 2 {
+                    if let rhs = swiftGmpStack.popLast(), let lhs = swiftGmpStack.popLast() {
                         lhs.execute(operation, other: rhs)
-                        stack.append(lhs) // Apply binary operator
+                        swiftGmpStack.append(lhs) // Apply binary operator
                     }
                 }
             default:
@@ -508,8 +540,8 @@ class Token {
         }
         if tokens.isEmpty {
             // something went wrong
-            if !stack.isEmpty {
-                newToken(stack.last!)
+            if !swiftGmpStack.isEmpty {
+                newToken(swiftGmpStack.last!)
             } else {
                 print("Empty tokens after evaluation")
             }

@@ -160,7 +160,6 @@ public class Calculator {
                 }
             }
         }
-        let upToNow = token.shuntingYard()
         print("----")
         for t in token.tokens {
             print(t)
@@ -168,6 +167,9 @@ public class Calculator {
         if !displayBuffer.isEmpty {
             print("buffer     \(displayBuffer)")
         }
+        let upToNow = token.shuntingYard()
+        let X = token.partiallyEvaluatePostfix(tempTokens: upToNow)
+        print("X \(X)")
     }
     
     func displayToToken() {
