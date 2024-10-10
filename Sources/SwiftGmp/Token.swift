@@ -51,21 +51,21 @@ class Token {
     var debugDescription: String {
         switch self {
         case .inPlace(let op):
-            "inPlace \(op.getRawValue())"
+            "inPlace    \(op.getRawValue())"
         case .twoOperant(let op):
             "twoOperant \(op.getRawValue())"
         case .swiftGmp(let s):
-            "swiftGmp \(String(s.toDouble()))"
+            "swiftGmp   \(String(s.toDouble()))"
         case .parenthesesLeft:
-            "("
+            "           ("
         case .parenthesesRight:
-            ")"
+            "           )"
         case .clear:
-            "C"
+            "           C"
         case .equal:
-            "="
+            "           ="
         case .percent:
-            "%"
+            "           %"
         }
         }
         
