@@ -113,6 +113,13 @@ public class Calculator {
             if !token.tokens.isEmpty {
                 displayToToken()
                 token.shuntingYard()
+                print("----after shuntingYard()")
+                for t in token.tokens {
+                    print(t)
+                }
+                if !displayBuffer.isEmpty {
+                    print("buffer     \(displayBuffer)")
+                }
                 token.evaluatePostfix()
             }
         } else if let _ = op as? PercentOperation {
@@ -121,6 +128,13 @@ public class Calculator {
         } else if let twoOperantOp = op as? TwoOperantOperation {
             displayToToken()
             token.newToken(twoOperantOp)
+        } else if let parenthesis = op as? ParenthesisOperation {
+            switch parenthesis {
+            case .left:
+                token.newTokenParenthesesLeft()
+            case .right:
+                token.newTokenParenthesesRight()
+            }
         } else {
             fatalError("Unsupported operation")
         }
@@ -146,7 +160,7 @@ public class Calculator {
                 }
             }
         }
-        token.shuntingYard()
+//        token.shuntingYard()
         print("----")
         for t in token.tokens {
             print(t)
