@@ -146,6 +146,14 @@ public class Calculator {
                 }
             }
         }
+        token.shuntingYard()
+        print("----")
+        for t in token.tokens {
+            print(t)
+        }
+        if !displayBuffer.isEmpty {
+            print("buffer     \(displayBuffer)")
+        }
     }
     
     func displayToToken() {
