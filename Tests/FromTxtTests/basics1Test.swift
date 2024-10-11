@@ -45,6 +45,7 @@ import SwiftGmp
     #expect(temp.similarTo(4))
     temp = calculator.asDouble("25.0 sqrt")
     #expect(temp.similarTo(5))
+    let x = calculator.evaluateString("-1 sqrt")
     #expect(calculator.evaluateString("-1 sqrt").string == "not a number")
     temp = calculator.asDouble("8.0 sqrt3")
     #expect(temp.similarTo(2))

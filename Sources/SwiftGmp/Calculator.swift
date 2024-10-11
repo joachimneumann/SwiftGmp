@@ -56,6 +56,14 @@ public class Calculator {
     public func press(_ op: any OpProtocol) {
         if let twoOperantOp = op as? TwoOperantOperation {
             displayToToken()
+            // was the previous token also a TwoOperantOperation?
+            // if yes, overwrite that one!
+            
+            if !token.tokens.isEmpty {
+                if case .twoOperant = token.tokens.last!.tokenEnum {
+                    token.tokens.removeLast()
+                }
+            }
             token.newToken(twoOperantOp)
             token.walkThroughTokens()
         } else if let _ = op as? EqualOperation {
@@ -246,17 +254,13 @@ public class Calculator {
     
     public func evaluateString(_ expression: String) -> LR {
         displayBuffer = ""
-        var trimmedExpression = expression.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmedExpression.hasSuffix("=") {
-            trimmedExpression = String(trimmedExpression.dropLast())
-        }
-        trimmedExpression = expression.trimmingCharacters(in: .whitespacesAndNewlines)
-
         do {
-            try token.stringToTokenArray(trimmedExpression)
-//            token.tokens = token.shuntingYard()
-//            token.evaluatePostfix()
-            let lr = lr
+            let opArray = try token.stringToPressCommands(expression)
+            press(ClearOperation.clear)
+            for op in opArray {
+                press(op)
+            }
+            press(EqualOperation.equal)
             return addSeparators(lr: lr)
         } catch {
             return LR(error.localizedDescription)

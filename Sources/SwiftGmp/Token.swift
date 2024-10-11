@@ -13,6 +13,7 @@ enum TokenizerError: Error, LocalizedError {
     case unprocessed(op: String)
     case unexpectedSwiftGmp(swiftGmp: SwiftGmp)
     case memoryEmpty
+    case invalidNumberCharacter(char: Character)
     
     var errorDescription: String? {
         switch self {
@@ -26,6 +27,8 @@ enum TokenizerError: Error, LocalizedError {
             return "memory empty"
         case .unexpectedSwiftGmp(let swiftGmp):
             return "unexpected swiftGmp: \(swiftGmp)"
+        case .invalidNumberCharacter(let char):
+            return "invalid number character: \(char)"
         }
     }
 }
@@ -354,40 +357,93 @@ class Token {
         //        }
     }
     
-    func stringToTokenArray(_ input: String) throws {
-        // TODO: use press()
+    private func numberCharacterToOpProtocol(_ char: Character) throws -> any OpProtocol {
+        switch char {
+        case "0": DigitOperation.zero
+        case "1": DigitOperation.one
+        case "2": DigitOperation.two
+        case "3": DigitOperation.three
+        case "4": DigitOperation.four
+        case "5": DigitOperation.five
+        case "6": DigitOperation.six
+        case "7": DigitOperation.seven
+        case "8": DigitOperation.eight
+        case "9": DigitOperation.nine
+        case ".": DigitOperation.dot
+        default: throw TokenizerError.invalidNumberCharacter(char: char)
+        }
+    }
+    
+    private func numberToOpProtocol(_ number: String) throws -> [any OpProtocol] {
+        var ret: [any OpProtocol] = []
+        var numberBuffer = number
+        if !numberBuffer.isEmpty {
+            var mantissaNegative: Bool = false
+            var exponentNegative: Bool = false
+            var mantissa: String
+            var exponent: String? = nil
+            if numberBuffer.starts(with: "-") {
+                numberBuffer.removeFirst()
+                mantissaNegative = true
+            }
+            let me = numberBuffer.split(separator: "e")
+            if me.count == 2 {
+                mantissa = String(me[0])
+                exponent = String(me[1])
+                if exponent!.starts(with: "-") {
+                    numberBuffer.removeFirst()
+                    exponentNegative = true
+                }
+            } else {
+                mantissa = numberBuffer
+            }
+            numberBuffer = ""
+            
+            // TODO: put into parentesis to show number in display?
+            for char in mantissa {
+                try ret.append(numberCharacterToOpProtocol(char))
+            }
+            if mantissaNegative {
+                ret.append(InplaceOperation.changeSign)
+            }
+            if let exponent = exponent {
+                ret.append(TwoOperantOperation.EE)
+                for char in exponent {
+                    try ret.append(numberCharacterToOpProtocol(char))
+                }
+                if exponentNegative {
+                    ret.append(InplaceOperation.changeSign)
+                }
+            }
+        }
+        return ret
+    }
+    
+    func stringToPressCommands(_ input: String) throws -> [any OpProtocol] {
+        var ret: [any OpProtocol] = []
         var numberBuffer: String = ""
+
         var index: String.Index = input.startIndex
-        
-        // Start with an empty token array
-        clear()
-        
         let inputEndIndex: String.Index = input.endIndex
-        
-        // Main loop to parse the input string
         while index < inputEndIndex {
             let char: Character = input[index]
             
             // Check if the character is part of a number
-            if char.isNumber || char == "." || (char == "e" && !numberBuffer.isEmpty) || (char == "-" && numberBuffer.last == "e") {
+            if ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].contains(char) || char == "." || (char == "e" && !numberBuffer.isEmpty) || (char == "-" && numberBuffer.last == "e") {
                 // Append characters that are part of a number (including scientific notation)
                 numberBuffer.append(char)
             }
             // Check for whitespace
             else if char.isWhitespace {
-                if !numberBuffer.isEmpty {
-                    let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
-                    newToken(tokenValue)
-                    numberBuffer = ""
-                }
+                ret.append(contentsOf: try numberToOpProtocol(numberBuffer))
+                numberBuffer = ""
             }
-            // Ignore '=' character for now
             else if char == "=" {
-                // Do nothing
+                ret.append(EqualOperation.equal)
             }
             // Handle '-' character
             else if char == "-" {
-                var unaryMinus: Bool = numberExpected
+                var unaryMinus: Bool = ret.isEmpty
                 let remainingCharsCount: Int = input.distance(from: index, to: inputEndIndex)
                 let nextIndex: String.Index = input.index(after: index)
                 
@@ -405,11 +461,10 @@ class Token {
                 } else {
                     // Subtraction operator
                     if !numberBuffer.isEmpty {
-                        let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
-                        newToken(tokenValue)
+                        ret.append(contentsOf: try numberToOpProtocol(numberBuffer))
                         numberBuffer = ""
                     }
-                    newToken(TwoOperantOperation.sub)
+                    ret.append(TwoOperantOperation.sub)
                 }
             }
             // Handle operators and parentheses
@@ -424,24 +479,23 @@ class Token {
                         opFound = true
                         
                         if !numberBuffer.isEmpty {
-                            let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
-                            newToken(tokenValue)
+                            ret.append(contentsOf: try numberToOpProtocol(numberBuffer))
                             numberBuffer = ""
                         }
                         
                         // Add the corresponding token based on the operation type
                         if let inPlace = op as? InplaceOperation {
-                            newToken(inPlace)
+                            ret.append(inPlace)
                         } else if let _ = op as? PercentOperation {
-                            self.percent()
+                            ret.append(PercentOperation.percent)
                         } else if let constant = op as? ConstantOperation {
-                            newToken(constant)
+                            ret.append(constant)
                         } else if let twoOperant = op as? TwoOperantOperation {
-                            newToken(twoOperant)
+                            ret.append(twoOperant)
                         } else if opRawValue == "(" {
-                            newTokenParenthesesLeft()
+                            ret.append(ParenthesisOperation.left)
                         } else if opRawValue == ")" {
-                            newTokenParenthesesRight()
+                            ret.append(ParenthesisOperation.right)
                         } else {
                             throw TokenizerError.unknownOperator(op: opRawValue)
                         }
@@ -467,10 +521,130 @@ class Token {
         
         // If there's any remaining number in the buffer, add it as a token
         if !numberBuffer.isEmpty {
-            let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
-            newToken(tokenValue)
+            ret.append(contentsOf: try numberToOpProtocol(numberBuffer))
+            numberBuffer = ""
         }
+
+        return ret
     }
+    
+//    func stringToTokenArray(_ input: String) throws {
+//        // TODO: use press()
+//        var numberBuffer: String = ""
+//        var index: String.Index = input.startIndex
+//        
+//        // Start with an empty token array
+//        clear()
+//        
+//        let inputEndIndex: String.Index = input.endIndex
+//        
+//        // Main loop to parse the input string
+//        while index < inputEndIndex {
+//            let char: Character = input[index]
+//            
+//            // Check if the character is part of a number
+//            if char.isNumber || char == "." || (char == "e" && !numberBuffer.isEmpty) || (char == "-" && numberBuffer.last == "e") {
+//                // Append characters that are part of a number (including scientific notation)
+//                numberBuffer.append(char)
+//            }
+//            // Check for whitespace
+//            else if char.isWhitespace {
+//                if !numberBuffer.isEmpty {
+//                    let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
+//                    newToken(tokenValue)
+//                    numberBuffer = ""
+//                }
+//            }
+//            // Ignore '=' character for now
+//            else if char == "=" {
+//                // Do nothing
+//            }
+//            // Handle '-' character
+//            else if char == "-" {
+//                var unaryMinus: Bool = numberExpected
+//                let remainingCharsCount: Int = input.distance(from: index, to: inputEndIndex)
+//                let nextIndex: String.Index = input.index(after: index)
+//                
+//                // Ensure nextIndex is within bounds
+//                if remainingCharsCount > 1, nextIndex < inputEndIndex {
+//                    let afterMinus: Character = input[nextIndex]
+//                    if afterMinus == " " {
+//                        unaryMinus = false
+//                    }
+//                }
+//                
+//                if unaryMinus {
+//                    // Unary minus (e.g., -5)
+//                    numberBuffer.append(char)
+//                } else {
+//                    // Subtraction operator
+//                    if !numberBuffer.isEmpty {
+//                        let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
+//                        newToken(tokenValue)
+//                        numberBuffer = ""
+//                    }
+//                    newToken(TwoOperantOperation.sub)
+//                }
+//            }
+//            // Handle operators and parentheses
+//            else {
+//                var opFound: Bool = false
+//                let inputSlice: Substring = input[index...]
+//                
+//                for op in allOperationsSorted {
+//                    let opRawValue: String = op.getRawValue()
+//                    
+//                    if inputSlice.hasPrefix(opRawValue) {
+//                        opFound = true
+//                        
+//                        if !numberBuffer.isEmpty {
+//                            let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
+//                            newToken(tokenValue)
+//                            numberBuffer = ""
+//                        }
+//                        
+//                        // Add the corresponding token based on the operation type
+//                        if let inPlace = op as? InplaceOperation {
+//                            newToken(inPlace)
+//                        } else if let _ = op as? PercentOperation {
+//                            self.percent()
+//                        } else if let constant = op as? ConstantOperation {
+//                            newToken(constant)
+//                        } else if let twoOperant = op as? TwoOperantOperation {
+//                            newToken(twoOperant)
+//                        } else if opRawValue == "(" {
+//                            newTokenParenthesesLeft()
+//                        } else if opRawValue == ")" {
+//                            newTokenParenthesesRight()
+//                        } else {
+//                            throw TokenizerError.unknownOperator(op: opRawValue)
+//                        }
+//                        
+//                        // Advance the index by the length of the operator minus one (since we'll increment it at the end of the loop)
+//                        index = input.index(index, offsetBy: opRawValue.count - 1)
+//                        break // Exit the loop since we found a matching operator
+//                    }
+//                }
+//                
+//                if !opFound {
+//                    var failedCandidate: String = String(inputSlice)
+//                    if let spaceIndex = failedCandidate.firstIndex(of: " ") {
+//                        failedCandidate = String(failedCandidate[..<spaceIndex])
+//                    }
+//                    throw TokenizerError.unknownOperator(op: failedCandidate)
+//                }
+//            }
+//            
+//            // Move to the next character
+//            index = input.index(after: index)
+//        }
+//        
+//        // If there's any remaining number in the buffer, add it as a token
+//        if !numberBuffer.isEmpty {
+//            let tokenValue: SwiftGmp = SwiftGmp(withString: numberBuffer, bits: generousBits(for: precision))
+//            newToken(tokenValue)
+//        }
+//    }
 }
 
 extension Collection where Element: Equatable {

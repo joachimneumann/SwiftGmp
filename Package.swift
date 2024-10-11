@@ -43,7 +43,7 @@ let package = Package(
 //        .testTarget(
 //            name: "TokenizerTests",
 //            dependencies: ["SwiftGmp"]
-//        ),
+//        )
         
         .testTarget(
             name: "DEBUG",
