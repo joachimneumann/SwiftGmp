@@ -54,6 +54,10 @@ import Testing
     #expect(calculator.lr.string == "3")
     calculator.press(TwoOperantOperation.add)
     #expect(calculator.lr.string == "6")
+    #expect(calculator.token.tokens.count == 2)
+    calculator.press(EqualOperation.equal)
+    #expect(calculator.lr.string == "6")
+    #expect(calculator.token.tokens.count == 1)
     calculator.clear()
     
     // 2 + 3 * --> 2 + 3 *
@@ -149,6 +153,13 @@ import Testing
     calculator.press(EqualOperation.equal)
     #expect(calculator.lr.string == "11")
     calculator.clear()
+
+    calculator.press(ConstantOperation.pi)
+    #expect(calculator.lr.string == "3.1415926535")
+    #expect(calculator.token.tokens.count == 1)
+    calculator.press(ConstantOperation.pi)
+    #expect(calculator.lr.string == "3.1415926535")
+    #expect(calculator.token.tokens.count == 1)
 
     // 4 * (3 + 2) = 20
     calculator.press(DigitOperation.four)

@@ -62,7 +62,14 @@ public class Calculator {
             if !token.tokens.isEmpty {
                 displayToToken()
                 token.walkThroughTokens()
+                // cleaning up
+                while token.tokens.count > 1 {
+                    token.tokens.removeLast()
+                }
             }
+        } else if let constOp = op as? ConstantOperation {
+            displayBuffer = ""
+            token.newToken(constOp)
         } else if let digitOp = op as? DigitOperation {
             if !token.numberExpected {
                 assert(token.tokens.count > 0)
@@ -107,9 +114,6 @@ public class Calculator {
             case .clearM:
                 memory = nil
             }
-        } else if let constOp = op as? ConstantOperation {
-            displayBuffer = ""
-            token.newToken(constOp)
         } else if let inPlaceOp = op as? InplaceOperation {
             guard inPlaceAllowed else { return }
             if let last = token.lastSwiftGmp {
@@ -176,13 +180,6 @@ public class Calculator {
     private var inPlaceAllowed: Bool {
         displayToToken()
         return token.lastSwiftGmp != nil
-    }
-
-    public func evaluate() {
-        displayToToken()
-        guard !token.tokens.isEmpty else { return }
-//        token.tokens = token.shuntingYard()
-//        token.evaluatePostfix()
     }
     
     func withSeparators(_ s: String) -> String {

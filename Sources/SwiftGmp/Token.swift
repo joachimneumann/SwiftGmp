@@ -67,42 +67,24 @@ class Token {
     
         let tokenEnum: TokenEnum
 
-        var priority: Int {
-            switch tokenEnum {
-            case .twoOperant(let op):
-                if op == .mul || op == .div { return 2 } // Higher precedence for * and /
-                return 1 // Lower precedence for + and -
-            case .inPlace, .percent:
-                return 3 // Highest precedence for in-place operators like sin, log
-            case .parenthesesLeft, .parenthesesRight:
-                return 0 // Parentheses control grouping, not direct precedence
-            case .swiftGmp:
-                return 4 // Constants should be directly evaluated
-            case .clear:
-                return 5
-            case .equal:
-                return 4
-            }
-        }
-
         var debugDescription: String {
             switch tokenEnum {
             case .inPlace(let op):
-                "inPlace    \(op.getRawValue())"
+                "inPlace \(op.getRawValue())"
             case .twoOperant(let op):
                 "twoOperant \(op.getRawValue())"
             case .swiftGmp(let s):
-                "swiftGmp   \(String(s.toDouble()))"
+                "swiftGmp \(String(s.toDouble()))"
             case .parenthesesLeft:
-                "           ("
+                "("
             case .parenthesesRight:
-                "           )"
+                ")"
             case .clear:
-                "           C"
+                "C"
             case .equal:
-                "           ="
+                "="
             case .percent:
-                "           %"
+                "%"
             }
         }
         init(tokenEnum: TokenEnum) {
