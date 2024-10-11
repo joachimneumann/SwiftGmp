@@ -43,13 +43,50 @@ extension Array {
     }
 }
 
+
 class Token {
-    var tokens: [TokenEnum] = []
+    var tokens: [OneToken] = []
     var precision: Int
+
+    enum TokenEnum {
+        case inPlace(InplaceOperation)       // sin, log, etc
+        case clear
+        case equal
+        case percent
+        case twoOperant(TwoOperantOperation) // +, -, *, /, x^y, etc
+        case swiftGmp(SwiftGmp)                          // -5.3
+        case parenthesesLeft
+        case parenthesesRight
+    }
+
+    class OneToken: CustomDebugStringConvertible, Equatable, Identifiable {
+        let id: UUID = UUID()
+        static func == (lhs: Token.OneToken, rhs: Token.OneToken) -> Bool {
+            lhs.id == rhs.id
+        }
     
-    enum TokenEnum: CustomDebugStringConvertible {
+        let tokenEnum: TokenEnum
+
+        var priority: Int {
+            switch tokenEnum {
+            case .twoOperant(let op):
+                if op == .mul || op == .div { return 2 } // Higher precedence for * and /
+                return 1 // Lower precedence for + and -
+            case .inPlace, .percent:
+                return 3 // Highest precedence for in-place operators like sin, log
+            case .parenthesesLeft, .parenthesesRight:
+                return 0 // Parentheses control grouping, not direct precedence
+            case .swiftGmp:
+                return 4 // Constants should be directly evaluated
+            case .clear:
+                return 5
+            case .equal:
+                return 4
+            }
+        }
+
         var debugDescription: String {
-            switch self {
+            switch tokenEnum {
             case .inPlace(let op):
                 "inPlace    \(op.getRawValue())"
             case .twoOperant(let op):
@@ -68,40 +105,18 @@ class Token {
                 "           %"
             }
         }
-        
-        case inPlace(InplaceOperation)       // sin, log, etc
-        case clear
-        case equal
-        case percent
-        case twoOperant(TwoOperantOperation) // +, -, *, /, x^y, etc
-        case swiftGmp(SwiftGmp)                          // -5.3
-        case parenthesesLeft
-        case parenthesesRight
-        
-        var priority: Int {
-            switch self {
-            case .twoOperant(let op):
-                if op == .mul || op == .div { return 2 } // Higher precedence for * and /
-                return 1 // Lower precedence for + and -
-            case .inPlace, .percent:
-                return 3 // Highest precedence for in-place operators like sin, log
-            case .parenthesesLeft, .parenthesesRight:
-                return 0 // Parentheses control grouping, not direct precedence
-            case .swiftGmp:
-                return 4 // Constants should be directly evaluated
-            case .clear:
-                return 5
-            case .equal:
-                return 4
-            }
+        init(tokenEnum: TokenEnum) {
+            self.tokenEnum = tokenEnum
         }
     }
-    //
+
+    
+    
     func setPrecision(_ newPrecision: Int) {
         self.precision = newPrecision
-        // TODO set bits
+        // TODO: set bits
         for token in tokens {
-            if case .swiftGmp(let swiftGmp) = token {
+            if case .swiftGmp(let swiftGmp) = token.tokenEnum {
                 swiftGmp.setBits(generousBits(for: newPrecision))
             }
         }
@@ -151,7 +166,7 @@ class Token {
     //
     var numberExpected: Bool {
         guard !tokens.isEmpty else { return true }
-        switch tokens.last! {
+        switch tokens.last!.tokenEnum {
         case .inPlace(_):
             return false
         case .twoOperant(_):
@@ -174,10 +189,10 @@ class Token {
     var pendingOperators: [any OpProtocol] {
         var ret: [any OpProtocol] = []
         for token in tokens {
-            if case .inPlace(let op) = token {
+            if case .inPlace(let op) = token.tokenEnum {
                 ret.append(op)
             }
-            if case .twoOperant(let op) = token {
+            if case .twoOperant(let op) = token.tokenEnum {
                 ret.append(op)
             }
         }
@@ -193,7 +208,7 @@ class Token {
         
         // check from the end
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
-            if case .swiftGmp(_) = tokens[index] {
+            if case .swiftGmp(_) = tokens[index].tokenEnum {
                 tokens.remove(at: index)
             }
         }
@@ -205,7 +220,7 @@ class Token {
         
         // check from the end
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
-            if case .swiftGmp(let last) = tokens[index] {
+            if case .swiftGmp(let last) = tokens[index].tokenEnum {
                 return last
             }
         }
@@ -218,7 +233,7 @@ class Token {
         // check from the end
         var oneFound = false
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
-            if case .swiftGmp(let last) = tokens[index] {
+            if case .swiftGmp(let last) = tokens[index].tokenEnum {
                 if oneFound {
                     return last
                 } else {
@@ -234,7 +249,7 @@ class Token {
         
         // check from the end
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
-            if case .twoOperant = tokens[index] {
+            if case .twoOperant = tokens[index].tokenEnum {
                 return true
             }
         }
@@ -246,7 +261,7 @@ class Token {
         
         // check from the end
         for index in stride(from: tokens.count - 1, through: 0, by: -1) {
-            if case .swiftGmp(_) = tokens[index] {
+            if case .swiftGmp(_) = tokens[index].tokenEnum {
                 tokens.remove(at: index)
                 return
             }
@@ -254,11 +269,48 @@ class Token {
         return
     }
     
+    func walkThroughTokens() {
+        var priority = 2
+        for token in tokens {
+            guard let before = tokens.element(before: token) else { continue }
+            guard let after = tokens.element(after: token) else { continue }
+            guard case .twoOperant(let twoOperantOperation) = token.tokenEnum else { continue }
+            guard case .swiftGmp(let beforeSwiftGmp) = before.tokenEnum else { continue }
+            guard case .swiftGmp(let afterSwiftGmp) = after.tokenEnum else { continue }
+            guard twoOperantOperation.operatorPriority == priority else { continue }
+            beforeSwiftGmp.execute(twoOperantOperation, other: afterSwiftGmp)
+            tokens = tokens.filter { $0 != after }
+            tokens = tokens.filter { $0 != token }
+        }
+        var hasPriority2 = false
+        for token in tokens {
+            guard case .twoOperant(let twoOperantOperation) = token.tokenEnum else { continue }
+            if twoOperantOperation.operatorPriority == 2 {
+                hasPriority2 = true
+            }
+        }
+        if !hasPriority2 {
+            priority = 1
+            for token in tokens {
+                guard let before = tokens.element(before: token) else { continue }
+                guard let after = tokens.element(after: token) else { continue }
+                guard case .twoOperant(let twoOperantOperation) = token.tokenEnum else { continue }
+                guard case .swiftGmp(let beforeSwiftGmp) = before.tokenEnum else { continue }
+                guard case .swiftGmp(let afterSwiftGmp) = after.tokenEnum else { continue }
+                guard twoOperantOperation.operatorPriority == priority else { continue }
+
+                beforeSwiftGmp.execute(twoOperantOperation, other: afterSwiftGmp)
+                tokens = tokens.filter { $0 != after }
+                tokens = tokens.filter { $0 != token }
+            }
+        }
+    }
+        
     func newToken(_ constant: ConstantOperation) {
         if numberExpected {
             let temp = SwiftGmp(withString: "0", bits: generousBits(for: precision))
             temp.execute(constant)
-            tokens.append(.swiftGmp(temp))
+            tokens.append(OneToken(tokenEnum: .swiftGmp(temp)))
         } else {
             if let last = lastSwiftGmp {
                 last.execute(constant)
@@ -269,38 +321,44 @@ class Token {
     }
     
     func newToken(_ swiftGmp: SwiftGmp) {
-        tokens.append(.swiftGmp(swiftGmp))
+        tokens.append(OneToken(tokenEnum: .swiftGmp(swiftGmp)))
     }
     func newSwiftGmpToken(_ s: String) {
-        tokens.append(.swiftGmp(SwiftGmp(withString: s, bits: generousBits(for: precision))))
+        tokens.append(OneToken(tokenEnum: .swiftGmp(SwiftGmp(withString: s, bits: generousBits(for: precision)))))
     }
     
     func newToken(_ twoOperant: TwoOperantOperation) {
-        tokens.append(.twoOperant(twoOperant))
+        tokens.append(OneToken(tokenEnum: .twoOperant(twoOperant)))
     }
     
     func newTokenClear() {
-        tokens.append(.clear)
+        tokens.append(OneToken(tokenEnum: .clear))
     }
+    
     func newTokenEqual() {
-        tokens.append(.equal)
+        tokens.append(OneToken(tokenEnum: .equal))
     }
+    
     func newTokenPercent() {
-        tokens.append(.percent)
+        tokens.append(OneToken(tokenEnum: .percent))
     }
     
     func newToken(_ inPlace: InplaceOperation) {
-        tokens.append(.inPlace(inPlace))
+        tokens.append(OneToken(tokenEnum: .inPlace(inPlace)))
     }
+    
     func newTokenParenthesesLeft() {
-        tokens.append(.parenthesesLeft)
+        tokens.append(OneToken(tokenEnum: .parenthesesLeft))
     }
+    
     func newTokenParenthesesRight() {
-        tokens.append(.parenthesesRight)
+        tokens.append(OneToken(tokenEnum: .parenthesesRight))
     }
+    
     func generousBits(for precision: Int) -> Int {
         Int(Double(generousPrecision(for: precision)) * 3.32192809489)
     }
+    
     func generousPrecision(for precision: Int) -> Int {
         return precision + 20
         //        if precision <= 500 {
@@ -315,6 +373,7 @@ class Token {
     }
     
     func stringToTokenArray(_ input: String) throws {
+        // TODO: use press()
         var numberBuffer: String = ""
         var index: String.Index = input.startIndex
         
@@ -430,123 +489,30 @@ class Token {
             newToken(tokenValue)
         }
     }
-    
-    func shuntingYard() -> [TokenEnum] {
-        var output: [TokenEnum] = []
-        var operatorStack: [TokenEnum] = []
-        
-        var lastOperatorWasTwoOperant: Bool = false
-        for token in tokens {
-            switch token {
-            case .swiftGmp, .inPlace:
-                output.append(token) // Directly add constants and in-place operators to output
-                lastOperatorWasTwoOperant = false
-            case .twoOperant:
-                while let top = operatorStack.last, top.priority >= token.priority {
-                    if lastOperatorWasTwoOperant {
-                        operatorStack.removeLast() // remove the last one from the output
-                    } else {
-                        output.append(operatorStack.removeLast()) // Pop from operator stack to output
-                    }
-                }
-                operatorStack.append(token) // Push current operator onto the stack
-                lastOperatorWasTwoOperant = true
-            case .parenthesesLeft:
-                operatorStack.append(token) // Push '(' onto the stack
-                lastOperatorWasTwoOperant = false
-            case .parenthesesRight:
-                var stillLooking = true
-                while stillLooking, let top = operatorStack.last {
-                    if case .parenthesesLeft = top {
-                        stillLooking = false
-                    } else {
-                        output.append(operatorStack.removeLast()) // Pop until '(' is found
-                    }
-                }
-                _ = operatorStack.popLast() // Remove the '('
-                lastOperatorWasTwoOperant = false
-            case .clear:
-                break
-            case .equal:
-                break
-            case .percent:
-                break
-            }
-        }
-        
-        while !operatorStack.isEmpty {
-            output.append(operatorStack.removeLast()) // Append remaining operators
-        }
-        
-        return output
-    }
-    
-    func partiallyEvaluatePostfix(tempTokens xx: [TokenEnum]) -> SwiftGmp? {
-        var tempTokens = xx
-        var swiftGmpStack: [SwiftGmp] = []
-        
-        for index in 0 ..< tempTokens.count {
-            if case .swiftGmp(let swiftGmp) = tempTokens[index] {
-                swiftGmpStack.append(swiftGmp)
-            }
-        }
-        if swiftGmpStack.count >= 2 {
-            for index in 0 ..< tempTokens.count {
-                let tempToken = tempTokens[index]
-                if case .twoOperant(let operation) = tempToken {
-                    // Is there another operator that has a lower priority? --> Execute!
-                    if index < tempTokens.count - 1 {
-                        let nextToken = tempTokens[index + 1]
-                        if case .twoOperant = nextToken {
-                            if nextToken.priority < tempToken.priority {
-                                if let rhs = swiftGmpStack.popLast(), let lhs = swiftGmpStack.popLast() {
-                                    let copy = lhs.copy()
-                                    copy.execute(operation, other: rhs)
-                                    swiftGmpStack.append(copy) // Apply binary operator
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return swiftGmpStack.last
-    }
-    
-    func evaluatePostfix() {
-        var swiftGmpStack: [SwiftGmp] = []
-        
-        while tokens.count > 0 {
-            let token = tokens.first
-            tokens.removeFirst()
-            switch token {
-            case .swiftGmp(let swiftGmp):
-                swiftGmpStack.append(swiftGmp) // Push constants to the stack
-            case .inPlace(let operation):
-                if let swiftGmp = swiftGmpStack.popLast() {
-                    swiftGmp.execute(operation)
-                    swiftGmpStack.append(swiftGmp) // Apply in-place operator
-                }
-            case .twoOperant(let operation):
-                if swiftGmpStack.count >= 2 {
-                    if let rhs = swiftGmpStack.popLast(), let lhs = swiftGmpStack.popLast() {
-                        lhs.execute(operation, other: rhs)
-                        swiftGmpStack.append(lhs) // Apply binary operator
-                    }
-                }
-            default:
-                break
-            }
-        }
-        if tokens.isEmpty {
-            // something went wrong
-            if !swiftGmpStack.isEmpty {
-                newToken(swiftGmpStack.last!)
-            } else {
-                print("Empty tokens after evaluation")
-            }
-        }
-    }
-    
 }
 
+extension Collection where Element: Equatable {
+    
+    func element(after element: Element) -> Element? {
+        if let index = self.firstIndex(of: element){
+            let followingIndex = self.index(after: index)
+            if followingIndex < self.endIndex{
+                return self[followingIndex]
+            }
+        }
+        return nil
+    }
+}
+
+extension BidirectionalCollection where Element: Equatable {
+    
+    func element(before element: Element) -> Element? {
+        if let index = self.firstIndex(of: element){
+            let precedingIndex = self.index(before: index)
+            if precedingIndex >= self.startIndex{
+                return self[precedingIndex]
+            }
+        }
+        return nil
+    }
+}

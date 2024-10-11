@@ -52,8 +52,18 @@ public class Calculator {
             isPendingOperator[op.getRawValue()] = false
         }
     }
+    
     public func press(_ op: any OpProtocol) {
-        if let digitOp = op as? DigitOperation {
+        if let twoOperantOp = op as? TwoOperantOperation {
+            displayToToken()
+            token.newToken(twoOperantOp)
+            token.walkThroughTokens()
+        } else if let _ = op as? EqualOperation {
+            if !token.tokens.isEmpty {
+                displayToToken()
+                token.walkThroughTokens()
+            }
+        } else if let digitOp = op as? DigitOperation {
             if !token.numberExpected {
                 assert(token.tokens.count > 0)
                 token.removeLastSwiftGmp()
@@ -109,25 +119,9 @@ public class Calculator {
             }
         } else if let _ = op as? ClearOperation {
             clear()
-        } else if let _ = op as? EqualOperation {
-            if !token.tokens.isEmpty {
-                displayToToken()
-                token.tokens = token.shuntingYard()
-                print("----after shuntingYard()")
-                for t in token.tokens {
-                    print(t)
-                }
-                if !displayBuffer.isEmpty {
-                    print("buffer     \(displayBuffer)")
-                }
-                token.evaluatePostfix()
-            }
         } else if let _ = op as? PercentOperation {
             displayToToken()
             token.percent()
-        } else if let twoOperantOp = op as? TwoOperantOperation {
-            displayToToken()
-            token.newToken(twoOperantOp)
         } else if let parenthesis = op as? ParenthesisOperation {
             switch parenthesis {
             case .left:
@@ -144,10 +138,10 @@ public class Calculator {
             isPendingOperator[op.getRawValue()] = false
         }
         for t in token.tokens {
-            if case .inPlace(let op) = t {
+            if case .inPlace(let op) = t.tokenEnum {
                 isPendingOperator[op.getRawValue()] = true
             }
-            if case .twoOperant(let op) = t {
+            if case .twoOperant(let op) = t.tokenEnum {
                 isPendingOperator[op.getRawValue()] = true
             }
         }
@@ -160,16 +154,16 @@ public class Calculator {
                 }
             }
         }
-        print("----")
-        for t in token.tokens {
-            print(t)
-        }
-        if !displayBuffer.isEmpty {
-            print("buffer     \(displayBuffer)")
-        }
-        let upToNow = token.shuntingYard()
-        let X = token.partiallyEvaluatePostfix(tempTokens: upToNow)
-        print("X \(X)")
+//        print("----")
+//        for t in token.tokens {
+//            print(t)
+//        }
+//        if !displayBuffer.isEmpty {
+//            print("buffer     \(displayBuffer)")
+//        }
+//        let upToNow = token.shuntingYard()
+//        let X = token.partiallyEvaluatePostfix(tempTokens: upToNow)
+//        print("X \(X)")
     }
     
     func displayToToken() {
@@ -187,8 +181,8 @@ public class Calculator {
     public func evaluate() {
         displayToToken()
         guard !token.tokens.isEmpty else { return }
-        token.tokens = token.shuntingYard()
-        token.evaluatePostfix()
+//        token.tokens = token.shuntingYard()
+//        token.evaluatePostfix()
     }
     
     func withSeparators(_ s: String) -> String {
@@ -263,8 +257,8 @@ public class Calculator {
 
         do {
             try token.stringToTokenArray(trimmedExpression)
-            token.tokens = token.shuntingYard()
-            token.evaluatePostfix()
+//            token.tokens = token.shuntingYard()
+//            token.evaluatePostfix()
             let lr = lr
             return addSeparators(lr: lr)
         } catch {

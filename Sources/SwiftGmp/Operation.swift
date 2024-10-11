@@ -1,6 +1,7 @@
 import Foundation
 
 public protocol OpProtocol: Equatable {
+    var operatorPriority: Int { get }
     var requiresValidNumber: Bool { get }
     func getRawValue() -> String
     func isEqual(to other: any OpProtocol) -> Bool
@@ -108,6 +109,7 @@ public enum ParenthesisOperation: String, OpProtocol, CaseIterable {
 
 
 extension DigitOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool { false }
     public func getRawValue() -> String {
         return self.rawValue
@@ -115,12 +117,14 @@ extension DigitOperation {
 }
 
 extension ClearOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool { false }
     public func getRawValue() -> String {
         return self.rawValue
     }
 }
 extension EqualOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool { false }
     public func getRawValue() -> String {
         return self.rawValue
@@ -128,6 +132,7 @@ extension EqualOperation {
 }
 
 extension PercentOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool { false }
     public func getRawValue() -> String {
         return self.rawValue
@@ -135,6 +140,7 @@ extension PercentOperation {
 }
 
 extension MemoryOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool {
         switch self {
         case .clearM:
@@ -153,6 +159,7 @@ extension MemoryOperation {
 }
 
 extension ConstantOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool { false }
     public func getRawValue() -> String {
         return self.rawValue
@@ -160,6 +167,7 @@ extension ConstantOperation {
 }
 
 extension InplaceOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool { true }
     public func getRawValue() -> String {
         return self.rawValue
@@ -167,6 +175,26 @@ extension InplaceOperation {
 }
 
 extension TwoOperantOperation {
+    public var operatorPriority: Int {
+        get {
+            switch self {
+            case .add, .sub:
+                1
+            case .mul, .div:
+                2
+            case .pow_x_y:
+                2
+            case .pow_y_x:
+                2
+            case .sqrty:
+                2
+            case .logy:
+                2
+            case .EE:
+                2 // TODO: is that correct?
+            }
+        }
+    }
     public var requiresValidNumber: Bool { true }
     public func getRawValue() -> String {
         return self.rawValue
@@ -174,6 +202,7 @@ extension TwoOperantOperation {
 }
 
 extension ParenthesisOperation {
+    public var operatorPriority: Int { 3 }
     public var requiresValidNumber: Bool { true }
     public func getRawValue() -> String {
         return self.rawValue
