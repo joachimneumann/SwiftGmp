@@ -83,6 +83,9 @@ public class Calculator {
                 assert(token.tokens.count > 0)
                 token.removeLastSwiftGmp()
             }
+            if displayBuffer == "0" {
+                displayBuffer = ""
+            }
             if digitOp == .dot {
                 if displayBuffer.contains(DecimalSeparator.dot.rawValue) { return }
                 if displayBuffer == "" {

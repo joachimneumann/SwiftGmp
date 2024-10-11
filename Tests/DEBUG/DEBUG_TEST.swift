@@ -8,7 +8,7 @@ import Testing
     
     var temp: Double
     
-//    #expect(calculator.evaluateString("1.1 x 1").string == "1.1")
+    #expect(calculator.evaluateString("1.1 x 1").string == "1.1")
 
     #expect(calculator.evaluateString("1000 + - 10.99").string == "989.01")
     
