@@ -1030,4 +1030,12 @@ import SwiftGmp
     #expect(calculator.evaluateString("(3 + 2) x (4 - 1) sqrt").string == "8.6602540378")
     #expect(calculator.evaluateString("10 x (5 + 5) log10").string == "10")
     #expect(calculator.evaluateString("100 x (2 + 3) log10").string == "69.897000433")
+    #expect(calculator.evaluateString("((2 + (3 x (4 + 2))) + ((5 x (2 + 2)) ^ 2))").string == "420")
+    #expect(calculator.evaluateString("((3 + 2) x ((5 - 2) + (8 / (4 + 4)))) x (16 sqrt)").string == "80")
+    #expect(calculator.evaluateString("((((5 + 1) x 2) ^ 2) + (3 x 4) - (2 x 3)) + ((9 sqrt + 1) x 4)").string == "166")
+    #expect(calculator.evaluateString("(((((4 x 5) + 2) ^ 2) - (16 sqrt)) / (3 x (2 + 1)))").string == "53.333333333")
+    #expect(calculator.evaluateString("(2 + (3 x (4 ^ 2))) + (5 + (6 / (1 + 4 sqrt)))").string == "57")
+    #expect(calculator.evaluateString("2 ^ (3 + ((1 + 1) x (2 ^ (2 + 1))))").string == "524288")
+    #expect(calculator.evaluateString("5 + ((((4 + 3) x 2) ^ 2) - ((3 + 1) x 2))").string == "193")
+    #expect(calculator.evaluateString("((((5 + 2) ^ 2) - ((25 sqrt x 4))) + (8 ^ (1 + 1)))").string == "93")
 }
