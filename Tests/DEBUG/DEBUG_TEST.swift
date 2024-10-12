@@ -6,33 +6,13 @@ import Testing
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 20)
     
-    // 3 + 2 --> 2
-    calculator.press(DigitOperation.three)
-    #expect(calculator.lr.string == "3")
-    calculator.press(TwoOperantOperation.add)
-    #expect(calculator.lr.string == "3")
-    calculator.press(DigitOperation.two)
-    #expect(calculator.lr.string == "2")
-    calculator.clear()
-    
-    // 4 * (3 + 2) = 20
-    calculator.press(DigitOperation.four)
-    #expect(calculator.lr.string == "4")
-    calculator.press(TwoOperantOperation.mul)
-    #expect(calculator.lr.string == "4")
-    calculator.press(ParenthesisOperation.left)
-    #expect(calculator.lr.string == "4")
-    calculator.press(DigitOperation.three)
-    #expect(calculator.lr.string == "3")
-    calculator.press(TwoOperantOperation.add)
-    #expect(calculator.lr.string == "3")
-    calculator.press(DigitOperation.two)
-    #expect(calculator.lr.string == "2")
-    calculator.press(ParenthesisOperation.right)
-    #expect(calculator.lr.string == "5")
-    calculator.press(EqualOperation.equal)
-    #expect(calculator.lr.string == "20")
-
-//    let result = calculator.evaluateString("4.0 sqr")
-//    #expect(result.string == "16")
+    #expect(calculator.evaluateString("2 ^ 3").string == "8")
+    #expect(calculator.evaluateString("3 ^ 2").string == "9")
+    #expect(calculator.evaluateString("(4 + (3 x 5) - (2 + (6 / 2)))").string == "14")
+    #expect(calculator.evaluateString("5 x (2 + 3 x (4 + 5))").string == "145")
+    #expect(calculator.evaluateString("2 ^ (3 + 1)").string == "16")
+    #expect(calculator.evaluateString("(5 ^ 2) + (6 x 3) - (7 / 7)").string == "42")
+    #expect(calculator.evaluateString("(3 + 2) x (4 - 1) sqrt").string == "8.6602540378")
+    #expect(calculator.evaluateString("10 x (5 + 5) log10").string == "10")
+    #expect(calculator.evaluateString("100 x (2 + 3) log10").string == "69.897000433")
 }

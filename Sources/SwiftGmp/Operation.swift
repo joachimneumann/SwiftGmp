@@ -95,7 +95,7 @@ public enum TwoOperantOperation: String, OpProtocol, CaseIterable {
     case sub = "-"
     case mul = "x"
     case div = "/"
-    case pow_x_y = "**"
+    case pow_x_y = "^"
     case pow_y_x
     case sqrty
     case logy
