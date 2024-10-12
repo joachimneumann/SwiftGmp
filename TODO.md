@@ -7,4 +7,3 @@
 1 + 3 * 10 --> 10
 1 + 3 * 10 = --> 31
 
-evaluateString --> press commands

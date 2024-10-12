@@ -171,16 +171,6 @@ public class Calculator {
                 }
             }
         }
-//        print("----")
-//        for t in token.tokens {
-//            print(t)
-//        }
-//        if !displayBuffer.isEmpty {
-//            print("buffer     \(displayBuffer)")
-//        }
-//        let upToNow = token.shuntingYard()
-//        let X = token.partiallyEvaluatePostfix(tempTokens: upToNow)
-//        print("X \(X)")
     }
     
     func displayToToken() {

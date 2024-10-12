@@ -325,12 +325,10 @@ import Testing
     #expect(calculator.token.tokens.count == 1)
     
     
-    //    calculator.clear()
-    ////    #expect(calculator.asString("e pi + e") == "5.85987448")
-    ////    #expect(calculator.asString("10 + pi 1") == "11")
-    ////    #expect(calculator.asString("10 + pi") == "13.1415926")
-    //
-    
+    calculator.clear()
+    #expect(calculator.evaluateString("e π + e").string == "5.85987448")
+    #expect(calculator.evaluateString("10 + π 1").string == "11")
+    #expect(calculator.evaluateString("10 + π").string == "13.1415926")
     
     var pending: [any OpProtocol] = []
     calculator.clear()
