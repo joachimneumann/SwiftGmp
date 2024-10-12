@@ -254,7 +254,38 @@ class Token {
         return
     }
     
-    func walkThroughTokens() {
+    func walkThroughTokens(tokens: inout [OneToken]) {
+        
+        // firstly, detect if there is a pair of open and closed parenthesis
+        // if yes, collapse these into a number
+        
+        for index in 0..<tokens.count { print("token[\(index)] = \(tokens[index])") }
+        for rightIndex in 0..<tokens.count {
+            if case .parenthesesRight = tokens[rightIndex].tokenEnum {
+                print("rightIndex = \(rightIndex)")
+                for leftIndex in (0..<rightIndex).reversed() {
+                    if case .parenthesesLeft = tokens[leftIndex].tokenEnum {
+                        print("leftIndex = \(leftIndex)")
+                        print("Parenthesis operations:")
+                        var tokensInParenthesis: [OneToken] = []
+                        for parenthesisIndex in (leftIndex+1)..<rightIndex {
+                            tokensInParenthesis.append(tokens[parenthesisIndex])
+                            print(tokens[parenthesisIndex])
+                        }
+                        walkThroughTokens(tokens: &tokensInParenthesis)
+                        guard case .swiftGmp(let s) = tokensInParenthesis.first?.tokenEnum else { fatalError("No SwiftGmp found") }
+                        for index in 0..<tokens.count { print("token[\(index)] = \(tokens[index])") }
+                        tokens[rightIndex] = OneToken(tokenEnum: .swiftGmp(s))
+                        tokens.removeSubrange(leftIndex..<rightIndex)
+                        for index in 0..<tokens.count { print("token[\(index)] = \(tokens[index])") }
+                        return
+                    }
+                }
+            }
+        }
+        for index in 0..<tokens.count { print("token[\(index)] = \(tokens[index])") }
+
+        
         var priority = 2
         for token in tokens {
             guard let before = tokens.element(before: token) else { continue }

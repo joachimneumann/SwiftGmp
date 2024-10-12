@@ -65,11 +65,11 @@ public class Calculator {
                 }
             }
             token.newToken(twoOperantOp)
-            token.walkThroughTokens()
+            token.walkThroughTokens(tokens: &token.tokens)
         } else if let _ = op as? EqualOperation {
             if !token.tokens.isEmpty {
                 displayToToken()
-                token.walkThroughTokens()
+                token.walkThroughTokens(tokens: &token.tokens)
                 // cleaning up
                 while token.tokens.count > 1 {
                     token.tokens.removeLast()
@@ -142,7 +142,9 @@ public class Calculator {
             case .left:
                 token.newTokenParenthesesLeft()
             case .right:
+                displayToToken()
                 token.newTokenParenthesesRight()
+                token.walkThroughTokens(tokens: &token.tokens)
             }
         } else {
             fatalError("Unsupported operation")

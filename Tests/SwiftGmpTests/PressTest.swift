@@ -186,7 +186,7 @@ import Testing
     calculator.press(DigitOperation.two)
     calculator.press(ParenthesisOperation.right)
     calculator.press(EqualOperation.equal)
-    #expect(calculator.lr.string == "14")
+    #expect(calculator.lr.string == "20")
 
     calculator.clear()
     #expect(calculator.lr.string == "0")
