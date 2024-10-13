@@ -450,7 +450,56 @@ class Token {
         return ret
     }
     
-    func stringToPressCommands(_ input: String) throws -> [any OpProtocol] {
+
+    private func rearrangeInplaceFunctions(in input: String) -> String {
+        var functionIndex: String.Index = input.startIndex
+        let inputEndIndex: String.Index = input.endIndex
+        while functionIndex < inputEndIndex {
+            var inputSlice: Substring = input[functionIndex...]
+            for op in allOperationsSorted {
+                let opRawValue: String = op.getRawValue()
+                if inputSlice.hasPrefix(opRawValue) {
+                    if op is InplaceOperation {
+                        // inplace operator found
+                        // skip possible whitespaces
+                        var argumentIndex = input.index(functionIndex, offsetBy: opRawValue.count)
+                        inputSlice = input[argumentIndex...]
+                        while inputSlice.hasPrefix(" ") {
+                            inputSlice.removeFirst()
+                            argumentIndex = input.index(after: argumentIndex)
+                        }
+                        guard inputSlice.hasPrefix("(") else { continue }
+                        // get everything between the "(" and the matching ")"
+                        // remove the inplace string and put it after the matching ")"
+                        var parenthesisCounter = 1
+                        var searchIndex = inputSlice.index(after: argumentIndex)
+                        while searchIndex < inputEndIndex {
+                            if input[searchIndex] == "(" { parenthesisCounter += 1 }
+                            if input[searchIndex] == ")" { parenthesisCounter -= 1 }
+                            searchIndex = input.index(after: searchIndex)
+                            if parenthesisCounter == 0 {
+                                // function argument isolated: [index, searchIndex]
+                                var input2 = input
+                                input2.insert(contentsOf: op.getRawValue(), at: searchIndex)
+                                input2.removeSubrange(functionIndex..<argumentIndex)
+                                print(input2)
+                                return input2
+                            }
+                        }
+
+                    }
+                }
+            }
+            // Move to the next character
+            functionIndex = input.index(after: functionIndex)
+        }
+        return input
+    }
+    
+    func stringToPressCommands(_ notArranged: String) throws -> [any OpProtocol] {
+        var input = notArranged//.replacingOccurrences(of: " ", with: "")
+        input = rearrangeInplaceFunctions(in: input)
+//        let input = notArranged
         var ret: [any OpProtocol] = []
         var numberBuffer: String = ""
 
@@ -474,7 +523,11 @@ class Token {
             }
             // Handle '-' character
             else if char == "-" {
-                var unaryMinus: Bool = ret.isEmpty
+                var unaryMinus = true
+                if let last = ret.last {
+                    unaryMinus = last.numberExpected
+                }
+                if !numberBuffer.isEmpty { unaryMinus = false }
                 let remainingCharsCount: Int = input.distance(from: index, to: inputEndIndex)
                 let nextIndex: String.Index = input.index(after: index)
                 

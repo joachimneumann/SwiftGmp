@@ -1,5 +1,5 @@
 1 + 2 x 3 = 7
-1 sin sin ~= 0.745624141665
+sin(sin(1)) ~= 0.745624141665
 4.5 = 4.5
 MC = true
 DISPLAY = 4.5
@@ -21,9 +21,8 @@ MC = true
 DISPLAY = 18
 MR = false
 DISPLAY = 18
-2 sqr = 4
-2 sqr 5 = 5
+sqr(2) = 4
+sqr(2) 5 = 5
 C = 0
-1 sin sin ~= 0.745624141665
 10 % = 0.1
 

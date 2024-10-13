@@ -9,7 +9,7 @@ import SwiftGmp
 
     #expect(calculator.evaluateString("1 + 2 x 3").string == "7")
     var temp: Double
-    temp = calculator.asDouble("1 sin sin")
+    temp = calculator.asDouble("sin(sin(1))")
     #expect(temp.similarTo(0.745624141665))
     #expect(calculator.evaluateString("4.5").string == "4.5")
     calculator.press(MemoryOperation.clearM)
@@ -33,11 +33,9 @@ import SwiftGmp
     #expect(calculator.lr.string == "18")
     calculator.press(MemoryOperation.recallM)
     #expect(calculator.lr.string == "18")
-    #expect(calculator.evaluateString("2 sqr").string == "4")
-    #expect(calculator.evaluateString("2 sqr 5").string == "5")
+    #expect(calculator.evaluateString("sqr(2)").string == "4")
+    #expect(calculator.evaluateString("sqr(2) 5").string == "5")
     calculator.press(ClearOperation.clear)
     #expect(calculator.lr.string == "0")
-    temp = calculator.asDouble("1 sin sin")
-    #expect(temp.similarTo(0.745624141665))
     #expect(calculator.evaluateString("10 %").string == "0.1")
 }
