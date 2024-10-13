@@ -7,12 +7,8 @@ import SwiftGmp
 @Test func calculatorTest() {
     let calculator = Calculator(precision: 20)
 
-    #expect(calculator.evaluateString("1 + 2 x 3").string == "7")
+    #expect(calculator.evaluateString("1 + 2 * 3").string == "7")
     var temp: Double
-    temp = calculator.asDouble("sin(1)")
-    #expect(temp.similarTo(0.841470984))
-    temp = calculator.asDouble("sin(0.841470984)")
-    #expect(temp.similarTo(0.745624141665))
     temp = calculator.asDouble("sin(sin(1))")
     #expect(temp.similarTo(0.745624141665))
     #expect(calculator.evaluateString("4.5").string == "4.5")

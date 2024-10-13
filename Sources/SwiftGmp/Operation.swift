@@ -94,7 +94,7 @@ public enum InplaceOperation: String, OpProtocol, CaseIterable {
 public enum TwoOperantOperation: String, OpProtocol, CaseIterable {
     case add = "+"
     case sub = "-"
-    case mul = "x"
+    case mul = "*"
     case div = "/"
     case pow_x_y = "^"
     case pow_y_x

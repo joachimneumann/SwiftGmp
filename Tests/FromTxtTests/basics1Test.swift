@@ -7,10 +7,10 @@ import SwiftGmp
 @Test func basics1Test() {
     let calculator = Calculator(precision: 20)
 
-    #expect(calculator.evaluateString("1.1 x 1").string == "1.1")
-    #expect(calculator.evaluateString("1 + 3 x 10").string == "31")
+    #expect(calculator.evaluateString("1.1 * 1").string == "1.1")
+    #expect(calculator.evaluateString("1 + 3 * 10").string == "31")
     #expect(calculator.evaluateString("1 + 2").string == "3")
-    #expect(calculator.evaluateString("2 x 4").string == "8")
+    #expect(calculator.evaluateString("2 * 4").string == "8")
     #expect(calculator.evaluateString("3 / 0").string == "inf")
     #expect(calculator.evaluateString("10/2").string == "5")
     #expect(calculator.evaluateString("abs(-5.0)").string == "5")
