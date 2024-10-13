@@ -481,6 +481,10 @@ class Token {
                                 // function argument isolated: [index, searchIndex]
                                 var input2 = input
                                 input2.insert(contentsOf: op.getRawValue(), at: searchIndex)
+                                var functionArgument = String(input2[argumentIndex..<searchIndex])
+                                functionArgument = rearrangeInplaceFunctions(in: functionArgument)
+                                input2.insert(contentsOf: functionArgument, at: searchIndex)
+                                input2.removeSubrange(argumentIndex..<searchIndex)
                                 input2.removeSubrange(functionIndex..<argumentIndex)
                                 print(input2)
                                 return input2

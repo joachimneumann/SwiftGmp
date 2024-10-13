@@ -13,7 +13,7 @@ import SwiftGmp
     #expect(calculator.evaluateString("2 x 4").string == "8")
     #expect(calculator.evaluateString("3 / 0").string == "inf")
     #expect(calculator.evaluateString("10/2").string == "5")
-//    #expect(calculator.evaluateString("abs(-5.0)").string == "5")
+    #expect(calculator.evaluateString("abs(-5.0)").string == "5")
     #expect(calculator.evaluateString("abs(3.14)").string == "3.14")
     #expect(calculator.evaluateString("abs(0.0)").string == "0")
     #expect(calculator.evaluateString("500 + 500").string == "1000")

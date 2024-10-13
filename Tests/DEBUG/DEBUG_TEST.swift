@@ -6,6 +6,14 @@ import Testing
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 20)
     
+    var temp: Double
+//    temp = calculator.asDouble("sin(1)")
+//    #expect(temp.similarTo(0.841470984))
+//    temp = calculator.asDouble("sin(0.841470984)")
+//    #expect(temp.similarTo(0.745624141665))
+    temp = calculator.asDouble("sin(sin(1))")
+    #expect(temp.similarTo(0.745624141665))
+    
 //    let x = calculator.evaluateString("abs (-3)")
 //    let x1 = calculator.evaluateString("sin((3 + 2) x (5 - 3))")
 //    let x = calculator.evaluateString("1+abs(-3)+1")
