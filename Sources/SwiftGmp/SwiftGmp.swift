@@ -282,7 +282,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             let diff = self.copy()
             diff.execute(TwoOperantOperation.sub, other: other)
             diff.execute(InplaceOperation.abs)
-            diff.execute(TwoOperantOperation.sub, other: SwiftGmp(withString: String(precision), bits: bits))
+            diff.execute(TwoOperantOperation.sub, other: SwiftGmp(withString: String(precision+1), bits: bits))
             return diff.isNegative()
         } else {
             // larger than 1000

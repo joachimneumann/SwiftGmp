@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import glob, os
 
-precision = 20
+precision = 100
 
 def write(content):
     f.write(content)
@@ -53,7 +53,7 @@ for file in glob.glob("*.bc"):
     writeln("@testable import SwiftGmp")
     writeln("")
     writeln("@Test func "+basename+"BcTest() {")
-    writeln("    let calculator = Calculator(precision: 20)")
+    writeln("    let calculator = Calculator(precision: "+str(precision)+")")
     writeln("")
     tempDeclared = False
     with open(file) as file:
@@ -80,7 +80,7 @@ for file in glob.glob("*.bc"):
                             else:
                                 writeln("    swiftGmp = calculator.asSwiftGmp(\""+components[0].strip()+"\")")
                                 writeln("    bc = calculator.asSwiftGmp(\""+components[1].strip()+"\")")
-                                writeln("    #expect(swiftGmp.similar(to: bc))")
+                                writeln("    #expect(swiftGmp.similar(to: bc, precision: 1e-"+str(precision)+"))")
 #                    else:
 #                        if components[0].strip() == "precision":
 #                            writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")

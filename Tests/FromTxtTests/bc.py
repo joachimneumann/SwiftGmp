@@ -3,20 +3,27 @@
 import os
 import subprocess
 
-def evaluate_expression(expression, scale=10):
+def evaluate_expression(expression, scale=100):
     """
     Evaluates a mathematical expression using the `bc` command line tool.
     Handles common expressions like basic arithmetic and abs/sqrt functions.
     Sets a default scale (precision) for floating-point operations.
     """
+    
+    expression = expression.replace("pi", "const_pi()")
+#    if expression == "pi":
+#        expression = "const_pi()"
+    if expression == "e":
+        expression = "const_e()"
     try:
         # Set scale for floating-point precision and evaluate expression in bc
-        command = f'echo "scale={scale}; {expression}" | bc -l ~/.bcrc'
+        command = f'export BC_LINE_LENGTH=0; echo "scale={scale}; {expression}" | bc -l ~/.bcrc'
         result = subprocess.run(
             command,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True
         )
         if result.returncode == 0:
+#            print(result.stdout)
             return result.stdout.strip()  # Get the result from bc
         else:
             return "error"
