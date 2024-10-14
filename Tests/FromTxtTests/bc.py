@@ -17,7 +17,7 @@ def evaluate_expression(expression, scale=100):
         expression = "const_e()"
     try:
         # Set scale for floating-point precision and evaluate expression in bc
-        command = f'export BC_LINE_LENGTH=0; echo "scale={scale}; {expression}" | bc -l ~/.bcrc'
+        command = f'export BC_LINE_LENGTH=0; echo "scale={scale}; {expression}" | bc -l bcrc'
         result = subprocess.run(
             command,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True
