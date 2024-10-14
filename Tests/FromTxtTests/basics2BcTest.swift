@@ -19,6 +19,25 @@ import Testing
     // 5 + 16 sqrty 4 --> bc = error
     // 9 * 16 sqrty 4 --> bc = error
     // 3 ^ 16 sqrty 4 --> bc = error
+    swiftGmp = calculator.asSwiftGmp("2 ^ 3")
+    bc = calculator.asSwiftGmp("8")
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+    // 16 sqrty 4 --> bc = error
+    // 2 powyx 3 --> bc = error
+    // 2 + 3 * 9 sqrty 3 - 2 ^ 4 --> bc = error
+    // 4 powyx 3 + 12 / 9 sqrty 3 --> bc = error
+    // 9 * 3 ^ 2 + 16 sqrty 4 --> bc = error
+    // 25 logy 5 + 4 ^ 2 --> bc = error
+    // 2 ^ 3 * 81 sqrty 9 - 9 --> bc = error
+    // 16 sqrty 4 ^ 2 + 9 * 25 logy 5 / 64 sqrty 4 --> bc = error
+    // 4 powyx 3 * 5 + 9 sqrty 25 logy 5 - 81 sqrty 9 --> bc = error
+    // 8 powyx 3 / 16 sqrty 81 sqrty 9 + 5 ^ 3 --> bc = error
+    // 9 powyx 4 / 25 logy 5 - 81 sqrty 16 ^ 3 powyx 4 --> bc = error
+    // 25 logy 5 * 9 sqrty 3 + 4 ^ 2 / 81 sqrty 9 * 2 powyx 3 --> bc = error
+    // 64 sqrty 9 powyx 2 * 25 logy 5 ^ 4 / 8 powyx 4 + 81 sqrty 9 --> bc = error
+    // 4 ^ 5 + 25 logy 5 * 16 sqrty 9 powyx 2 + 81 sqrty 9 --> bc = error
+    // 81 sqrty 64 sqrty 4 ^ 2 + 9 powyx 4 / 25 logy 16 ^ 2 --> bc = error
+    // 9 powyx 5 + 4 sqrty 64 ^ 2 * 16 sqrty 9 ^ 2 + 25 logy 5 --> bc = error
     swiftGmp = calculator.asSwiftGmp("1500 + 2000")
     bc = calculator.asSwiftGmp("3500")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
