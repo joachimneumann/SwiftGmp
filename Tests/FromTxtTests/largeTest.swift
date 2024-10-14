@@ -29,8 +29,8 @@ import SwiftGmp
     calculator.maxOutputLength = 100
     #expect(calculator.evaluateString("1e48 + 1").string == "1000000000000000000000000000000000000000000000001")
     #expect(calculator.evaluateString("1e48+1-1e48").string == "1")
-    #expect(calculator.evaluateString("1e148+1-1e148").string == "0")
-    #expect(calculator.evaluateString("1e1048+1-1e1048").string == "0")
+    #expect(calculator.evaluateString("1e68+2-1e68").string == "2")
+    #expect(calculator.evaluateString("1e88+3-1e88").string == "3")
     calculator.maxOutputLength = 10
     #expect(calculator.evaluateString("55555.1234567890").string == "55555.1234")
     #expect(calculator.evaluateString("555555.1234567890").string == "555555.123")

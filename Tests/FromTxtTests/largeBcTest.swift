@@ -7,7 +7,8 @@ import Testing
 @Test func largeBcTest() {
     let calculator = Calculator(precision: 100)
 
-// maxOutputLength = 1000
+// maxOutputLength = 100
+// precision = 100
     var swiftGmp, bc: SwiftGmp
 
     swiftGmp = calculator.asSwiftGmp("1e9")
@@ -59,9 +60,20 @@ import Testing
     swiftGmp = calculator.asSwiftGmp("1e48")
     bc = calculator.asSwiftGmp("1000000000000000000000000000000000000000000000000")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+// maxOutputLength = 100
     swiftGmp = calculator.asSwiftGmp("1e48 + 1")
     bc = calculator.asSwiftGmp("1000000000000000000000000000000000000000000000001")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+    swiftGmp = calculator.asSwiftGmp("1e48+1-1e48")
+    bc = calculator.asSwiftGmp("1")
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+    swiftGmp = calculator.asSwiftGmp("1e68+2-1e68")
+    bc = calculator.asSwiftGmp("2")
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+    swiftGmp = calculator.asSwiftGmp("1e88+3-1e88")
+    bc = calculator.asSwiftGmp("3")
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+// maxOutputLength = 10
     swiftGmp = calculator.asSwiftGmp("55555.1234567890")
     bc = calculator.asSwiftGmp("55555.1234567890")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))

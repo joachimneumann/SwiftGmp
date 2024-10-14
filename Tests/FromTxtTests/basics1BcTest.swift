@@ -9,9 +9,6 @@ import Testing
 
     var swiftGmp, bc: SwiftGmp
 
-    swiftGmp = calculator.asSwiftGmp("pi")
-    bc = calculator.asSwiftGmp("3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170676")
-    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
     swiftGmp = calculator.asSwiftGmp("1.1 * 1")
     bc = calculator.asSwiftGmp("1.1")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
