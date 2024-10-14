@@ -7,7 +7,8 @@ import SwiftGmp
 @Test func largeTest() {
     let calculator = Calculator(precision: 20)
 
-    calculator.maxOutputLength = 1000
+    calculator.maxOutputLength = 100
+    calculator.setPrecision(newPrecision: 100)
     #expect(calculator.evaluateString("1e9").string == "1000000000")
     #expect(calculator.evaluateString("1e12").string == "1000000000000")
     #expect(calculator.evaluateString("1e15").string == "1000000000000000")
@@ -25,6 +26,12 @@ import SwiftGmp
     #expect(calculator.evaluateString("1e21").string == "1.0e21")
     #expect(calculator.evaluateString("1e24").string == "1.0e24")
     #expect(calculator.evaluateString("1e48").string == "1.0e48")
+    calculator.maxOutputLength = 100
+    #expect(calculator.evaluateString("1e48 + 1").string == "1000000000000000000000000000000000000000000000001")
+    #expect(calculator.evaluateString("1e48+1-1e48").string == "1")
+    #expect(calculator.evaluateString("1e148+1-1e148").string == "0")
+    #expect(calculator.evaluateString("1e1048+1-1e1048").string == "0")
+    calculator.maxOutputLength = 10
     #expect(calculator.evaluateString("55555.1234567890").string == "55555.1234")
     #expect(calculator.evaluateString("555555.1234567890").string == "555555.123")
     #expect(calculator.evaluateString("5555555.1234567890").string == "5555555.12")

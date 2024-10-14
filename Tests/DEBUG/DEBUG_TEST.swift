@@ -5,12 +5,16 @@ import Testing
 
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 100)
-  
+    calculator.maxOutputLength = 100
+    
     var swiftGmp, bc: SwiftGmp
     
-    swiftGmp = calculator.asSwiftGmp("1.1 * 1")
-    bc = calculator.asSwiftGmp("1.1")
-    #expect(swiftGmp.similar(to: bc, precision: 1e-100))
+    #expect(calculator.evaluateString("1e48 + 1 - 1e48").string == "1000000000000000000000000000000000000000000000001")
+
+    
+//    swiftGmp = calculator.asSwiftGmp("1.1 * 1")
+//    bc = calculator.asSwiftGmp("1.1")
+//    #expect(swiftGmp.similar(to: bc, precision: 1e-100))
 
 //    
 //    var temp: Double
