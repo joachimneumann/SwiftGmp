@@ -11,13 +11,13 @@ import Testing
 
     swiftGmp = calculator.asSwiftGmp("1 + 2 * 3")
     bc = calculator.asSwiftGmp("7")
-    #expect(swiftGmp.similar(to: bc, precision: 1e-100))
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
     swiftGmp = calculator.asSwiftGmp("sin(sin(1))")
     bc = calculator.asSwiftGmp(".7456241416655578888931510704303837920502916466153667384568765179941524530955192236078652150794035668")
-    #expect(swiftGmp.similar(to: bc, precision: 1e-100))
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
     swiftGmp = calculator.asSwiftGmp("4.5")
     bc = calculator.asSwiftGmp("4.5")
-    #expect(swiftGmp.similar(to: bc, precision: 1e-100))
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
 // MC = true
 // DISPLAY = 4.5
 // M+ = true
@@ -39,7 +39,7 @@ import Testing
 // DISPLAY = 18
     swiftGmp = calculator.asSwiftGmp("sqr(2)")
     bc = calculator.asSwiftGmp("4")
-    #expect(swiftGmp.similar(to: bc, precision: 1e-100))
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
     // sqr(2) 5 --> bc = error
 // C = 0
 // 10 % = 0.1

@@ -50,6 +50,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     var debugDescription: String {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
+        guard !isZero else { return "zero"}
         let (mantissa, exponent) = mantissaExponent(len: 100)
         return "\(mantissa) \(exponent)"
     }
@@ -282,16 +283,18 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             let diff = self.copy()
             diff.execute(TwoOperantOperation.sub, other: other)
             diff.execute(InplaceOperation.abs)
-            diff.execute(TwoOperantOperation.sub, other: SwiftGmp(withString: String(precision+1), bits: bits))
-            return diff.isNegative()
+            let threshold = SwiftGmp(withString: String(precision), bits: bits)
+            threshold.execute(TwoOperantOperation.sub, other: diff)
+            return !threshold.isNegative()
         } else {
             // larger than 1000
             // return abs(self - other) <= precision * abs(self)
             let diff = self.copy()
             diff.execute(TwoOperantOperation.sub, other: other)
             diff.execute(InplaceOperation.abs)
-            diff.execute(TwoOperantOperation.sub, other: SwiftGmp(withString: String(precision+1), bits: bits))
-            return diff.isNegative()
+            let threshold = SwiftGmp(withString: String(precision), bits: bits)
+            threshold.execute(TwoOperantOperation.sub, other: diff)
+            return !threshold.isNegative()
         }
     }
 
