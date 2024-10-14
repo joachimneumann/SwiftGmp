@@ -96,8 +96,8 @@ public enum TwoOperantOperation: String, OpProtocol, CaseIterable {
     case sub = "-"
     case mul = "*"
     case div = "/"
-    case pow_x_y = "^"
-    case pow_y_x
+    case powxy = "^"
+    case powyx
     case sqrty
     case logy
     case EE
@@ -183,6 +183,7 @@ extension InplaceOperation {
 }
 
 extension TwoOperantOperation {
+    static let highestPriority: Int = 4
     public var operatorPriority: Int {
         get {
             switch self {
@@ -190,9 +191,9 @@ extension TwoOperantOperation {
                 1
             case .mul, .div:
                 2
-            case .pow_x_y:
+            case .powxy:
                 3
-            case .pow_y_x:
+            case .powyx:
                 3
             case .sqrty:
                 3

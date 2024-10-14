@@ -162,6 +162,10 @@ define log2(x) {
     return log(2, x);
 }
 
+define sqrty(a,b) {
+    return pow(a, 1/b)
+}
+
 define pow(a, b) {
     if (scale(b) == 0) {
         return a ^ b;

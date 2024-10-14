@@ -9,6 +9,16 @@ import Testing
 
     var swiftGmp, bc: SwiftGmp
 
+    swiftGmp = calculator.asSwiftGmp("2 ^ 3 * 4")
+    bc = calculator.asSwiftGmp("32")
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+    swiftGmp = calculator.asSwiftGmp("2 * 3 ^ 4")
+    bc = calculator.asSwiftGmp("162")
+    #expect(swiftGmp.similar(to: bc, precision: 1e-96))
+    // 16 sqrty 4 --> bc = error
+    // 5 + 16 sqrty 4 --> bc = error
+    // 9 * 16 sqrty 4 --> bc = error
+    // 3 ^ 16 sqrty 4 --> bc = error
     swiftGmp = calculator.asSwiftGmp("1500 + 2000")
     bc = calculator.asSwiftGmp("3500")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))

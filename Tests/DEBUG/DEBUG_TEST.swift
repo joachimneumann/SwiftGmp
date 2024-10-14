@@ -7,10 +7,16 @@ import Testing
     let calculator = Calculator(precision: 100)
     calculator.maxOutputLength = 100
     
-    var swiftGmp, bc: SwiftGmp
-    let x1 = calculator.evaluateString(" 2 ^ 3 * 4").string // 36
-    let x2 = calculator.evaluateString(" 2 * 3 ^ 4").string // 162
-    #expect(calculator.evaluateString("1e48 + 1 - 1e48").string == "1000000000000000000000000000000000000000000000001")
+    let x = calculator.evaluateString("25 logy 5 + 4 ^ 2")
+    let xx = ""
+    #expect(calculator.evaluateString("25 logy 5 + 4 ^ 2").string == "18")
+
+    
+//    var swiftGmp, bc: SwiftGmp
+//    let x1 = calculator.evaluateString("2 ^ 3 * 4").string // 32
+//    let x2 = calculator.evaluateString(" 2 * 3 ^ 4").string // 162
+////    2 ^ 1/3
+//    #expect(calculator.evaluateString("1e48 + 1 - 1e48").string == "1000000000000000000000000000000000000000000000001")
 
     
 //    swiftGmp = calculator.asSwiftGmp("1.1 * 1")

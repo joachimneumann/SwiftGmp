@@ -128,15 +128,16 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             mpfr_mul(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
         case .div:
             mpfr_div(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
-        case .pow_x_y:
+        case .powxy:
             mpfr_pow(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
-        case .pow_y_x:
-            mpfr_pow(&mpfr, &temp, &other.mpfr, MPFR_RNDN)
+        case .powyx:
+            mpfr_pow(&mpfr, &other.mpfr, &temp, MPFR_RNDN)
         case .sqrty:
             other.execute(.rez)
-            execute(.pow_x_y, other: other)
+            execute(.powxy, other: other)
         case .logy:
             other.execute(.ln)
+            self.execute(.ln)
             execute(.div, other: other)
         case .EE:
             other.execute(.exp10)
