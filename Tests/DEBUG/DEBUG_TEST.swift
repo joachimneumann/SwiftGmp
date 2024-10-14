@@ -8,7 +8,8 @@ import Testing
     calculator.maxOutputLength = 100
     
     var swiftGmp, bc: SwiftGmp
-    
+    let x1 = calculator.evaluateString(" 2 ^ 3 * 4").string // 36
+    let x2 = calculator.evaluateString(" 2 * 3 ^ 4").string // 162
     #expect(calculator.evaluateString("1e48 + 1 - 1e48").string == "1000000000000000000000000000000000000000000000001")
 
     

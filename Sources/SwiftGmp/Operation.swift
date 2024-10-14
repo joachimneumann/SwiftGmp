@@ -191,15 +191,15 @@ extension TwoOperantOperation {
             case .mul, .div:
                 2
             case .pow_x_y:
-                2
+                3
             case .pow_y_x:
-                2
+                3
             case .sqrty:
-                2
+                3
             case .logy:
-                2
+                3
             case .EE:
-                2 // TODO: is that correct?
+                4 // TODO: is that correct?
             }
         }
     }

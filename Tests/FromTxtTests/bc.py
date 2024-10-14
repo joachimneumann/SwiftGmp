@@ -11,8 +11,6 @@ def evaluate_expression(expression, scale=100):
     """
     
     expression = expression.replace("pi", "const_pi()")
-#    if expression == "pi":
-#        expression = "const_pi()"
     if expression == "e":
         expression = "const_e()"
     try:
