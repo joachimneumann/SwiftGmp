@@ -96,7 +96,7 @@ for file in glob.glob("*.txt"):
     writeln("import SwiftGmp")
     writeln("")
     writeln("@Test func "+basename+"Test() {")
-    writeln("    let calculator = Calculator(precision: 20)")
+    writeln("    let calculator = Calculator(precision: "+str(precision)+")")
     writeln("")
     tempDeclared = False
     with open(file) as file:

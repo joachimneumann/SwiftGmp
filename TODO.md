@@ -6,6 +6,3 @@
 1 + 3 * --> 3
 1 + 3 * 10 --> 10
 1 + 3 * 10 = --> 31
-
-// remove all whitespaces: still ok?
-// x -> *

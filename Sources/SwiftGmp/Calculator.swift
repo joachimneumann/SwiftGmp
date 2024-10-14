@@ -270,6 +270,23 @@ public class Calculator {
             return Double.nan
         }
     }
+    
+    func asSwiftGmp(_ expression: String) -> SwiftGmp {
+        do {
+            let opArray = try token.stringToPressCommands(expression)
+            press(ClearOperation.clear)
+            for op in opArray {
+                press(op)
+            }
+            press(EqualOperation.equal)
+            if let last = token.lastSwiftGmp {
+                return last
+            }
+        } catch {
+        }
+        return SwiftGmp(bits: token.generousBits(for: token.precision)) // nan
+    }
+
 }
 
 extension Double {

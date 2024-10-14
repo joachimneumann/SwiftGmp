@@ -204,8 +204,6 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             var temp = mpfr; mpfr_pow_ui(&mpfr, &temp, 3, MPFR_RNDN)
         case .exp:
             var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN)
-        case .exp2:
-            var temp = mpfr; mpfr_ui_pow(&mpfr, 2, &temp, MPFR_RNDN)
         case .exp10:
             var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN)
         case .changeSign:
@@ -220,22 +218,22 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             } else {
                 mpfr_set_d(&mpfr, 0.0, MPFR_RNDN)
             }
-        case .sinD:
+        case .sind:
             check(bits: bits)
             var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad.mpfr, MPFR_RNDN); temp = mpfr; mpfr_sin(  &mpfr, &temp, MPFR_RNDN)
-        case .cosD:
+        case .cosd:
             check(bits: bits)
             var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad.mpfr, MPFR_RNDN); temp = mpfr; mpfr_cos(  &mpfr, &temp, MPFR_RNDN)
-        case .tanD:
+        case .tand:
             check(bits: bits)
             var temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.deg2rad.mpfr, MPFR_RNDN); temp = mpfr; mpfr_tan(  &mpfr, &temp, MPFR_RNDN)
-        case .asinD:
+        case .asind:
             check(bits: bits)
             var temp = mpfr; mpfr_asin( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg.mpfr, MPFR_RNDN)
-        case .acosD:
+        case .acosd:
             check(bits: bits)
             var temp = mpfr; mpfr_acos( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg.mpfr, MPFR_RNDN)
-        case .atanD:
+        case .atand:
             check(bits: bits)
             var temp = mpfr; mpfr_atan( &mpfr, &temp, MPFR_RNDN); temp = mpfr; mpfr_mul(&mpfr, &temp, &SwiftGmp.rad2deg.mpfr, MPFR_RNDN)
         }
@@ -271,5 +269,32 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         }
         mpfr_clear(&temp)
     }
+    
+    
+//    func extractDigits(_ d: SwiftGmp, n: Int) -> [Int] {
+//        var digits = [Int]()
+//        var s = d
+//        s.execute(InplaceOperation.abs)
+//        if s.isZero {
+//            return Array(repeating: 0, count: n)
+//        }
+//        var exponent = s
+//        exponent.execute(InplaceOperation.log10)
+//        exponent.execute(InplaceOperation.floor)
+//        s = s / pow(10, exponent)
+//        for _ in 0..<n {
+//            let digit = Int(floor(s))
+//            digits.append(digit)
+//            s = (s - Double(digit)) * 10
+//        }
+//        return digits
+//    }
+//
+//    func isSimilar(d1: Double, d2: Double) -> Bool {
+//        let n = 6  // Number of significant digits to compare
+//        let digits1 = extractDigits(d1, n: n)
+//        let digits2 = extractDigits(d2, n: n)
+//        return digits1 == digits2
+//    }
 }
 

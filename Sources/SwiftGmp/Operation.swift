@@ -50,7 +50,7 @@ public enum MemoryOperation: String, OpProtocol, CaseIterable {
 public enum ConstantOperation: String, OpProtocol, CaseIterable {
     // this operation in an inplace operation, but if no number is found
     // it creates a zero out of thin air and then perated on the zero.
-    case pi = "π"
+    case pi = "pi"
     case e = "e"
     case rand = "rand"
 }
@@ -78,17 +78,16 @@ public enum InplaceOperation: String, OpProtocol, CaseIterable {
     case sqr
     case cubed
     case exp
-    case exp2
     case exp10
     case changeSign = "±"
     case rez
     case fac
-    case sinD
-    case cosD
-    case tanD
-    case asinD
-    case acosD
-    case atanD
+    case sind
+    case cosd
+    case tand
+    case asind
+    case acosd
+    case atand
 }
 
 public enum TwoOperantOperation: String, OpProtocol, CaseIterable {
