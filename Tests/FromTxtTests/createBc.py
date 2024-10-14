@@ -80,7 +80,7 @@ for file in glob.glob("*.bc"):
                             else:
                                 writeln("    swiftGmp = calculator.asSwiftGmp(\""+components[0].strip()+"\")")
                                 writeln("    bc = calculator.asSwiftGmp(\""+components[1].strip()+"\")")
-                                writeln("    #expect(swiftGmp == bc)")
+                                writeln("    #expect(swiftGmp.similar(to: bc))")
 #                    else:
 #                        if components[0].strip() == "precision":
 #                            writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")

@@ -81,7 +81,7 @@ def assertEqual(components):
         elif components[-2] == "!=":
             writeln("    #expect(leftNumber.representation().allInOneLine != \"" + components[-1] + "\")")
         elif components[-2] == "~=":
-            writeln("    #expect(leftNumber.toDouble().similarTo(" + components[-1] + "))")
+            writeln("    #expect(leftNumber.toDouble().similar(to: " + components[-1] + "))")
 
 # Get full file name with directores using for loop
 for file in glob.glob("*.txt"):
@@ -119,7 +119,7 @@ for file in glob.glob("*.txt"):
                                 tempDeclared = True
                                 writeln("    var temp: Double")
                             writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
-                            writeln("    #expect(temp.similarTo("+components[1].strip()+"))")
+                            writeln("    #expect(temp.similar(to: "+components[1].strip()+"))")
                     elif "=" in content:
                         components = content.strip().split("=")
                         if len(components) == 2:

@@ -57,6 +57,7 @@ public enum ConstantOperation: String, OpProtocol, CaseIterable {
 
 public enum InplaceOperation: String, OpProtocol, CaseIterable {
     case abs = "abs"
+    case floor
     case sqrt
     case sqrt3
     case zeta

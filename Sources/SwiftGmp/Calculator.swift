@@ -5,6 +5,8 @@
 //  Created by Joachim Neumann on 27.09.24.
 //
 
+import Foundation
+
 public class Calculator {
     var token: Token
     var displayBuffer: String
@@ -67,8 +69,8 @@ public class Calculator {
             token.newToken(twoOperantOp)
             token.walkThroughTokens(tokens: &token.tokens)
         } else if let _ = op as? EqualOperation {
+            displayToToken()
             if !token.tokens.isEmpty {
-                displayToToken()
                 token.walkThroughTokens(tokens: &token.tokens)
                 // cleaning up
                 while token.tokens.count > 1 {
@@ -290,7 +292,8 @@ public class Calculator {
 }
 
 extension Double {
-    public func similarTo(_ other: Double, precision: Double = 1e-3) -> Bool {
+    
+    public func similar(to other: Double, precision: Double = 1e-3) -> Bool {
         if abs(self) > 1000 {
             return abs(self - other) <= precision * abs(self)
         } else {

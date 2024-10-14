@@ -162,6 +162,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         switch inplaceOp {
         case .abs:
             var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN)
+        case .floor:
+            var temp = mpfr; mpfr_floor(&mpfr, &temp)
         case .sqrt:
             var temp = mpfr; mpfr_sqrt( &mpfr, &temp, MPFR_RNDN)
         case .sqrt3:
@@ -270,26 +272,29 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_clear(&temp)
     }
     
-    
-//    func extractDigits(_ d: SwiftGmp, n: Int) -> [Int] {
-//        var digits = [Int]()
-//        var s = d
-//        s.execute(InplaceOperation.abs)
-//        if s.isZero {
-//            return Array(repeating: 0, count: n)
-//        }
-//        var exponent = s
-//        exponent.execute(InplaceOperation.log10)
-//        exponent.execute(InplaceOperation.floor)
-//        s = s / pow(10, exponent)
-//        for _ in 0..<n {
-//            let digit = Int(floor(s))
-//            digits.append(digit)
-//            s = (s - Double(digit)) * 10
-//        }
-//        return digits
-//    }
-//
+    public func similar(to other: SwiftGmp, precision: Double = 1e-3) -> Bool {
+        let abs = self.copy()
+        abs.execute(InplaceOperation.abs)
+        abs.execute(TwoOperantOperation.sub, other: SwiftGmp.init(withString: "1000", bits: bits))
+        if abs.isNegative() {
+            // smaller than 1000
+            // return abs(self - other) <= precision
+            let diff = self.copy()
+            diff.execute(TwoOperantOperation.sub, other: other)
+            diff.execute(InplaceOperation.abs)
+            diff.execute(TwoOperantOperation.sub, other: SwiftGmp(withString: String(precision), bits: bits))
+            return diff.isNegative()
+        } else {
+            // larger than 1000
+            // return abs(self - other) <= precision * abs(self)
+            let diff = self.copy()
+            diff.execute(TwoOperantOperation.sub, other: other)
+            diff.execute(InplaceOperation.abs)
+            diff.execute(TwoOperantOperation.sub, other: SwiftGmp(withString: String(precision), bits: bits))
+            return diff.isNegative()
+        }
+    }
+
 //    func isSimilar(d1: Double, d2: Double) -> Bool {
 //        let n = 6  // Number of significant digits to compare
 //        let digits1 = extractDigits(d1, n: n)
