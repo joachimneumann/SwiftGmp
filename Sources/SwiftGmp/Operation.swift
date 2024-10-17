@@ -31,7 +31,8 @@ public enum DigitOperation: String, OpProtocol, CaseIterable {
 }
 
 public enum ClearOperation: String, OpProtocol, CaseIterable {
-    case clear = "C"
+    case clear = "AC"
+    case back = "back"
 }
 public enum EqualOperation: String, OpProtocol, CaseIterable {
     case equal = "="

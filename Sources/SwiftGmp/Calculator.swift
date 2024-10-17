@@ -19,12 +19,15 @@ public class Calculator {
         token = Token(precision: precision)
         displayBuffer = ""
     }
+    public var displayBufferHasDigits: Bool {
+        !displayBuffer.isEmpty
+    }
     public func setPrecision(newPrecision: Int) {
         token.setPrecision(newPrecision)
     }
     
     public var isAllowedOperator: [String: Bool] = [:]
-    public var isPendingOperator: [String: Bool] = [:]
+    public var pendingOperators: [any OpProtocol] = []
     public var allOperationsSorted: [any OpProtocol] { token.allOperationsSorted }
     var invalidOperators: [any OpProtocol] {
         var ret: [any OpProtocol] = []
@@ -36,22 +39,12 @@ public class Calculator {
         return ret
     }
 
-    var pendingOperators: [any OpProtocol] {
-        var ret: [any OpProtocol] = []
-        for op in allOperationsSorted {
-            if let pending = isPendingOperator[op.getRawValue()] {
-                if pending { ret.append(op) }
-            }
-        }
-        return ret
-    }
-
     public func clear() {
         token.clear()
         displayBuffer = ""
         for op in token.allOperationsSorted {
             isAllowedOperator[op.getRawValue()] = true
-            isPendingOperator[op.getRawValue()] = false
+            pendingOperators = []
         }
     }
     
@@ -85,8 +78,11 @@ public class Calculator {
                 assert(token.tokens.count > 0)
                 token.removeLastSwiftGmp()
             }
-            if displayBuffer == "0" {
-                displayBuffer = ""
+            if digitOp == .zero {
+                if displayBuffer == "0" || displayBuffer.isEmpty {
+                    // ignore the zero
+                    return
+                }
             }
             if digitOp == .dot {
                 if displayBuffer.contains(DecimalSeparator.dot.rawValue) { return }
@@ -134,8 +130,16 @@ public class Calculator {
             } else {
                 fatalError("last token not a SwiftGmp")
             }
-        } else if let _ = op as? ClearOperation {
-            clear()
+        } else if let clearOperation = op as? ClearOperation {
+            switch clearOperation {
+            case .clear:
+                clear()
+            case .back:
+                displayBuffer.removeLast()
+                if displayBuffer == "0" {
+                    displayBuffer = ""
+                }
+            }
         } else if let _ = op as? PercentOperation {
             displayToToken()
             token.percent()
@@ -151,19 +155,17 @@ public class Calculator {
         } else {
             fatalError("Unsupported operation")
         }
-
+        
+        pendingOperators = []
         for op in token.allOperationsSorted {
             isAllowedOperator[op.getRawValue()] = true
-            isPendingOperator[op.getRawValue()] = false
         }
         for t in token.tokens {
-            if case .inPlace(let op) = t.tokenEnum {
-                isPendingOperator[op.getRawValue()] = true
-            }
             if case .twoOperant(let op) = t.tokenEnum {
-                isPendingOperator[op.getRawValue()] = true
+                pendingOperators.append(op)
             }
         }
+        
         if let last = token.lastSwiftGmp {
             if !last.isValid {
                 for op in token.allOperationsSorted {

@@ -131,21 +131,15 @@ class Token {
     
     init(precision: Int) {
         self.precision = precision
-        let x1: [InplaceOperation] = InplaceOperation.allCases
-        let x2: [TwoOperantOperation] = TwoOperantOperation.allCases
-        let x3: [ConstantOperation] = ConstantOperation.allCases
-        let x4: [ClearOperation] = ClearOperation.allCases
-        let x5: [EqualOperation] = EqualOperation.allCases
-        let x6: [ParenthesisOperation] = ParenthesisOperation.allCases
-        let x7: [PercentOperation] = PercentOperation.allCases
         var allOperationsUnsorted: [any OpProtocol] = []
-        allOperationsUnsorted.append(contentsOf: x1)
-        allOperationsUnsorted.append(contentsOf: x2)
-        allOperationsUnsorted.append(contentsOf: x3)
-        allOperationsUnsorted.append(contentsOf: x4)
-        allOperationsUnsorted.append(contentsOf: x5)
-        allOperationsUnsorted.append(contentsOf: x6)
-        allOperationsUnsorted.append(contentsOf: x7)
+        allOperationsUnsorted.append(contentsOf: InplaceOperation.allCases)
+        allOperationsUnsorted.append(contentsOf: TwoOperantOperation.allCases)
+        allOperationsUnsorted.append(contentsOf: ConstantOperation.allCases)
+        allOperationsUnsorted.append(contentsOf: ClearOperation.allCases)
+        allOperationsUnsorted.append(contentsOf: EqualOperation.allCases)
+        allOperationsUnsorted.append(contentsOf: ParenthesisOperation.allCases)
+        allOperationsUnsorted.append(contentsOf: PercentOperation.allCases)
+        allOperationsUnsorted.append(contentsOf: DigitOperation.allCases)
         allOperationsSorted = allOperationsUnsorted.sorted { $0.getRawValue().count > $1.getRawValue().count }
     }
     //
