@@ -72,9 +72,9 @@ import SwiftGmp
     #expect(calculator.evaluateString("-1.212 * 8").string == "-9.696")
     #expect(calculator.evaluateString("-8 * 1.212").string == "-9.696")
     var temp: Double
-    temp = calculator.asDouble("1.23456789 * 2.10987654")
+    temp = calculator.evaluateString("1.23456789 * 2.10987654").double
     #expect(temp.similar(to: 2.60478583))
-    temp = calculator.asDouble("123456789 * 210987654")
+    temp = calculator.evaluateString("123456789 * 210987654").double
     #expect(temp.similar(to: 2.6047e+16))
     #expect(calculator.evaluateString("0 * 6 * 6").string == "0")
     #expect(calculator.evaluateString("1500 / 2000").string == "0.75")
@@ -82,27 +82,27 @@ import SwiftGmp
     #expect(calculator.evaluateString("0 / 2000").string == "0")
     #expect(calculator.evaluateString("-1500 / 2000").string == "-0.75")
     #expect(calculator.evaluateString("-3.123 / 5").string == "-0.6246")
-    temp = calculator.asDouble("-5 / 3.123")
+    temp = calculator.evaluateString("-5 / 3.123").double
     #expect(temp.similar(to: -1.6010246))
-    temp = calculator.asDouble("4.21 / 3")
+    temp = calculator.evaluateString("4.21 / 3").double
     #expect(temp.similar(to: 1.40333333))
-    temp = calculator.asDouble("10 / 3.123")
+    temp = calculator.evaluateString("10 / 3.123").double
     #expect(temp.similar(to: 3.20204931))
-    temp = calculator.asDouble("0.234 / 3.123")
+    temp = calculator.evaluateString("0.234 / 3.123").double
     #expect(temp.similar(to: 0.07492795))
-    temp = calculator.asDouble("(1500 - 2000) / 3.12")
+    temp = calculator.evaluateString("(1500 - 2000) / 3.12").double
     #expect(temp.similar(to: -160.25641))
-    temp = calculator.asDouble("(1500 - 2000) / 312")
+    temp = calculator.evaluateString("(1500 - 2000) / 312").double
     #expect(temp.similar(to: -1.6025641))
     #expect(calculator.evaluateString("(6 * 2) / 8").string == "1.5")
     #expect(calculator.evaluateString("1500 / 0").string == "inf")
     #expect(calculator.evaluateString("6 / 0").string == "inf")
     #expect(calculator.evaluateString("-6 / 0").string == "-inf")
-    temp = calculator.asDouble("1.23456789 / 2.10987654")
+    temp = calculator.evaluateString("1.23456789 / 2.10987654").double
     #expect(temp.similar(to: 0.58513750))
-    temp = calculator.asDouble("(1500 - 2000) / 1234.56789")
+    temp = calculator.evaluateString("(1500 - 2000) / 1234.56789").double
     #expect(temp.similar(to: -0.4050000))
-    temp = calculator.asDouble("(1500 - 2000) / 123456789")
+    temp = calculator.evaluateString("(1500 - 2000) / 123456789").double
     #expect(temp.similar(to: -0.0000040))
 // -12.3 C = 0
 // 12.3 C = 0

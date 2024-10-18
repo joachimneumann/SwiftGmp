@@ -79,8 +79,12 @@ public class Calculator {
                 token.removeLastSwiftGmp()
             }
             if digitOp == .zero {
-                if displayBuffer == "0" || displayBuffer.isEmpty {
+                if displayBuffer == "0" {
                     // ignore the zero
+                    return
+                }
+                if displayBuffer.isEmpty {
+                    displayBuffer = "0"
                     return
                 }
             }
@@ -188,70 +192,61 @@ public class Calculator {
         displayToToken()
         return token.lastSwiftGmp != nil
     }
-    
-    func withSeparators(_ s: String) -> String {
-        var ret = s
-        if decimalSeparator != .dot {
-            ret = ret.replacingOccurrences(of: DecimalSeparator.dot.rawValue, with: decimalSeparator.rawValue)
-        }
-        ret = injectGrouping(numberString: ret, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
-        return ret
-    }
-    public func addSeparators(lr: LR) -> LR {
-        var lr = lr
-        lr.left = withSeparators(lr.left)
-        return lr
-    }
-    public var lrWithSeparators: LR {
-        addSeparators(lr: lr)
-    }
-    public var lr: LR {
+
+    public var R: Representation {
+        var tempR = Representation()
         if !displayBuffer.isEmpty {
             let parts = displayBuffer.split(separator: decimalSeparator.rawValue)
             if parts.count == 1 {
                 // Integer
                 if displayBuffer.count <= maxOutputLength {
-                    return LR(displayBuffer)
+                    tempR.mantissa = displayBuffer
+                    return tempR
                 }
             } else if parts.count == 2 {
                 // float
                 if parts[0].count <= maxOutputLength - 2 { // minimum dot and one digit
-                    return LR(String(displayBuffer.prefix(maxOutputLength)))
+                    tempR.mantissa = String(displayBuffer.prefix(maxOutputLength))
+                    return tempR
                 }
             }
             // convert displaybuffer to swiftGmp and return that
             // keep the content of the displaBuffer
             let temp = SwiftGmp(withString: displayBuffer, bits: token.generousBits(for: token.precision))
             let (mantissa, exponent) = temp.mantissaExponent(len: 2*maxOutputLength)
-            let R = Representation(mantissa: mantissa, exponent: exponent)
-            return R.leftRight(maxOutputLength: maxOutputLength)
+            return Representation(mantissa: mantissa, exponent: exponent, maxOutputLength: maxOutputLength)
         }
         guard let last = token.lastSwiftGmp else {
             // displayBuffer is empty and no swiftGmp in tokens --> after clean(), revert to "0"
-            return LR("0")
+            tempR.mantissa = "0"
+            return tempR
         }
         if last.isNan {
-            return LR("not a number")
+            tempR.error = "not a number"
+            return tempR
         }
         if last.isInf {
             if last.isNegative() {
-                return LR("-inf")
+                tempR.error = "-inf"
+                return tempR
             } else {
-                return LR("inf")
+                tempR.error = "inf"
+                return tempR
             }
         }
 
         if last.isZero {
-            return LR("0")
+            tempR.mantissa = "0"
+            return tempR
         }
 
         let mantissaLength: Int = token.precision // approximation: accept integers with length = precision
         let (mantissa, exponent) = last.mantissaExponent(len: mantissaLength)
-        let R = Representation(mantissa: mantissa, exponent: exponent)
-        return R.leftRight(maxOutputLength: maxOutputLength)
+        tempR = Representation(mantissa: mantissa, exponent: exponent, maxOutputLength: maxOutputLength)
+        return tempR
     }
     
-    public func evaluateString(_ expression: String) -> LR {
+    public func evaluateString(_ expression: String) -> Representation {
         displayBuffer = ""
         do {
             let opArray = try token.stringToPressCommands(expression)
@@ -260,21 +255,22 @@ public class Calculator {
                 press(op)
             }
             press(EqualOperation.equal)
-            return addSeparators(lr: lr)
+            return R
         } catch {
-            return LR(error.localizedDescription)
+            return Representation(error: error.localizedDescription)
         }
     }
     
-    public func asDouble(_ expression: String) -> Double {
-        let lr = evaluateString(expression)
-        if let d = Double(lr.string) {
-            return d
-        } else {
-            return Double.nan
-        }
+    public var localizedString: String {
+        R.localizedString(decimalSeparator: decimalSeparator, separateGroups: separateGroups)
     }
-    
+    public var double: Double {
+        R.double
+    }
+    public var string: String {
+        R.string
+    }
+
     func asSwiftGmp(_ expression: String) -> SwiftGmp {
         do {
             let opArray = try token.stringToPressCommands(expression)

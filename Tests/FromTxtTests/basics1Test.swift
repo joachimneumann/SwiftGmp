@@ -26,174 +26,174 @@ import SwiftGmp
     #expect(calculator.evaluateString("153.4 - 155").string == "-1.6")
     #expect(calculator.evaluateString("153.4 - 165").string == "-11.6")
     var temp: Double
-    temp = calculator.asDouble("1 / 7")
+    temp = calculator.evaluateString("1 / 7").double
     #expect(temp.similar(to: 0.1428571))
     #expect(calculator.evaluateString("10 %").string == "0.1")
     #expect(calculator.evaluateString("200 + 20 %").string == "240")
-    temp = calculator.asDouble("100 + e %")
+    temp = calculator.evaluateString("100 + e %").double
     #expect(temp.similar(to: 102.7183))
     #expect(calculator.evaluateString("0.1 %").string == "0.001")
-    temp = calculator.asDouble("pi")
+    temp = calculator.evaluateString("pi").double
     #expect(temp.similar(to: 3.14159))
-    temp = calculator.asDouble("sqrt(4.0)")
+    temp = calculator.evaluateString("sqrt(4.0)").double
     #expect(temp.similar(to: 2))
-    temp = calculator.asDouble("sqrt(9.0)")
+    temp = calculator.evaluateString("sqrt(9.0)").double
     #expect(temp.similar(to: 3))
-    temp = calculator.asDouble("sqrt(0.0)")
+    temp = calculator.evaluateString("sqrt(0.0)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("sqrt(16.0)")
+    temp = calculator.evaluateString("sqrt(16.0)").double
     #expect(temp.similar(to: 4))
-    temp = calculator.asDouble("sqrt(25.0)")
+    temp = calculator.evaluateString("sqrt(25.0)").double
     #expect(temp.similar(to: 5))
     #expect(calculator.evaluateString("sqrt(-1)").string == "not a number")
-    temp = calculator.asDouble("sqrt3(8.0)")
+    temp = calculator.evaluateString("sqrt3(8.0)").double
     #expect(temp.similar(to: 2))
-    temp = calculator.asDouble("sqrt3(27.0)")
+    temp = calculator.evaluateString("sqrt3(27.0)").double
     #expect(temp.similar(to: 3))
-    temp = calculator.asDouble("sqrt3(0.0)")
+    temp = calculator.evaluateString("sqrt3(0.0)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("sqrt3(64.0)")
+    temp = calculator.evaluateString("sqrt3(64.0)").double
     #expect(temp.similar(to: 4))
-    temp = calculator.asDouble("sqrt3(125.0)")
+    temp = calculator.evaluateString("sqrt3(125.0)").double
     #expect(temp.similar(to: 5))
     #expect(calculator.evaluateString("zeta(1)").string == "inf")
-    temp = calculator.asDouble("zeta(2)")
+    temp = calculator.evaluateString("zeta(2)").double
     #expect(temp.similar(to: 1.6449340668482264))
-    temp = calculator.asDouble("zeta(3)")
+    temp = calculator.evaluateString("zeta(3)").double
     #expect(temp.similar(to: 1.2020569031595942))
-    temp = calculator.asDouble("zeta(4)")
+    temp = calculator.evaluateString("zeta(4)").double
     #expect(temp.similar(to: 1.0823232337111381))
-    temp = calculator.asDouble("zeta(5)")
+    temp = calculator.evaluateString("zeta(5)").double
     #expect(temp.similar(to: 1.0369277551433699))
-    temp = calculator.asDouble("zeta(6)")
+    temp = calculator.evaluateString("zeta(6)").double
     #expect(temp.similar(to: 1.0173430619844490))
-    temp = calculator.asDouble("zeta(7)")
+    temp = calculator.evaluateString("zeta(7)").double
     #expect(temp.similar(to: 1.0083492773819228))
-    temp = calculator.asDouble("zeta(8)")
+    temp = calculator.evaluateString("zeta(8)").double
     #expect(temp.similar(to: 1.0040773561979440))
-    temp = calculator.asDouble("zeta(9)")
+    temp = calculator.evaluateString("zeta(9)").double
     #expect(temp.similar(to: 1.0020083928260822))
-    temp = calculator.asDouble("ln(1.0)")
+    temp = calculator.evaluateString("ln(1.0)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("ln(2.7183)")
+    temp = calculator.evaluateString("ln(2.7183)").double
     #expect(temp.similar(to: 1.0))
-    temp = calculator.asDouble("ln(7.3891)")
+    temp = calculator.evaluateString("ln(7.3891)").double
     #expect(temp.similar(to: 2.0))
-    temp = calculator.asDouble("ln(20.0855)")
+    temp = calculator.evaluateString("ln(20.0855)").double
     #expect(temp.similar(to: 3.0))
-    temp = calculator.asDouble("ln(54.5982)")
+    temp = calculator.evaluateString("ln(54.5982)").double
     #expect(temp.similar(to: 4.0))
-    temp = calculator.asDouble("log10(1.0)")
+    temp = calculator.evaluateString("log10(1.0)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("log10(10.0)")
+    temp = calculator.evaluateString("log10(10.0)").double
     #expect(temp.similar(to: 1))
-    temp = calculator.asDouble("log10(100.0)")
+    temp = calculator.evaluateString("log10(100.0)").double
     #expect(temp.similar(to: 2))
-    temp = calculator.asDouble("log10(1000.0)")
+    temp = calculator.evaluateString("log10(1000.0)").double
     #expect(temp.similar(to: 3))
-    temp = calculator.asDouble("log10(10000.0)")
+    temp = calculator.evaluateString("log10(10000.0)").double
     #expect(temp.similar(to: 4))
-    temp = calculator.asDouble("log2(1.0)")
+    temp = calculator.evaluateString("log2(1.0)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("log2(2.0)")
+    temp = calculator.evaluateString("log2(2.0)").double
     #expect(temp.similar(to: 1))
-    temp = calculator.asDouble("log2(4.0)")
+    temp = calculator.evaluateString("log2(4.0)").double
     #expect(temp.similar(to: 2))
-    temp = calculator.asDouble("log2(8.0)")
+    temp = calculator.evaluateString("log2(8.0)").double
     #expect(temp.similar(to: 3))
-    temp = calculator.asDouble("log2(16.0)")
+    temp = calculator.evaluateString("log2(16.0)").double
     #expect(temp.similar(to: 4))
-    temp = calculator.asDouble("sqr(2.0)")
+    temp = calculator.evaluateString("sqr(2.0)").double
     #expect(temp.similar(to: 4))
-    temp = calculator.asDouble("sqr(3.0)")
+    temp = calculator.evaluateString("sqr(3.0)").double
     #expect(temp.similar(to: 9))
-    temp = calculator.asDouble("sqr(5.0)")
+    temp = calculator.evaluateString("sqr(5.0)").double
     #expect(temp.similar(to: 25))
-    temp = calculator.asDouble("sqr(-4.0)")
+    temp = calculator.evaluateString("sqr(-4.0)").double
     #expect(temp.similar(to: 16))
-    temp = calculator.asDouble("sqr(10.0)")
+    temp = calculator.evaluateString("sqr(10.0)").double
     #expect(temp.similar(to: 100))
-    temp = calculator.asDouble("exp(1.0)")
+    temp = calculator.evaluateString("exp(1.0)").double
     #expect(temp.similar(to: 2.7183))
-    temp = calculator.asDouble("exp(2.0)")
+    temp = calculator.evaluateString("exp(2.0)").double
     #expect(temp.similar(to: 7.3891))
-    temp = calculator.asDouble("exp(3.0)")
+    temp = calculator.evaluateString("exp(3.0)").double
     #expect(temp.similar(to: 20.0855))
     #expect(calculator.evaluateString("exp(0.0)").string == "1")
-    temp = calculator.asDouble("exp(-1.0)")
+    temp = calculator.evaluateString("exp(-1.0)").double
     #expect(temp.similar(to: 0.3679))
-    temp = calculator.asDouble("exp10(0.0)")
+    temp = calculator.evaluateString("exp10(0.0)").double
     #expect(temp.similar(to: 1))
-    temp = calculator.asDouble("exp10(1.0)")
+    temp = calculator.evaluateString("exp10(1.0)").double
     #expect(temp.similar(to: 10))
-    temp = calculator.asDouble("exp10(2.0)")
+    temp = calculator.evaluateString("exp10(2.0)").double
     #expect(temp.similar(to: 100))
-    temp = calculator.asDouble("exp10(3.0)")
+    temp = calculator.evaluateString("exp10(3.0)").double
     #expect(temp.similar(to: 1000))
-    temp = calculator.asDouble("exp10(-1.0)")
+    temp = calculator.evaluateString("exp10(-1.0)").double
     #expect(temp.similar(to: 0.1))
-    temp = calculator.asDouble("0.0 ±")
+    temp = calculator.evaluateString("0.0 ±").double
     #expect(temp.similar(to: 0))
     #expect(calculator.evaluateString("0.0 ±").string == "0")
-    temp = calculator.asDouble("5.0 ±")
+    temp = calculator.evaluateString("5.0 ±").double
     #expect(temp.similar(to: -5))
-    temp = calculator.asDouble("-3.14 ±")
+    temp = calculator.evaluateString("-3.14 ±").double
     #expect(temp.similar(to: 3.14))
-    temp = calculator.asDouble("0.0 ±")
+    temp = calculator.evaluateString("0.0 ±").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("100.0 ±")
+    temp = calculator.evaluateString("100.0 ±").double
     #expect(temp.similar(to: -100))
-    temp = calculator.asDouble("-50.0 ±")
+    temp = calculator.evaluateString("-50.0 ±").double
     #expect(temp.similar(to: 50))
-    temp = calculator.asDouble("cubed(2.0)")
+    temp = calculator.evaluateString("cubed(2.0)").double
     #expect(temp.similar(to: 8))
-    temp = calculator.asDouble("cubed(3.0)")
+    temp = calculator.evaluateString("cubed(3.0)").double
     #expect(temp.similar(to: 27))
-    temp = calculator.asDouble("cubed(-4.0)")
+    temp = calculator.evaluateString("cubed(-4.0)").double
     #expect(temp.similar(to: -64))
-    temp = calculator.asDouble("cubed(5.0)")
+    temp = calculator.evaluateString("cubed(5.0)").double
     #expect(temp.similar(to: 125))
-    temp = calculator.asDouble("cubed(-2.0)")
+    temp = calculator.evaluateString("cubed(-2.0)").double
     #expect(temp.similar(to: -8))
-    temp = calculator.asDouble("rez(2.0)")
+    temp = calculator.evaluateString("rez(2.0)").double
     #expect(temp.similar(to: 0.5))
-    temp = calculator.asDouble("rez(4.0)")
+    temp = calculator.evaluateString("rez(4.0)").double
     #expect(temp.similar(to: 0.25))
-    temp = calculator.asDouble("rez(0.5)")
+    temp = calculator.evaluateString("rez(0.5)").double
     #expect(temp.similar(to: 2))
-    temp = calculator.asDouble("rez(10.0)")
+    temp = calculator.evaluateString("rez(10.0)").double
     #expect(temp.similar(to: 0.1))
-    temp = calculator.asDouble("rez(0.2)")
+    temp = calculator.evaluateString("rez(0.2)").double
     #expect(temp.similar(to: 5))
-    temp = calculator.asDouble("fac(0.0)")
+    temp = calculator.evaluateString("fac(0.0)").double
     #expect(temp.similar(to: 1))
-    temp = calculator.asDouble("fac(1.0)")
+    temp = calculator.evaluateString("fac(1.0)").double
     #expect(temp.similar(to: 1))
-    temp = calculator.asDouble("fac(2.0)")
+    temp = calculator.evaluateString("fac(2.0)").double
     #expect(temp.similar(to: 2))
-    temp = calculator.asDouble("sind(30)")
+    temp = calculator.evaluateString("sind(30)").double
     #expect(temp.similar(to: 0.5))
-    temp = calculator.asDouble("sind(45)")
+    temp = calculator.evaluateString("sind(45)").double
     #expect(temp.similar(to: 0.7071))
-    temp = calculator.asDouble("sind(60)")
+    temp = calculator.evaluateString("sind(60)").double
     #expect(temp.similar(to: 0.8660))
     #expect(calculator.evaluateString("sind(90)").string == "1")
     #expect(calculator.evaluateString("sind(0)").string == "0")
-    temp = calculator.asDouble("sind(180)")
+    temp = calculator.evaluateString("sind(180)").double
     #expect(temp.similar(to: 0))
     #expect(calculator.evaluateString("sind(270)").string == "-1")
-    temp = calculator.asDouble("cosd(30)")
+    temp = calculator.evaluateString("cosd(30)").double
     #expect(temp.similar(to: 0.8660))
-    temp = calculator.asDouble("cosd(45)")
+    temp = calculator.evaluateString("cosd(45)").double
     #expect(temp.similar(to: 0.7071))
-    temp = calculator.asDouble("cosd(60)")
+    temp = calculator.evaluateString("cosd(60)").double
     #expect(temp.similar(to: 0.5))
-    temp = calculator.asDouble("cosd(90)")
+    temp = calculator.evaluateString("cosd(90)").double
     #expect(temp.similar(to: 0))
     #expect(calculator.evaluateString("tand(45)").string == "1")
-    temp = calculator.asDouble("tand(60)")
+    temp = calculator.evaluateString("tand(60)").double
     #expect(temp.similar(to: 1.7321))
-    temp = calculator.asDouble("tand(30)")
+    temp = calculator.evaluateString("tand(30)").double
     #expect(temp.similar(to: 0.5774))
     #expect(calculator.evaluateString("tand(0)").string == "0")
     #expect(calculator.evaluateString("asind(0)").string == "0")
@@ -202,76 +202,76 @@ import SwiftGmp
     #expect(calculator.evaluateString("acosd(0.5)").string == "60")
     #expect(calculator.evaluateString("atand(1)").string == "45")
     #expect(calculator.evaluateString("atand(0)").string == "0")
-    temp = calculator.asDouble("sin(1.5708)")
+    temp = calculator.evaluateString("sin(1.5708)").double
     #expect(temp.similar(to: 1))
-    temp = calculator.asDouble("cos(0.5236)")
+    temp = calculator.evaluateString("cos(0.5236)").double
     #expect(temp.similar(to: 0.8660))
-    temp = calculator.asDouble("sin(1.0472)")
+    temp = calculator.evaluateString("sin(1.0472)").double
     #expect(temp.similar(to: 0.8660))
-    temp = calculator.asDouble("tan(0.7854)")
+    temp = calculator.evaluateString("tan(0.7854)").double
     #expect(temp.similar(to: 1))
-    temp = calculator.asDouble("sin(2.3562)")
+    temp = calculator.evaluateString("sin(2.3562)").double
     #expect(temp.similar(to: 0.7071))
-    temp = calculator.asDouble("cos(2.6180)")
+    temp = calculator.evaluateString("cos(2.6180)").double
     #expect(temp.similar(to: -0.8660))
-    temp = calculator.asDouble("sin(3.1416)")
+    temp = calculator.evaluateString("sin(3.1416)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("cos(3.1416)")
+    temp = calculator.evaluateString("cos(3.1416)").double
     #expect(temp.similar(to: -1))
-    temp = calculator.asDouble("sin(3.6652)")
+    temp = calculator.evaluateString("sin(3.6652)").double
     #expect(temp.similar(to: -0.5))
-    temp = calculator.asDouble("cos(3.92699)")
+    temp = calculator.evaluateString("cos(3.92699)").double
     #expect(temp.similar(to: -0.7071))
-    temp = calculator.asDouble("sin(5.7596)")
+    temp = calculator.evaluateString("sin(5.7596)").double
     #expect(temp.similar(to: -0.5))
-    temp = calculator.asDouble("sin(6.2832)")
+    temp = calculator.evaluateString("sin(6.2832)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("cos(4.7124)")
+    temp = calculator.evaluateString("cos(4.7124)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("atan(0.0)")
+    temp = calculator.evaluateString("atan(0.0)").double
     #expect(temp.similar(to: 0))
-    temp = calculator.asDouble("atan(1.0)")
+    temp = calculator.evaluateString("atan(1.0)").double
     #expect(temp.similar(to: 0.7854))
-    temp = calculator.asDouble("acos(0.8660)")
+    temp = calculator.evaluateString("acos(0.8660)").double
     #expect(temp.similar(to: 0.5236))
-    temp = calculator.asDouble("asin(0.5)")
+    temp = calculator.evaluateString("asin(0.5)").double
     #expect(temp.similar(to: 0.5236))
-    temp = calculator.asDouble("atan(-1.0)")
+    temp = calculator.evaluateString("atan(-1.0)").double
     #expect(temp.similar(to: -0.7854))
-    temp = calculator.asDouble("asin(0.8660)")
+    temp = calculator.evaluateString("asin(0.8660)").double
     #expect(temp.similar(to: 1.0472))
     #expect(calculator.evaluateString("acos(1.0)").string == "0")
     #expect(calculator.evaluateString("sin(0.0)").string == "0")
-    temp = calculator.asDouble("sin(0.7854)")
+    temp = calculator.evaluateString("sin(0.7854)").double
     #expect(temp.similar(to: 0.7071))
-    temp = calculator.asDouble("cos(1.5708)")
+    temp = calculator.evaluateString("cos(1.5708)").double
     #expect(temp.similar(to: 0.0))
-    temp = calculator.asDouble("tan(1.0472)")
+    temp = calculator.evaluateString("tan(1.0472)").double
     #expect(temp.similar(to: 1.7321))
-    temp = calculator.asDouble("sin(0.5236)")
+    temp = calculator.evaluateString("sin(0.5236)").double
     #expect(temp.similar(to: 0.5))
-    temp = calculator.asDouble("tan(0.5236)")
+    temp = calculator.evaluateString("tan(0.5236)").double
     #expect(temp.similar(to: 0.5774))
-    temp = calculator.asDouble("cos(1.0472)")
+    temp = calculator.evaluateString("cos(1.0472)").double
     #expect(temp.similar(to: 0.5))
-    temp = calculator.asDouble("sin(2.0944)")
+    temp = calculator.evaluateString("sin(2.0944)").double
     #expect(temp.similar(to: 0.8660))
-    temp = calculator.asDouble("tan(3.1416)")
+    temp = calculator.evaluateString("tan(3.1416)").double
     #expect(temp.similar(to: 0.0))
-    temp = calculator.asDouble("sin(2.6180)")
+    temp = calculator.evaluateString("sin(2.6180)").double
     #expect(temp.similar(to: 0.5))
-    temp = calculator.asDouble("cos(5.23599)")
+    temp = calculator.evaluateString("cos(5.23599)").double
     #expect(temp.similar(to: 0.5))
-    temp = calculator.asDouble("cos(2.0944)")
+    temp = calculator.evaluateString("cos(2.0944)").double
     #expect(temp.similar(to: -0.5))
-    temp = calculator.asDouble("cos(5.7596)")
+    temp = calculator.evaluateString("cos(5.7596)").double
     #expect(temp.similar(to: 0.8660))
-    temp = calculator.asDouble("asin(1.0)")
+    temp = calculator.evaluateString("asin(1.0)").double
     #expect(temp.similar(to: 1.5708))
-    temp = calculator.asDouble("acos(0.0)")
+    temp = calculator.evaluateString("acos(0.0)").double
     #expect(temp.similar(to: 1.5708))
-    temp = calculator.asDouble("acos(0.7071)")
+    temp = calculator.evaluateString("acos(0.7071)").double
     #expect(temp.similar(to: 0.7854))
-    temp = calculator.asDouble("atan(0.5774)")
+    temp = calculator.evaluateString("atan(0.5774)").double
     #expect(temp.similar(to: 0.5236))
 }

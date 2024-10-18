@@ -165,19 +165,6 @@ class Token {
         }
     }
     
-    var pendingOperators: [any OpProtocol] {
-        var ret: [any OpProtocol] = []
-        for token in tokens {
-            if case .inPlace(let op) = token.tokenEnum {
-                ret.append(op)
-            }
-            if case .twoOperant(let op) = token.tokenEnum {
-                ret.append(op)
-            }
-        }
-        return ret
-    }
-    
     var inPlaceAllowed: Bool {
         !numberExpected
     }

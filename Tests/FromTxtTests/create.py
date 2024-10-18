@@ -118,7 +118,7 @@ for file in glob.glob("*.txt"):
                             if not tempDeclared:
                                 tempDeclared = True
                                 writeln("    var temp: Double")
-                            writeln("    temp = calculator.asDouble(\""+components[0].strip()+"\")")
+                            writeln("    temp = calculator.evaluateString(\""+components[0].strip()+"\").double")
                             writeln("    #expect(temp.similar(to: "+components[1].strip()+"))")
                     elif "=" in content:
                         components = content.strip().split("=")
@@ -129,9 +129,9 @@ for file in glob.glob("*.txt"):
                                 writeln("    calculator.maxOutputLength = "+components[1].strip())
                             elif components[0].strip() == "C":
                                 writeln("    calculator.press(ClearOperation.clear)")
-                                writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
+                                writeln("    #expect(calculator.string == \""+components[1].strip()+"\")")
                             elif components[0].strip() == "DISPLAY":
-                                writeln("    #expect(calculator.lr.string == \""+components[1].strip()+"\")")
+                                writeln("    #expect(calculator.string == \""+components[1].strip()+"\")")
                             elif components[0].strip() == "MC":
                                 writeln("    calculator.press(MemoryOperation.clearM)")
                             elif components[0].strip() == "MR":

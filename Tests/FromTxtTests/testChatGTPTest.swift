@@ -9,1005 +9,1005 @@ import SwiftGmp
 
     calculator.setPrecision(newPrecision: 20)
     var temp: Double
-    temp = calculator.asDouble("81.651654 / 40.563652")
+    temp = calculator.evaluateString("81.651654 / 40.563652").double
     #expect(temp.similar(to: 2.012927))
-    temp = calculator.asDouble("50.817846 + 68.530428")
+    temp = calculator.evaluateString("50.817846 + 68.530428").double
     #expect(temp.similar(to: 119.348274))
-    temp = calculator.asDouble("68.115634 / 97.517606")
+    temp = calculator.evaluateString("68.115634 / 97.517606").double
     #expect(temp.similar(to: 0.698496))
-    temp = calculator.asDouble("17.172385 + 71.542294")
+    temp = calculator.evaluateString("17.172385 + 71.542294").double
     #expect(temp.similar(to: 88.714679))
-    temp = calculator.asDouble("39.651211 - 64.685904")
+    temp = calculator.evaluateString("39.651211 - 64.685904").double
     #expect(temp.similar(to: -25.034693))
-    temp = calculator.asDouble("71.331751 / 12.865136")
+    temp = calculator.evaluateString("71.331751 / 12.865136").double
     #expect(temp.similar(to: 5.544578))
-    temp = calculator.asDouble("6.188656 * 41.325041")
+    temp = calculator.evaluateString("6.188656 * 41.325041").double
     #expect(temp.similar(to: 255.746463))
-    temp = calculator.asDouble("80.94458 / 19.996754")
+    temp = calculator.evaluateString("80.94458 / 19.996754").double
     #expect(temp.similar(to: 4.047886))
-    temp = calculator.asDouble("88.315693 * 68.125939")
+    temp = calculator.evaluateString("88.315693 * 68.125939").double
     #expect(temp.similar(to: 6016.589514))
-    temp = calculator.asDouble("77.9241 + 34.598681")
+    temp = calculator.evaluateString("77.9241 + 34.598681").double
     #expect(temp.similar(to: 112.522781))
-    temp = calculator.asDouble("79.31113 / 15.064157")
+    temp = calculator.evaluateString("79.31113 / 15.064157").double
     #expect(temp.similar(to: 5.26489))
-    temp = calculator.asDouble("93.637647 * 58.307156")
+    temp = calculator.evaluateString("93.637647 * 58.307156").double
     #expect(temp.similar(to: 5459.744891))
-    temp = calculator.asDouble("99.836875 / 80.051363")
+    temp = calculator.evaluateString("99.836875 / 80.051363").double
     #expect(temp.similar(to: 1.24716))
-    temp = calculator.asDouble("46.051561 - 23.047301")
+    temp = calculator.evaluateString("46.051561 - 23.047301").double
     #expect(temp.similar(to: 23.00426))
-    temp = calculator.asDouble("53.750942 - 46.64676")
+    temp = calculator.evaluateString("53.750942 - 46.64676").double
     #expect(temp.similar(to: 7.104182))
-    temp = calculator.asDouble("34.902253 + 79.196765")
+    temp = calculator.evaluateString("34.902253 + 79.196765").double
     #expect(temp.similar(to: 114.099018))
-    temp = calculator.asDouble("41.585473 / 79.932095")
+    temp = calculator.evaluateString("41.585473 / 79.932095").double
     #expect(temp.similar(to: 0.52026))
-    temp = calculator.asDouble("44.623381 - 78.659429")
+    temp = calculator.evaluateString("44.623381 - 78.659429").double
     #expect(temp.similar(to: -34.036048))
-    temp = calculator.asDouble("17.83145 / 33.175151")
+    temp = calculator.evaluateString("17.83145 / 33.175151").double
     #expect(temp.similar(to: 0.537494))
-    temp = calculator.asDouble("61.236168 / 93.237541")
+    temp = calculator.evaluateString("61.236168 / 93.237541").double
     #expect(temp.similar(to: 0.656776))
-    temp = calculator.asDouble("21.699896 * 50.749272")
+    temp = calculator.evaluateString("21.699896 * 50.749272").double
     #expect(temp.similar(to: 1101.253924))
-    temp = calculator.asDouble("63.192287 / 64.230503")
+    temp = calculator.evaluateString("63.192287 / 64.230503").double
     #expect(temp.similar(to: 0.983836))
-    temp = calculator.asDouble("95.071567 - 73.832131")
+    temp = calculator.evaluateString("95.071567 - 73.832131").double
     #expect(temp.similar(to: 21.239436))
-    temp = calculator.asDouble("89.770876 * 40.95793")
+    temp = calculator.evaluateString("89.770876 * 40.95793").double
     #expect(temp.similar(to: 3676.829255))
-    temp = calculator.asDouble("59.795255 / 35.64017")
+    temp = calculator.evaluateString("59.795255 / 35.64017").double
     #expect(temp.similar(to: 1.677749))
-    temp = calculator.asDouble("43.889693 + 38.70593")
+    temp = calculator.evaluateString("43.889693 + 38.70593").double
     #expect(temp.similar(to: 82.595623))
-    temp = calculator.asDouble("18.687246 + 55.435883")
+    temp = calculator.evaluateString("18.687246 + 55.435883").double
     #expect(temp.similar(to: 74.123129))
-    temp = calculator.asDouble("58.129587 + 84.201808")
+    temp = calculator.evaluateString("58.129587 + 84.201808").double
     #expect(temp.similar(to: 142.331395))
-    temp = calculator.asDouble("5.588969 - 75.017759")
+    temp = calculator.evaluateString("5.588969 - 75.017759").double
     #expect(temp.similar(to: -69.42879))
-    temp = calculator.asDouble("12.782436 - 22.377089")
+    temp = calculator.evaluateString("12.782436 - 22.377089").double
     #expect(temp.similar(to: -9.594653))
-    temp = calculator.asDouble("92.102843 - 53.058159")
+    temp = calculator.evaluateString("92.102843 - 53.058159").double
     #expect(temp.similar(to: 39.044684))
-    temp = calculator.asDouble("44.269269 * 88.118796")
+    temp = calculator.evaluateString("44.269269 * 88.118796").double
     #expect(temp.similar(to: 3900.954684))
-    temp = calculator.asDouble("32.130965 * 90.909822")
+    temp = calculator.evaluateString("32.130965 * 90.909822").double
     #expect(temp.similar(to: 2921.020309))
-    temp = calculator.asDouble("0.474176 * 91.957211")
+    temp = calculator.evaluateString("0.474176 * 91.957211").double
     #expect(temp.similar(to: 43.603902))
-    temp = calculator.asDouble("37.152682 - 92.681725")
+    temp = calculator.evaluateString("37.152682 - 92.681725").double
     #expect(temp.similar(to: -55.529043))
-    temp = calculator.asDouble("99.386825 / 62.475758")
+    temp = calculator.evaluateString("99.386825 / 62.475758").double
     #expect(temp.similar(to: 1.590806))
-    temp = calculator.asDouble("56.005524 * 41.296364")
+    temp = calculator.evaluateString("56.005524 * 41.296364").double
     #expect(temp.similar(to: 2312.824505))
-    temp = calculator.asDouble("87.936743 / 84.010076")
+    temp = calculator.evaluateString("87.936743 / 84.010076").double
     #expect(temp.similar(to: 1.04674))
-    temp = calculator.asDouble("60.344804 - 34.855243")
+    temp = calculator.evaluateString("60.344804 - 34.855243").double
     #expect(temp.similar(to: 25.489561))
-    temp = calculator.asDouble("70.955536 / 71.350043")
+    temp = calculator.evaluateString("70.955536 / 71.350043").double
     #expect(temp.similar(to: 0.994471))
-    temp = calculator.asDouble("3.081405 + 74.061566")
+    temp = calculator.evaluateString("3.081405 + 74.061566").double
     #expect(temp.similar(to: 77.142971))
-    temp = calculator.asDouble("41.741724 - 65.889038")
+    temp = calculator.evaluateString("41.741724 - 65.889038").double
     #expect(temp.similar(to: -24.147314))
-    temp = calculator.asDouble("35.76903 + 12.286746")
+    temp = calculator.evaluateString("35.76903 + 12.286746").double
     #expect(temp.similar(to: 48.055776))
-    temp = calculator.asDouble("72.127467 * 41.197848")
+    temp = calculator.evaluateString("72.127467 * 41.197848").double
     #expect(temp.similar(to: 2971.496422))
-    temp = calculator.asDouble("97.695999 - 43.420576")
+    temp = calculator.evaluateString("97.695999 - 43.420576").double
     #expect(temp.similar(to: 54.275423))
-    temp = calculator.asDouble("8.996259 * 75.571637")
+    temp = calculator.evaluateString("8.996259 * 75.571637").double
     #expect(temp.similar(to: 679.86202))
-    temp = calculator.asDouble("28.115601 / 39.811977")
+    temp = calculator.evaluateString("28.115601 / 39.811977").double
     #expect(temp.similar(to: 0.70621))
-    temp = calculator.asDouble("95.546103 * 39.272629")
+    temp = calculator.evaluateString("95.546103 * 39.272629").double
     #expect(temp.similar(to: 3752.346656))
-    temp = calculator.asDouble("49.269089 - 9.385887")
+    temp = calculator.evaluateString("49.269089 - 9.385887").double
     #expect(temp.similar(to: 39.883202))
-    temp = calculator.asDouble("39.08327 - 19.372396")
+    temp = calculator.evaluateString("39.08327 - 19.372396").double
     #expect(temp.similar(to: 19.710874))
-    temp = calculator.asDouble("53.404774 - 85.145849")
+    temp = calculator.evaluateString("53.404774 - 85.145849").double
     #expect(temp.similar(to: -31.741075))
-    temp = calculator.asDouble("4.272812 - 27.511188")
+    temp = calculator.evaluateString("4.272812 - 27.511188").double
     #expect(temp.similar(to: -23.238376))
-    temp = calculator.asDouble("20.600117 + 14.442485")
+    temp = calculator.evaluateString("20.600117 + 14.442485").double
     #expect(temp.similar(to: 35.042602))
-    temp = calculator.asDouble("2.701371 + 15.38239")
+    temp = calculator.evaluateString("2.701371 + 15.38239").double
     #expect(temp.similar(to: 18.083761))
-    temp = calculator.asDouble("33.961997 + 85.541724")
+    temp = calculator.evaluateString("33.961997 + 85.541724").double
     #expect(temp.similar(to: 119.503721))
-    temp = calculator.asDouble("66.355797 - 36.760776")
+    temp = calculator.evaluateString("66.355797 - 36.760776").double
     #expect(temp.similar(to: 29.595021))
-    temp = calculator.asDouble("18.185088 * 97.811252")
+    temp = calculator.evaluateString("18.185088 * 97.811252").double
     #expect(temp.similar(to: 1778.706225))
-    temp = calculator.asDouble("79.125319 * 91.722454")
+    temp = calculator.evaluateString("79.125319 * 91.722454").double
     #expect(temp.similar(to: 7257.568432))
-    temp = calculator.asDouble("58.313262 - 9.456464")
+    temp = calculator.evaluateString("58.313262 - 9.456464").double
     #expect(temp.similar(to: 48.856798))
-    temp = calculator.asDouble("72.742667 + 32.541706")
+    temp = calculator.evaluateString("72.742667 + 32.541706").double
     #expect(temp.similar(to: 105.284373))
-    temp = calculator.asDouble("87.457541 / 66.828695")
+    temp = calculator.evaluateString("87.457541 / 66.828695").double
     #expect(temp.similar(to: 1.308682))
-    temp = calculator.asDouble("11.182359 + 38.469985")
+    temp = calculator.evaluateString("11.182359 + 38.469985").double
     #expect(temp.similar(to: 49.652344))
-    temp = calculator.asDouble("20.014369 + 29.501025")
+    temp = calculator.evaluateString("20.014369 + 29.501025").double
     #expect(temp.similar(to: 49.515394))
-    temp = calculator.asDouble("91.643692 + 32.495255")
+    temp = calculator.evaluateString("91.643692 + 32.495255").double
     #expect(temp.similar(to: 124.138947))
-    temp = calculator.asDouble("16.189502 / 74.620683")
+    temp = calculator.evaluateString("16.189502 / 74.620683").double
     #expect(temp.similar(to: 0.216957))
-    temp = calculator.asDouble("22.627569 * 16.189757")
+    temp = calculator.evaluateString("22.627569 * 16.189757").double
     #expect(temp.similar(to: 366.334844))
-    temp = calculator.asDouble("73.690941 / 98.73313")
+    temp = calculator.evaluateString("73.690941 / 98.73313").double
     #expect(temp.similar(to: 0.746365))
-    temp = calculator.asDouble("80.991584 + 24.625791")
+    temp = calculator.evaluateString("80.991584 + 24.625791").double
     #expect(temp.similar(to: 105.617375))
-    temp = calculator.asDouble("23.950864 / 34.61646")
+    temp = calculator.evaluateString("23.950864 / 34.61646").double
     #expect(temp.similar(to: 0.691892))
-    temp = calculator.asDouble("2.706182 + 35.137254")
+    temp = calculator.evaluateString("2.706182 + 35.137254").double
     #expect(temp.similar(to: 37.843436))
-    temp = calculator.asDouble("55.693971 + 87.857326")
+    temp = calculator.evaluateString("55.693971 + 87.857326").double
     #expect(temp.similar(to: 143.551297))
-    temp = calculator.asDouble("19.801356 / 35.201236")
+    temp = calculator.evaluateString("19.801356 / 35.201236").double
     #expect(temp.similar(to: 0.562519))
-    temp = calculator.asDouble("26.195557 + 55.823881")
+    temp = calculator.evaluateString("26.195557 + 55.823881").double
     #expect(temp.similar(to: 82.019438))
-    temp = calculator.asDouble("93.926737 / 92.390922")
+    temp = calculator.evaluateString("93.926737 / 92.390922").double
     #expect(temp.similar(to: 1.016623))
-    temp = calculator.asDouble("52.613184 - 2.867121")
+    temp = calculator.evaluateString("52.613184 - 2.867121").double
     #expect(temp.similar(to: 49.746063))
-    temp = calculator.asDouble("52.80543 - 4.292984")
+    temp = calculator.evaluateString("52.80543 - 4.292984").double
     #expect(temp.similar(to: 48.512446))
-    temp = calculator.asDouble("22.830967 * 86.834119")
+    temp = calculator.evaluateString("22.830967 * 86.834119").double
     #expect(temp.similar(to: 1982.506905))
-    temp = calculator.asDouble("94.91586 - 23.691441")
+    temp = calculator.evaluateString("94.91586 - 23.691441").double
     #expect(temp.similar(to: 71.224419))
-    temp = calculator.asDouble("7.652716 * 93.798509")
+    temp = calculator.evaluateString("7.652716 * 93.798509").double
     #expect(temp.similar(to: 717.813351))
-    temp = calculator.asDouble("37.483091 / 62.705197")
+    temp = calculator.evaluateString("37.483091 / 62.705197").double
     #expect(temp.similar(to: 0.597767))
-    temp = calculator.asDouble("71.124738 / 85.678025")
+    temp = calculator.evaluateString("71.124738 / 85.678025").double
     #expect(temp.similar(to: 0.83014))
-    temp = calculator.asDouble("71.165846 - 88.178268")
+    temp = calculator.evaluateString("71.165846 - 88.178268").double
     #expect(temp.similar(to: -17.012422))
-    temp = calculator.asDouble("31.955162 + 51.13752")
+    temp = calculator.evaluateString("31.955162 + 51.13752").double
     #expect(temp.similar(to: 83.092682))
-    temp = calculator.asDouble("70.78456 + 0.778496")
+    temp = calculator.evaluateString("70.78456 + 0.778496").double
     #expect(temp.similar(to: 71.563056))
-    temp = calculator.asDouble("93.822773 + 47.142042")
+    temp = calculator.evaluateString("93.822773 + 47.142042").double
     #expect(temp.similar(to: 140.964815))
-    temp = calculator.asDouble("64.691063 / 66.443741")
+    temp = calculator.evaluateString("64.691063 / 66.443741").double
     #expect(temp.similar(to: 0.973622))
-    temp = calculator.asDouble("69.786451 - 89.997669")
+    temp = calculator.evaluateString("69.786451 - 89.997669").double
     #expect(temp.similar(to: -20.211218))
-    temp = calculator.asDouble("24.243031 - 92.499174")
+    temp = calculator.evaluateString("24.243031 - 92.499174").double
     #expect(temp.similar(to: -68.256143))
-    temp = calculator.asDouble("19.082381 * 36.261034")
+    temp = calculator.evaluateString("19.082381 * 36.261034").double
     #expect(temp.similar(to: 691.946866))
-    temp = calculator.asDouble("39.818178 / 54.426106")
+    temp = calculator.evaluateString("39.818178 / 54.426106").double
     #expect(temp.similar(to: 0.731601))
-    temp = calculator.asDouble("86.666221 + 15.538018")
+    temp = calculator.evaluateString("86.666221 + 15.538018").double
     #expect(temp.similar(to: 102.204239))
-    temp = calculator.asDouble("1.206086 - 23.985463")
+    temp = calculator.evaluateString("1.206086 - 23.985463").double
     #expect(temp.similar(to: -22.779377))
-    temp = calculator.asDouble("93.12549 + 78.11487")
+    temp = calculator.evaluateString("93.12549 + 78.11487").double
     #expect(temp.similar(to: 171.24036))
-    temp = calculator.asDouble("62.791216 / 77.969075")
+    temp = calculator.evaluateString("62.791216 / 77.969075").double
     #expect(temp.similar(to: 0.805335))
-    temp = calculator.asDouble("29.634264 - 34.682167")
+    temp = calculator.evaluateString("29.634264 - 34.682167").double
     #expect(temp.similar(to: -5.047903))
-    temp = calculator.asDouble("11.634179 + 78.792589")
+    temp = calculator.evaluateString("11.634179 + 78.792589").double
     #expect(temp.similar(to: 90.426768))
-    temp = calculator.asDouble("23.050193 - 75.11232")
+    temp = calculator.evaluateString("23.050193 - 75.11232").double
     #expect(temp.similar(to: -52.062127))
-    temp = calculator.asDouble("94.419906 * 51.481133")
+    temp = calculator.evaluateString("94.419906 * 51.481133").double
     #expect(temp.similar(to: 4860.843739))
-    temp = calculator.asDouble("39.967609 * 93.762488")
+    temp = calculator.evaluateString("39.967609 * 93.762488").double
     #expect(temp.similar(to: 3747.462459))
-    temp = calculator.asDouble("11.976291 / 99.11258")
+    temp = calculator.evaluateString("11.976291 / 99.11258").double
     #expect(temp.similar(to: 0.120835))
-    temp = calculator.asDouble("72.196582 + 48.631424")
+    temp = calculator.evaluateString("72.196582 + 48.631424").double
     #expect(temp.similar(to: 120.828006))
-    temp = calculator.asDouble("55.127565 / 74.921373")
+    temp = calculator.evaluateString("55.127565 / 74.921373").double
     #expect(temp.similar(to: 0.735806))
-    temp = calculator.asDouble("2.12243 / 34.45723")
+    temp = calculator.evaluateString("2.12243 / 34.45723").double
     #expect(temp.similar(to: 0.061596))
-    temp = calculator.asDouble("49.725944 * 55.862281")
+    temp = calculator.evaluateString("49.725944 * 55.862281").double
     #expect(temp.similar(to: 2777.804657))
-    temp = calculator.asDouble("8.681463 + 56.765269")
+    temp = calculator.evaluateString("8.681463 + 56.765269").double
     #expect(temp.similar(to: 65.446732))
-    temp = calculator.asDouble("1.508101 * 68.298919")
+    temp = calculator.evaluateString("1.508101 * 68.298919").double
     #expect(temp.similar(to: 103.001668))
-    temp = calculator.asDouble("57.032746 / 11.776241")
+    temp = calculator.evaluateString("57.032746 / 11.776241").double
     #expect(temp.similar(to: 4.843035))
-    temp = calculator.asDouble("73.366532 - 33.232551")
+    temp = calculator.evaluateString("73.366532 - 33.232551").double
     #expect(temp.similar(to: 40.133981))
-    temp = calculator.asDouble("90.038026 - 6.257582")
+    temp = calculator.evaluateString("90.038026 - 6.257582").double
     #expect(temp.similar(to: 83.780444))
-    temp = calculator.asDouble("96.824437 * 56.618942")
+    temp = calculator.evaluateString("96.824437 * 56.618942").double
     #expect(temp.similar(to: 5482.097183))
-    temp = calculator.asDouble("84.344644 / 59.055717")
+    temp = calculator.evaluateString("84.344644 / 59.055717").double
     #expect(temp.similar(to: 1.428221))
-    temp = calculator.asDouble("3.925836 - 89.718428")
+    temp = calculator.evaluateString("3.925836 - 89.718428").double
     #expect(temp.similar(to: -85.792592))
-    temp = calculator.asDouble("77.156207 - 93.469201")
+    temp = calculator.evaluateString("77.156207 - 93.469201").double
     #expect(temp.similar(to: -16.312994))
-    temp = calculator.asDouble("5.090155 / 21.919771")
+    temp = calculator.evaluateString("5.090155 / 21.919771").double
     #expect(temp.similar(to: 0.232218))
-    temp = calculator.asDouble("19.030602 + 93.996764")
+    temp = calculator.evaluateString("19.030602 + 93.996764").double
     #expect(temp.similar(to: 113.027366))
-    temp = calculator.asDouble("17.664115 * 95.742056")
+    temp = calculator.evaluateString("17.664115 * 95.742056").double
     #expect(temp.similar(to: 1691.198688))
-    temp = calculator.asDouble("52.129916 + 98.442839")
+    temp = calculator.evaluateString("52.129916 + 98.442839").double
     #expect(temp.similar(to: 150.572755))
-    temp = calculator.asDouble("88.116382 - 26.107245")
+    temp = calculator.evaluateString("88.116382 - 26.107245").double
     #expect(temp.similar(to: 62.009137))
-    temp = calculator.asDouble("1.684655 * 35.143308")
+    temp = calculator.evaluateString("1.684655 * 35.143308").double
     #expect(temp.similar(to: 59.20435))
-    temp = calculator.asDouble("10.503897 - 62.829025")
+    temp = calculator.evaluateString("10.503897 - 62.829025").double
     #expect(temp.similar(to: -52.325128))
-    temp = calculator.asDouble("5.193118 + 90.121882")
+    temp = calculator.evaluateString("5.193118 + 90.121882").double
     #expect(temp.similar(to: 95.315))
-    temp = calculator.asDouble("32.945184 / 62.874348")
+    temp = calculator.evaluateString("32.945184 / 62.874348").double
     #expect(temp.similar(to: 0.523985))
-    temp = calculator.asDouble("44.872147 / 39.545626")
+    temp = calculator.evaluateString("44.872147 / 39.545626").double
     #expect(temp.similar(to: 1.134693))
-    temp = calculator.asDouble("40.346363 + 96.718852")
+    temp = calculator.evaluateString("40.346363 + 96.718852").double
     #expect(temp.similar(to: 137.065215))
-    temp = calculator.asDouble("10.81021 - 41.657902")
+    temp = calculator.evaluateString("10.81021 - 41.657902").double
     #expect(temp.similar(to: -30.847692))
-    temp = calculator.asDouble("26.746151 / 46.500323")
+    temp = calculator.evaluateString("26.746151 / 46.500323").double
     #expect(temp.similar(to: 0.575182))
-    temp = calculator.asDouble("88.675257 / 75.38798")
+    temp = calculator.evaluateString("88.675257 / 75.38798").double
     #expect(temp.similar(to: 1.176252))
-    temp = calculator.asDouble("77.690011 + 30.263029")
+    temp = calculator.evaluateString("77.690011 + 30.263029").double
     #expect(temp.similar(to: 107.95304))
-    temp = calculator.asDouble("58.759077 / 30.54882")
+    temp = calculator.evaluateString("58.759077 / 30.54882").double
     #expect(temp.similar(to: 1.923448))
-    temp = calculator.asDouble("88.078297 * 56.383116")
+    temp = calculator.evaluateString("88.078297 * 56.383116").double
     #expect(temp.similar(to: 4966.128837))
-    temp = calculator.asDouble("30.275551 / 77.913403")
+    temp = calculator.evaluateString("30.275551 / 77.913403").double
     #expect(temp.similar(to: 0.388579))
-    temp = calculator.asDouble("44.949831 / 95.970968")
+    temp = calculator.evaluateString("44.949831 / 95.970968").double
     #expect(temp.similar(to: 0.468369))
-    temp = calculator.asDouble("57.812285 + 38.070131")
+    temp = calculator.evaluateString("57.812285 + 38.070131").double
     #expect(temp.similar(to: 95.882416))
-    temp = calculator.asDouble("59.51429 - 18.279188")
+    temp = calculator.evaluateString("59.51429 - 18.279188").double
     #expect(temp.similar(to: 41.235102))
-    temp = calculator.asDouble("65.127279 + 72.658979")
+    temp = calculator.evaluateString("65.127279 + 72.658979").double
     #expect(temp.similar(to: 137.786258))
-    temp = calculator.asDouble("42.541289 * 62.738136")
+    temp = calculator.evaluateString("42.541289 * 62.738136").double
     #expect(temp.similar(to: 2668.961175))
-    temp = calculator.asDouble("34.795104 / 49.554193")
+    temp = calculator.evaluateString("34.795104 / 49.554193").double
     #expect(temp.similar(to: 0.702163))
-    temp = calculator.asDouble("2.505697 * 20.191147")
+    temp = calculator.evaluateString("2.505697 * 20.191147").double
     #expect(temp.similar(to: 50.592896))
-    temp = calculator.asDouble("64.010212 / 28.39995")
+    temp = calculator.evaluateString("64.010212 / 28.39995").double
     #expect(temp.similar(to: 2.253885))
-    temp = calculator.asDouble("6.864224 / 85.123169")
+    temp = calculator.evaluateString("6.864224 / 85.123169").double
     #expect(temp.similar(to: 0.080639))
-    temp = calculator.asDouble("38.196608 / 61.786029")
+    temp = calculator.evaluateString("38.196608 / 61.786029").double
     #expect(temp.similar(to: 0.618208))
-    temp = calculator.asDouble("57.241922 - 26.15532")
+    temp = calculator.evaluateString("57.241922 - 26.15532").double
     #expect(temp.similar(to: 31.086602))
-    temp = calculator.asDouble("22.67777 * 89.555936")
+    temp = calculator.evaluateString("22.67777 * 89.555936").double
     #expect(temp.similar(to: 2030.928919))
-    temp = calculator.asDouble("5.728776 + 68.544946")
+    temp = calculator.evaluateString("5.728776 + 68.544946").double
     #expect(temp.similar(to: 74.273722))
-    temp = calculator.asDouble("59.333817 - 56.923592")
+    temp = calculator.evaluateString("59.333817 - 56.923592").double
     #expect(temp.similar(to: 2.410225))
-    temp = calculator.asDouble("85.265549 / 97.306894")
+    temp = calculator.evaluateString("85.265549 / 97.306894").double
     #expect(temp.similar(to: 0.876254))
-    temp = calculator.asDouble("93.222455 + 34.158929")
+    temp = calculator.evaluateString("93.222455 + 34.158929").double
     #expect(temp.similar(to: 127.381384))
-    temp = calculator.asDouble("84.340129 / 64.093667")
+    temp = calculator.evaluateString("84.340129 / 64.093667").double
     #expect(temp.similar(to: 1.315889))
-    temp = calculator.asDouble("86.904099 / 78.682416")
+    temp = calculator.evaluateString("86.904099 / 78.682416").double
     #expect(temp.similar(to: 1.104492))
-    temp = calculator.asDouble("6.550028 * 22.074715")
+    temp = calculator.evaluateString("6.550028 * 22.074715").double
     #expect(temp.similar(to: 144.590001))
-    temp = calculator.asDouble("97.551723 + 55.117794")
+    temp = calculator.evaluateString("97.551723 + 55.117794").double
     #expect(temp.similar(to: 152.669517))
-    temp = calculator.asDouble("6.562474 * 8.945287")
+    temp = calculator.evaluateString("6.562474 * 8.945287").double
     #expect(temp.similar(to: 58.703213))
-    temp = calculator.asDouble("65.712561 + 55.871315")
+    temp = calculator.evaluateString("65.712561 + 55.871315").double
     #expect(temp.similar(to: 121.583876))
-    temp = calculator.asDouble("83.263463 - 53.058938")
+    temp = calculator.evaluateString("83.263463 - 53.058938").double
     #expect(temp.similar(to: 30.204525))
-    temp = calculator.asDouble("12.299057 * 45.260976")
+    temp = calculator.evaluateString("12.299057 * 45.260976").double
     #expect(temp.similar(to: 556.667324))
-    temp = calculator.asDouble("40.893155 / 80.466412")
+    temp = calculator.evaluateString("40.893155 / 80.466412").double
     #expect(temp.similar(to: 0.508202))
-    temp = calculator.asDouble("90.303122 / 18.840676")
+    temp = calculator.evaluateString("90.303122 / 18.840676").double
     #expect(temp.similar(to: 4.792987))
-    temp = calculator.asDouble("0.850323 + 83.436132")
+    temp = calculator.evaluateString("0.850323 + 83.436132").double
     #expect(temp.similar(to: 84.286455))
-    temp = calculator.asDouble("20.027949 + 84.707717")
+    temp = calculator.evaluateString("20.027949 + 84.707717").double
     #expect(temp.similar(to: 104.735666))
-    temp = calculator.asDouble("61.520892 * 9.546457")
+    temp = calculator.evaluateString("61.520892 * 9.546457").double
     #expect(temp.similar(to: 587.30655))
-    temp = calculator.asDouble("27.730166 + 63.820423")
+    temp = calculator.evaluateString("27.730166 + 63.820423").double
     #expect(temp.similar(to: 91.550589))
-    temp = calculator.asDouble("16.811707 + 69.071671")
+    temp = calculator.evaluateString("16.811707 + 69.071671").double
     #expect(temp.similar(to: 85.883378))
-    temp = calculator.asDouble("38.725592 / 21.010346")
+    temp = calculator.evaluateString("38.725592 / 21.010346").double
     #expect(temp.similar(to: 1.843168))
-    temp = calculator.asDouble("6.54684 - 72.525105")
+    temp = calculator.evaluateString("6.54684 - 72.525105").double
     #expect(temp.similar(to: -65.978265))
-    temp = calculator.asDouble("39.915227 + 6.642652")
+    temp = calculator.evaluateString("39.915227 + 6.642652").double
     #expect(temp.similar(to: 46.557879))
-    temp = calculator.asDouble("97.072229 * 91.234577")
+    temp = calculator.evaluateString("97.072229 * 91.234577").double
     #expect(temp.similar(to: 8856.343751))
-    temp = calculator.asDouble("87.596152 * 9.815829")
+    temp = calculator.evaluateString("87.596152 * 9.815829").double
     #expect(temp.similar(to: 859.828849))
-    temp = calculator.asDouble("17.25777 + 43.910584")
+    temp = calculator.evaluateString("17.25777 + 43.910584").double
     #expect(temp.similar(to: 61.168354))
-    temp = calculator.asDouble("99.000982 / 14.729172")
+    temp = calculator.evaluateString("99.000982 / 14.729172").double
     #expect(temp.similar(to: 6.721422))
-    temp = calculator.asDouble("64.124976 + 77.027962")
+    temp = calculator.evaluateString("64.124976 + 77.027962").double
     #expect(temp.similar(to: 141.152938))
-    temp = calculator.asDouble("80.185158 + 86.541394")
+    temp = calculator.evaluateString("80.185158 + 86.541394").double
     #expect(temp.similar(to: 166.726552))
-    temp = calculator.asDouble("39.262906 + 66.022066")
+    temp = calculator.evaluateString("39.262906 + 66.022066").double
     #expect(temp.similar(to: 105.284972))
-    temp = calculator.asDouble("5.970765 / 58.942825")
+    temp = calculator.evaluateString("5.970765 / 58.942825").double
     #expect(temp.similar(to: 0.101298))
-    temp = calculator.asDouble("97.099263 + 71.829515")
+    temp = calculator.evaluateString("97.099263 + 71.829515").double
     #expect(temp.similar(to: 168.928778))
-    temp = calculator.asDouble("29.768218 + 94.171012")
+    temp = calculator.evaluateString("29.768218 + 94.171012").double
     #expect(temp.similar(to: 123.93923))
-    temp = calculator.asDouble("15.69458 - 88.994152")
+    temp = calculator.evaluateString("15.69458 - 88.994152").double
     #expect(temp.similar(to: -73.299572))
-    temp = calculator.asDouble("13.375384 - 27.123072")
+    temp = calculator.evaluateString("13.375384 - 27.123072").double
     #expect(temp.similar(to: -13.747688))
-    temp = calculator.asDouble("20.966564 + 63.778245")
+    temp = calculator.evaluateString("20.966564 + 63.778245").double
     #expect(temp.similar(to: 84.744809))
-    temp = calculator.asDouble("35.339072 / 86.651096")
+    temp = calculator.evaluateString("35.339072 / 86.651096").double
     #expect(temp.similar(to: 0.407832))
-    temp = calculator.asDouble("53.926198 - 10.910446")
+    temp = calculator.evaluateString("53.926198 - 10.910446").double
     #expect(temp.similar(to: 43.015752))
-    temp = calculator.asDouble("73.363096 + 26.854188")
+    temp = calculator.evaluateString("73.363096 + 26.854188").double
     #expect(temp.similar(to: 100.217284))
-    temp = calculator.asDouble("76.614024 * 74.459197")
+    temp = calculator.evaluateString("76.614024 * 74.459197").double
     #expect(temp.similar(to: 5704.618706))
-    temp = calculator.asDouble("36.662236 + 60.467136")
+    temp = calculator.evaluateString("36.662236 + 60.467136").double
     #expect(temp.similar(to: 97.129372))
-    temp = calculator.asDouble("82.079407 + 97.312778")
+    temp = calculator.evaluateString("82.079407 + 97.312778").double
     #expect(temp.similar(to: 179.392185))
-    temp = calculator.asDouble("71.147055 + 55.314686")
+    temp = calculator.evaluateString("71.147055 + 55.314686").double
     #expect(temp.similar(to: 126.461741))
-    temp = calculator.asDouble("80.564535 + 75.788161")
+    temp = calculator.evaluateString("80.564535 + 75.788161").double
     #expect(temp.similar(to: 156.352696))
-    temp = calculator.asDouble("28.005722 * 35.359676")
+    temp = calculator.evaluateString("28.005722 * 35.359676").double
     #expect(temp.similar(to: 990.273256))
-    temp = calculator.asDouble("60.853048 / 14.68687")
+    temp = calculator.evaluateString("60.853048 / 14.68687").double
     #expect(temp.similar(to: 4.143364))
-    temp = calculator.asDouble("27.880907 - 9.497255")
+    temp = calculator.evaluateString("27.880907 - 9.497255").double
     #expect(temp.similar(to: 18.383652))
-    temp = calculator.asDouble("97.191688 + 2.061499")
+    temp = calculator.evaluateString("97.191688 + 2.061499").double
     #expect(temp.similar(to: 99.253187))
-    temp = calculator.asDouble("53.261986 + 15.691992")
+    temp = calculator.evaluateString("53.261986 + 15.691992").double
     #expect(temp.similar(to: 68.953978))
-    temp = calculator.asDouble("11.717794 * 73.543562")
+    temp = calculator.evaluateString("11.717794 * 73.543562").double
     #expect(temp.similar(to: 861.76831))
-    temp = calculator.asDouble("69.317198 * 83.578221")
+    temp = calculator.evaluateString("69.317198 * 83.578221").double
     #expect(temp.similar(to: 5793.408094))
-    temp = calculator.asDouble("48.082249 / 31.256557")
+    temp = calculator.evaluateString("48.082249 / 31.256557").double
     #expect(temp.similar(to: 1.538309))
-    temp = calculator.asDouble("59.622424 / 50.043763")
+    temp = calculator.evaluateString("59.622424 / 50.043763").double
     #expect(temp.similar(to: 1.191406))
-    temp = calculator.asDouble("93.632774 + 98.925143")
+    temp = calculator.evaluateString("93.632774 + 98.925143").double
     #expect(temp.similar(to: 192.557917))
-    temp = calculator.asDouble("15.272669 * 88.251607")
+    temp = calculator.evaluateString("15.272669 * 88.251607").double
     #expect(temp.similar(to: 1347.837582))
-    temp = calculator.asDouble("78.398989 - 51.509752")
+    temp = calculator.evaluateString("78.398989 - 51.509752").double
     #expect(temp.similar(to: 26.889237))
-    temp = calculator.asDouble("48.962416 + 89.009251")
+    temp = calculator.evaluateString("48.962416 + 89.009251").double
     #expect(temp.similar(to: 137.971667))
-    temp = calculator.asDouble("85.5997 * 94.774104")
+    temp = calculator.evaluateString("85.5997 * 94.774104").double
     #expect(temp.similar(to: 8112.63487))
-    temp = calculator.asDouble("8.745174 * 91.144581")
+    temp = calculator.evaluateString("8.745174 * 91.144581").double
     #expect(temp.similar(to: 797.07522))
-    temp = calculator.asDouble("93.066732 * 94.314237")
+    temp = calculator.evaluateString("93.066732 * 94.314237").double
     #expect(temp.similar(to: 8777.517819))
-    temp = calculator.asDouble("94.168436 + 73.475628")
+    temp = calculator.evaluateString("94.168436 + 73.475628").double
     #expect(temp.similar(to: 167.644064))
-    temp = calculator.asDouble("29.29042 - 54.144122")
+    temp = calculator.evaluateString("29.29042 - 54.144122").double
     #expect(temp.similar(to: -24.853702))
-    temp = calculator.asDouble("32.603656 / 68.951934")
+    temp = calculator.evaluateString("32.603656 / 68.951934").double
     #expect(temp.similar(to: 0.472846))
-    temp = calculator.asDouble("70.017363 / 21.099284")
+    temp = calculator.evaluateString("70.017363 / 21.099284").double
     #expect(temp.similar(to: 3.318471))
-    temp = calculator.asDouble("1.789433 / 29.289003")
+    temp = calculator.evaluateString("1.789433 / 29.289003").double
     #expect(temp.similar(to: 0.061096))
-    temp = calculator.asDouble("20.04425 / 58.061606")
+    temp = calculator.evaluateString("20.04425 / 58.061606").double
     #expect(temp.similar(to: 0.345224))
-    temp = calculator.asDouble("78.533782 - 39.891802")
+    temp = calculator.evaluateString("78.533782 - 39.891802").double
     #expect(temp.similar(to: 38.64198))
-    temp = calculator.asDouble("55.941154 * 45.784567")
+    temp = calculator.evaluateString("55.941154 * 45.784567").double
     #expect(temp.similar(to: 2561.241513))
-    temp = calculator.asDouble("97.673676 / 25.241437")
+    temp = calculator.evaluateString("97.673676 / 25.241437").double
     #expect(temp.similar(to: 3.869577))
-    temp = calculator.asDouble("32.361657 / 26.535311")
+    temp = calculator.evaluateString("32.361657 / 26.535311").double
     #expect(temp.similar(to: 1.21957))
-    temp = calculator.asDouble("43.043696 + 10.92823")
+    temp = calculator.evaluateString("43.043696 + 10.92823").double
     #expect(temp.similar(to: 53.971926))
-    temp = calculator.asDouble("80.483266 + 74.303185")
+    temp = calculator.evaluateString("80.483266 + 74.303185").double
     #expect(temp.similar(to: 154.786451))
-    temp = calculator.asDouble("98.536763 - 58.717627")
+    temp = calculator.evaluateString("98.536763 - 58.717627").double
     #expect(temp.similar(to: 39.819136))
-    temp = calculator.asDouble("29.321839 - 56.247022")
+    temp = calculator.evaluateString("29.321839 - 56.247022").double
     #expect(temp.similar(to: -26.925183))
-    temp = calculator.asDouble("22.595612 + 76.377835")
+    temp = calculator.evaluateString("22.595612 + 76.377835").double
     #expect(temp.similar(to: 98.973447))
-    temp = calculator.asDouble("23.327587 - 43.442992")
+    temp = calculator.evaluateString("23.327587 - 43.442992").double
     #expect(temp.similar(to: -20.115405))
-    temp = calculator.asDouble("48.2597 * 84.965538")
+    temp = calculator.evaluateString("48.2597 * 84.965538").double
     #expect(temp.similar(to: 4100.411374))
-    temp = calculator.asDouble("48.946952 - 78.129347")
+    temp = calculator.evaluateString("48.946952 - 78.129347").double
     #expect(temp.similar(to: -29.182395))
-    temp = calculator.asDouble("41.214647 * 42.877304")
+    temp = calculator.evaluateString("41.214647 * 42.877304").double
     #expect(temp.similar(to: 1767.172949))
-    temp = calculator.asDouble("59.811775 / 22.838769")
+    temp = calculator.evaluateString("59.811775 / 22.838769").double
     #expect(temp.similar(to: 2.61887))
-    temp = calculator.asDouble("90.237591 + 20.163291")
+    temp = calculator.evaluateString("90.237591 + 20.163291").double
     #expect(temp.similar(to: 110.400882))
-    temp = calculator.asDouble("70.839661 * 97.271651")
+    temp = calculator.evaluateString("70.839661 * 97.271651").double
     #expect(temp.similar(to: 6890.690782))
-    temp = calculator.asDouble("10.935885 / 50.213889")
+    temp = calculator.evaluateString("10.935885 / 50.213889").double
     #expect(temp.similar(to: 0.217786))
-    temp = calculator.asDouble("41.566237 - 82.185268")
+    temp = calculator.evaluateString("41.566237 - 82.185268").double
     #expect(temp.similar(to: -40.619031))
-    temp = calculator.asDouble("58.166051 - 93.917272")
+    temp = calculator.evaluateString("58.166051 - 93.917272").double
     #expect(temp.similar(to: -35.751221))
-    temp = calculator.asDouble("49.351272 + 84.415107")
+    temp = calculator.evaluateString("49.351272 + 84.415107").double
     #expect(temp.similar(to: 133.766379))
-    temp = calculator.asDouble("34.38881 - 43.557727")
+    temp = calculator.evaluateString("34.38881 - 43.557727").double
     #expect(temp.similar(to: -9.168917))
-    temp = calculator.asDouble("49.015336 - 46.285881")
+    temp = calculator.evaluateString("49.015336 - 46.285881").double
     #expect(temp.similar(to: 2.729455))
-    temp = calculator.asDouble("27.11216 - 68.536069")
+    temp = calculator.evaluateString("27.11216 - 68.536069").double
     #expect(temp.similar(to: -41.423909))
-    temp = calculator.asDouble("91.569391 + 70.320176")
+    temp = calculator.evaluateString("91.569391 + 70.320176").double
     #expect(temp.similar(to: 161.889567))
-    temp = calculator.asDouble("19.403201 - 72.036394")
+    temp = calculator.evaluateString("19.403201 - 72.036394").double
     #expect(temp.similar(to: -52.633193))
-    temp = calculator.asDouble("52.089188 / 95.445109")
+    temp = calculator.evaluateString("52.089188 / 95.445109").double
     #expect(temp.similar(to: 0.54575))
-    temp = calculator.asDouble("31.204198 / 57.46115")
+    temp = calculator.evaluateString("31.204198 / 57.46115").double
     #expect(temp.similar(to: 0.543049))
-    temp = calculator.asDouble("95.669464 - 71.590286")
+    temp = calculator.evaluateString("95.669464 - 71.590286").double
     #expect(temp.similar(to: 24.079178))
-    temp = calculator.asDouble("67.39495 - 91.617253")
+    temp = calculator.evaluateString("67.39495 - 91.617253").double
     #expect(temp.similar(to: -24.222303))
-    temp = calculator.asDouble("87.737706 + 91.892735")
+    temp = calculator.evaluateString("87.737706 + 91.892735").double
     #expect(temp.similar(to: 179.630441))
-    temp = calculator.asDouble("14.249792 + 25.727009")
+    temp = calculator.evaluateString("14.249792 + 25.727009").double
     #expect(temp.similar(to: 39.976801))
-    temp = calculator.asDouble("3.954104 * 54.085848")
+    temp = calculator.evaluateString("3.954104 * 54.085848").double
     #expect(temp.similar(to: 213.861068))
-    temp = calculator.asDouble("42.291863 - 19.988713")
+    temp = calculator.evaluateString("42.291863 - 19.988713").double
     #expect(temp.similar(to: 22.30315))
-    temp = calculator.asDouble("93.388339 / 77.405116")
+    temp = calculator.evaluateString("93.388339 / 77.405116").double
     #expect(temp.similar(to: 1.206488))
-    temp = calculator.asDouble("43.611937 / 96.158972")
+    temp = calculator.evaluateString("43.611937 / 96.158972").double
     #expect(temp.similar(to: 0.45354))
-    temp = calculator.asDouble("34.09177 - 56.952652")
+    temp = calculator.evaluateString("34.09177 - 56.952652").double
     #expect(temp.similar(to: -22.860882))
-    temp = calculator.asDouble("15.343612 + 61.476826")
+    temp = calculator.evaluateString("15.343612 + 61.476826").double
     #expect(temp.similar(to: 76.820438))
-    temp = calculator.asDouble("13.207682 + 28.557278")
+    temp = calculator.evaluateString("13.207682 + 28.557278").double
     #expect(temp.similar(to: 41.76496))
-    temp = calculator.asDouble("75.809365 - 29.781978")
+    temp = calculator.evaluateString("75.809365 - 29.781978").double
     #expect(temp.similar(to: 46.027387))
-    temp = calculator.asDouble("83.50859 + 94.05625")
+    temp = calculator.evaluateString("83.50859 + 94.05625").double
     #expect(temp.similar(to: 177.56484))
-    temp = calculator.asDouble("50.649361 * 10.052714")
+    temp = calculator.evaluateString("50.649361 * 10.052714").double
     #expect(temp.similar(to: 509.16354))
-    temp = calculator.asDouble("9.250616 + 82.462055")
+    temp = calculator.evaluateString("9.250616 + 82.462055").double
     #expect(temp.similar(to: 91.712671))
-    temp = calculator.asDouble("5.543059 * 54.200285")
+    temp = calculator.evaluateString("5.543059 * 54.200285").double
     #expect(temp.similar(to: 300.435378))
-    temp = calculator.asDouble("53.874319 - 71.514554")
+    temp = calculator.evaluateString("53.874319 - 71.514554").double
     #expect(temp.similar(to: -17.640235))
-    temp = calculator.asDouble("32.516047 / 45.112234")
+    temp = calculator.evaluateString("32.516047 / 45.112234").double
     #expect(temp.similar(to: 0.720781))
-    temp = calculator.asDouble("15.563675 + 57.006144")
+    temp = calculator.evaluateString("15.563675 + 57.006144").double
     #expect(temp.similar(to: 72.569819))
-    temp = calculator.asDouble("92.415411 + 3.122161")
+    temp = calculator.evaluateString("92.415411 + 3.122161").double
     #expect(temp.similar(to: 95.537572))
-    temp = calculator.asDouble("81.038775 * 11.993301")
+    temp = calculator.evaluateString("81.038775 * 11.993301").double
     #expect(temp.similar(to: 971.922421))
-    temp = calculator.asDouble("4.921527 - 83.010462")
+    temp = calculator.evaluateString("4.921527 - 83.010462").double
     #expect(temp.similar(to: -78.088935))
-    temp = calculator.asDouble("22.820596 + 13.509753")
+    temp = calculator.evaluateString("22.820596 + 13.509753").double
     #expect(temp.similar(to: 36.330349))
-    temp = calculator.asDouble("68.701655 / 56.972838")
+    temp = calculator.evaluateString("68.701655 / 56.972838").double
     #expect(temp.similar(to: 1.205867))
-    temp = calculator.asDouble("82.11731 / 85.239085")
+    temp = calculator.evaluateString("82.11731 / 85.239085").double
     #expect(temp.similar(to: 0.963376))
-    temp = calculator.asDouble("26.391945 * 16.183917")
+    temp = calculator.evaluateString("26.391945 * 16.183917").double
     #expect(temp.similar(to: 427.125047))
-    temp = calculator.asDouble("25.543639 * 92.205389")
+    temp = calculator.evaluateString("25.543639 * 92.205389").double
     #expect(temp.similar(to: 2355.26117))
-    temp = calculator.asDouble("99.817681 * 26.042278")
+    temp = calculator.evaluateString("99.817681 * 26.042278").double
     #expect(temp.similar(to: 2599.479798))
-    temp = calculator.asDouble("33.780335 - 77.706936")
+    temp = calculator.evaluateString("33.780335 - 77.706936").double
     #expect(temp.similar(to: -43.926601))
-    temp = calculator.asDouble("36.013507 - 36.983514")
+    temp = calculator.evaluateString("36.013507 - 36.983514").double
     #expect(temp.similar(to: -0.970007))
-    temp = calculator.asDouble("40.708506 + 78.684214")
+    temp = calculator.evaluateString("40.708506 + 78.684214").double
     #expect(temp.similar(to: 119.39272))
-    temp = calculator.asDouble("78.838803 - 50.389699")
+    temp = calculator.evaluateString("78.838803 - 50.389699").double
     #expect(temp.similar(to: 28.449104))
-    temp = calculator.asDouble("68.884815 + 49.777974")
+    temp = calculator.evaluateString("68.884815 + 49.777974").double
     #expect(temp.similar(to: 118.662789))
-    temp = calculator.asDouble("86.055204 * 4.138501")
+    temp = calculator.evaluateString("86.055204 * 4.138501").double
     #expect(temp.similar(to: 356.139548))
-    temp = calculator.asDouble("0.63335 - 22.773793")
+    temp = calculator.evaluateString("0.63335 - 22.773793").double
     #expect(temp.similar(to: -22.140443))
-    temp = calculator.asDouble("41.975577 + 77.735423")
+    temp = calculator.evaluateString("41.975577 + 77.735423").double
     #expect(temp.similar(to: 119.711))
-    temp = calculator.asDouble("65.794443 / 45.545166")
+    temp = calculator.evaluateString("65.794443 / 45.545166").double
     #expect(temp.similar(to: 1.444598))
-    temp = calculator.asDouble("16.368648 * 53.158496")
+    temp = calculator.evaluateString("16.368648 * 53.158496").double
     #expect(temp.similar(to: 870.132709))
-    temp = calculator.asDouble("86.580096 + 20.071232")
+    temp = calculator.evaluateString("86.580096 + 20.071232").double
     #expect(temp.similar(to: 106.651328))
-    temp = calculator.asDouble("79.079146 + 83.729381")
+    temp = calculator.evaluateString("79.079146 + 83.729381").double
     #expect(temp.similar(to: 162.808527))
-    temp = calculator.asDouble("51.313679 / 62.940329")
+    temp = calculator.evaluateString("51.313679 / 62.940329").double
     #expect(temp.similar(to: 0.815275))
-    temp = calculator.asDouble("32.502716 + 49.094778")
+    temp = calculator.evaluateString("32.502716 + 49.094778").double
     #expect(temp.similar(to: 81.597494))
-    temp = calculator.asDouble("67.818719 / 73.114684")
+    temp = calculator.evaluateString("67.818719 / 73.114684").double
     #expect(temp.similar(to: 0.927566))
-    temp = calculator.asDouble("65.381604 * 93.021006")
+    temp = calculator.evaluateString("65.381604 * 93.021006").double
     #expect(temp.similar(to: 6081.862578))
-    temp = calculator.asDouble("23.243049 / 4.708298")
+    temp = calculator.evaluateString("23.243049 / 4.708298").double
     #expect(temp.similar(to: 4.936614))
-    temp = calculator.asDouble("72.301764 / 2.94652")
+    temp = calculator.evaluateString("72.301764 / 2.94652").double
     #expect(temp.similar(to: 24.538019))
-    temp = calculator.asDouble("66.235736 / 18.391365")
+    temp = calculator.evaluateString("66.235736 / 18.391365").double
     #expect(temp.similar(to: 3.601458))
-    temp = calculator.asDouble("40.516997 * 70.134655")
+    temp = calculator.evaluateString("40.516997 * 70.134655").double
     #expect(temp.similar(to: 2841.645606))
-    temp = calculator.asDouble("49.247898 - 43.456478")
+    temp = calculator.evaluateString("49.247898 - 43.456478").double
     #expect(temp.similar(to: 5.79142))
-    temp = calculator.asDouble("50.848695 * 65.567808")
+    temp = calculator.evaluateString("50.848695 * 65.567808").double
     #expect(temp.similar(to: 3334.037471))
-    temp = calculator.asDouble("12.917582 - 12.274207")
+    temp = calculator.evaluateString("12.917582 - 12.274207").double
     #expect(temp.similar(to: 0.643375))
-    temp = calculator.asDouble("46.535071 - 14.089998")
+    temp = calculator.evaluateString("46.535071 - 14.089998").double
     #expect(temp.similar(to: 32.445073))
-    temp = calculator.asDouble("22.942895 - 73.384117")
+    temp = calculator.evaluateString("22.942895 - 73.384117").double
     #expect(temp.similar(to: -50.441222))
-    temp = calculator.asDouble("51.067597 + 38.759056")
+    temp = calculator.evaluateString("51.067597 + 38.759056").double
     #expect(temp.similar(to: 89.826653))
-    temp = calculator.asDouble("68.254741 * 6.557788")
+    temp = calculator.evaluateString("68.254741 * 6.557788").double
     #expect(temp.similar(to: 447.600121))
-    temp = calculator.asDouble("70.183455 + 40.415475")
+    temp = calculator.evaluateString("70.183455 + 40.415475").double
     #expect(temp.similar(to: 110.59893))
-    temp = calculator.asDouble("73.161522 / 50.680554")
+    temp = calculator.evaluateString("73.161522 / 50.680554").double
     #expect(temp.similar(to: 1.443582))
-    temp = calculator.asDouble("26.684301 * 45.163892")
+    temp = calculator.evaluateString("26.684301 * 45.163892").double
     #expect(temp.similar(to: 1205.166888))
-    temp = calculator.asDouble("43.689996 * 74.948244")
+    temp = calculator.evaluateString("43.689996 * 74.948244").double
     #expect(temp.similar(to: 3274.488481))
-    temp = calculator.asDouble("41.294614 / 76.283904")
+    temp = calculator.evaluateString("41.294614 / 76.283904").double
     #expect(temp.similar(to: 0.541328))
-    temp = calculator.asDouble("46.749907 + 29.688602")
+    temp = calculator.evaluateString("46.749907 + 29.688602").double
     #expect(temp.similar(to: 76.438509))
-    temp = calculator.asDouble("95.313245 * 79.595988")
+    temp = calculator.evaluateString("95.313245 * 79.595988").double
     #expect(temp.similar(to: 7586.551905))
-    temp = calculator.asDouble("43.709077 - 40.916693")
+    temp = calculator.evaluateString("43.709077 - 40.916693").double
     #expect(temp.similar(to: 2.792384))
-    temp = calculator.asDouble("6.81425 * 86.247694")
+    temp = calculator.evaluateString("6.81425 * 86.247694").double
     #expect(temp.similar(to: 587.713349))
-    temp = calculator.asDouble("62.03049 - 43.681705")
+    temp = calculator.evaluateString("62.03049 - 43.681705").double
     #expect(temp.similar(to: 18.348785))
-    temp = calculator.asDouble("43.451844 + 15.128377")
+    temp = calculator.evaluateString("43.451844 + 15.128377").double
     #expect(temp.similar(to: 58.580221))
-    temp = calculator.asDouble("89.782494 + 6.225196")
+    temp = calculator.evaluateString("89.782494 + 6.225196").double
     #expect(temp.similar(to: 96.00769))
-    temp = calculator.asDouble("72.740641 * 45.265621")
+    temp = calculator.evaluateString("72.740641 * 45.265621").double
     #expect(temp.similar(to: 3292.650287))
-    temp = calculator.asDouble("26.610329 + 55.511873")
+    temp = calculator.evaluateString("26.610329 + 55.511873").double
     #expect(temp.similar(to: 82.122202))
-    temp = calculator.asDouble("44.942777 - 32.461504")
+    temp = calculator.evaluateString("44.942777 - 32.461504").double
     #expect(temp.similar(to: 12.481273))
-    temp = calculator.asDouble("68.078666 - 96.240896")
+    temp = calculator.evaluateString("68.078666 - 96.240896").double
     #expect(temp.similar(to: -28.16223))
-    temp = calculator.asDouble("76.169001 + 89.957778")
+    temp = calculator.evaluateString("76.169001 + 89.957778").double
     #expect(temp.similar(to: 166.126779))
-    temp = calculator.asDouble("13.59354 * 83.145472")
+    temp = calculator.evaluateString("13.59354 * 83.145472").double
     #expect(temp.similar(to: 1130.241299))
-    temp = calculator.asDouble("20.398665 * 17.351545")
+    temp = calculator.evaluateString("20.398665 * 17.351545").double
     #expect(temp.similar(to: 353.948354))
-    temp = calculator.asDouble("57.295311 / 62.902316")
+    temp = calculator.evaluateString("57.295311 / 62.902316").double
     #expect(temp.similar(to: 0.910862))
-    temp = calculator.asDouble("27.868672 / 82.941034")
+    temp = calculator.evaluateString("27.868672 / 82.941034").double
     #expect(temp.similar(to: 0.336006))
-    temp = calculator.asDouble("66.136471 * 30.767718")
+    temp = calculator.evaluateString("66.136471 * 30.767718").double
     #expect(temp.similar(to: 2034.868289))
-    temp = calculator.asDouble("96.68225 / 84.251627")
+    temp = calculator.evaluateString("96.68225 / 84.251627").double
     #expect(temp.similar(to: 1.147542))
-    temp = calculator.asDouble("97.590075 * 63.073913")
+    temp = calculator.evaluateString("97.590075 * 63.073913").double
     #expect(temp.similar(to: 6155.3879))
-    temp = calculator.asDouble("32.039936 / 30.305876")
+    temp = calculator.evaluateString("32.039936 / 30.305876").double
     #expect(temp.similar(to: 1.057219))
-    temp = calculator.asDouble("65.984162 + 2.388544")
+    temp = calculator.evaluateString("65.984162 + 2.388544").double
     #expect(temp.similar(to: 68.372706))
-    temp = calculator.asDouble("33.358707 + 61.848927")
+    temp = calculator.evaluateString("33.358707 + 61.848927").double
     #expect(temp.similar(to: 95.207634))
-    temp = calculator.asDouble("96.088601 - 51.483188")
+    temp = calculator.evaluateString("96.088601 - 51.483188").double
     #expect(temp.similar(to: 44.605413))
-    temp = calculator.asDouble("38.248182 * 79.801553")
+    temp = calculator.evaluateString("38.248182 * 79.801553").double
     #expect(temp.similar(to: 3052.264323))
-    temp = calculator.asDouble("72.995537 + 73.116777")
+    temp = calculator.evaluateString("72.995537 + 73.116777").double
     #expect(temp.similar(to: 146.112314))
-    temp = calculator.asDouble("96.426585 - 17.353525")
+    temp = calculator.evaluateString("96.426585 - 17.353525").double
     #expect(temp.similar(to: 79.07306))
-    temp = calculator.asDouble("69.788819 - 53.981731")
+    temp = calculator.evaluateString("69.788819 - 53.981731").double
     #expect(temp.similar(to: 15.807088))
-    temp = calculator.asDouble("44.40269 + 15.967999")
+    temp = calculator.evaluateString("44.40269 + 15.967999").double
     #expect(temp.similar(to: 60.370689))
-    temp = calculator.asDouble("29.864096 * 8.810747")
+    temp = calculator.evaluateString("29.864096 * 8.810747").double
     #expect(temp.similar(to: 263.124994))
-    temp = calculator.asDouble("30.842336 / 24.442607")
+    temp = calculator.evaluateString("30.842336 / 24.442607").double
     #expect(temp.similar(to: 1.261827))
-    temp = calculator.asDouble("7.864745 + 39.37684")
+    temp = calculator.evaluateString("7.864745 + 39.37684").double
     #expect(temp.similar(to: 47.241585))
-    temp = calculator.asDouble("69.620905 - 9.241086")
+    temp = calculator.evaluateString("69.620905 - 9.241086").double
     #expect(temp.similar(to: 60.379819))
-    temp = calculator.asDouble("9.399666 - 97.612966")
+    temp = calculator.evaluateString("9.399666 - 97.612966").double
     #expect(temp.similar(to: -88.2133))
-    temp = calculator.asDouble("28.002016 - 87.190029")
+    temp = calculator.evaluateString("28.002016 - 87.190029").double
     #expect(temp.similar(to: -59.188013))
-    temp = calculator.asDouble("44.381195 / 9.288776")
+    temp = calculator.evaluateString("44.381195 / 9.288776").double
     #expect(temp.similar(to: 4.777938))
-    temp = calculator.asDouble("31.590712 - 67.338696")
+    temp = calculator.evaluateString("31.590712 - 67.338696").double
     #expect(temp.similar(to: -35.747984))
-    temp = calculator.asDouble("98.055377 / 80.405172")
+    temp = calculator.evaluateString("98.055377 / 80.405172").double
     #expect(temp.similar(to: 1.219516))
-    temp = calculator.asDouble("65.874916 * 10.909515")
+    temp = calculator.evaluateString("65.874916 * 10.909515").double
     #expect(temp.similar(to: 718.663384))
-    temp = calculator.asDouble("21.60362 * 49.993744")
+    temp = calculator.evaluateString("21.60362 * 49.993744").double
     #expect(temp.similar(to: 1080.045848))
-    temp = calculator.asDouble("26.398877 - 21.876408")
+    temp = calculator.evaluateString("26.398877 - 21.876408").double
     #expect(temp.similar(to: 4.522469))
-    temp = calculator.asDouble("39.812656 + 56.282371")
+    temp = calculator.evaluateString("39.812656 + 56.282371").double
     #expect(temp.similar(to: 96.095027))
-    temp = calculator.asDouble("19.110064 - 95.227688")
+    temp = calculator.evaluateString("19.110064 - 95.227688").double
     #expect(temp.similar(to: -76.117624))
-    temp = calculator.asDouble("75.960368 * 38.904353")
+    temp = calculator.evaluateString("75.960368 * 38.904353").double
     #expect(temp.similar(to: 2955.188971))
-    temp = calculator.asDouble("76.268466 * 62.03606")
+    temp = calculator.evaluateString("76.268466 * 62.03606").double
     #expect(temp.similar(to: 4731.395133))
-    temp = calculator.asDouble("34.281915 - 4.711604")
+    temp = calculator.evaluateString("34.281915 - 4.711604").double
     #expect(temp.similar(to: 29.570311))
-    temp = calculator.asDouble("77.304292 * 75.066082")
+    temp = calculator.evaluateString("77.304292 * 75.066082").double
     #expect(temp.similar(to: 5802.930322))
-    temp = calculator.asDouble("25.336451 / 75.087532")
+    temp = calculator.evaluateString("25.336451 / 75.087532").double
     #expect(temp.similar(to: 0.337426))
-    temp = calculator.asDouble("38.867444 + 26.531991")
+    temp = calculator.evaluateString("38.867444 + 26.531991").double
     #expect(temp.similar(to: 65.399435))
-    temp = calculator.asDouble("79.751454 * 50.776681")
+    temp = calculator.evaluateString("79.751454 * 50.776681").double
     #expect(temp.similar(to: 4049.514139))
-    temp = calculator.asDouble("20.619602 + 38.609482")
+    temp = calculator.evaluateString("20.619602 + 38.609482").double
     #expect(temp.similar(to: 59.229084))
-    temp = calculator.asDouble("26.139775 + 3.210734")
+    temp = calculator.evaluateString("26.139775 + 3.210734").double
     #expect(temp.similar(to: 29.350509))
-    temp = calculator.asDouble("47.289157 + 73.603371")
+    temp = calculator.evaluateString("47.289157 + 73.603371").double
     #expect(temp.similar(to: 120.892528))
-    temp = calculator.asDouble("70.543807 * 62.564364")
+    temp = calculator.evaluateString("70.543807 * 62.564364").double
     #expect(temp.similar(to: 4413.528419))
-    temp = calculator.asDouble("77.128486 - 88.450523")
+    temp = calculator.evaluateString("77.128486 - 88.450523").double
     #expect(temp.similar(to: -11.322037))
-    temp = calculator.asDouble("67.340059 + 4.810931")
+    temp = calculator.evaluateString("67.340059 + 4.810931").double
     #expect(temp.similar(to: 72.15099))
-    temp = calculator.asDouble("67.425242 - 27.099637")
+    temp = calculator.evaluateString("67.425242 - 27.099637").double
     #expect(temp.similar(to: 40.325605))
-    temp = calculator.asDouble("82.357441 - 95.02233")
+    temp = calculator.evaluateString("82.357441 - 95.02233").double
     #expect(temp.similar(to: -12.664889))
-    temp = calculator.asDouble("19.93342 - 13.339477")
+    temp = calculator.evaluateString("19.93342 - 13.339477").double
     #expect(temp.similar(to: 6.593943))
-    temp = calculator.asDouble("38.173294 / 34.157592")
+    temp = calculator.evaluateString("38.173294 / 34.157592").double
     #expect(temp.similar(to: 1.117564))
-    temp = calculator.asDouble("46.821754 * 23.191382")
+    temp = calculator.evaluateString("46.821754 * 23.191382").double
     #expect(temp.similar(to: 1085.861183))
-    temp = calculator.asDouble("80.952946 * 98.390657")
+    temp = calculator.evaluateString("80.952946 * 98.390657").double
     #expect(temp.similar(to: 7965.013543))
-    temp = calculator.asDouble("32.66393 + 61.955686")
+    temp = calculator.evaluateString("32.66393 + 61.955686").double
     #expect(temp.similar(to: 94.619616))
-    temp = calculator.asDouble("33.926921 - 94.417468")
+    temp = calculator.evaluateString("33.926921 - 94.417468").double
     #expect(temp.similar(to: -60.490547))
-    temp = calculator.asDouble("50.730312 * 7.283638")
+    temp = calculator.evaluateString("50.730312 * 7.283638").double
     #expect(temp.similar(to: 369.501228))
-    temp = calculator.asDouble("67.367076 - 87.591518")
+    temp = calculator.evaluateString("67.367076 - 87.591518").double
     #expect(temp.similar(to: -20.224442))
-    temp = calculator.asDouble("11.7727 * 58.212212")
+    temp = calculator.evaluateString("11.7727 * 58.212212").double
     #expect(temp.similar(to: 685.314908))
-    temp = calculator.asDouble("33.40446 - 79.692882")
+    temp = calculator.evaluateString("33.40446 - 79.692882").double
     #expect(temp.similar(to: -46.288422))
-    temp = calculator.asDouble("8.372345 - 41.373909")
+    temp = calculator.evaluateString("8.372345 - 41.373909").double
     #expect(temp.similar(to: -33.001564))
-    temp = calculator.asDouble("15.823929 * 55.582838")
+    temp = calculator.evaluateString("15.823929 * 55.582838").double
     #expect(temp.similar(to: 879.538882))
-    temp = calculator.asDouble("9.103044 + 77.105665")
+    temp = calculator.evaluateString("9.103044 + 77.105665").double
     #expect(temp.similar(to: 86.208709))
-    temp = calculator.asDouble("38.113412 - 52.172032")
+    temp = calculator.evaluateString("38.113412 - 52.172032").double
     #expect(temp.similar(to: -14.05862))
-    temp = calculator.asDouble("55.193189 - 43.162351")
+    temp = calculator.evaluateString("55.193189 - 43.162351").double
     #expect(temp.similar(to: 12.030838))
-    temp = calculator.asDouble("69.889072 * 14.356788")
+    temp = calculator.evaluateString("69.889072 * 14.356788").double
     #expect(temp.similar(to: 1003.38259))
-    temp = calculator.asDouble("74.490692 / 28.253236")
+    temp = calculator.evaluateString("74.490692 / 28.253236").double
     #expect(temp.similar(to: 2.636537))
-    temp = calculator.asDouble("67.713376 - 48.499734")
+    temp = calculator.evaluateString("67.713376 - 48.499734").double
     #expect(temp.similar(to: 19.213642))
-    temp = calculator.asDouble("70.798919 - 47.902509")
+    temp = calculator.evaluateString("70.798919 - 47.902509").double
     #expect(temp.similar(to: 22.89641))
-    temp = calculator.asDouble("90.770667 * 2.760267")
+    temp = calculator.evaluateString("90.770667 * 2.760267").double
     #expect(temp.similar(to: 250.551277))
-    temp = calculator.asDouble("14.664407 / 98.248077")
+    temp = calculator.evaluateString("14.664407 / 98.248077").double
     #expect(temp.similar(to: 0.149259))
-    temp = calculator.asDouble("80.465744 * 45.764446")
+    temp = calculator.evaluateString("80.465744 * 45.764446").double
     #expect(temp.similar(to: 3682.470196))
-    temp = calculator.asDouble("95.708464 / 91.825749")
+    temp = calculator.evaluateString("95.708464 / 91.825749").double
     #expect(temp.similar(to: 1.042284))
-    temp = calculator.asDouble("69.871886 - 48.754451")
+    temp = calculator.evaluateString("69.871886 - 48.754451").double
     #expect(temp.similar(to: 21.117435))
-    temp = calculator.asDouble("52.516078 + 8.865697")
+    temp = calculator.evaluateString("52.516078 + 8.865697").double
     #expect(temp.similar(to: 61.381775))
-    temp = calculator.asDouble("37.458091 - 54.131278")
+    temp = calculator.evaluateString("37.458091 - 54.131278").double
     #expect(temp.similar(to: -16.673187))
-    temp = calculator.asDouble("98.908552 + 6.827819")
+    temp = calculator.evaluateString("98.908552 + 6.827819").double
     #expect(temp.similar(to: 105.736371))
-    temp = calculator.asDouble("57.418903 * 17.87903")
+    temp = calculator.evaluateString("57.418903 * 17.87903").double
     #expect(temp.similar(to: 1026.594289))
-    temp = calculator.asDouble("20.911031 * 76.66066")
+    temp = calculator.evaluateString("20.911031 * 76.66066").double
     #expect(temp.similar(to: 1603.053438))
-    temp = calculator.asDouble("87.507724 * 58.633915")
+    temp = calculator.evaluateString("87.507724 * 58.633915").double
     #expect(temp.similar(to: 5130.920451))
-    temp = calculator.asDouble("80.406989 / 24.212435")
+    temp = calculator.evaluateString("80.406989 / 24.212435").double
     #expect(temp.similar(to: 3.320896))
-    temp = calculator.asDouble("78.140735 - 11.550713")
+    temp = calculator.evaluateString("78.140735 - 11.550713").double
     #expect(temp.similar(to: 66.590022))
-    temp = calculator.asDouble("82.459003 - 58.964603")
+    temp = calculator.evaluateString("82.459003 - 58.964603").double
     #expect(temp.similar(to: 23.4944))
-    temp = calculator.asDouble("45.792115 / 88.318926")
+    temp = calculator.evaluateString("45.792115 / 88.318926").double
     #expect(temp.similar(to: 0.518486))
-    temp = calculator.asDouble("58.751588 / 11.687671")
+    temp = calculator.evaluateString("58.751588 / 11.687671").double
     #expect(temp.similar(to: 5.0268))
-    temp = calculator.asDouble("70.356961 * 49.785978")
+    temp = calculator.evaluateString("70.356961 * 49.785978").double
     #expect(temp.similar(to: 3502.790112))
-    temp = calculator.asDouble("85.738537 + 15.82217")
+    temp = calculator.evaluateString("85.738537 + 15.82217").double
     #expect(temp.similar(to: 101.560707))
-    temp = calculator.asDouble("83.038563 * 47.705108")
+    temp = calculator.evaluateString("83.038563 * 47.705108").double
     #expect(temp.similar(to: 3961.363616))
-    temp = calculator.asDouble("45.915743 + 29.205557")
+    temp = calculator.evaluateString("45.915743 + 29.205557").double
     #expect(temp.similar(to: 75.1213))
-    temp = calculator.asDouble("65.416728 + 28.613054")
+    temp = calculator.evaluateString("65.416728 + 28.613054").double
     #expect(temp.similar(to: 94.029782))
-    temp = calculator.asDouble("47.861776 - 91.793745")
+    temp = calculator.evaluateString("47.861776 - 91.793745").double
     #expect(temp.similar(to: -43.931969))
-    temp = calculator.asDouble("80.13062 + 15.264101")
+    temp = calculator.evaluateString("80.13062 + 15.264101").double
     #expect(temp.similar(to: 95.394721))
-    temp = calculator.asDouble("17.024705 * 70.930562")
+    temp = calculator.evaluateString("17.024705 * 70.930562").double
     #expect(temp.similar(to: 1207.571894))
-    temp = calculator.asDouble("48.696501 - 69.214711")
+    temp = calculator.evaluateString("48.696501 - 69.214711").double
     #expect(temp.similar(to: -20.51821))
-    temp = calculator.asDouble("20.466003 - 22.263786")
+    temp = calculator.evaluateString("20.466003 - 22.263786").double
     #expect(temp.similar(to: -1.797783))
-    temp = calculator.asDouble("94.923391 - 43.946236")
+    temp = calculator.evaluateString("94.923391 - 43.946236").double
     #expect(temp.similar(to: 50.977155))
-    temp = calculator.asDouble("87.34236 - 2.553317")
+    temp = calculator.evaluateString("87.34236 - 2.553317").double
     #expect(temp.similar(to: 84.789043))
-    temp = calculator.asDouble("72.191831 / 76.89839")
+    temp = calculator.evaluateString("72.191831 / 76.89839").double
     #expect(temp.similar(to: 0.938795))
-    temp = calculator.asDouble("18.479029 + 89.949173")
+    temp = calculator.evaluateString("18.479029 + 89.949173").double
     #expect(temp.similar(to: 108.428202))
-    temp = calculator.asDouble("28.454544 / 2.193007")
+    temp = calculator.evaluateString("28.454544 / 2.193007").double
     #expect(temp.similar(to: 12.975127))
-    temp = calculator.asDouble("5.065607 * 55.951889")
+    temp = calculator.evaluateString("5.065607 * 55.951889").double
     #expect(temp.similar(to: 283.430281))
-    temp = calculator.asDouble("11.802279 * 73.558794")
+    temp = calculator.evaluateString("11.802279 * 73.558794").double
     #expect(temp.similar(to: 868.16141))
-    temp = calculator.asDouble("83.04682 / 43.449952")
+    temp = calculator.evaluateString("83.04682 / 43.449952").double
     #expect(temp.similar(to: 1.911321))
-    temp = calculator.asDouble("37.181862 - 17.420228")
+    temp = calculator.evaluateString("37.181862 - 17.420228").double
     #expect(temp.similar(to: 19.761634))
-    temp = calculator.asDouble("11.384335 + 74.891725")
+    temp = calculator.evaluateString("11.384335 + 74.891725").double
     #expect(temp.similar(to: 86.27606))
-    temp = calculator.asDouble("89.876991 + 84.813928")
+    temp = calculator.evaluateString("89.876991 + 84.813928").double
     #expect(temp.similar(to: 174.690919))
-    temp = calculator.asDouble("15.897304 / 37.406278")
+    temp = calculator.evaluateString("15.897304 / 37.406278").double
     #expect(temp.similar(to: 0.42499))
-    temp = calculator.asDouble("22.98804 * 53.703673")
+    temp = calculator.evaluateString("22.98804 * 53.703673").double
     #expect(temp.similar(to: 1234.542183))
-    temp = calculator.asDouble("46.391667 / 17.196765")
+    temp = calculator.evaluateString("46.391667 / 17.196765").double
     #expect(temp.similar(to: 2.697697))
-    temp = calculator.asDouble("21.967781 + 25.469047")
+    temp = calculator.evaluateString("21.967781 + 25.469047").double
     #expect(temp.similar(to: 47.436828))
-    temp = calculator.asDouble("26.748584 / 71.031862")
+    temp = calculator.evaluateString("26.748584 / 71.031862").double
     #expect(temp.similar(to: 0.376572))
-    temp = calculator.asDouble("22.120935 - 48.388998")
+    temp = calculator.evaluateString("22.120935 - 48.388998").double
     #expect(temp.similar(to: -26.268063))
-    temp = calculator.asDouble("42.52713 * 47.220925")
+    temp = calculator.evaluateString("42.52713 * 47.220925").double
     #expect(temp.similar(to: 2008.170416))
-    temp = calculator.asDouble("15.51373 / 67.058935")
+    temp = calculator.evaluateString("15.51373 / 67.058935").double
     #expect(temp.similar(to: 0.231345))
-    temp = calculator.asDouble("5.131439 / 69.6051")
+    temp = calculator.evaluateString("5.131439 / 69.6051").double
     #expect(temp.similar(to: 0.073722))
-    temp = calculator.asDouble("59.789254 * 46.786012")
+    temp = calculator.evaluateString("59.789254 * 46.786012").double
     #expect(temp.similar(to: 2797.300755))
-    temp = calculator.asDouble("68.008921 / 22.140733")
+    temp = calculator.evaluateString("68.008921 / 22.140733").double
     #expect(temp.similar(to: 3.071665))
-    temp = calculator.asDouble("58.531777 * 60.272506")
+    temp = calculator.evaluateString("58.531777 * 60.272506").double
     #expect(temp.similar(to: 3527.85688))
-    temp = calculator.asDouble("27.196757 + 85.881825")
+    temp = calculator.evaluateString("27.196757 + 85.881825").double
     #expect(temp.similar(to: 113.078582))
-    temp = calculator.asDouble("65.953908 + 81.308789")
+    temp = calculator.evaluateString("65.953908 + 81.308789").double
     #expect(temp.similar(to: 147.262697))
-    temp = calculator.asDouble("68.960315 + 4.299658")
+    temp = calculator.evaluateString("68.960315 + 4.299658").double
     #expect(temp.similar(to: 73.259973))
-    temp = calculator.asDouble("34.687341 + 36.520121")
+    temp = calculator.evaluateString("34.687341 + 36.520121").double
     #expect(temp.similar(to: 71.207462))
-    temp = calculator.asDouble("48.91872 * 62.375151")
+    temp = calculator.evaluateString("48.91872 * 62.375151").double
     #expect(temp.similar(to: 3051.312547))
-    temp = calculator.asDouble("75.438944 / 19.145965")
+    temp = calculator.evaluateString("75.438944 / 19.145965").double
     #expect(temp.similar(to: 3.940201))
-    temp = calculator.asDouble("86.444951 / 76.63354")
+    temp = calculator.evaluateString("86.444951 / 76.63354").double
     #expect(temp.similar(to: 1.12803))
-    temp = calculator.asDouble("40.401125 * 37.243151")
+    temp = calculator.evaluateString("40.401125 * 37.243151").double
     #expect(temp.similar(to: 1504.665199))
-    temp = calculator.asDouble("98.40084 - 25.369962")
+    temp = calculator.evaluateString("98.40084 - 25.369962").double
     #expect(temp.similar(to: 73.030878))
-    temp = calculator.asDouble("62.47475 + 79.61332")
+    temp = calculator.evaluateString("62.47475 + 79.61332").double
     #expect(temp.similar(to: 142.08807))
-    temp = calculator.asDouble("55.9989 / 69.81746")
+    temp = calculator.evaluateString("55.9989 / 69.81746").double
     #expect(temp.similar(to: 0.802076))
-    temp = calculator.asDouble("88.907996 - 62.234094")
+    temp = calculator.evaluateString("88.907996 - 62.234094").double
     #expect(temp.similar(to: 26.673902))
-    temp = calculator.asDouble("53.865569 - 18.313937")
+    temp = calculator.evaluateString("53.865569 - 18.313937").double
     #expect(temp.similar(to: 35.551632))
-    temp = calculator.asDouble("80.205677 + 91.153163")
+    temp = calculator.evaluateString("80.205677 + 91.153163").double
     #expect(temp.similar(to: 171.35884))
-    temp = calculator.asDouble("30.689128 + 87.966692")
+    temp = calculator.evaluateString("30.689128 + 87.966692").double
     #expect(temp.similar(to: 118.65582))
-    temp = calculator.asDouble("45.797004 * 31.844065")
+    temp = calculator.evaluateString("45.797004 * 31.844065").double
     #expect(temp.similar(to: 1458.362772))
-    temp = calculator.asDouble("32.010265 - 17.196229")
+    temp = calculator.evaluateString("32.010265 - 17.196229").double
     #expect(temp.similar(to: 14.814036))
-    temp = calculator.asDouble("0.305849 * 36.050132")
+    temp = calculator.evaluateString("0.305849 * 36.050132").double
     #expect(temp.similar(to: 11.025897))
-    temp = calculator.asDouble("8.151876 * 15.614015")
+    temp = calculator.evaluateString("8.151876 * 15.614015").double
     #expect(temp.similar(to: 127.283514))
-    temp = calculator.asDouble("90.909412 - 15.263186")
+    temp = calculator.evaluateString("90.909412 - 15.263186").double
     #expect(temp.similar(to: 75.646226))
-    temp = calculator.asDouble("71.155629 - 44.359606")
+    temp = calculator.evaluateString("71.155629 - 44.359606").double
     #expect(temp.similar(to: 26.796023))
-    temp = calculator.asDouble("92.859102 * 85.433584")
+    temp = calculator.evaluateString("92.859102 * 85.433584").double
     #expect(temp.similar(to: 7933.285891))
-    temp = calculator.asDouble("73.00346 * 84.22062")
+    temp = calculator.evaluateString("73.00346 * 84.22062").double
     #expect(temp.similar(to: 6148.396663))
-    temp = calculator.asDouble("42.947604 - 80.994412")
+    temp = calculator.evaluateString("42.947604 - 80.994412").double
     #expect(temp.similar(to: -38.046808))
-    temp = calculator.asDouble("43.475523 + 80.791531")
+    temp = calculator.evaluateString("43.475523 + 80.791531").double
     #expect(temp.similar(to: 124.267054))
-    temp = calculator.asDouble("57.681721 + 26.396956")
+    temp = calculator.evaluateString("57.681721 + 26.396956").double
     #expect(temp.similar(to: 84.078677))
-    temp = calculator.asDouble("46.898604 / 7.879916")
+    temp = calculator.evaluateString("46.898604 / 7.879916").double
     #expect(temp.similar(to: 5.951663))
-    temp = calculator.asDouble("6.851229 / 44.710176")
+    temp = calculator.evaluateString("6.851229 / 44.710176").double
     #expect(temp.similar(to: 0.153236))
-    temp = calculator.asDouble("24.056599 - 38.629943")
+    temp = calculator.evaluateString("24.056599 - 38.629943").double
     #expect(temp.similar(to: -14.573344))
-    temp = calculator.asDouble("8.097386 + 89.955477")
+    temp = calculator.evaluateString("8.097386 + 89.955477").double
     #expect(temp.similar(to: 98.052863))
-    temp = calculator.asDouble("20.59809 + 53.741681")
+    temp = calculator.evaluateString("20.59809 + 53.741681").double
     #expect(temp.similar(to: 74.339771))
-    temp = calculator.asDouble("39.246812 + 93.662499")
+    temp = calculator.evaluateString("39.246812 + 93.662499").double
     #expect(temp.similar(to: 132.909311))
-    temp = calculator.asDouble("30.506839 * 95.474807")
+    temp = calculator.evaluateString("30.506839 * 95.474807").double
     #expect(temp.similar(to: 2912.634566))
-    temp = calculator.asDouble("62.356563 * 51.197054")
+    temp = calculator.evaluateString("62.356563 * 51.197054").double
     #expect(temp.similar(to: 3192.472323))
-    temp = calculator.asDouble("11.921235 - 54.963649")
+    temp = calculator.evaluateString("11.921235 - 54.963649").double
     #expect(temp.similar(to: -43.042414))
-    temp = calculator.asDouble("18.551539 + 16.75744")
+    temp = calculator.evaluateString("18.551539 + 16.75744").double
     #expect(temp.similar(to: 35.308979))
-    temp = calculator.asDouble("45.447951 * 96.014297")
+    temp = calculator.evaluateString("45.447951 * 96.014297").double
     #expect(temp.similar(to: 4363.653065))
-    temp = calculator.asDouble("59.214735 / 53.062722")
+    temp = calculator.evaluateString("59.214735 / 53.062722").double
     #expect(temp.similar(to: 1.115939))
-    temp = calculator.asDouble("78.048861 / 50.237092")
+    temp = calculator.evaluateString("78.048861 / 50.237092").double
     #expect(temp.similar(to: 1.55361))
-    temp = calculator.asDouble("17.04362 * 60.753308")
+    temp = calculator.evaluateString("17.04362 * 60.753308").double
     #expect(temp.similar(to: 1035.456295))
-    temp = calculator.asDouble("13.813365 * 22.810971")
+    temp = calculator.evaluateString("13.813365 * 22.810971").double
     #expect(temp.similar(to: 315.096268))
-    temp = calculator.asDouble("38.221801 * 73.22487")
+    temp = calculator.evaluateString("38.221801 * 73.22487").double
     #expect(temp.similar(to: 2798.786409))
-    temp = calculator.asDouble("56.537213 * 71.593595")
+    temp = calculator.evaluateString("56.537213 * 71.593595").double
     #expect(temp.similar(to: 4047.70233))
-    temp = calculator.asDouble("25.653624 + 48.76589")
+    temp = calculator.evaluateString("25.653624 + 48.76589").double
     #expect(temp.similar(to: 74.419514))
-    temp = calculator.asDouble("9.633777 + 89.909307")
+    temp = calculator.evaluateString("9.633777 + 89.909307").double
     #expect(temp.similar(to: 99.543084))
-    temp = calculator.asDouble("29.994098 - 69.773445")
+    temp = calculator.evaluateString("29.994098 - 69.773445").double
     #expect(temp.similar(to: -39.779347))
-    temp = calculator.asDouble("66.371396 * 39.783085")
+    temp = calculator.evaluateString("66.371396 * 39.783085").double
     #expect(temp.similar(to: 2640.458889))
-    temp = calculator.asDouble("24.774465 / 34.959012")
+    temp = calculator.evaluateString("24.774465 / 34.959012").double
     #expect(temp.similar(to: 0.708672))
-    temp = calculator.asDouble("72.705352 + 30.052723")
+    temp = calculator.evaluateString("72.705352 + 30.052723").double
     #expect(temp.similar(to: 102.758075))
-    temp = calculator.asDouble("40.582006 * 29.086852")
+    temp = calculator.evaluateString("40.582006 * 29.086852").double
     #expect(temp.similar(to: 1180.402802))
-    temp = calculator.asDouble("80.77704 / 32.108029")
+    temp = calculator.evaluateString("80.77704 / 32.108029").double
     #expect(temp.similar(to: 2.515789))
-    temp = calculator.asDouble("29.111097 * 21.459677")
+    temp = calculator.evaluateString("29.111097 * 21.459677").double
     #expect(temp.similar(to: 624.714739))
-    temp = calculator.asDouble("89.677357 + 89.677326")
+    temp = calculator.evaluateString("89.677357 + 89.677326").double
     #expect(temp.similar(to: 179.354683))
-    temp = calculator.asDouble("70.199204 / 4.920883")
+    temp = calculator.evaluateString("70.199204 / 4.920883").double
     #expect(temp.similar(to: 14.265571))
-    temp = calculator.asDouble("6.351792 - 2.407006")
+    temp = calculator.evaluateString("6.351792 - 2.407006").double
     #expect(temp.similar(to: 3.944786))
-    temp = calculator.asDouble("7.134926 / 34.793509")
+    temp = calculator.evaluateString("7.134926 / 34.793509").double
     #expect(temp.similar(to: 0.205065))
-    temp = calculator.asDouble("7.008562 + 12.261641")
+    temp = calculator.evaluateString("7.008562 + 12.261641").double
     #expect(temp.similar(to: 19.270203))
-    temp = calculator.asDouble("95.876733 - 25.285925")
+    temp = calculator.evaluateString("95.876733 - 25.285925").double
     #expect(temp.similar(to: 70.590808))
-    temp = calculator.asDouble("7.323621 - 73.928518")
+    temp = calculator.evaluateString("7.323621 - 73.928518").double
     #expect(temp.similar(to: -66.604897))
-    temp = calculator.asDouble("71.812988 * 15.209191")
+    temp = calculator.evaluateString("71.812988 * 15.209191").double
     #expect(temp.similar(to: 1092.217451))
-    temp = calculator.asDouble("67.310808 * 3.310219")
+    temp = calculator.evaluateString("67.310808 * 3.310219").double
     #expect(temp.similar(to: 222.813516))
-    temp = calculator.asDouble("6.79105 / 26.257765")
+    temp = calculator.evaluateString("6.79105 / 26.257765").double
     #expect(temp.similar(to: 0.25863))
-    temp = calculator.asDouble("55.342458 * 27.865427")
+    temp = calculator.evaluateString("55.342458 * 27.865427").double
     #expect(temp.similar(to: 1542.141223))
-    temp = calculator.asDouble("46.959268 + 79.136649")
+    temp = calculator.evaluateString("46.959268 + 79.136649").double
     #expect(temp.similar(to: 126.095917))
-    temp = calculator.asDouble("92.656006 * 24.266536")
+    temp = calculator.evaluateString("92.656006 * 24.266536").double
     #expect(temp.similar(to: 2248.440305))
-    temp = calculator.asDouble("25.247652 * 23.567135")
+    temp = calculator.evaluateString("25.247652 * 23.567135").double
     #expect(temp.similar(to: 595.014823))
-    temp = calculator.asDouble("11.380114 - 88.499878")
+    temp = calculator.evaluateString("11.380114 - 88.499878").double
     #expect(temp.similar(to: -77.119764))
-    temp = calculator.asDouble("87.706847 * 55.115554")
+    temp = calculator.evaluateString("87.706847 * 55.115554").double
     #expect(temp.similar(to: 4834.011462))
-    temp = calculator.asDouble("79.970931 * 91.748788")
+    temp = calculator.evaluateString("79.970931 * 91.748788").double
     #expect(temp.similar(to: 7337.235994))
-    temp = calculator.asDouble("82.61939 - 2.578508")
+    temp = calculator.evaluateString("82.61939 - 2.578508").double
     #expect(temp.similar(to: 80.040882))
-    temp = calculator.asDouble("17.570511 * 57.214689")
+    temp = calculator.evaluateString("17.570511 * 57.214689").double
     #expect(temp.similar(to: 1005.291322))
-    temp = calculator.asDouble("35.476465 - 64.903958")
+    temp = calculator.evaluateString("35.476465 - 64.903958").double
     #expect(temp.similar(to: -29.427493))
-    temp = calculator.asDouble("85.748832 - 92.541535")
+    temp = calculator.evaluateString("85.748832 - 92.541535").double
     #expect(temp.similar(to: -6.792703))
-    temp = calculator.asDouble("79.244677 / 21.411028")
+    temp = calculator.evaluateString("79.244677 / 21.411028").double
     #expect(temp.similar(to: 3.701115))
-    temp = calculator.asDouble("16.957367 + 94.448624")
+    temp = calculator.evaluateString("16.957367 + 94.448624").double
     #expect(temp.similar(to: 111.405991))
-    temp = calculator.asDouble("61.218005 - 25.087707")
+    temp = calculator.evaluateString("61.218005 - 25.087707").double
     #expect(temp.similar(to: 36.130298))
-    temp = calculator.asDouble("56.86438 - 1.311804")
+    temp = calculator.evaluateString("56.86438 - 1.311804").double
     #expect(temp.similar(to: 55.552576))
-    temp = calculator.asDouble("55.613175 * 83.272693")
+    temp = calculator.evaluateString("55.613175 * 83.272693").double
     #expect(temp.similar(to: 4631.058849))
-    temp = calculator.asDouble("53.089693 + 20.187337")
+    temp = calculator.evaluateString("53.089693 + 20.187337").double
     #expect(temp.similar(to: 73.27703))
-    temp = calculator.asDouble("72.862729 - 83.334709")
+    temp = calculator.evaluateString("72.862729 - 83.334709").double
     #expect(temp.similar(to: -10.47198))
     #expect(calculator.evaluateString("999999999 + 1").string == "1000000000")
     #expect(calculator.evaluateString("1000 - 500").string == "500")

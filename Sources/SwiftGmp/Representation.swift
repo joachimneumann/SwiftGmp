@@ -35,32 +35,6 @@ private func nonNegativeInjectGrouping(numberString: String, decimalSeparator: D
     }
 }
 
-public struct LR {
-    public var left: String
-    public var right: String?
-    public init(_ left: String, _ right: String? = nil) {
-        self.left = left
-        self.right = right
-    }
-    
-    public var string: String {
-        left + (right ?? "")
-    }
-    public func withSeperators(decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
-        let x = self.string
-        let y = injectGrouping(numberString: x, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
-        return y
-    }
-    
-    var double: Double {
-        if let d = Double(string) {
-            return d
-        } else {
-            return Double.nan
-        }
-    }
-}
-
 public enum DecimalSeparator: String, Codable, CaseIterable {
     case comma = ","
     case dot = "."
@@ -83,67 +57,72 @@ public enum DecimalSeparator: String, Codable, CaseIterable {
 }
 
 
-struct Representation {
+public struct Representation {
     var error: String?
-    private var mantissa: String?
-    private var exponent: Int?
-    private var isNegative: Bool
+    var mantissa: String?
+    var exponent: Int?
+    var isNegative: Bool
 
+    init() {
+        error = nil
+        mantissa = nil
+        exponent = nil
+        isNegative = false
+    }
     init(error: String) {
         self.error = error
         self.mantissa = nil
         self.exponent = nil
         self.isNegative = false
     }
-    init(mantissa: String, exponent: Int) {
+    
+    init(_ R: Representation) {
+        self.error = R.error
+        self.mantissa = R.mantissa
+        self.exponent = R.exponent
+        self.isNegative = R.isNegative
+    }
+    
+    init(mantissa: String, exponent: Int, maxOutputLength: Int) {
+        var tempMantissa = mantissa
         self.error = nil
-        if mantissa.starts(with: "-") {
+        if tempMantissa.starts(with: "-") {
             self.isNegative = true
-            self.mantissa = String(mantissa.dropFirst())
+            tempMantissa = String(tempMantissa.dropFirst())
         } else {
             self.isNegative = false
-            self.mantissa = mantissa
         }
-        self.exponent = exponent
-    }
-
-    var double: Double {
-        leftRight(maxOutputLength: 10).double
-    }
-
-    func leftRight(maxOutputLength: Int) -> LR {
-        // Ensure there are no errors and that mantissa and exponent are valid
-        guard error == nil else { return LR(error!) }
-        guard var mantissa = mantissa else { return LR("Invalid") }
-        guard let exponent = exponent else { return LR("Invalid") }
 
         let isNegativeSign: String = isNegative ? "-" : ""
-
+        
         // Integer representation
-        if mantissa.count <= exponent + 1 && exponent < maxOutputLength {
+        if tempMantissa.count <= exponent + 1 && exponent < maxOutputLength {
             // Pad mantissa with zeros to match the exponent
-            mantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
-            return LR(isNegativeSign + mantissa)
+            tempMantissa = tempMantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
+            self.mantissa = isNegativeSign + tempMantissa
+            self.exponent = nil
         }
         // Floating-point representation without scientific notation
         else if exponent >= 0 && exponent <= maxOutputLength - 3 {
-            var floatString: String = mantissa
+            var floatString: String = tempMantissa
             let decimalIndex = floatString.index(floatString.startIndex, offsetBy: exponent + 1)
             floatString.insert(DecimalSeparator.dot.character, at: decimalIndex)
             let maxLength: Int = maxOutputLength - isNegativeSign.count
-            let outputString: String = isNegativeSign + String(floatString.prefix(maxLength))
-            return LR(outputString)
+            self.mantissa = isNegativeSign + String(floatString.prefix(maxLength))
+            self.exponent = nil
         }
         // Floating-point representation with leading zeros (exponent is negative)
         else if exponent < 0 {
             let zerosToInsert: Int = abs(exponent) - 1
             let leadingZeros: String = String(repeating: "0", count: zerosToInsert)
-            let floatString: String = isNegativeSign + "0" + DecimalSeparator.dot.rawValue + leadingZeros + mantissa
-            return LR(String(floatString.prefix(maxOutputLength)))
+            self.mantissa = isNegativeSign + "0" + DecimalSeparator.dot.rawValue + leadingZeros + tempMantissa
+            let maxLength: Int = maxOutputLength - isNegativeSign.count
+            self.mantissa = String(self.mantissa!.prefix(maxLength))
+            self.exponent = nil
         }
         // Scientific notation representation
         else {
-            var sciMantissa: String = mantissa
+            var sciMantissa: String = tempMantissa
             let decimalIndex = sciMantissa.index(sciMantissa.startIndex, offsetBy: 1)
             sciMantissa.insert(DecimalSeparator.dot.character, at: decimalIndex)
             if sciMantissa.count == 2 {
@@ -151,10 +130,47 @@ struct Representation {
             }
             let exponentString: String = "e\(exponent)"
             let maxLength: Int = maxOutputLength - isNegativeSign.count - exponentString.count
-            let mantissaPrefix: String = String(sciMantissa.prefix(maxLength))
-            let outputString: String = isNegativeSign + mantissaPrefix + exponentString
-            return LR(outputString)
+            self.mantissa = String(sciMantissa.prefix(maxLength))
+            self.exponent = exponent
         }
+    }
+
+    func localizedMantissa(decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String? {
+        if var tempMantissa = mantissa {
+            if decimalSeparator != .dot {
+                tempMantissa = tempMantissa.replacingOccurrences(of: DecimalSeparator.dot.rawValue, with: decimalSeparator.rawValue)
+            }
+            tempMantissa = injectGrouping(numberString: tempMantissa, decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+            return tempMantissa
+        }
+        return nil
+    }
+
+    func localizedString(decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
+        var tempR = self
+        tempR.mantissa = localizedMantissa(decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        return tempR.string
+    }
+    
+    public var string: String {
+        guard error == nil else { return error! }
+        if let exponent = exponent {
+            if let mantissa = mantissa {
+                return "\(mantissa)e\(exponent)"
+            } else {
+                return "undefined"
+            }
+        } else {
+            if let mantissa = mantissa {
+                return mantissa
+            } else {
+                return "undefined"
+            }
+        }
+    }
+    
+    public var double: Double {
+        Double(string) ?? Double.nan
     }
 
 }

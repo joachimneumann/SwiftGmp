@@ -44,5 +44,5 @@ import SwiftGmp
     calculator.press(TwoOperantOperation.div)
     calculator.press(DigitOperation.seven)
     calculator.press(EqualOperation.equal)
-    #expect(calculator.lr.string == "0.14285714")
+    #expect(calculator.string == "0.14285714")
 }
