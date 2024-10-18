@@ -58,14 +58,14 @@ public enum DecimalSeparator: String, Codable, CaseIterable {
 
 
 public struct Representation {
-    var error: String?
-    var mantissa: String?
-    var exponent: Int?
-    var isNegative: Bool
+    public var error: String?
+    public var mantissa: String?
+    public var exponent: Int?
+    public var isNegative: Bool
 
-    init() {
+    public init() {
         error = nil
-        mantissa = nil
+        mantissa = "0"
         exponent = nil
         isNegative = false
     }
@@ -83,7 +83,7 @@ public struct Representation {
         self.isNegative = R.isNegative
     }
     
-    init(mantissa: String, exponent: Int, maxOutputLength: Int) {
+    public init(mantissa: String, exponent: Int, maxOutputLength: Int) {
         var tempMantissa = mantissa
         self.error = nil
         if tempMantissa.starts(with: "-") {
@@ -146,11 +146,11 @@ public struct Representation {
         return nil
     }
 
-    func localizedString(decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
-        var tempR = self
-        tempR.mantissa = localizedMantissa(decimalSeparator: decimalSeparator, separateGroups: separateGroups)
-        return tempR.string
-    }
+//    func localizedString(decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
+//        var tempR = self
+//        tempR.mantissa = localizedMantissa(decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+//        return tempR.string
+//    }
     
     public var string: String {
         guard error == nil else { return error! }

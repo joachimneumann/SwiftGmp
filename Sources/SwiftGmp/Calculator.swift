@@ -193,6 +193,13 @@ public class Calculator {
         return token.lastSwiftGmp != nil
     }
 
+    public var localisedR: Representation {
+        var tempR = R
+        if tempR.mantissa != nil {
+            tempR.mantissa = tempR.localizedMantissa(decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        }
+        return tempR
+    }
     public var R: Representation {
         var tempR = Representation()
         if !displayBuffer.isEmpty {
@@ -262,8 +269,11 @@ public class Calculator {
     }
     
     public var localizedString: String {
-        R.localizedString(decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        var tempR = R
+        tempR.mantissa = R.localizedMantissa(decimalSeparator: decimalSeparator, separateGroups: separateGroups)
+        return tempR.string
     }
+    
     public var double: Double {
         R.double
     }
