@@ -200,6 +200,7 @@ public class Calculator {
         }
         return tempR
     }
+    
     public var R: Representation {
         var tempR = Representation()
         if !displayBuffer.isEmpty {
