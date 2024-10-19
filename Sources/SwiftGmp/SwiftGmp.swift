@@ -1,7 +1,14 @@
 import Foundation
 import SwiftGmp_C_Target
 
+public struct MantissaExponent {
+    public let mantissa: String
+    public let exponent: Int
+}
+
 class SwiftGmp: Equatable, CustomDebugStringConvertible {
+    
+    
     private(set) var bits: Int
     private static var rad_deg_bits: Int = 10
     private static var deg2rad: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
@@ -51,8 +58,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         guard !isZero else { return "zero"}
-        let (mantissa, exponent) = mantissaExponent(len: 100)
-        return "\(mantissa) \(exponent)"
+        let mantissaExponent = mantissaExponent(len: 100)
+        return "\(mantissaExponent.mantissa) \(mantissaExponent.exponent)"
     }
     
     static func isValidSwiftGmpString(_ gmpString: String, bits: Int) -> Bool {
@@ -76,7 +83,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_custom_get_size(bits)
     }
     
-    func mantissaExponent(len: Int) -> (String, Int) {
+    func mantissaExponent(len: Int) -> MantissaExponent {
         var exponent: mpfr_exp_t = 0
         
         var charArray: Array<CChar> = Array(repeating: 0, count: len+10)
@@ -91,7 +98,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         zeroCharacterSet.insert(charactersIn: "0")
         mantissa = mantissa.trimmingCharacters(in: zeroCharacterSet)
         
-        return (mantissa, exponent - 1)
+        return MantissaExponent(mantissa: mantissa, exponent: exponent - 1)
     }
     
     

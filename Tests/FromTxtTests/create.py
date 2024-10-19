@@ -117,9 +117,8 @@ for file in glob.glob("*.txt"):
                         if len(components) == 2:
                             if not tempDeclared:
                                 tempDeclared = True
-                                writeln("    var temp: Double")
-                            writeln("    temp = calculator.evaluateString(\""+components[0].strip()+"\").double")
-                            writeln("    #expect(temp.similar(to: "+components[1].strip()+"))")
+                            writeln("    calculator.evaluateString(\""+components[0].strip()+"\")")
+                            writeln("    #expect(calculator.double.similar(to: "+components[1].strip()+"))")
                     elif "=" in content:
                         components = content.strip().split("=")
                         if len(components) == 2:
@@ -141,6 +140,7 @@ for file in glob.glob("*.txt"):
                             elif components[0].strip() == "M-":
                                 writeln("    calculator.press(MemoryOperation.subFromM)")
                             else:
-                                writeln("    #expect(calculator.evaluateString(\""+components[0].strip()+"\").string == \""+components[1].strip()+"\")")
+                                writeln("    calculator.evaluateString(\""+components[0].strip()+"\")")
+                                writeln("    #expect(calculator.string == \""+components[1].strip()+"\")")
     writeln("}")
     f.close()

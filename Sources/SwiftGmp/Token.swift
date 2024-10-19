@@ -264,8 +264,6 @@ class Token {
                 }
             }
         }
-        //for index in 0..<tokens.count { print("token[\(index)] = \(tokens[index])") }
-
         
         var priority = TwoOperantOperation.highestPriority
         var foundButNotExecuted: Bool
@@ -296,39 +294,6 @@ class Token {
                 priority -= 1
             }
         }
-//        for token in tokens {
-//            guard let before = tokens.element(before: token) else { continue }
-//            guard let after = tokens.element(after: token) else { continue }
-//            guard case .twoOperant(let twoOperantOperation) = token.tokenEnum else { continue }
-//            guard case .swiftGmp(let beforeSwiftGmp) = before.tokenEnum else { continue }
-//            guard case .swiftGmp(let afterSwiftGmp) = after.tokenEnum else { continue }
-//            guard twoOperantOperation.operatorPriority == priority else { continue }
-//            beforeSwiftGmp.execute(twoOperantOperation, other: afterSwiftGmp)
-//            tokens = tokens.filter { $0 != after }
-//            tokens = tokens.filter { $0 != token }
-//        }
-//        var hasPriority2 = false
-//        for token in tokens {
-//            guard case .twoOperant(let twoOperantOperation) = token.tokenEnum else { continue }
-//            if twoOperantOperation.operatorPriority == 2 {
-//                hasPriority2 = true
-//            }
-//        }
-//        if !hasPriority2 {
-//            priority = 1
-//            for token in tokens {
-//                guard let before = tokens.element(before: token) else { continue }
-//                guard let after = tokens.element(after: token) else { continue }
-//                guard case .twoOperant(let twoOperantOperation) = token.tokenEnum else { continue }
-//                guard case .swiftGmp(let beforeSwiftGmp) = before.tokenEnum else { continue }
-//                guard case .swiftGmp(let afterSwiftGmp) = after.tokenEnum else { continue }
-//                guard twoOperantOperation.operatorPriority == priority else { continue }
-//
-//                beforeSwiftGmp.execute(twoOperantOperation, other: afterSwiftGmp)
-//                tokens = tokens.filter { $0 != after }
-//                tokens = tokens.filter { $0 != token }
-//            }
-//        }
     }
         
     func newToken(_ constant: ConstantOperation) {

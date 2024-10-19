@@ -326,9 +326,12 @@ import Testing
     
     
     calculator.clear()
-    #expect(calculator.evaluateString("e pi + e").string == "5.85987448")
-    #expect(calculator.evaluateString("10 + pi 1").string == "11")
-    #expect(calculator.evaluateString("10 + pi").string == "13.1415926")
+    calculator.evaluateString("e pi + e")
+    #expect(calculator.string == "5.85987448")
+    calculator.evaluateString("10 + pi 1")
+    #expect(calculator.string == "11")
+    calculator.evaluateString("10 + pi")
+    #expect(calculator.string == "13.1415926")
     
     var pending: [any OpProtocol] = []
     calculator.clear()

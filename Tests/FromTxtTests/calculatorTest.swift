@@ -7,11 +7,12 @@ import SwiftGmp
 @Test func calculatorTest() {
     let calculator = Calculator(precision: 20)
 
-    #expect(calculator.evaluateString("1 + 2 * 3").string == "7")
-    var temp: Double
-    temp = calculator.evaluateString("sin(sin(1))").double
-    #expect(temp.similar(to: 0.745624141665))
-    #expect(calculator.evaluateString("4.5").string == "4.5")
+    calculator.evaluateString("1 + 2 * 3")
+    #expect(calculator.string == "7")
+    calculator.evaluateString("sin(sin(1))")
+    #expect(calculator.double.similar(to: 0.745624141665))
+    calculator.evaluateString("4.5")
+    #expect(calculator.string == "4.5")
     calculator.press(MemoryOperation.clearM)
     #expect(calculator.string == "4.5")
     calculator.press(MemoryOperation.addToM)
@@ -33,9 +34,12 @@ import SwiftGmp
     #expect(calculator.string == "18")
     calculator.press(MemoryOperation.recallM)
     #expect(calculator.string == "18")
-    #expect(calculator.evaluateString("sqr(2)").string == "4")
-    #expect(calculator.evaluateString("sqr(2) 5").string == "5")
+    calculator.evaluateString("sqr(2)")
+    #expect(calculator.string == "4")
+    calculator.evaluateString("sqr(2) 5")
+    #expect(calculator.string == "5")
     calculator.press(ClearOperation.clear)
     #expect(calculator.string == "0")
-    #expect(calculator.evaluateString("10 %").string == "0.1")
+    calculator.evaluateString("10 %")
+    #expect(calculator.string == "0.1")
 }

@@ -31,7 +31,7 @@ sqrt(9.0) ~= 3
 sqrt(0.0) ~= 0
 sqrt(16.0) ~= 4
 sqrt(25.0) ~= 5
-sqrt(-1) = not a number
+sqrt(-1) = nan
 
 sqrt3(8.0) ~= 2
 sqrt3(27.0) ~= 3
