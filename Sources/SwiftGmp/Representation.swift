@@ -205,14 +205,6 @@ public struct Representation: CustomDebugStringConvertible {
                 let notRounded = String(string.prefix(upTo: index))
                 let rounded = roundString(notRounded)
                 return rounded
-//                // go one back
-//                if offset > 0 { offset -= 1 }
-//                index = string.index(string.startIndex, offsetBy: offset)
-//                truncated = String(string.prefix(upTo: index))
-//                // remove tailing zeroes
-//                truncated = truncated.removeTrailingZeroes()
-//
-//                return truncated
             }
 
             offset += 1
@@ -300,8 +292,7 @@ public struct Representation: CustomDebugStringConvertible {
             }
             
             // truncate!
-            floatString = truncate("1.29999123", to: width, using: proportionalFont)
-//            floatString = truncate(floatString, to: width, using: proportionalFont)
+            floatString = truncate(floatString, to: width, using: proportionalFont)
 
             // Is the dot and one trailing digit still visible in floatString?
             if !floatString.hasSuffix(".") {
@@ -315,25 +306,15 @@ public struct Representation: CustomDebugStringConvertible {
             var floatString: String = mantissa
             let zerosToInsert: Int = abs(exponent) - 1
             let leadingZeros: String = String(repeating: "0", count: zerosToInsert)
-            floatString = isNegativeSign + "0." + leadingZeros + floatString
-            floatString = truncate(floatString, to: width, using: proportionalFont)
+            let beforeFloatString = isNegativeSign + "0." + leadingZeros
+            let beforeFloatStringLength = beforeFloatString.textWidth(kerning: kerning, proportionalFont)
+            
+            floatString = truncate(floatString, to: width - beforeFloatStringLength, using: proportionalFont)
+            floatString = beforeFloatString + floatString
 
             number = Number(
                 mantissa: Content(floatString, appleFont: proportionalFont))
             return
-//            // Are at least three non-zero digits visible?
-//            if floatString.count > 3 {
-//                if floatString.prefix(3) == "0.0" {
-//                    let exceptForLastTwo = floatString.dropLast()
-//                    for char in exceptForLastTwo {
-//                        if char != "0" && char != "." {
-//                            number = Number(
-//                                mantissa: Content(floatString, appleFont: proportionalFont))
-//                            return
-//                        }
-//                    }
-//                }
-//            }
         }
         
         // Scientific
