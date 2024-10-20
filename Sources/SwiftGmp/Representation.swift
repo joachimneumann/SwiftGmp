@@ -14,7 +14,7 @@ public typealias AppleFont = UIFont
 #endif
 
 
-func injectGrouping(numberString: String, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
+public func injectGrouping(numberString: String, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
     if numberString.starts(with: "-") {
         return "-" + nonNegativeInjectGrouping(numberString: String(numberString.dropFirst()), decimalSeparator: decimalSeparator, separateGroups: separateGroups)
     } else {
@@ -89,28 +89,38 @@ public enum DecimalSeparator: String, Codable, CaseIterable {
     }
 }
 
-struct Content {
-    let text: String
-    let appleFont: AppleFont
+public struct Content: CustomDebugStringConvertible {
+    public let text: String
+    public let appleFont: AppleFont
     init(_ text: String, appleFont: AppleFont) {
         self.text = text
         self.appleFont = appleFont
     }
+    public var debugDescription: String {
+        text
+    }
 }
 
-struct Number {
-    let mantissa: Content
-    let exponent: Content?
+public struct Number: CustomDebugStringConvertible {
+    public let mantissa: Content
+    public let exponent: Content?
     init(mantissa: Content, exponent: Content? = nil) {
         self.mantissa = mantissa
         self.exponent = exponent
     }
+    public var debugDescription: String {
+        var ret = mantissa.text
+        if let e = exponent {
+            ret += "\(e.text)"
+        }
+        return ret
+    }
 }
 
-struct Representation {
-    var error: Content?
-    var number: Number?
-    let kerning: CGFloat
+public struct Representation: CustomDebugStringConvertible {
+    public var error: Content?
+    public var number: Number?
+    public let kerning: CGFloat
     let ePadding: CGFloat
     
     public init() {
@@ -120,14 +130,14 @@ struct Representation {
         ePadding = 0
     }
     
-    init(error: String, appleFont: AppleFont) {
+    public init(error: String, appleFont: AppleFont) {
         self.error = Content(error, appleFont: appleFont)
         self.number = nil
         kerning = 0
         ePadding = 0
     }
 
-    init(mantissa: String, appleFont: AppleFont) {
+    public init(mantissa: String, appleFont: AppleFont) {
         self.error = nil
         self.number = Number(mantissa: Content(mantissa, appleFont: appleFont))
         kerning = 0
@@ -289,6 +299,16 @@ struct Representation {
             mantissa: Content(sciMantissa, appleFont: proportionalFont),
             exponent: Content(exponentString, appleFont: proportionalFont))
         return
+    }
+    
+    public var debugDescription: String {
+        if let error {
+            return error.debugDescription
+        }
+        if let number {
+            return number.debugDescription
+        }
+        return "undefined"
     }
 }
 
