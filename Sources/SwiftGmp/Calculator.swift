@@ -27,7 +27,7 @@ public class Calculator {
         privateDisplayBuffer = ""
     }
     
-    public var displayBufferHasDigits: Bool {
+    public var privateDisplayBufferHasDigits: Bool {
         !privateDisplayBuffer.isEmpty
     }
     
