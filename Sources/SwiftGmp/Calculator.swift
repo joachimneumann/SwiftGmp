@@ -10,19 +10,27 @@ import Foundation
 public class Calculator {
     
     var token: Token
-    var displayBuffer: String
+    private var privateDisplayBuffer: String
+    private var privateZombieDisplayBuffer: String? = nil
     private var memory: SwiftGmp?
+    
+    public var displayBuffer: String {
+        if let ret = privateZombieDisplayBuffer { return ret }
+        return privateDisplayBuffer
+    }
     public var separateGroups: Bool = true
     public var maxOutputLength: Int
     
     public init(precision: Int, maxOutputLength: Int = 12) {
         token = Token(precision: precision)
         self.maxOutputLength = maxOutputLength
-        displayBuffer = ""
+        privateDisplayBuffer = ""
     }
+    
     public var displayBufferHasDigits: Bool {
-        !displayBuffer.isEmpty
+        !privateDisplayBuffer.isEmpty
     }
+    
     public func setPrecision(newPrecision: Int) {
         token.setPrecision(newPrecision)
     }
@@ -43,7 +51,7 @@ public class Calculator {
 
     public func clear() {
         token.clear()
-        displayBuffer = ""
+        privateDisplayBuffer = ""
         for op in token.allOperationsSorted {
             isAllowedOperator[op.getRawValue()] = true
             pendingOperators = []
@@ -51,6 +59,11 @@ public class Calculator {
     }
     
     public func press(_ op: any OpProtocol) {
+        if let _ = op as? TwoOperantOperation {
+            privateZombieDisplayBuffer = displayBuffer
+        } else {
+            privateZombieDisplayBuffer = nil
+        }
         if let twoOperantOp = op as? TwoOperantOperation {
             displayBufferToToken()
             
@@ -73,7 +86,7 @@ public class Calculator {
                 }
             }
         } else if let constOp = op as? ConstantOperation {
-            displayBuffer = ""
+            privateDisplayBuffer = ""
             token.newToken(constOp)
         } else if let digitOp = op as? DigitOperation {
             if !token.numberExpected {
@@ -81,33 +94,33 @@ public class Calculator {
                 token.removeLastSwiftGmp()
             }
             if digitOp == .zero {
-                if displayBuffer == "0" {
+                if privateDisplayBuffer == "0" {
                     // ignore the zero
                     return
                 }
-                if displayBuffer.isEmpty {
-                    displayBuffer = "0"
+                if !displayBufferHasDigits {
+                    privateDisplayBuffer = "0"
                     return
                 }
             }
             if digitOp == .dot {
-                if displayBuffer.contains(".") { return }
-                if displayBuffer == "" {
-                    displayBuffer = "0."
+                if privateDisplayBuffer.contains(".") { return }
+                if privateDisplayBuffer == "" {
+                    privateDisplayBuffer = "0."
                 } else {
-                    displayBuffer.append(digitOp.rawValue)
+                    privateDisplayBuffer.append(digitOp.rawValue)
                 }
             } else {
-                displayBuffer.append(digitOp.rawValue)
+                privateDisplayBuffer.append(digitOp.rawValue)
             }
         } else if let memOp = op as? MemoryOperation {
             switch memOp {
             case .recallM:
                 guard let memory = self.memory else { return }
-                displayBuffer = ""
+                privateDisplayBuffer = ""
                 token.newToken(memory)
             case .addToM:
-                if !displayBuffer.isEmpty { displayBufferToToken() }
+                if !privateDisplayBuffer.isEmpty { displayBufferToToken() }
                 guard let last = token.lastSwiftGmp else { return }
                 if self.memory == nil {
                     self.memory = last
@@ -117,7 +130,7 @@ public class Calculator {
                     self.memory = mutableMemory.copy()
                 }
             case .subFromM:
-                if !displayBuffer.isEmpty { displayBufferToToken() }
+                if !privateDisplayBuffer.isEmpty { displayBufferToToken() }
                 guard let last = token.lastSwiftGmp else { return }
                 if self.memory == nil {
                     self.memory = last
@@ -143,9 +156,9 @@ public class Calculator {
             case .clear:
                 clear()
             case .back:
-                displayBuffer.removeLast()
-                if displayBuffer == "0" {
-                    displayBuffer = ""
+                privateDisplayBuffer.removeLast()
+                if privateDisplayBuffer == "0" {
+                    privateDisplayBuffer = ""
                 }
             }
         } else if let _ = op as? PercentOperation {
@@ -186,10 +199,10 @@ public class Calculator {
     }
     
     func displayBufferToToken() {
-        if !displayBuffer.isEmpty {
-            let swiftGmp = SwiftGmp(withString: displayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
+        if !privateDisplayBuffer.isEmpty {
+            let swiftGmp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
             token.newToken(swiftGmp)
-            displayBuffer = ""
+            privateDisplayBuffer = ""
         }
     }
     private var inPlaceAllowed: Bool {
@@ -214,7 +227,7 @@ public class Calculator {
     }
 
     public func evaluateString(_ expression: String) {
-        displayBuffer = ""
+        privateDisplayBuffer = ""
         do {
             let opArray = try token.stringToPressCommands(expression)
             press(ClearOperation.clear)
@@ -224,7 +237,7 @@ public class Calculator {
             press(EqualOperation.equal)
         } catch {
             token.clear()
-            displayBuffer = error.localizedDescription
+            privateDisplayBuffer = error.localizedDescription
         }
     }
     
@@ -232,11 +245,11 @@ public class Calculator {
         var asSubSequence: String.SubSequence
         var asString: String
         let asDouble: Double
-        if !displayBuffer.isEmpty {
-            if displayBuffer.hasSuffix(".0") {
-                displayBuffer = String(displayBuffer.dropLast(2))
+        if !privateDisplayBuffer.isEmpty {
+            if privateDisplayBuffer.hasSuffix(".0") {
+                privateDisplayBuffer = String(privateDisplayBuffer.dropLast(2))
             }
-            asSubSequence = displayBuffer.prefix(maxOutputLength)
+            asSubSequence = privateDisplayBuffer.prefix(maxOutputLength)
             return String(asSubSequence)
         } else {
             asDouble = token.lastSwiftGmp?.toDouble() ?? 0
@@ -265,8 +278,8 @@ public class Calculator {
     }
     
     public var double: Double {
-        if !displayBuffer.isEmpty {
-            return Double(displayBuffer) ?? Double.nan
+        if !privateDisplayBuffer.isEmpty {
+            return Double(privateDisplayBuffer) ?? Double.nan
         } else {
             return token.lastSwiftGmp?.toDouble() ?? 0
         }
@@ -274,8 +287,8 @@ public class Calculator {
     
     public var mantissaExponent: MantissaExponent? {
         let temp: SwiftGmp?
-        if !displayBuffer.isEmpty {
-            temp = SwiftGmp(withString: displayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
+        if !privateDisplayBuffer.isEmpty {
+            temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
         } else {
             temp = token.lastSwiftGmp
         }
