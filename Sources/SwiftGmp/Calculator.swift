@@ -98,7 +98,7 @@ public class Calculator {
                     // ignore the zero
                     return
                 }
-                if !displayBufferHasDigits {
+                if privateDisplayBuffer == "" {
                     privateDisplayBuffer = "0"
                     return
                 }
