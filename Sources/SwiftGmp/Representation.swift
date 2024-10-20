@@ -242,7 +242,7 @@ public struct Representation: CustomDebugStringConvertible {
             isNegativeSign = ""
         }
 
-        // Integer representation
+        // Integer
         if mantissa.count <= exponent + 1 {
             // Pad mantissa with zeros to match the exponent
             var tempMantissa = mantissa
@@ -259,7 +259,7 @@ public struct Representation: CustomDebugStringConvertible {
             }
             
             // the interger is too large: show in scientific notation
-            var sciMantissa: String = tempMantissa
+            var sciMantissa: String = mantissa
             let decimalIndex = sciMantissa.index(sciMantissa.startIndex, offsetBy: 1)
             sciMantissa.insert(DecimalSeparator.dot.character, at: decimalIndex)
             if sciMantissa.count == 2 {
@@ -269,6 +269,9 @@ public struct Representation: CustomDebugStringConvertible {
             let exponentWidth = exponentString.textWidth(kerning: kerning, monoSpacedFont)
             let remainingMantissaWidth = width - exponentWidth - ePadding
             sciMantissa = truncate(sciMantissa, to: remainingMantissaWidth, using: proportionalFont)
+            if sciMantissa.hasSuffix(".") {
+                sciMantissa += "0"
+            }
             number = Number(
                 mantissa: Content(sciMantissa, appleFont: proportionalFont),
                 exponent: Content(exponentString, appleFont: monoSpacedFont))
@@ -287,19 +290,21 @@ public struct Representation: CustomDebugStringConvertible {
                 decimalSeparator: decimalSeparator,
                 separateGroups: separateGroups)
             floatString = tempMantissa + "."
-            if parts.count == 2 {
-                floatString += parts[1]
-            }
-            
-            // truncate!
-            floatString = truncate(floatString, to: width, using: proportionalFont)
+            if floatString.textWidth(kerning: kerning, proportionalFont) < width {
+                if parts.count == 2 {
+                    floatString += parts[1]
+                }
+                
+                // truncate!
+                floatString = truncate(floatString, to: width, using: proportionalFont)
 
-            // Is the dot and one trailing digit still visible in floatString?
-            if !floatString.hasSuffix(".") {
-                number = Number(
-                    mantissa: Content(floatString, appleFont: proportionalFont))
-                return
-            }
+                // Is the dot and one trailing digit still visible in floatString?
+                if !floatString.hasSuffix(".") {
+                    number = Number(
+                        mantissa: Content(floatString, appleFont: proportionalFont))
+                    return
+                }
+            }  // else: too long for width
         }
         if exponent < 0 {
             // Floating-point representation with leading zeros (exponent is negative)
