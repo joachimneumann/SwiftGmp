@@ -10,6 +10,7 @@ import SwiftGmp
     var RString: String
     let font = AppleFont.monospacedSystemFont(ofSize: 40, weight: .regular)
 
+    calculator.setPrecision(newPrecision: 20)
     calculator.evaluateString("81.651654 / 40.563652")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription

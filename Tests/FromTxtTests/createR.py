@@ -121,7 +121,7 @@ for filename in glob.glob("*.txt"):
                     components = content.strip().split("=")
                     if len(components) == 2:
                         if components[0].strip() == "precision":
-                            pass
+                            writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                         elif components[0].strip() == "maxOutputLength":
                             pass
                         elif components[0].strip() == "C":
