@@ -355,7 +355,9 @@ public struct Representation: CustomDebugStringConvertible {
             let exponentWidth = exponentString.textWidth(kerning: kerning, proportionalFont)
             let remainingMantissaWidth = width - exponentWidth - ePadding
             (sciMantissa, incrementExponent) = truncate(sciMantissa, to: remainingMantissaWidth, using: proportionalFont)
-            exponentString = "e\(exponent+1)"
+            if incrementExponent {
+                exponentString = "e\(exponent+1)"
+            }
             
             number = Number(
                 mantissa: Content(sciMantissa, appleFont: proportionalFont),

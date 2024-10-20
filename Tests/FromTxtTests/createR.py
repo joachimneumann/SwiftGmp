@@ -147,5 +147,6 @@ for filename in glob.glob("*.txt"):
                             writeln("    RString = R.debugDescription")
                             writeln("    RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: \"\")")
                             writeln("    #expect(Double(RString)!.similar(to: "+components[1].strip()+"))")
+                            writeln("")
     writeln("}")
     f.close()

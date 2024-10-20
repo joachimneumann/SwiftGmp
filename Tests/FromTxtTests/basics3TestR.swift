@@ -15,139 +15,167 @@ import SwiftGmp
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 16))
+
     calculator.evaluateString("sqr(2.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 4))
+
     calculator.evaluateString("cubed(5.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 125))
+
     calculator.evaluateString("cubed(2.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 8))
+
     calculator.evaluateString("exp(1.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 2.7183))
+
     calculator.evaluateString("exp(2.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 7.3891))
+
     calculator.evaluateString("exp10(1.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 10))
+
     calculator.evaluateString("exp10(2.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 100))
+
     calculator.evaluateString("1.0 ±")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: -1))
+
     calculator.evaluateString("-1.0 ±")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 1))
+
     calculator.evaluateString("rez(2.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 0.5))
+
     calculator.evaluateString("rez(4.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 0.25))
+
     calculator.evaluateString("fac(5.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 120))
+
     calculator.evaluateString("fac(3.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 6))
+
     calculator.evaluateString("0")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 0))
+
     calculator.evaluateString("pi")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 3.1416))
+
     calculator.evaluateString("e")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 2.7183))
+
     calculator.evaluateString("abs(-3.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 3))
+
     calculator.evaluateString("sqrt(9.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 3))
+
     calculator.evaluateString("sqrt3(8.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 2))
+
     calculator.evaluateString("sqrt(2.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 1.4142))
+
     calculator.evaluateString("zeta(3.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 1.2021))
+
     calculator.evaluateString("ln(1.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 0))
+
     calculator.evaluateString("ln(2.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 0.6931))
+
     calculator.evaluateString("log10(10.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 1))
+
     calculator.evaluateString("log10(100.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 2))
+
     calculator.evaluateString("log2(8.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 3))
+
     calculator.evaluateString("log2(16.0)")
     R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
     RString = R.debugDescription
     RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
     #expect(Double(RString)!.similar(to: 4))
+
 }
