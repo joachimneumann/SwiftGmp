@@ -52,10 +52,10 @@ public class Calculator {
     
     public func press(_ op: any OpProtocol) {
         if let twoOperantOp = op as? TwoOperantOperation {
-            displayToToken()
+            displayBufferToToken()
+            
             // was the previous token also a TwoOperantOperation?
             // if yes, overwrite that one!
-            
             if !token.tokens.isEmpty {
                 if case .twoOperant = token.tokens.last!.tokenEnum {
                     token.tokens.removeLast()
@@ -64,7 +64,7 @@ public class Calculator {
             token.newToken(twoOperantOp)
             token.walkThroughTokens(tokens: &token.tokens)
         } else if let _ = op as? EqualOperation {
-            displayToToken()
+            displayBufferToToken()
             if !token.tokens.isEmpty {
                 token.walkThroughTokens(tokens: &token.tokens)
                 // cleaning up
@@ -107,7 +107,7 @@ public class Calculator {
                 displayBuffer = ""
                 token.newToken(memory)
             case .addToM:
-                if !displayBuffer.isEmpty { displayToToken() }
+                if !displayBuffer.isEmpty { displayBufferToToken() }
                 guard let last = token.lastSwiftGmp else { return }
                 if self.memory == nil {
                     self.memory = last
@@ -117,7 +117,7 @@ public class Calculator {
                     self.memory = mutableMemory.copy()
                 }
             case .subFromM:
-                if !displayBuffer.isEmpty { displayToToken() }
+                if !displayBuffer.isEmpty { displayBufferToToken() }
                 guard let last = token.lastSwiftGmp else { return }
                 if self.memory == nil {
                     self.memory = last
@@ -149,14 +149,14 @@ public class Calculator {
                 }
             }
         } else if let _ = op as? PercentOperation {
-            displayToToken()
+            displayBufferToToken()
             token.percent()
         } else if let parenthesis = op as? ParenthesisOperation {
             switch parenthesis {
             case .left:
                 token.newTokenParenthesesLeft()
             case .right:
-                displayToToken()
+                displayBufferToToken()
                 token.newTokenParenthesesRight()
                 token.walkThroughTokens(tokens: &token.tokens)
             }
@@ -185,7 +185,7 @@ public class Calculator {
         }
     }
     
-    func displayToToken() {
+    func displayBufferToToken() {
         if !displayBuffer.isEmpty {
             let swiftGmp = SwiftGmp(withString: displayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
             token.newToken(swiftGmp)
@@ -193,7 +193,7 @@ public class Calculator {
         }
     }
     private var inPlaceAllowed: Bool {
-        displayToToken()
+        displayBufferToToken()
         return token.lastSwiftGmp != nil
     }
 
@@ -272,15 +272,16 @@ public class Calculator {
         }
     }
     
-    public var mantissaExponent: MantissaExponent {
-        displayToToken()
-        if let swiftGmp = token.lastSwiftGmp {
-            return swiftGmp.mantissaExponent(len: max(1000, maxOutputLength))
+    public var mantissaExponent: MantissaExponent? {
+        let temp: SwiftGmp?
+        if !displayBuffer.isEmpty {
+            temp = SwiftGmp(withString: displayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
         } else {
-            return MantissaExponent(mantissa: "error", exponent: 0)
+            temp = token.lastSwiftGmp
         }
-        
-        
+        if temp == nil { return nil }
+
+        return temp!.mantissaExponent(len: max(1000, maxOutputLength))
     }
 
 }
