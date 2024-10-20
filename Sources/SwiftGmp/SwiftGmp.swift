@@ -95,6 +95,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         }
         
         mantissa = mantissa.removeTrailingZeroes()
+        if mantissa == "" { mantissa = "0" }
         
         return MantissaExponent(mantissa: mantissa, exponent: exponent - 1)
     }

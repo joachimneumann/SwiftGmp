@@ -303,8 +303,10 @@ extension Double {
     public func similar(to other: Double, precision: Double = 1e-3) -> Bool {
         if abs(self) > 1000 {
             return abs(self - other) <= precision * abs(self)
-        } else {
+        } else if abs(self) > 1 {
             return abs(self - other) <= precision
+        } else {
+            return abs(self - other) <= precision * 0.1
         }
     }
 }
