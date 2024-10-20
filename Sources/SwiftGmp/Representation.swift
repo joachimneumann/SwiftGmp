@@ -144,6 +144,54 @@ public struct Representation: CustomDebugStringConvertible {
         ePadding = 0
     }
 
+    public func roundString(_ input: String) -> String {
+        // Ensure the input is non-empty.
+        guard !input.isEmpty else { return input }
+        
+        // If the input has only one character, do nothing
+        if input.count == 1 {
+            return input
+        }
+        
+        // Convert the input string into an array of characters.
+        var digits = Array(input)
+        
+        // Remove the last digit to decide rounding.
+        let lastDigit = digits.removeLast()
+        
+        // Determine if we need to round up.
+        var shouldRoundUp = lastDigit >= "5"
+        
+        // Index for the digit to round.
+        var index = digits.count - 1
+        
+        // Perform rounding if necessary.
+        while shouldRoundUp && index >= 0 {
+            if digits[index] == "9" {
+                // Set current digit to '0' and carry over.
+                digits[index] = "0"
+            } else if let digitValue = digits[index].wholeNumberValue {
+                // Increment the current digit.
+                let incrementedValue = digitValue + 1
+                digits[index] = Character("\(incrementedValue)")
+                shouldRoundUp = false  // No more rounding needed.
+            }
+            index -= 1
+        }
+        
+        // If we've carried over past the first digit.
+        if shouldRoundUp && index < 0 {
+            digits.insert("1", at: 0)
+        }
+        
+        // Remove any trailing zeros.
+        let result = String(digits).trimmingCharacters(in: CharacterSet(charactersIn: "0"))
+        
+        // If the result is empty after trimming, return "0".
+        return result.isEmpty ? "0" : result
+
+    }
+    
     private func truncate(_ string: String, to width: CGFloat, using font: AppleFont) -> String {
         if string.textWidth(kerning: kerning, font) <= width {
             return string
@@ -154,17 +202,24 @@ public struct Representation: CustomDebugStringConvertible {
         var truncated = String(string.prefix(upTo: index))
         while true {
             if truncated.textWidth(kerning: kerning, font) > width {
-                // go one back
-                if offset > 0 { offset -= 1 }
-                index = string.index(string.startIndex, offsetBy: offset)
-                truncated = String(string.prefix(upTo: index))
-                return truncated
+                let notRounded = String(string.prefix(upTo: index))
+                let rounded = roundString(notRounded)
+                return rounded
+//                // go one back
+//                if offset > 0 { offset -= 1 }
+//                index = string.index(string.startIndex, offsetBy: offset)
+//                truncated = String(string.prefix(upTo: index))
+//                // remove tailing zeroes
+//                truncated = truncated.removeTrailingZeroes()
+//
+//                return truncated
             }
 
             offset += 1
             index = string.index(string.startIndex, offsetBy: offset)
             truncated = String(string.prefix(upTo: index))
             if index == string.endIndex {
+                truncated = truncated.removeTrailingZeroes()
                 return truncated
             }
         }
@@ -245,11 +300,9 @@ public struct Representation: CustomDebugStringConvertible {
             }
             
             // truncate!
-            floatString = truncate(floatString, to: width, using: proportionalFont)
-            
-            // remove tailing zeroes
-            floatString = floatString.removeTrailingZeroes()
-            
+            floatString = truncate("1.29999123", to: width, using: proportionalFont)
+//            floatString = truncate(floatString, to: width, using: proportionalFont)
+
             // Is the dot and one trailing digit still visible in floatString?
             if !floatString.hasSuffix(".") {
                 number = Number(
@@ -264,7 +317,6 @@ public struct Representation: CustomDebugStringConvertible {
             let leadingZeros: String = String(repeating: "0", count: zerosToInsert)
             floatString = isNegativeSign + "0." + leadingZeros + floatString
             floatString = truncate(floatString, to: width, using: proportionalFont)
-            floatString = floatString.removeTrailingZeroes()
 
             number = Number(
                 mantissa: Content(floatString, appleFont: proportionalFont))
