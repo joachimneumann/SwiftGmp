@@ -299,7 +299,7 @@ public class Calculator {
 }
 
 extension Double {
-    public func similar(to other: Double, precision: Double = 1e-3) -> Bool {
+    public func similar(to other: Double, precision: Double = 1e-5) -> Bool {
         if abs(self) > 1000 {
             return abs(self - other) <= precision * abs(self)
         } else if abs(self) > 1 {
