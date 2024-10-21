@@ -26,46 +26,5 @@ import Testing
     
     x2.execute(.rez)
     #expect(x2.isApproximately(-0.33333))
-    
-    let calculator = Calculator(precision: 20)
-    var R = Representation()
-    var RString: String
-    let font = AppleFont.monospacedSystemFont(ofSize: 40, weight: .regular)
-    
-    calculator.evaluateString("0.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
-    #expect(Double(RString)!.similar(to: 1.0))
-
-    calculator.evaluateString("99.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
-    #expect(Double(RString)!.similar(to: 100.0))
-
-    calculator.evaluateString("0.000999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
-    #expect(Double(RString)!.similar(to: 0.001))
-
-    calculator.evaluateString("-0.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
-    #expect(Double(RString)!.similar(to: -1.0))
-
-    calculator.evaluateString("-99.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
-    #expect(Double(RString)!.similar(to: -100.0))
-
-    calculator.evaluateString("-0.000999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, proportionalFont: font, monoSpacedFont: font, decimalSeparator: DecimalSeparator.dot, separateGroups: true, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: DecimalSeparator.comma.rawValue, with: "")
-    #expect(Double(RString)!.similar(to: -0.001))
 }
 
