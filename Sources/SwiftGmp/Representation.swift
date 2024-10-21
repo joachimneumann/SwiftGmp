@@ -215,6 +215,21 @@ public struct Representation: CustomDebugStringConvertible {
         }
     }
     
+    private var totalWidth: CGFloat {
+        var ret: CGFloat = 0
+        if let error {
+            ret += error.text.textWidth(kerning: kerning, error.appleFont)
+        }
+        if let number {
+            ret += number.mantissa.text.textWidth(kerning: kerning, number.mantissa.appleFont)
+            if let exponent = number.exponent {
+                ret += ePadding
+                ret += exponent.text.textWidth(kerning: kerning, exponent.appleFont)
+            }
+        }
+        return ret
+    }
+    
     public init(
         mantissaExponent: MantissaExponent,
         proportionalFont: AppleFont,
@@ -254,6 +269,7 @@ public struct Representation: CustomDebugStringConvertible {
                 if tempMantissa.textWidth(kerning: kerning, proportionalFont) <= width {
                     // the interger fits in the display
                     number = Number(mantissa: Content(tempMantissa, appleFont: proportionalFont))
+                    assert(totalWidth <= width)
                     return
                 }
                 
@@ -275,6 +291,7 @@ public struct Representation: CustomDebugStringConvertible {
                 number = Number(
                     mantissa: Content(sciMantissa, appleFont: proportionalFont),
                     exponent: Content(exponentString, appleFont: monoSpacedFont))
+                assert(totalWidth <= width)
                 return
             }
             if exponent >= 0 {
@@ -313,6 +330,7 @@ public struct Representation: CustomDebugStringConvertible {
                     if !floatString.hasSuffix(decimalSeparator.string) {
                         number = Number(
                             mantissa: Content(floatString, appleFont: proportionalFont))
+                        assert(totalWidth <= width)
                         return
                     }
                 }  // else: too long for width
@@ -326,17 +344,19 @@ public struct Representation: CustomDebugStringConvertible {
                 let beforeFloatString = negativeSign + "0\(decimalSeparator.character)" + leadingZeros
                 let beforeFloatStringLength = beforeFloatString.textWidth(kerning: kerning, proportionalFont)
                 
-                (floatString, incrementExponent) = truncate(floatString, to: width - beforeFloatStringLength, using: proportionalFont)
-                if incrementExponent {
+                let (floatString, didOverflow) = truncate(floatString, to: width - beforeFloatStringLength, using: proportionalFont)
+                if didOverflow {
                     let newMantissaExponent = MantissaExponent(mantissa: negativeSign+floatString, exponent: exponent + 1)
                     let newR = Representation(mantissaExponent: newMantissaExponent, proportionalFont: proportionalFont, monoSpacedFont: monoSpacedFont, decimalSeparator: decimalSeparator, separateGroups: separateGroups, ePadding: ePadding, width: width)
                     self = newR
+                    assert(totalWidth <= width)
                     return
                 }
                 floatString = beforeFloatString + floatString
                 
                 number = Number(
                     mantissa: Content(floatString, appleFont: proportionalFont))
+                assert(totalWidth <= width)
                 return
             }
             
@@ -358,6 +378,7 @@ public struct Representation: CustomDebugStringConvertible {
             number = Number(
                 mantissa: Content(sciMantissa, appleFont: proportionalFont),
                 exponent: Content(exponentString, appleFont: proportionalFont))
+            assert(totalWidth <= width)
             return
         }
     
