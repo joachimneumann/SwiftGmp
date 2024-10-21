@@ -18,7 +18,6 @@ public class Calculator {
         if let ret = privateZombieDisplayBuffer { return ret }
         return privateDisplayBuffer
     }
-    public var separateGroups: Bool = true
     public var maxOutputLength: Int
     
     public init(precision: Int, maxOutputLength: Int = 12) {
