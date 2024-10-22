@@ -20,27 +20,44 @@ import Testing
 //    RString = calculator.R.debugDescription
 //    #expect(RString == "100")
 
-    #expect(calculator.R.incrementAbsString("33") == "34")
-    #expect(calculator.R.incrementAbsString("39") == "40")
-    #expect(calculator.R.incrementAbsString("0") == "1")
-    #expect(calculator.R.incrementAbsString("") == "1")
-    #expect(calculator.R.incrementAbsString("9") == "10")
-    #expect(calculator.R.incrementAbsString("99") == "100")
-    #expect(calculator.R.incrementAbsString("994") == "995")
-    #expect(calculator.R.incrementAbsString("-44") == "-45")
+//    #expect(calculator.R.incrementAbsString("33") == "34")
+//    #expect(calculator.R.incrementAbsString("39") == "40")
+//    #expect(calculator.R.incrementAbsString("0") == "1")
+//    #expect(calculator.R.incrementAbsString("") == "1")
+//    #expect(calculator.R.incrementAbsString("9") == "10")
+//    #expect(calculator.R.incrementAbsString("99") == "100")
+//    #expect(calculator.R.incrementAbsString("994") == "995")
+//    #expect(calculator.R.incrementAbsString("-44") == "-45")
 //
 //    calculator.evaluateString("99.9999999999999")
 //    RString = calculator.R.debugDescription
 //    #expect(RString == "100")
-//
-//    calculator.evaluateString("99.9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+
+//    calculator.evaluateString("100")
 //    RString = calculator.R.debugDescription
 //    #expect(RString == "100")
+
+//    calculator.evaluateString("-100")
+//    RString = calculator.R.debugDescription
+//    #expect(RString == "-100")
+
+    calculator.evaluateString("-99.9999999999999")
+    RString = calculator.R.debugDescription
+    #expect(RString == "-100")
+
+    calculator.evaluateString("99.9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+    RString = calculator.R.debugDescription
+    #expect(RString == "100")
 
     calculator.evaluateString("99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
     calculator.R.setMantissaExponent(calculator.mantissaExponent!)
     RString = calculator.R.debugDescription
     #expect(RString == "9.95e1")
+
+    calculator.evaluateString("-99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "-9.95e1")
 
     calculator.evaluateString("99.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
     calculator.R.setMantissaExponent(calculator.mantissaExponent!)

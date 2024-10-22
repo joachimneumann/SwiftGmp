@@ -178,13 +178,13 @@ public struct Representation: CustomDebugStringConvertible {
         return !input.isEmpty && input.allSatisfy { $0 == "9" }
     }
     
-    private func truncate(_ string: String, to width: Float) -> (String, Bool) {
+    private func truncate(_ string: String, to width: Float) -> String {
         if length(string) <= width {
             var s = string
             while s.last == "0" {
                 s.removeLast()
             }
-            return (s, false)
+            return s
         }
         // truncate!
         var offset = 1
@@ -200,7 +200,7 @@ public struct Representation: CustomDebugStringConvertible {
                 while truncated.last == "0" {
                     truncated.removeLast()
                 }
-                return (truncated, false)
+                return truncated
             }
             
             offset += 1
@@ -209,7 +209,7 @@ public struct Representation: CustomDebugStringConvertible {
             afterTruncated = String(string[index...])
             if index == string.endIndex {
                 truncated = truncated.removeTrailingZeroes()
-                return (truncated, false)
+                return truncated
             }
         }
     }
@@ -250,7 +250,6 @@ public struct Representation: CustomDebugStringConvertible {
     mantissa: String,
     separator: Character,
     width: Float) -> String {
-        var overFlow: Bool
         let decimalIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
         var floatMantissa = mantissa
         floatMantissa.insert(separator, at: decimalIndex)
@@ -258,21 +257,18 @@ public struct Representation: CustomDebugStringConvertible {
             floatMantissa.append("0")
         }
         let parts = floatMantissa.split(separator: separator)
-        var beforeSeparator: String = String(parts[0])
+        let beforeSeparator: String = String(parts[0])
         let beforeSeparatorAndDot = beforeSeparator + String(separator)
         let beforeSeparatorAndDotWidth = length(beforeSeparatorAndDot)
         var afterSeparator: String = String(parts[1])
-        (afterSeparator, overFlow) = truncate(afterSeparator, to: width - beforeSeparatorAndDotWidth)
-        if overFlow {
-            beforeSeparator = incrementAbsString(beforeSeparator)
-            // TODO: is beforeSeparator now longer: truncate again :(
-        }
+        afterSeparator = truncate(afterSeparator, to: width - beforeSeparatorAndDotWidth)
         return beforeSeparatorAndDot + afterSeparator
     }
     
     mutating private func setScientific(
     mantissa: String,
     exponent: Int,
+    negativeSign: String,
     isDisplayBufferExponent: Bool) {
         let exponentString = "e\(exponent)"
         let exponentWidth = length(exponentString)
@@ -282,10 +278,9 @@ public struct Representation: CustomDebugStringConvertible {
             separator: decimalSeparator.character,
             width: remainingMantissaWidth)
         number = Number(
-            mantissa: t,
+            mantissa: negativeSign+t,
             exponent: exponentString,
             isDisplayBifferExponent: isDisplayBufferExponent)
-        let w = totalWidth
         assert(totalWidth <= width)
     }
         
@@ -326,14 +321,15 @@ public struct Representation: CustomDebugStringConvertible {
         // Integer?
         // Note: mantissa could be 99.9999999999999999999999999999999999999999...
 
-        if  exponent + 1 <= Int(width) {
+        if  exponent + 1 <= Int(width + length(negativeSign)) {
             // could be an Integer
             
             if mantissa.count <= exponent+1 {
                 // easy integer
 
                 // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
-                mantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
+                mantissa = negativeSign + mantissa
+                mantissa = mantissa.padding(toLength: Int(Float(exponent + 1) + length(negativeSign)), withPad: "0", startingAt: 0)
                 number = Number(mantissa: mantissa)
                 return
             }
@@ -345,12 +341,12 @@ public struct Representation: CustomDebugStringConvertible {
 
             let dotIndex = mantissa.index(mantissa.startIndex, offsetBy: exponent + 1)
             var beforeSeparator: String = String(mantissa[..<dotIndex])
-            var afterSeparator: String = String(mantissa[dotIndex...])
+            let afterSeparator: String = String(mantissa[dotIndex...])
             print("beforeSeparator: \(beforeSeparator)")
             print("afterSeparator: \(afterSeparator)")
             if containsOnly9(afterSeparator) {
                 beforeSeparator = incrementAbsString(beforeSeparator)
-                number = Number(mantissa: beforeSeparator)
+                number = Number(mantissa: negativeSign + beforeSeparator)
                 return
             }
 //            (afterSeparator, overflow) = roundString(afterSeparator)
@@ -398,6 +394,7 @@ public struct Representation: CustomDebugStringConvertible {
         setScientific(
             mantissa: mantissa,
             exponent: exponent,
+            negativeSign: negativeSign,
             isDisplayBufferExponent: false)
         assert(totalWidth <= width)
         return
