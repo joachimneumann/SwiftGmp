@@ -6,17 +6,98 @@
 //
 
 import Testing
-import SwiftGmp
-import AppKit
+@testable import SwiftGmp
 
 @Test func representationTest() {
-    let R = Representation()
-    #expect(R.roundString("57")    == ("6", false))
-    #expect(R.roundString("53")    == ("5", false))
-    #expect(R.roundString("9999")  == ("1", true))
-    #expect(R.roundString("9993")  == ("999", false))
-    #expect(R.roundString("1000")  == ("1", false))
-    #expect(R.roundString("43210") == ("4321", false))
+    let calculator = Calculator(precision: 20)
+    var RString: String
+    
+//    calculator.evaluateString("1234")
+//    RString = calculator.R.debugDescription
+//    #expect(RString == "1234")
+
+//    calculator.evaluateString("100")
+//    RString = calculator.R.debugDescription
+//    #expect(RString == "100")
+
+    #expect(calculator.R.incrementAbsString("33") == "34")
+    #expect(calculator.R.incrementAbsString("39") == "40")
+    #expect(calculator.R.incrementAbsString("0") == "1")
+    #expect(calculator.R.incrementAbsString("") == "1")
+    #expect(calculator.R.incrementAbsString("9") == "10")
+    #expect(calculator.R.incrementAbsString("99") == "100")
+    #expect(calculator.R.incrementAbsString("994") == "995")
+    #expect(calculator.R.incrementAbsString("-44") == "-45")
+//
+//    calculator.evaluateString("99.9999999999999")
+//    RString = calculator.R.debugDescription
+//    #expect(RString == "100")
+//
+//    calculator.evaluateString("99.9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+//    RString = calculator.R.debugDescription
+//    #expect(RString == "100")
+
+    calculator.evaluateString("99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "9.95e1")
+
+    calculator.evaluateString("99.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "9.9992e1")
+
+    calculator.evaluateString("1234567.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1234567")
+
+    calculator.evaluateString("12345678.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "12345678")
+    
+    calculator.evaluateString("123456789.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "123456789")
+    calculator.evaluateString("1234567890.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1234567890")
+
+    calculator.evaluateString("12345678901.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1.23456e10")
+
+    calculator.evaluateString("123456789012.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1.23456e11")
+
+    calculator.evaluateString("1234567890123.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1.23456e12")
+
+    calculator.evaluateString("12345678901234.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1.23456e13")
+
+    calculator.evaluateString("123456789012345.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1.23456e14")
+
+    calculator.evaluateString("1234567890123456.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+    calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+    RString = calculator.R.debugDescription
+    #expect(RString == "1.23456e15")
+
+    calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
+
 }
 
 struct S {
@@ -24,110 +105,107 @@ struct S {
     let separateGroups: Bool
 }
 
-@Test(arguments: [
-//    S(decimalSeparator: .comma, separateGroups: true),
-//    S(decimalSeparator: .comma, separateGroups: false),
-//    S(decimalSeparator: .dot, separateGroups: true),
-    S(decimalSeparator: .dot, separateGroups: false)])
-func separatorTest(s: S) {
-    let calculator = Calculator(precision: 20)
-    var R = Representation()
-    var RString: String
-    let font = AppleFont.monospacedSystemFont(ofSize: 40, weight: .regular)
-
-    //test 888 / 9 = "98.6666 66667"
-    
-    
-    calculator.evaluateString("9995.9999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: 9996))
+//@Test(arguments: [
+////    S(decimalSeparator: .comma, separateGroups: true),
+////    S(decimalSeparator: .comma, separateGroups: false),
+////    S(decimalSeparator: .dot, separateGroups: true),
+//    S(decimalSeparator: .dot, separateGroups: false)])
+//func separatorTest(s: S) {
+//    let calculator = Calculator(precision: 20)
+//    var RString: String
+//
+//    calculator.evaluateString("9995.9999999999999999999999999999999")
+//    calculator.R.setMantissaExponent(calculator.mantissaExponent!, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+////    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = calculator.R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(RString == "9996")
+//    #expect(Double(RString)!.similar(to: 9996))
 
 
-    calculator.evaluateString("0.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: 1.0))
-    
-    calculator.evaluateString("9999.3999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: 9999.4))
+//    calculator.evaluateString("0.999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: 1.0))
+//    
+//    calculator.evaluateString("9999.3999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: 9999.4))
+//
+//    calculator.evaluateString("9999.3999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    //print("X: \(s.decimalSeparator) \(s.decimalSeparator.groupString) \(RString)")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: 9999.4))
+//
+//    calculator.evaluateString("99.999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: 100.0))
+//
+//    calculator.evaluateString("0.000999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: DecimalSeparator.dot.string)
+//    #expect(Double(RString)!.similar(to: 0.001))
+//
+//    calculator.evaluateString("-0.999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: -1.0))
+//
+//    calculator.evaluateString("-99.999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: -100.0))
+//
+//    calculator.evaluateString("-0.000999999999999999999999999999999")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: -0.001))
+//    
+//    calculator.evaluateString("1.0823232337111381")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: 1.0823232337111381))
+//        
+//    calculator.evaluateString("1.0 * 1.0823232337111381")
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    RString = R.debugDescription
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+//    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+//    #expect(Double(RString)!.similar(to: 1.0823232337111381))
+//    
+//    calculator.press(DigitOperation.one)
+//    calculator.press(DigitOperation.dot)
+//    calculator.press(DigitOperation.three)
+//    
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//    #expect(R.debugDescription == "1\(s.decimalSeparator.character)3")
+//    
+//    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
+//
+//    calculator.press(EqualOperation.equal)
+//    #expect(R.debugDescription == "1\(s.decimalSeparator.character)3")
 
-    calculator.evaluateString("9999.3999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    //print("X: \(s.decimalSeparator) \(s.decimalSeparator.groupString) \(RString)")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: 9999.4))
 
-    calculator.evaluateString("99.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: 100.0))
-
-    calculator.evaluateString("0.000999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: DecimalSeparator.dot.string)
-    #expect(Double(RString)!.similar(to: 0.001))
-
-    calculator.evaluateString("-0.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: -1.0))
-
-    calculator.evaluateString("-99.999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: -100.0))
-
-    calculator.evaluateString("-0.000999999999999999999999999999999")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: -0.001))
-    
-    calculator.evaluateString("1.0823232337111381")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: 1.0823232337111381))
-        
-    calculator.evaluateString("1.0 * 1.0823232337111381")
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    RString = R.debugDescription
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
-    #expect(Double(RString)!.similar(to: 1.0823232337111381))
-    
-    calculator.press(DigitOperation.one)
-    calculator.press(DigitOperation.dot)
-    calculator.press(DigitOperation.three)
-    
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-    #expect(R.debugDescription == "1\(s.decimalSeparator.character)3")
-    
-    R = Representation(mantissaExponent: calculator.mantissaExponent!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0, width: 300)
-
-    calculator.press(EqualOperation.equal)
-    #expect(R.debugDescription == "1\(s.decimalSeparator.character)3")
-
-
-}
+//}

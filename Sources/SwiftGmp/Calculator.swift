@@ -14,16 +14,32 @@ public class Calculator {
     private var privateZombieDisplayBuffer: String? = nil
     private var memory: SwiftGmp?
     
+    public var representationWidth: Float {
+        didSet {
+            R.width = representationWidth
+        }
+    }
+    
+    public var length: (String) -> Float = { s in
+        Float(s.count)
+    }
+    public var displayBifferExponentLength: (String) -> Float = { s in
+        Float(s.count)
+    }
+
     public var displayBuffer: String {
         if let ret = privateZombieDisplayBuffer { return ret }
         return privateDisplayBuffer
     }
+
     public var maxOutputLength: Int
-    
+    public var R: Representation
     public init(precision: Int, maxOutputLength: Int = 12) {
         token = Token(precision: precision)
         self.maxOutputLength = maxOutputLength
         privateDisplayBuffer = ""
+        R = Representation(length: length, displayBifferExponentLength: displayBifferExponentLength)
+        representationWidth = 10
     }
     
     public var privateDisplayBufferHasDigits: Bool {
@@ -238,6 +254,7 @@ public class Calculator {
             token.clear()
             privateDisplayBuffer = error.localizedDescription
         }
+        R.setMantissaExponent(mantissaExponent!)
     }
     
     public var string: String {

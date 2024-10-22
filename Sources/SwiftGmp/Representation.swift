@@ -5,13 +5,6 @@
 //  Created by Joachim Neumann on 25.09.24.
 //
 
-#if os(macOS)
-import AppKit
-public typealias AppleFont = NSFont
-#elseif os(iOS) || os(tvOS) || os(watchOS)
-import UIKit
-public typealias AppleFont = UIFont
-#endif
 
 
 public func injectGrouping(numberString: String, decimalSeparator: DecimalSeparator, separateGroups: Bool) -> String {
@@ -84,128 +77,136 @@ public enum DecimalSeparator: String, Codable, CaseIterable {
     }
 }
 
-public struct Content: CustomDebugStringConvertible {
-    public let text: String
-    public let appleFont: AppleFont
-    init(_ text: String, appleFont: AppleFont) {
-        self.text = text
-        self.appleFont = appleFont
-    }
-    public var debugDescription: String {
-        text
-    }
-}
-
 public struct Number: CustomDebugStringConvertible {
-    public let mantissa: Content
-    public let exponent: Content?
-    init(mantissa: Content, exponent: Content? = nil) {
+    public var mantissa: String
+    public var exponent: String?
+    public var isDisplayBifferExponent: Bool
+    init(mantissa: String, exponent: String? = nil, isDisplayBifferExponent: Bool = false) {
         self.mantissa = mantissa
         self.exponent = exponent
+        self.isDisplayBifferExponent = isDisplayBifferExponent
     }
     public var debugDescription: String {
-        var ret = mantissa.text
+        var ret = mantissa
         if let e = exponent {
-            ret += "\(e.text)"
+            ret += e
         }
         return ret
     }
 }
 
 public struct Representation: CustomDebugStringConvertible {
-    public var error: Content?
+    var width: Float
+    var length: (String) -> Float
+    var displayBifferExponentLength: (String) -> Float
+    public var error: String?
     public var number: Number?
-    public var kerning: CGFloat
-    var ePadding: CGFloat
+    private var decimalSeparator: DecimalSeparator
+    private var separateGroups: Bool
+    private let maxOutputLength = 10
     
-    public init() {
+    public init(length: @escaping (String) -> Float, displayBifferExponentLength: @escaping (String) -> Float) {
+        self.length = length
+        self.displayBifferExponentLength = displayBifferExponentLength
         error = nil
-        number = Number(mantissa: Content("0", appleFont: .systemFont(ofSize: 40)))
-        kerning = 0
-        ePadding = 0
+        number = Number(mantissa: "0")
+        decimalSeparator = DecimalSeparator.dot
+        separateGroups = false
+        width = 10
     }
     
-    public init(error: String, appleFont: AppleFont) {
-        self.error = Content(error, appleFont: appleFont)
-        self.number = nil
-        kerning = 0
-        ePadding = 0
+    mutating public func setError(_ error: String) {
+        self.error = error
+        number = nil
     }
     
-    public init(number: Number) {
+    mutating private func setNumber(_ number: Number) {
         self.error = nil
         self.number = number
-        kerning = 0
-        ePadding = 0
     }
 
-    public func roundString(_ input: String) -> (String, Bool) {
-        // Ensure the input is non-empty.
-        guard !input.isEmpty else { return (input, false) }
-        
-        // If the input has only one character, do nothing
-        if input.count == 1 {
-            return (input, false)
-        }
-        
-        // Convert the input string into an array of characters.
-        var digits = Array(input)
-        
-        // Remove the last digit to decide rounding.
-        let lastDigit = digits.removeLast()
-        
-        // Determine if we need to round up.
-        var shouldRoundUp = lastDigit >= "5"
-        
-        // Index for the digit to round.
-        var index = digits.count - 1
-        
-        // Perform rounding if necessary.
-        while shouldRoundUp && index >= 0 {
-            if digits[index] == "9" {
-                // Set current digit to '0' and carry over.
-                digits[index] = "0"
-            } else if let digitValue = digits[index].wholeNumberValue {
-                // Increment the current digit.
-                let incrementedValue = digitValue + 1
-                digits[index] = Character("\(incrementedValue)")
-                shouldRoundUp = false  // No more rounding needed.
-            }
-            index -= 1
-        }
-        
-        var overflow = false
-        if shouldRoundUp && index < 0 {
-            overflow = true
-        }
-        
-        // Remove any trailing zeros.
-        var result = String(digits)
-        while result.last == "0" {
-            result.removeLast()
-        }
-        // If the result is empty after trimming, return "0".
-        return (result, overflow)
+//    public func roundString(_ input: String) -> (String, Bool) {
+//        // Ensure the input is non-empty.
+//        guard !input.isEmpty else { return (input, false) }
+//        
+//        // If the input has only one character, do nothing
+//        if input.count == 1 {
+//            return (input, false)
+//        }
+//        
+//        // Convert the input string into an array of characters.
+//        var digits = Array(input)
+//        
+//        // Remove the last digit to decide rounding.
+//        let lastDigit = digits.removeLast()
+//        
+//        // Determine if we need to round up.
+//        var shouldRoundUp = lastDigit >= "5"
+//        
+//        // Index for the digit to round.
+//        var index = digits.count - 1
+//        
+//        // Perform rounding if necessary.
+//        while shouldRoundUp && index >= 0 {
+//            if digits[index] == "9" {
+//                // Set current digit to '0' and carry over.
+//                digits[index] = "0"
+//            } else if let digitValue = digits[index].wholeNumberValue {
+//                // Increment the current digit.
+//                let incrementedValue = digitValue + 1
+//                digits[index] = Character("\(incrementedValue)")
+//                shouldRoundUp = false  // No more rounding needed.
+//            }
+//            index -= 1
+//        }
+//        
+//        var overflow = false
+//        if shouldRoundUp && index < 0 {
+//            overflow = true
+//        }
+//        
+//        // Remove any trailing zeros.
+//        var result = String(digits)
+//        while result.last == "0" {
+//            result.removeLast()
+//        }
+//        // If the result is empty after trimming, return "0".
+//        return (result, overflow)
+//    }
+    
+    private func containsOnly9(_ input: String) -> Bool {
+        return !input.isEmpty && input.allSatisfy { $0 == "9" }
     }
     
-    private func truncate(_ string: String, to width: CGFloat, using font: AppleFont) -> (String, Bool) {
-        if string.textWidth(kerning: kerning, font) <= width {
-            return (string, false)
+    private func truncate(_ string: String, to width: Float) -> (String, Bool) {
+        if length(string) <= width {
+            var s = string
+            while s.last == "0" {
+                s.removeLast()
+            }
+            return (s, false)
         }
         // truncate!
         var offset = 1
         var index = string.index(string.startIndex, offsetBy: offset)
-        var truncated = String(string.prefix(upTo: index))
+        var truncated = String(string[..<index])
+        var afterTruncated: String = String(string[index...])
         while true {
-            if truncated.textWidth(kerning: kerning, font) > width {
-                let notRounded = String(string.prefix(upTo: index))
-                let rounded = roundString(notRounded)
-                return rounded
+            if length(truncated) >= width {
+                if containsOnly9(afterTruncated) {
+                    truncated = incrementAbsString(truncated)
+                    return truncate(truncated, to: width)
+                }
+                while truncated.last == "0" {
+                    truncated.removeLast()
+                }
+                return (truncated, false)
             }
             
             offset += 1
             index = string.index(string.startIndex, offsetBy: offset)
             truncated = String(string.prefix(upTo: index))
+            afterTruncated = String(string[index...])
             if index == string.endIndex {
                 truncated = truncated.removeTrailingZeroes()
                 return (truncated, false)
@@ -213,42 +214,42 @@ public struct Representation: CustomDebugStringConvertible {
         }
     }
     
-    private var totalWidth: CGFloat {
-        var ret: CGFloat = 0
+    private var totalWidth: Float {
+        var ret: Float = 0
         if let error {
-            ret += error.text.textWidth(kerning: kerning, error.appleFont)
+            ret += length(error)
         }
         if let number {
-            ret += number.mantissa.text.textWidth(kerning: kerning, number.mantissa.appleFont)
+            ret += length(number.mantissa)
             if let exponent = number.exponent {
-                ret += ePadding
-                ret += exponent.text.textWidth(kerning: kerning, exponent.appleFont)
+                ret += length(exponent)
             }
         }
         return ret
     }
     
-    private func incrementString(_ s: String) -> String {
+    func incrementAbsString(_ s: String) -> String {
         var ret: String = s
         if ret.last != nil {
             if ret.last == "9" {
                 ret.removeLast()
-                ret = incrementString(ret)
+                ret = incrementAbsString(ret)
                 ret = ret + "0"
             } else {
                 let new = String(Int(String(ret.last!))! + 1)
                 ret.removeLast()
                 ret = ret + new
             }
+        } else {
+            ret = "1"
         }
-        return s
+        return ret
     }
     
-    private func float(
+    private func mantissa_1_float(
     mantissa: String,
     separator: Character,
-    font: AppleFont,
-    width: CGFloat) -> String {
+    width: Float) -> String {
         var overFlow: Bool
         let decimalIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
         var floatMantissa = mantissa
@@ -258,59 +259,42 @@ public struct Representation: CustomDebugStringConvertible {
         }
         let parts = floatMantissa.split(separator: separator)
         var beforeSeparator: String = String(parts[0])
-        var beforeSeparatorAndDot = beforeSeparator + String(separator)
-        let beforeSeparatorAndDotWidth = beforeSeparatorAndDot.textWidth(kerning: kerning, font)
+        let beforeSeparatorAndDot = beforeSeparator + String(separator)
+        let beforeSeparatorAndDotWidth = length(beforeSeparatorAndDot)
         var afterSeparator: String = String(parts[1])
-        (afterSeparator, overFlow) = truncate(afterSeparator, to: width - beforeSeparatorAndDotWidth, using: font)
+        (afterSeparator, overFlow) = truncate(afterSeparator, to: width - beforeSeparatorAndDotWidth)
         if overFlow {
-            beforeSeparator = incrementString(beforeSeparator)
-            // TODO: is beforeSeparator now logner: truncate again :(
+            beforeSeparator = incrementAbsString(beforeSeparator)
+            // TODO: is beforeSeparator now longer: truncate again :(
         }
-        return beforeSeparator + String(separator) + afterSeparator
+        return beforeSeparatorAndDot + afterSeparator
     }
     
-    private func scientific(
+    mutating private func setScientific(
     mantissa: String,
     exponent: Int,
-    separator: Character,
-    mantissaFont: AppleFont,
-    exponentFont: AppleFont,
-    width: CGFloat) -> Representation {
+    isDisplayBufferExponent: Bool) {
         let exponentString = "e\(exponent)"
-        let exponentWidth = exponentString.textWidth(kerning: kerning, exponentFont)
-        let remainingMantissaWidth = width - exponentWidth - ePadding
-        
-        let mantissa = float(
+        let exponentWidth = length(exponentString)
+        let remainingMantissaWidth = width - exponentWidth
+        let t = mantissa_1_float(
             mantissa: mantissa,
-            separator: separator,
-            font: mantissaFont,
+            separator: decimalSeparator.character,
             width: remainingMantissaWidth)
-        
-        let number = Number(
-            mantissa: Content(mantissa, appleFont: mantissaFont),
-            exponent: Content(exponentString, appleFont: exponentFont))
-        let R = Representation(number: number)
-        assert(R.totalWidth <= width)
-        return R
+        number = Number(
+            mantissa: t,
+            exponent: exponentString,
+            isDisplayBifferExponent: isDisplayBufferExponent)
+        let w = totalWidth
+        assert(totalWidth <= width)
     }
         
-    public init(
-    mantissaExponent: MantissaExponent,
-    font: AppleFont,
-    displayBufferExponentFont: AppleFont,
-    decimalSeparator: DecimalSeparator,
-    separateGroups: Bool,
-    ePadding: CGFloat,
-    width: CGFloat) {
+    mutating public func setMantissaExponent(
+    _ mantissaExponent: MantissaExponent) {
         self.error = nil
-        self.kerning = 0
-        self.ePadding = ePadding
-        
-        // let dummy1 = "1111".textWidth(kerning: 0.0, font)
-        // let dummy2 = "1111".textWidth(kerning: 0.0, DisplayBufferExponentFont)
         
         var mantissa = mantissaExponent.mantissa
-        var exponent = mantissaExponent.exponent
+        let exponent = mantissaExponent.exponent
 
         let negativeSign: String
         if mantissa.starts(with: "-") {
@@ -321,13 +305,9 @@ public struct Representation: CustomDebugStringConvertible {
         }
         
         /// can the number be displayed in the non-scientific format (integer or float)?
-        ///
-        //
-        // write tests for round()
-        // write tests for truncate()
         //
         // NON-SCIENTIFIC???
-        // generousEstimateOfNumberOfDigits = width / smallestDigitWidth 
+        // generousEstimateOfNumberOfDigits = width / smallestDigitWidth
         // get beforeSeparator (filling up)
         // if (beforeSeparator.textwidth <= width:
         //     if afterSeparator.isEmpty():
@@ -343,44 +323,82 @@ public struct Representation: CustomDebugStringConvertible {
 
         // --> Is it an integer
         
-        // Integer
-        if mantissa.count <= exponent + 1 {
+        // Integer?
+        // Note: mantissa could be 99.9999999999999999999999999999999999999999...
+
+        if  exponent + 1 <= Int(width) {
+            // could be an Integer
             
-            // Pad mantissa with zeros to match the exponent
-            var integerMantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
-            integerMantissa = nonNegativeInjectGrouping(
-                numberString: integerMantissa,
-                decimalSeparator: decimalSeparator,
-                separateGroups: separateGroups)
-            integerMantissa = negativeSign + integerMantissa
-            
-            if integerMantissa.textWidth(kerning: kerning, font) <= width {
-                // the interger fits in the display
-                number = Number(mantissa: Content(integerMantissa, appleFont: font))
-                assert(totalWidth <= width)
+            if mantissa.count <= exponent+1 {
+                // easy integer
+
+                // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
+                mantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
+                number = Number(mantissa: mantissa)
                 return
             }
             
-            // the interger is too large: show in scientific notation
-            self = scientific(
-                mantissa: mantissa,
-                exponent: exponent,
-                separator: decimalSeparator.character,
-                mantissaFont: font,
-                exponentFont: displayBufferExponentFont,
-                width: width)
-            assert(totalWidth <= width)
-            return
+            
+
+            mantissa = mantissa.padding(toLength: exponent + 1 + 3, withPad: "0", startingAt: 0)
+
+
+            let dotIndex = mantissa.index(mantissa.startIndex, offsetBy: exponent + 1)
+            var beforeSeparator: String = String(mantissa[..<dotIndex])
+            var afterSeparator: String = String(mantissa[dotIndex...])
+            print("beforeSeparator: \(beforeSeparator)")
+            print("afterSeparator: \(afterSeparator)")
+            if containsOnly9(afterSeparator) {
+                beforeSeparator = incrementAbsString(beforeSeparator)
+                number = Number(mantissa: beforeSeparator)
+                return
+            }
+//            (afterSeparator, overflow) = roundString(afterSeparator)
+//            print("afterSeparator, rounded: \(afterSeparator)")
+//            if overflow {
+//                beforeSeparator = negativeSign+incrementString(beforeSeparator)
+//                let me = MantissaExponent(mantissa: beforeSeparator+afterSeparator, exponent: exponent)
+//                setMantissaExponent(me, width: width)
+//            }
+//            if afterSeparator.isEmpty {
+//                if beforeSeparator.textWidth(kerning: kerning, font) < width {
+//                    number = Number(mantissa: Content(beforeSeparator, font: font))
+//                    return
+//                }
+//            }
+//        }
+//        if mantissa.count <= exponent + 1 {
+//            
+//            // Pad mantissa with zeros to match the exponent
+//            var integerMantissa = mantissa.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
+//            integerMantissa = nonNegativeInjectGrouping(
+//                numberString: integerMantissa,
+//                decimalSeparator: decimalSeparator,
+//                separateGroups: separateGroups)
+//            integerMantissa = negativeSign + integerMantissa
+//            
+//            if integerMantissa.textWidth(kerning: kerning, font) <= width {
+//                // the interger fits in the display
+//                number = Number(mantissa: Content(integerMantissa, font: font))
+//                assert(totalWidth <= width)
+//                return
+//            }
+//            
+//            // the interger is too large: show in scientific notation
+//            setScientific(
+//                mantissa: mantissa,
+//                exponent: exponent,
+//                useDisplayBufferExponentFont: true,
+//                width: width)
+//            assert(totalWidth <= width)
+//            return
         }
         
         // scientific
-        self = scientific(
+        setScientific(
             mantissa: mantissa,
             exponent: exponent,
-            separator: decimalSeparator.character,
-            mantissaFont: font,
-            exponentFont: font,
-            width: width)
+            isDisplayBufferExponent: false)
         assert(totalWidth <= width)
         return
     }
@@ -458,21 +476,4 @@ public struct Representation: CustomDebugStringConvertible {
         }
         return "undefined"
     }
-}
-
-extension String {
-    func textWidth(kerning: CGFloat, _ font: AppleFont) -> CGFloat {
-        var attributes: [NSAttributedString.Key : Any] = [:]
-        attributes[.kern] = kerning
-        attributes[.font] = font
-        return self.size(withAttributes: attributes).width
-    }
-    
-    func textHeight(kerning: CGFloat, _ font: AppleFont) -> CGFloat {
-        var attributes: [NSAttributedString.Key : Any] = [:]
-        attributes[.kern] = kerning
-        attributes[.font] = font
-        return self.size(withAttributes: attributes).height
-    }
-    
 }
