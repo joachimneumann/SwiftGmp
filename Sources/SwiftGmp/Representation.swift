@@ -149,7 +149,7 @@ public struct Representation: CustomDebugStringConvertible {
             if length(truncated) >= width {
                 if containsAtLeastThree9s(afterTruncated) {
                     // disregard afterTruncated and increase truncated instead
-                    truncated = incrementAbsString(truncated)
+                    truncated.incrementAbsIntegerValue()
                     truncated = truncateFloatDigits(truncated, to: width)
                 }
                 while truncated.last == "0" {
@@ -179,24 +179,6 @@ public struct Representation: CustomDebugStringConvertible {
             if let exponent = number.exponent {
                 ret += length(exponent)
             }
-        }
-        return ret
-    }
-    
-    func incrementAbsString(_ s: String) -> String {
-        var ret: String = s
-        if ret.last != nil {
-            if ret.last == "9" {
-                ret.removeLast()
-                ret = incrementAbsString(ret)
-                ret = ret + "0"
-            } else {
-                let new = String(Int(String(ret.last!))! + 1)
-                ret.removeLast()
-                ret = ret + new
-            }
-        } else {
-            ret = "1"
         }
         return ret
     }
@@ -277,7 +259,7 @@ public struct Representation: CustomDebugStringConvertible {
                 //print("beforeSeparator: \(beforeSeparator)")
                 //print("afterSeparator: \(afterSeparator)")
                 if containsAtLeastThree9s(afterSeparator) {
-                    beforeSeparator = incrementAbsString(beforeSeparator)
+                    beforeSeparator.incrementAbsIntegerValue()
                     number = Number(mantissa: negativeSign + beforeSeparator)
                     return
                 } else {
@@ -341,20 +323,18 @@ extension String {
     }
     
     mutating func correctNumericalErrors(after position: Int) {
-        let XXXposition = position
-//        self = "989"
         if self.count < position + 3 {
             // the string is too short, so not correct anything
             return
         }
-        let positionIndex = self.index(self.startIndex, offsetBy: XXXposition)
-        let positionIndexPlus3 = self.index(self.startIndex, offsetBy: XXXposition+3)
+        let positionIndex = self.index(self.startIndex, offsetBy: position)
+        let positionIndexPlus3 = self.index(self.startIndex, offsetBy: position+3)
 
         var cutOffString = String(self[..<positionIndex])
         if self[positionIndex..<positionIndexPlus3] == "999" {
             cutOffString.incrementAbsIntegerValue()
-        } else if self.count >= XXXposition + 4 {
-            let positionIndexPlus4 = self.index(self.startIndex, offsetBy: XXXposition+4)
+        } else if self.count >= position + 4 {
+            let positionIndexPlus4 = self.index(self.startIndex, offsetBy: position+4)
             if self[positionIndex..<positionIndexPlus4] == "9989" {
                 cutOffString.incrementAbsIntegerValue()
             }

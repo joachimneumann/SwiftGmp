@@ -36,6 +36,12 @@ class RepresentationTests {
         
         calculator.evaluateString("1234567.9999")
         #expect(calculator.R.debugDescription == "1234568")
+
+        calculator.evaluateString("1234567.9989")
+        #expect(calculator.R.debugDescription == "1234568")
+
+        calculator.evaluateString("1234567.998")
+        #expect(calculator.R.debugDescription == "1234567.99")
     }
     
     @Test func smallFloatTest() {
@@ -46,14 +52,16 @@ class RepresentationTests {
     
     @Test func incrementAbsStringTest() {
         if debug { return }
-        #expect(calculator.R.incrementAbsString("33") == "34")
-        #expect(calculator.R.incrementAbsString("39") == "40")
-        #expect(calculator.R.incrementAbsString("0") == "1")
-        #expect(calculator.R.incrementAbsString("") == "1")
-        #expect(calculator.R.incrementAbsString("9") == "10")
-        #expect(calculator.R.incrementAbsString("99") == "100")
-        #expect(calculator.R.incrementAbsString("994") == "995")
-        #expect(calculator.R.incrementAbsString("-44") == "-45")
+        var x: String
+        x = "33";  x.incrementAbsIntegerValue(); #expect(x == "34")
+        x = "39";  x.incrementAbsIntegerValue(); #expect(x == "40")
+        x = "0";   x.incrementAbsIntegerValue(); #expect(x == "1")
+        x = "";    x.incrementAbsIntegerValue(); #expect(x == "1")
+        x = "9";   x.incrementAbsIntegerValue(); #expect(x == "10")
+        x = "99";  x.incrementAbsIntegerValue(); #expect(x == "100")
+        x = "994"; x.incrementAbsIntegerValue(); #expect(x == "995")
+        x = "-44"; x.incrementAbsIntegerValue(); #expect(x == "-45")
+        x = "-1";  x.incrementAbsIntegerValue(); #expect(x == "-2")
     }
     
     @Test func integerTest() {
