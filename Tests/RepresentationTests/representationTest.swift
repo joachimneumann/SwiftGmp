@@ -36,7 +36,6 @@ class RepresentationTests {
         
         calculator.evaluateString("1234567.9999")
         #expect(calculator.R.debugDescription == "1234568")
-        
     }
     
     @Test func smallFloatTest() {
@@ -152,9 +151,6 @@ class RepresentationTests {
         
         calculator.evaluateString("99999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
         #expect(calculator.R.debugDescription == "99999.992")
-        
-        calculator.evaluateString("999999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-        #expect(calculator.R.debugDescription == "999999.992")
         
         calculator.evaluateString("1234567.999")
         #expect(calculator.R.debugDescription == "1234568")

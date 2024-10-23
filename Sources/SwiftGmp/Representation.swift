@@ -78,11 +78,11 @@ public enum DecimalSeparator: String, Codable, CaseIterable {
 public struct Number: CustomDebugStringConvertible {
     public var mantissa: String
     public var exponent: String?
-    public var isDisplayBifferExponent: Bool
+    public var isDisplayBufferExponent: Bool
     init(mantissa: String, exponent: String? = nil, isDisplayBifferExponent: Bool = false) {
         self.mantissa = mantissa
         self.exponent = exponent
-        self.isDisplayBifferExponent = isDisplayBifferExponent
+        self.isDisplayBufferExponent = isDisplayBifferExponent
     }
     public var debugDescription: String {
         var ret = mantissa
@@ -94,16 +94,16 @@ public struct Number: CustomDebugStringConvertible {
 }
 
 public struct Representation: CustomDebugStringConvertible {
-    var width: Float
-    var length: (String) -> Float
-    var displayBifferExponentLength: (String) -> Float
+    var width: Int
+    var length: (String) -> Int
+    var displayBifferExponentLength: (String) -> Int
     public var error: String?
     public var number: Number?
     private var decimalSeparator: DecimalSeparator
     private var separateGroups: Bool
     private let maxOutputLength = 10
     
-    public init(length: @escaping (String) -> Float, displayBifferExponentLength: @escaping (String) -> Float) {
+    public init(length: @escaping (String) -> Int, displayBifferExponentLength: @escaping (String) -> Int) {
         self.length = length
         self.displayBifferExponentLength = displayBifferExponentLength
         error = nil
@@ -123,12 +123,16 @@ public struct Representation: CustomDebugStringConvertible {
         self.number = number
     }
 
-    private func containsAtleastThree9s(_ input: String) -> Bool {
-        let shorter = String(input.prefix(3))
-        return !shorter.isEmpty && shorter.allSatisfy { $0 == "9" }
+    private func containsAtLeastThree9s(_ input: String) -> Bool {
+        if input.count < 3 {
+            return false
+        }
+        if String(input.prefix(3)) == "999" { return true }
+        if String(input.prefix(4)) == "9989" { return true }
+        return false
     }
     
-    private func truncateFloatDigits(_ string: String, to width: Float) -> String {
+    private func truncateFloatDigits(_ string: String, to width: Int) -> String {
         if length(string) <= width {
             var s = string
             while s.last == "0" {
@@ -143,7 +147,7 @@ public struct Representation: CustomDebugStringConvertible {
         var afterTruncated: String = String(string[index...])
         while true {
             if length(truncated) >= width {
-                if containsAtleastThree9s(afterTruncated) {
+                if containsAtLeastThree9s(afterTruncated) {
                     // disregard afterTruncated and increase truncated instead
                     truncated = incrementAbsString(truncated)
                     truncated = truncateFloatDigits(truncated, to: width)
@@ -159,14 +163,14 @@ public struct Representation: CustomDebugStringConvertible {
             truncated = String(string.prefix(upTo: index))
             afterTruncated = String(string[index...])
             if index == string.endIndex {
-                truncated = truncated.removeTrailingZeroes()
+                truncated.removeTrailingZeroes()
                 return truncated
             }
         }
     }
     
-    private var totalWidth: Float {
-        var ret: Float = 0
+    private var totalWidth: Int {
+        var ret: Int = 0
         if let error {
             ret += length(error)
         }
@@ -200,7 +204,7 @@ public struct Representation: CustomDebugStringConvertible {
     private func mantissa_1_float(
     mantissa: String,
     separator: Character,
-    width: Float) -> String {
+    width: Int) -> String {
         let decimalIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
         var floatMantissa = mantissa
         floatMantissa.insert(separator, at: decimalIndex)
@@ -252,7 +256,7 @@ public struct Representation: CustomDebugStringConvertible {
         }
 
         if  exponent > 0 {
-            if Float(exponent + 1) + length(negativeSign) <= width {
+            if exponent + 1 + length(negativeSign) <= width {
                 // could be an Integer
                 
                 if mantissa.count <= exponent+1 {
@@ -260,30 +264,34 @@ public struct Representation: CustomDebugStringConvertible {
                     
                     // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
                     mantissa = negativeSign + mantissa
-                    mantissa = mantissa.padding(toLength: Int(Float(exponent + 1) + length(negativeSign)), withPad: "0", startingAt: 0)
+                    mantissa = mantissa.padding(toLength: exponent + 1 + length(negativeSign), withPad: "0", startingAt: 0)
                     number = Number(mantissa: mantissa)
                     return
                 }
                 
-                let integerMantissa = mantissa.padding(toLength: exponent + 1 + 3, withPad: "0", startingAt: 0)
+                let integerMantissa = mantissa.padding(toLength: exponent + 1 + 4, withPad: "0", startingAt: 0)
                 
                 let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
                 var beforeSeparator: String = String(integerMantissa[..<dotIndex])
                 let afterSeparator: String = String(integerMantissa[dotIndex...])
                 //print("beforeSeparator: \(beforeSeparator)")
                 //print("afterSeparator: \(afterSeparator)")
-                if containsAtleastThree9s(afterSeparator) {
+                if containsAtLeastThree9s(afterSeparator) {
                     beforeSeparator = incrementAbsString(beforeSeparator)
                     number = Number(mantissa: negativeSign + beforeSeparator)
                     return
                 } else {
                     // no integer, float > 1
-                    let floatMantissaLength = Int(width - length(negativeSign) - 1)
+                    let floatMantissaLength = width - length(negativeSign) - 1 + 4
                     let floatMantissa = mantissa.padding(toLength: floatMantissaLength, withPad: "0", startingAt: 0)
                     let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
                     let beforeSeparator: String = String(floatMantissa[..<dotIndex])
-                    let afterSeparator: String = String(floatMantissa[dotIndex...]).removeTrailingZeroes()
-                    if containsAtleastThree9s("X") {
+                    var afterSeparator: String = String(floatMantissa[dotIndex...])
+                    afterSeparator.removeTrailingZeroes()
+                    let w = length(beforeSeparator) + length(decimalSeparator.string)
+                    let remainingLength = width - w
+                    afterSeparator.removeNumericalErrors(at: remainingLength)
+                    if containsAtLeastThree9s("X") {
                     }
 
                     number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
@@ -311,5 +319,10 @@ public struct Representation: CustomDebugStringConvertible {
             return number.debugDescription
         }
         return "undefined"
+    }
+}
+
+extension String {
+    mutating func removeNumericalErrors(at position: Int) {
     }
 }

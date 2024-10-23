@@ -14,17 +14,17 @@ public class Calculator {
     private var privateZombieDisplayBuffer: String? = nil
     private var memory: SwiftGmp?
     
-    public var representationWidth: Float {
+    public var representationWidth: Int {
         didSet {
             R.width = representationWidth
         }
     }
     
-    public var length: (String) -> Float = { s in
-        Float(s.count)
+    public var length: (String) -> Int = { s in
+        s.count
     }
-    public var displayBifferExponentLength: (String) -> Float = { s in
-        Float(s.count)
+    public var displayBifferExponentLength: (String) -> Int = { s in
+        s.count
     }
 
     public var displayBuffer: String {

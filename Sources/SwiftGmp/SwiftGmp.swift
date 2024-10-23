@@ -94,7 +94,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             mantissa = String(cString: ptr.baseAddress!)
         }
         
-        mantissa = mantissa.removeTrailingZeroes()
+        mantissa.removeTrailingZeroes()
         if mantissa == "" { mantissa = "0" }
         
         return MantissaExponent(mantissa: mantissa, exponent: exponent - 1)
@@ -315,14 +315,10 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
 
 
 extension String {
-    public func removeTrailingZeroes() -> String {
-        var result = self
-            
+    public mutating func removeTrailingZeroes() {
         // Loop to remove trailing "0" characters
-        while result.last == "0" {
-            result.removeLast()
+        while self.last == "0" {
+            self.removeLast()
         }
-        
-        return result
     }
 }
