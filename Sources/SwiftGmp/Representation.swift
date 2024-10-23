@@ -272,7 +272,7 @@ public struct Representation: CustomDebugStringConvertible {
     isDisplayBufferExponent: Bool) {
         let exponentString = "e\(exponent)"
         let exponentWidth = length(exponentString)
-        let remainingMantissaWidth = width - exponentWidth
+        let remainingMantissaWidth = width - exponentWidth - length(negativeSign)
         let t = mantissa_1_float(
             mantissa: mantissa,
             separator: decimalSeparator.character,
@@ -321,7 +321,7 @@ public struct Representation: CustomDebugStringConvertible {
         // Integer?
         // Note: mantissa could be 99.9999999999999999999999999999999999999999...
 
-        if  exponent + 1 <= Int(width + length(negativeSign)) {
+        if  Float(exponent + 1) + length(negativeSign) <= width {
             // could be an Integer
             
             if mantissa.count <= exponent+1 {
@@ -333,8 +333,6 @@ public struct Representation: CustomDebugStringConvertible {
                 number = Number(mantissa: mantissa)
                 return
             }
-            
-            
 
             mantissa = mantissa.padding(toLength: exponent + 1 + 3, withPad: "0", startingAt: 0)
 
