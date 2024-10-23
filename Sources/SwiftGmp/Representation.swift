@@ -123,11 +123,12 @@ public struct Representation: CustomDebugStringConvertible {
         self.number = number
     }
 
-    private func containsOnly9s(_ input: String) -> Bool {
-        return !input.isEmpty && input.allSatisfy { $0 == "9" }
+    private func containsAtleastThree9s(_ input: String) -> Bool {
+        let shorter = String(input.prefix(3))
+        return !shorter.isEmpty && shorter.allSatisfy { $0 == "9" }
     }
     
-    private func truncate(_ string: String, to width: Float) -> String {
+    private func truncateFloatDigits(_ string: String, to width: Float) -> String {
         if length(string) <= width {
             var s = string
             while s.last == "0" {
@@ -142,10 +143,10 @@ public struct Representation: CustomDebugStringConvertible {
         var afterTruncated: String = String(string[index...])
         while true {
             if length(truncated) >= width {
-                if containsOnly9s(afterTruncated) {
+                if containsAtleastThree9s(afterTruncated) {
                     // disregard afterTruncated and increase truncated instead
                     truncated = incrementAbsString(truncated)
-                    truncated = truncate(truncated, to: width)
+                    truncated = truncateFloatDigits(truncated, to: width)
                 }
                 while truncated.last == "0" {
                     truncated.removeLast()
@@ -208,7 +209,7 @@ public struct Representation: CustomDebugStringConvertible {
         let beforeSeparatorAndDot = beforeSeparator + String(separator)
         let beforeSeparatorAndDotWidth = length(beforeSeparatorAndDot)
         var afterSeparator: String = String(parts[1])
-        afterSeparator = truncate(afterSeparator, to: width - beforeSeparatorAndDotWidth)
+        afterSeparator = truncateFloatDigits(afterSeparator, to: width - beforeSeparatorAndDotWidth)
         var res = beforeSeparatorAndDot + afterSeparator
         if res.count == 2 {
             res.append("0")
@@ -271,7 +272,7 @@ public struct Representation: CustomDebugStringConvertible {
             let afterSeparator: String = String(mantissa[dotIndex...])
             //print("beforeSeparator: \(beforeSeparator)")
             //print("afterSeparator: \(afterSeparator)")
-            if containsOnly9s(afterSeparator) {
+            if containsAtleastThree9s(afterSeparator) {
                 beforeSeparator = incrementAbsString(beforeSeparator)
                 number = Number(mantissa: negativeSign + beforeSeparator)
                 return
