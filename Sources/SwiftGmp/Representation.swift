@@ -190,7 +190,7 @@ public struct Representation: CustomDebugStringConvertible {
                 let dotIndex = floatMantissa.index(floatMantissa.startIndex, offsetBy: exponent + 1)
                 let beforeSeparator: String = String(floatMantissa[..<dotIndex])
                 var afterSeparator: String = String(floatMantissa[dotIndex...])
-                if length(beforeSeparator) < width - 2 - length(negativeSign) {
+                if length(beforeSeparator) <= width - 2 - length(negativeSign) {
                     let w = length(beforeSeparator) + length(decimalSeparator.string)
                     let remainingLength = width - w - length(negativeSign)
                     afterSeparator.correctFractionalPartNumericalErrors(after: remainingLength)
