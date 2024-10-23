@@ -253,16 +253,17 @@ public struct Representation: CustomDebugStringConvertible {
         let decimalIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
         var floatMantissa = mantissa
         floatMantissa.insert(separator, at: decimalIndex)
-        if floatMantissa.count == 2 {
-            floatMantissa.append("0")
-        }
         let parts = floatMantissa.split(separator: separator)
         let beforeSeparator: String = String(parts[0])
         let beforeSeparatorAndDot = beforeSeparator + String(separator)
         let beforeSeparatorAndDotWidth = length(beforeSeparatorAndDot)
         var afterSeparator: String = String(parts[1])
         afterSeparator = truncate(afterSeparator, to: width - beforeSeparatorAndDotWidth)
-        return beforeSeparatorAndDot + afterSeparator
+        var res = beforeSeparatorAndDot + afterSeparator
+        if res.count == 2 {
+            res.append("0")
+        }
+        return res
     }
     
     mutating private func setScientific(
@@ -321,7 +322,7 @@ public struct Representation: CustomDebugStringConvertible {
         // Integer?
         // Note: mantissa could be 99.9999999999999999999999999999999999999999...
 
-        if  Float(exponent + 1) + length(negativeSign) <= width {
+        if  exponent > 0 && Float(exponent + 1) + length(negativeSign) <= width {
             // could be an Integer
             
             if mantissa.count <= exponent+1 {
@@ -340,8 +341,8 @@ public struct Representation: CustomDebugStringConvertible {
             let dotIndex = mantissa.index(mantissa.startIndex, offsetBy: exponent + 1)
             var beforeSeparator: String = String(mantissa[..<dotIndex])
             let afterSeparator: String = String(mantissa[dotIndex...])
-            print("beforeSeparator: \(beforeSeparator)")
-            print("afterSeparator: \(afterSeparator)")
+            //print("beforeSeparator: \(beforeSeparator)")
+            //print("afterSeparator: \(afterSeparator)")
             if containsOnly9(afterSeparator) {
                 beforeSeparator = incrementAbsString(beforeSeparator)
                 number = Number(mantissa: negativeSign + beforeSeparator)

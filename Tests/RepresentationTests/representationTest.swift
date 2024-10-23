@@ -14,10 +14,45 @@ class RepresentationTests {
     var RString: String = ""
     
     @Test func smallFloatTest() {
-        calculator.evaluateString("0.0000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
-        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
-        RString = calculator.R.debugDescription
-        #expect(RString == "1.0e-10")
+//        calculator.evaluateString("0.0000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.0e-10")
+//
+//        calculator.evaluateString("0.00000000000000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.0e-20")
+//
+//        calculator.evaluateString("0.000000000000000000012")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.2e-20")
+//
+//        calculator.evaluateString("0.0000000000000000000123")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.23e-20")
+//
+//        calculator.evaluateString("0.00000000000000000001234")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.234e-20")
+//
+//        calculator.evaluateString("0.000000000000000000012341")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.2341e-20")
+
+//        calculator.evaluateString("0.000000000000000000012345")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.2345e-20")
+//
+//        calculator.evaluateString("0.0000000000000000000123456")//00000000000000000000000000000000000000000000000000000000000000000000001")
+//        calculator.R.setMantissaExponent(calculator.mantissaExponent!)
+//        RString = calculator.R.debugDescription
+//        #expect(RString == "1.2345e-20")
     }
     
     @Test func incrementAbsStringTest() {
