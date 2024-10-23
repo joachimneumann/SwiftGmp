@@ -287,15 +287,15 @@ public struct Representation: CustomDebugStringConvertible {
                     let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
                     let beforeSeparator: String = String(floatMantissa[..<dotIndex])
                     var afterSeparator: String = String(floatMantissa[dotIndex...])
-                    afterSeparator.removeTrailingZeroes()
-                    let w = length(beforeSeparator) + length(decimalSeparator.string)
-                    let remainingLength = width - w
-                    afterSeparator.removeNumericalErrors(at: remainingLength)
-                    if containsAtLeastThree9s("X") {
+                    if length(beforeSeparator) < width - 2 {
+                        let w = length(beforeSeparator) + length(decimalSeparator.string)
+                        let remainingLength = width - w
+                        afterSeparator.correctNumericalErrors(after: remainingLength)
+                        number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
+                        return
+                    } else {
+                        // beforeSeparator is too long, needs space for the dot ant at least one digit
                     }
-
-                    number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
-                    return
                 }
             }
 
@@ -323,6 +323,43 @@ public struct Representation: CustomDebugStringConvertible {
 }
 
 extension String {
-    mutating func removeNumericalErrors(at position: Int) {
+    
+    mutating func incrementAbsIntegerValue() {
+        if self.last != nil {
+            if self.last == "9" {
+                self.removeLast()
+                self.incrementAbsIntegerValue()
+                self += "0"
+            } else {
+                let new = String(Int(String(self.last!))! + 1)
+                self.removeLast()
+                self += new
+            }
+        } else {
+            self = "1"
+        }
+    }
+    
+    mutating func correctNumericalErrors(after position: Int) {
+        let XXXposition = position
+//        self = "989"
+        if self.count < position + 3 {
+            // the string is too short, so not correct anything
+            return
+        }
+        let positionIndex = self.index(self.startIndex, offsetBy: XXXposition)
+        let positionIndexPlus3 = self.index(self.startIndex, offsetBy: XXXposition+3)
+
+        var cutOffString = String(self[..<positionIndex])
+        if self[positionIndex..<positionIndexPlus3] == "999" {
+            cutOffString.incrementAbsIntegerValue()
+        } else if self.count >= XXXposition + 4 {
+            let positionIndexPlus4 = self.index(self.startIndex, offsetBy: XXXposition+4)
+            if self[positionIndex..<positionIndexPlus4] == "9989" {
+                cutOffString.incrementAbsIntegerValue()
+            }
+        }
+        cutOffString.removeTrailingZeroes()
+        self = cutOffString
     }
 }

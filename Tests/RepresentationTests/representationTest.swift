@@ -12,12 +12,12 @@ class RepresentationTests {
     
     var calculator: Calculator = Calculator(precision: 20)
     var RString: String = ""
-    let debug = true
-//    let debug = false
+//    let debug = true
+    let debug = false
 
     @Test func DEBUG_TEST() {
-        calculator.evaluateString("999999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-        #expect(calculator.R.debugDescription == "999999.992")
+        calculator.evaluateString("6789012345.989999")
+        #expect(calculator.R.debugDescription == "6.789012e9")
     }
 
     @Test func floatTest() {
@@ -26,7 +26,7 @@ class RepresentationTests {
         #expect(calculator.R.debugDescription == "1234.56789")
     
         calculator.evaluateString("1234567.9")
-        #expect(calculator.R.debugDescription == "1234567.89")
+        #expect(calculator.R.debugDescription == "1234567.9")
         
         calculator.evaluateString("1234567.99")
         #expect(calculator.R.debugDescription == "1234567.99")
@@ -105,6 +105,15 @@ class RepresentationTests {
 
         calculator.evaluateString("6789012345")
         #expect(calculator.R.debugDescription == "6789012345")
+
+        calculator.evaluateString("6789012345.999999")
+        #expect(calculator.R.debugDescription == "6789012346")
+
+        calculator.evaluateString("6789012345.998999")
+        #expect(calculator.R.debugDescription == "6789012346")
+
+        calculator.evaluateString("6789012345.989999")
+        #expect(calculator.R.debugDescription == "6.789012e9")
 
         calculator.evaluateString("67890123456")
         #expect(calculator.R.debugDescription == "6.78901e10")
