@@ -113,61 +113,15 @@ public struct Representation: CustomDebugStringConvertible {
         width = 10
     }
     
-    mutating public func setError(_ error: String) {
-        self.error = error
-        number = nil
-    }
-    
-    mutating private func setNumber(_ number: Number) {
-        self.error = nil
-        self.number = number
-    }
-
-    private func containsAtLeastThree9s(_ input: String) -> Bool {
-        if input.count < 3 {
-            return false
-        }
-        if String(input.prefix(3)) == "999" { return true }
-        if String(input.prefix(4)) == "9989" { return true }
-        return false
-    }
-    
-    private func truncateFloatDigits(_ string: String, to width: Int) -> String {
-        if length(string) <= width {
-            var s = string
-            while s.last == "0" {
-                s.removeLast()
-            }
-            return s
-        }
-        // truncate!
-        var offset = 1
-        var index = string.index(string.startIndex, offsetBy: offset)
-        var truncated = String(string[..<index])
-        var afterTruncated: String = String(string[index...])
-        while true {
-            if length(truncated) >= width {
-                if containsAtLeastThree9s(afterTruncated) {
-                    // disregard afterTruncated and increase truncated instead
-                    truncated.incrementAbsIntegerValue()
-                    truncated = truncateFloatDigits(truncated, to: width)
-                }
-                while truncated.last == "0" {
-                    truncated.removeLast()
-                }
-                return truncated
-            }
-            
-            offset += 1
-            index = string.index(string.startIndex, offsetBy: offset)
-            truncated = String(string.prefix(upTo: index))
-            afterTruncated = String(string[index...])
-            if index == string.endIndex {
-                truncated.removeTrailingZeroes()
-                return truncated
-            }
-        }
-    }
+//    mutating public func setError(_ error: String) {
+//        self.error = error
+//        number = nil
+//    }
+//    
+//    mutating private func setNumber(_ number: Number) {
+//        self.error = nil
+//        self.number = number
+//    }
     
     private var totalWidth: Int {
         var ret: Int = 0
@@ -183,26 +137,6 @@ public struct Representation: CustomDebugStringConvertible {
         return ret
     }
     
-    private func mantissa_1_float(
-    mantissa: String,
-    separator: Character,
-    width: Int) -> String {
-        let decimalIndex = mantissa.index(mantissa.startIndex, offsetBy: 1)
-        var floatMantissa = mantissa
-        floatMantissa.insert(separator, at: decimalIndex)
-        let parts = floatMantissa.split(separator: separator)
-        let beforeSeparator: String = String(parts[0])
-        let beforeSeparatorAndDot = beforeSeparator + String(separator)
-        let beforeSeparatorAndDotWidth = length(beforeSeparatorAndDot)
-        var afterSeparator: String = String(parts[1])
-        afterSeparator = truncateFloatDigits(afterSeparator, to: width - beforeSeparatorAndDotWidth)
-        var res = beforeSeparatorAndDot + afterSeparator
-        if res.count == 2 {
-            res.append("0")
-        }
-        return res
-    }
-    
     mutating private func setScientific(
     mantissa: String,
     exponent: Int,
@@ -210,13 +144,16 @@ public struct Representation: CustomDebugStringConvertible {
     isDisplayBufferExponent: Bool) {
         let exponentString = "e\(exponent)"
         let exponentWidth = length(exponentString)
-        let remainingMantissaWidth = width - exponentWidth - length(negativeSign)
-        let t = mantissa_1_float(
-            mantissa: mantissa,
-            separator: decimalSeparator.character,
-            width: remainingMantissaWidth)
+        let remainingMantissaWidth = width - exponentWidth - length(negativeSign) - 1
+        var sciMantissa = mantissa
+        sciMantissa.correctFractionalPartNumericalErrors(after: remainingMantissaWidth)
+        sciMantissa.insert(decimalSeparator.character, at: sciMantissa.index(sciMantissa.startIndex, offsetBy: 1))
+        if sciMantissa.count == 2 {
+            sciMantissa.append("0")
+        }
+
         number = Number(
-            mantissa: negativeSign+t,
+            mantissa: negativeSign+sciMantissa,
             exponent: exponentString,
             isDisplayBifferExponent: isDisplayBufferExponent)
         assert(totalWidth <= width)
@@ -237,32 +174,46 @@ public struct Representation: CustomDebugStringConvertible {
             negativeSign = ""
         }
 
-        if  exponent > 0 {
+        if  exponent >= 0 {
             if exponent + 1 + length(negativeSign) <= width {
                 // could be an Integer
                 
                 if let integerString = mantissa.integerWithoutNumericalErrors(exponent: exponent) {
                     number = Number(mantissa: negativeSign + integerString)
+                    assert(totalWidth <= width)
                     return
                 }
-                let integerMantissa = mantissa
-                // no integer, float > 1
+
+                // no integer, maybe float that is >= 1.0
                 let floatMantissaLength = width - length(negativeSign) - 1 + 4
                 let floatMantissa = mantissa.padding(toLength: floatMantissaLength, withPad: "0", startingAt: 0)
-                let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
+                let dotIndex = floatMantissa.index(floatMantissa.startIndex, offsetBy: exponent + 1)
                 let beforeSeparator: String = String(floatMantissa[..<dotIndex])
                 var afterSeparator: String = String(floatMantissa[dotIndex...])
-                if length(beforeSeparator) < width - 2 {
+                if length(beforeSeparator) < width - 2 - length(negativeSign) {
                     let w = length(beforeSeparator) + length(decimalSeparator.string)
-                    let remainingLength = width - w
+                    let remainingLength = width - w - length(negativeSign)
                     afterSeparator.correctFractionalPartNumericalErrors(after: remainingLength)
                     number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
+                    assert(totalWidth <= width)
                     return
                 } else {
                     // beforeSeparator is too long, needs space for the dot ant at least one digit
                 }
             }
-
+        } else {
+            // exponent < 0, maybe float that is < 1.0
+            if exponent > -1 * width + 2 {
+                var floatMantissa = mantissa
+                for _ in 0 ..< -1 * exponent - 1 {
+                    floatMantissa = "0" + floatMantissa
+                }
+                floatMantissa.correctFractionalPartNumericalErrors(after: -1 * exponent)
+                floatMantissa = "0" + decimalSeparator.string + floatMantissa
+                number = Number(mantissa: negativeSign + floatMantissa)
+                assert(totalWidth <= width)
+                return
+            }
         }
         
         // scientific
@@ -350,21 +301,3 @@ extension String {
         return nil
     }
 }
-
-
-//var integerMantissa = mantissa.padding(toLength: exponent + 1 + 4, withPad: "0", startingAt: 0)
-//let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
-//var beforeSeparator: String = String(integerMantissa[..<dotIndex])
-//let afterSeparator: String = String(integerMantissa[dotIndex...])
-//var combined = beforeSeparator + decimalSeparator.string + afterSeparator
-//combined.correctIntegerPartNumericalErrors(separator: decimalSeparator.character)
-//
-//if integerMantissa.count <= exponent+1 {
-//    // easy integer
-//    
-//    // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
-//    integerMantissa = negativeSign + integerMantissa
-//    integerMantissa = integerMantissa.padding(toLength: exponent + 1 + length(negativeSign), withPad: "0", startingAt: 0)
-//    number = Number(mantissa: integerMantissa)
-//    return
-//}
