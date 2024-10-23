@@ -251,32 +251,46 @@ public struct Representation: CustomDebugStringConvertible {
             negativeSign = ""
         }
 
-        if  exponent > 0 && Float(exponent + 1) + length(negativeSign) <= width {
-            // could be an Integer
-            
-            if mantissa.count <= exponent+1 {
-                // easy integer
+        if  exponent > 0 {
+            if Float(exponent + 1) + length(negativeSign) <= width {
+                // could be an Integer
+                
+                if mantissa.count <= exponent+1 {
+                    // easy integer
+                    
+                    // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
+                    mantissa = negativeSign + mantissa
+                    mantissa = mantissa.padding(toLength: Int(Float(exponent + 1) + length(negativeSign)), withPad: "0", startingAt: 0)
+                    number = Number(mantissa: mantissa)
+                    return
+                }
+                
+                let integerMantissa = mantissa.padding(toLength: exponent + 1 + 3, withPad: "0", startingAt: 0)
+                
+                let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
+                var beforeSeparator: String = String(integerMantissa[..<dotIndex])
+                let afterSeparator: String = String(integerMantissa[dotIndex...])
+                //print("beforeSeparator: \(beforeSeparator)")
+                //print("afterSeparator: \(afterSeparator)")
+                if containsAtleastThree9s(afterSeparator) {
+                    beforeSeparator = incrementAbsString(beforeSeparator)
+                    number = Number(mantissa: negativeSign + beforeSeparator)
+                    return
+                } else {
+                    // no integer, float > 1
+                    let floatMantissaLength = Int(width - length(negativeSign) - 1)
+                    let floatMantissa = mantissa.padding(toLength: floatMantissaLength, withPad: "0", startingAt: 0)
+                    let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
+                    let beforeSeparator: String = String(floatMantissa[..<dotIndex])
+                    let afterSeparator: String = String(floatMantissa[dotIndex...]).removeTrailingZeroes()
+                    if containsAtleastThree9s("X") {
+                    }
 
-                // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
-                mantissa = negativeSign + mantissa
-                mantissa = mantissa.padding(toLength: Int(Float(exponent + 1) + length(negativeSign)), withPad: "0", startingAt: 0)
-                number = Number(mantissa: mantissa)
-                return
+                    number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
+                    return
+                }
             }
 
-            mantissa = mantissa.padding(toLength: exponent + 1 + 3, withPad: "0", startingAt: 0)
-
-
-            let dotIndex = mantissa.index(mantissa.startIndex, offsetBy: exponent + 1)
-            var beforeSeparator: String = String(mantissa[..<dotIndex])
-            let afterSeparator: String = String(mantissa[dotIndex...])
-            //print("beforeSeparator: \(beforeSeparator)")
-            //print("afterSeparator: \(afterSeparator)")
-            if containsAtleastThree9s(afterSeparator) {
-                beforeSeparator = incrementAbsString(beforeSeparator)
-                number = Number(mantissa: negativeSign + beforeSeparator)
-                return
-            }
         }
         
         // scientific

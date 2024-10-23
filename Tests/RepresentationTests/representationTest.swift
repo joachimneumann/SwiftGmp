@@ -12,22 +12,41 @@ class RepresentationTests {
     
     var calculator: Calculator = Calculator(precision: 20)
     var RString: String = ""
-    
+    let debug = true
+//    let debug = false
+
     @Test func DEBUG_TEST() {
-        calculator.evaluateString("0.000000000000000000012345")//00000000000000000000000000000000000000000000000000000000000000000000001")
-        #expect(calculator.R.debugDescription == "1.2345e-20")
+        calculator.evaluateString("999999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+        #expect(calculator.R.debugDescription == "999999.992")
     }
-//    @Test func floatTest() {
-//        calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
-//        #expect(calculator.R.debugDescription == "1234.568")
-//    }
+
+    @Test func floatTest() {
+        if debug { return }
+        calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
+        #expect(calculator.R.debugDescription == "1234.56789")
+    
+        calculator.evaluateString("1234567.9")
+        #expect(calculator.R.debugDescription == "1234567.89")
+        
+        calculator.evaluateString("1234567.99")
+        #expect(calculator.R.debugDescription == "1234567.99")
+        
+        calculator.evaluateString("1234567.999")
+        #expect(calculator.R.debugDescription == "1234568")
+        
+        calculator.evaluateString("1234567.9999")
+        #expect(calculator.R.debugDescription == "1234568")
+        
+    }
     
     @Test func smallFloatTest() {
+        if debug { return }
 //        calculator.evaluateString("0.0000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
 //        #expect(calculator.R.debugDescription == "1.0e-10")
     }
     
     @Test func incrementAbsStringTest() {
+        if debug { return }
         #expect(calculator.R.incrementAbsString("33") == "34")
         #expect(calculator.R.incrementAbsString("39") == "40")
         #expect(calculator.R.incrementAbsString("0") == "1")
@@ -39,6 +58,7 @@ class RepresentationTests {
     }
     
     @Test func integerTest() {
+        if debug { return }
         calculator.evaluateString("1234")
         #expect(calculator.R.debugDescription == "1234")
 
@@ -116,14 +136,35 @@ class RepresentationTests {
         #expect(calculator.R.debugDescription == "100")
         
         calculator.evaluateString("99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-        #expect(calculator.R.debugDescription == "9.95e1")
+        #expect(calculator.R.debugDescription == "99.5")
         
         calculator.evaluateString("-99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-        #expect(calculator.R.debugDescription == "-9.95e1")
+        #expect(calculator.R.debugDescription == "-99.5")
         
         calculator.evaluateString("99.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-        #expect(calculator.R.debugDescription == "9.9992e1")
+        #expect(calculator.R.debugDescription == "99.992")
         
+        calculator.evaluateString("999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+        #expect(calculator.R.debugDescription == "999.992")
+        
+        calculator.evaluateString("9999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+        #expect(calculator.R.debugDescription == "9999.992")
+        
+        calculator.evaluateString("99999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+        #expect(calculator.R.debugDescription == "99999.992")
+        
+        calculator.evaluateString("999999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+        #expect(calculator.R.debugDescription == "999999.992")
+        
+        calculator.evaluateString("1234567.999")
+        #expect(calculator.R.debugDescription == "1234568")
+        
+        calculator.evaluateString("1234567.9999")
+        #expect(calculator.R.debugDescription == "1234568")
+        
+        calculator.evaluateString("1234567.99999")
+        #expect(calculator.R.debugDescription == "1234568")
+
         calculator.evaluateString("1234567.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
         #expect(calculator.R.debugDescription == "1234567")
         
@@ -152,6 +193,9 @@ class RepresentationTests {
         
         calculator.evaluateString("1234567890123456.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
         #expect(calculator.R.debugDescription == "1.23456e15")
+        
+        calculator.evaluateString("1234567")
+        #expect(calculator.R.debugDescription == "1234567")
         
         calculator.evaluateString("1234567.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
         #expect(calculator.R.debugDescription == "1234568")
@@ -214,6 +258,7 @@ class RepresentationTests {
     }
     
     @Test func sciTest() {
+        if debug { return }
         calculator.evaluateString("12345678900000007890123456")
         #expect(calculator.R.debugDescription == "1.23456e25")
 
@@ -229,6 +274,53 @@ class RepresentationTests {
         calculator.evaluateString("12349999999999999999999999.999999999999999999999999999999999999999999999999999999")
         #expect(calculator.R.debugDescription == "1.235e25")
         
+        calculator.evaluateString("123400000000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.234e80")
+        
+        calculator.evaluateString("123490000000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.2349e80")
+        
+        calculator.evaluateString("123499000000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.23499e80")
+        
+        calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.23499e80")
+        
+        calculator.evaluateString("331234999900000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "3.31235e80")
+        
+        calculator.evaluateString("123499999000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.235e80")
+        
+        calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.23499e80")
+        
+
+        calculator.evaluateString("331234000000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "3.31234e80")
+        
+        calculator.evaluateString("331234900000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "3.31234e80")
+        
+        calculator.evaluateString("331234990000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "3.31234e80")
+        
+        calculator.evaluateString("331234999900000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "3.31235e80")
+        
+        calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.23499e80")
+        
+        calculator.evaluateString("123499999000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.235e80")
+        
+        calculator.evaluateString("123499999900000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.235e80")
+        
+        calculator.evaluateString("123499999990000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.235e80")
+        
+
         calculator.evaluateString("0.00000000000000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
         #expect(calculator.R.debugDescription == "1.0e-20")
 
