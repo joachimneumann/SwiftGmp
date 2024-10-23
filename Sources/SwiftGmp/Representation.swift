@@ -123,7 +123,7 @@ public struct Representation: CustomDebugStringConvertible {
         self.number = number
     }
 
-    private func containsOnly9(_ input: String) -> Bool {
+    private func containsOnly9s(_ input: String) -> Bool {
         return !input.isEmpty && input.allSatisfy { $0 == "9" }
     }
     
@@ -142,9 +142,10 @@ public struct Representation: CustomDebugStringConvertible {
         var afterTruncated: String = String(string[index...])
         while true {
             if length(truncated) >= width {
-                if containsOnly9(afterTruncated) {
+                if containsOnly9s(afterTruncated) {
+                    // disregard afterTruncated and increase truncated instead
                     truncated = incrementAbsString(truncated)
-                    return truncate(truncated, to: width)
+                    truncated = truncate(truncated, to: width)
                 }
                 while truncated.last == "0" {
                     truncated.removeLast()
@@ -270,7 +271,7 @@ public struct Representation: CustomDebugStringConvertible {
             let afterSeparator: String = String(mantissa[dotIndex...])
             //print("beforeSeparator: \(beforeSeparator)")
             //print("afterSeparator: \(afterSeparator)")
-            if containsOnly9(afterSeparator) {
+            if containsOnly9s(afterSeparator) {
                 beforeSeparator = incrementAbsString(beforeSeparator)
                 number = Number(mantissa: negativeSign + beforeSeparator)
                 return
