@@ -396,7 +396,7 @@ class Token {
                 mantissa = String(me[0])
                 exponent = String(me[1])
                 if exponent!.starts(with: "-") {
-                    numberBuffer.removeFirst()
+                    exponent!.removeFirst()
                     exponentNegative = true
                 }
             } else {
