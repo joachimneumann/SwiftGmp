@@ -241,43 +241,25 @@ public struct Representation: CustomDebugStringConvertible {
             if exponent + 1 + length(negativeSign) <= width {
                 // could be an Integer
                 
-                if mantissa.count <= exponent+1 {
-                    // easy integer
-                    
-                    // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
-                    mantissa = negativeSign + mantissa
-                    mantissa = mantissa.padding(toLength: exponent + 1 + length(negativeSign), withPad: "0", startingAt: 0)
-                    number = Number(mantissa: mantissa)
+                if let integerString = mantissa.integerWithoutNumericalErrors(exponent: exponent) {
+                    number = Number(mantissa: negativeSign + integerString)
                     return
                 }
-                
-                let integerMantissa = mantissa.padding(toLength: exponent + 1 + 4, withPad: "0", startingAt: 0)
-                
+                let integerMantissa = mantissa
+                // no integer, float > 1
+                let floatMantissaLength = width - length(negativeSign) - 1 + 4
+                let floatMantissa = mantissa.padding(toLength: floatMantissaLength, withPad: "0", startingAt: 0)
                 let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
-                var beforeSeparator: String = String(integerMantissa[..<dotIndex])
-                let afterSeparator: String = String(integerMantissa[dotIndex...])
-                //print("beforeSeparator: \(beforeSeparator)")
-                //print("afterSeparator: \(afterSeparator)")
-                if containsAtLeastThree9s(afterSeparator) {
-                    beforeSeparator.incrementAbsIntegerValue()
-                    number = Number(mantissa: negativeSign + beforeSeparator)
+                let beforeSeparator: String = String(floatMantissa[..<dotIndex])
+                var afterSeparator: String = String(floatMantissa[dotIndex...])
+                if length(beforeSeparator) < width - 2 {
+                    let w = length(beforeSeparator) + length(decimalSeparator.string)
+                    let remainingLength = width - w
+                    afterSeparator.correctFractionalPartNumericalErrors(after: remainingLength)
+                    number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
                     return
                 } else {
-                    // no integer, float > 1
-                    let floatMantissaLength = width - length(negativeSign) - 1 + 4
-                    let floatMantissa = mantissa.padding(toLength: floatMantissaLength, withPad: "0", startingAt: 0)
-                    let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
-                    let beforeSeparator: String = String(floatMantissa[..<dotIndex])
-                    var afterSeparator: String = String(floatMantissa[dotIndex...])
-                    if length(beforeSeparator) < width - 2 {
-                        let w = length(beforeSeparator) + length(decimalSeparator.string)
-                        let remainingLength = width - w
-                        afterSeparator.correctNumericalErrors(after: remainingLength)
-                        number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
-                        return
-                    } else {
-                        // beforeSeparator is too long, needs space for the dot ant at least one digit
-                    }
+                    // beforeSeparator is too long, needs space for the dot ant at least one digit
                 }
             }
 
@@ -322,7 +304,7 @@ extension String {
         }
     }
     
-    mutating func correctNumericalErrors(after position: Int) {
+    mutating func correctFractionalPartNumericalErrors(after position: Int) {
         if self.count < position + 3 {
             // the string is too short, so not correct anything
             return
@@ -342,4 +324,47 @@ extension String {
         cutOffString.removeTrailingZeroes()
         self = cutOffString
     }
+    
+    mutating func integerWithoutNumericalErrors(exponent: Int) -> String? {
+        var integerMantissa = self
+        if self.count < exponent + 1 {
+            integerMantissa = self.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
+        }
+
+        if integerMantissa.count == exponent + 1 { return integerMantissa }
+        
+        integerMantissa = self.padding(toLength: exponent + 1 + 4, withPad: "0", startingAt: 0)
+        
+        let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
+        var beforeSeparator: String = String(integerMantissa[..<dotIndex])
+        let afterSeparator: String = String(integerMantissa[dotIndex...])
+        if afterSeparator.prefix(3) == "999" {
+            beforeSeparator.incrementAbsIntegerValue()
+            return beforeSeparator
+        }
+        if afterSeparator.prefix(4) == "9989" {
+            beforeSeparator.incrementAbsIntegerValue()
+            return beforeSeparator
+        }
+
+        return nil
+    }
 }
+
+
+//var integerMantissa = mantissa.padding(toLength: exponent + 1 + 4, withPad: "0", startingAt: 0)
+//let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
+//var beforeSeparator: String = String(integerMantissa[..<dotIndex])
+//let afterSeparator: String = String(integerMantissa[dotIndex...])
+//var combined = beforeSeparator + decimalSeparator.string + afterSeparator
+//combined.correctIntegerPartNumericalErrors(separator: decimalSeparator.character)
+//
+//if integerMantissa.count <= exponent+1 {
+//    // easy integer
+//    
+//    // pad mantissa with "0" and cut to generousEstimateOfNumberOfDigits
+//    integerMantissa = negativeSign + integerMantissa
+//    integerMantissa = integerMantissa.padding(toLength: exponent + 1 + length(negativeSign), withPad: "0", startingAt: 0)
+//    number = Number(mantissa: integerMantissa)
+//    return
+//}

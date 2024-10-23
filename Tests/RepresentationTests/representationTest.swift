@@ -16,8 +16,24 @@ class RepresentationTests {
     let debug = false
 
     @Test func DEBUG_TEST() {
-        calculator.evaluateString("6789012345.989999")
-        #expect(calculator.R.debugDescription == "6.789012e9")
+        calculator.evaluateString("-100")
+        #expect(calculator.R.debugDescription == "-100")
+
+        calculator.evaluateString("100")
+        #expect(calculator.R.debugDescription == "100")
+
+        
+        calculator.evaluateString("99.9999999999999")
+        #expect(calculator.R.debugDescription == "100")
+
+        calculator.evaluateString("1234")
+        #expect(calculator.R.debugDescription == "1234")
+
+        calculator.evaluateString("1233.99999")
+        #expect(calculator.R.debugDescription == "1234")
+
+//        calculator.evaluateString("6789012345.989999")
+//        #expect(calculator.R.debugDescription == "6.789012e9")
     }
 
     @Test func floatTest() {
