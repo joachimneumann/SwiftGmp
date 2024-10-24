@@ -169,48 +169,44 @@ public struct Representation: CustomDebugStringConvertible {
 
         if exponent >= 0 {
             if exponent + 1 <= smartWidth {
-                if length(mantissa) <= smartWidth {
-                    while length(mantissa) < exponent + 1 {
-                        mantissa = mantissa + "0"
+                if exponent + 1 >= mantissa.count {
+                    if length(mantissa) <= smartWidth {
+                        while length(mantissa) < exponent + 1 {
+                            mantissa = mantissa + "0"
+                        }
+                        number = Number(mantissa: mantissaExponent.negativeSign + mantissa)
+                        assert(totalWidth <= width)
+                        return
                     }
-                    number = Number(mantissa: mantissaExponent.negativeSign + mantissa)
-                    assert(totalWidth <= width)
-                    return
                 }
 
                 // no integer, maybe float that is >= 1.0
-                let floatMantissaLength = width - 1 + 4
-                let floatMantissa = mantissa.padding(toLength: floatMantissaLength, withPad: "0", startingAt: 0)
-                let dotIndex = floatMantissa.index(floatMantissa.startIndex, offsetBy: exponent + 1)
-                let beforeSeparator: String = String(floatMantissa[..<dotIndex])
-                var afterSeparator: String = String(floatMantissa[dotIndex...])
-                if length(beforeSeparator) <= width - 2 {
-                    let w = length(beforeSeparator) + length(decimalSeparator.string)
-                    let remainingLength = width - w
-                    afterSeparator.correctFractionalPartNumericalErrors(after: remainingLength)
-                    number = Number(mantissa: beforeSeparator + decimalSeparator.string + afterSeparator)
+                if exponent + 1 < smartWidth - 1 {
+                    // I need to be a bit stricter to disallow "23452345435."
+                    var floatMantissa = mantissa
+                    let dotIndex = floatMantissa.index(floatMantissa.startIndex, offsetBy: exponent + 1)
+                    floatMantissa.insert(decimalSeparator.character, at: dotIndex)
+                    number = Number(mantissa: floatMantissa)
                     assert(totalWidth <= width)
                     return
-                } else {
-                    // beforeSeparator is too long, needs space for the dot ant at least one digit
                 }
             }
-        } else {
-            // exponent < 0, maybe float that is < 1.0
-
-
-            var floatMantissa = mantissa
-            for _ in 0 ..< -1 * exponent - 1 {
-                floatMantissa = "0" + floatMantissa
-            }
-            floatMantissa.correctFractionalPartNumericalErrors(after: -1 * exponent)
-            let n = floatMantissa.numberOfLeadingZeroes
-            if n < width - 2 {
-                floatMantissa = "0" + decimalSeparator.string + floatMantissa
-                number = Number(mantissa: floatMantissa)
-                assert(totalWidth <= width)
-                return
-            }
+//        } else {
+//            // exponent < 0, maybe float that is < 1.0
+//
+//
+//            var floatMantissa = mantissa
+//            for _ in 0 ..< -1 * exponent - 1 {
+//                floatMantissa = "0" + floatMantissa
+//            }
+//            floatMantissa.correctFractionalPartNumericalErrors(after: -1 * exponent)
+//            let n = floatMantissa.numberOfLeadingZeroes
+//            if n < width - 2 {
+//                floatMantissa = "0" + decimalSeparator.string + floatMantissa
+//                number = Number(mantissa: floatMantissa)
+//                assert(totalWidth <= width)
+//                return
+//            }
         }
         
         // scientific
@@ -356,14 +352,39 @@ extension MantissaExponent {
     mutating func correctNumericalErrors(width: Int) {
         if exponent >= 0 {
             if width >= exponent + 1 {
-                if mantissa.count == exponent + 1 {
-                    // nothing to do
+                // might be an Integer
+                if mantissa.count <= exponent + 1 {
+                    // mantissa is a perfect Integer
+                    return
                 } else if mantissa.count >= exponent + 1 + 3 {
                     let index = mantissa.index(mantissa.startIndex, offsetBy: exponent+1)
                     let indexPlus3 = mantissa.index(mantissa.startIndex, offsetBy: exponent + 4)
                     if mantissa[index..<indexPlus3] == "999" {
                         mantissa = String(mantissa[..<index])
                         if mantissa.incrementAbsIntegerValue() { exponent += 1 }
+                        // After rounding, mantissa will be a perfect Integer
+                        return
+                    }
+                }
+            }
+            // not an Integer, can it be a float > 1.0?
+            let exponentMantissaWidth = width - 1 // the "."
+            if exponent < exponentMantissaWidth {
+                if mantissa.count <= exponentMantissaWidth {
+                    return
+                } else if mantissa.count >= exponentMantissaWidth + 3 {
+                    let index = mantissa.index(mantissa.startIndex, offsetBy: exponentMantissaWidth+1)
+                    let indexPlus3 = mantissa.index(mantissa.startIndex, offsetBy: exponentMantissaWidth + 4)
+                    if mantissa[index..<indexPlus3] == "999" {
+                        mantissa = String(mantissa[..<index])
+                        if mantissa.incrementAbsIntegerValue() { exponent += 1 }
+                        // After rounding, mantissa will be a perfect float
+                        return
+                    } else {
+                        let cutOffIndex = mantissa.index(mantissa.startIndex, offsetBy: exponentMantissaWidth)
+                        // mantissa will be a perfect float
+                        mantissa = String(mantissa[..<cutOffIndex])
+                        return
                     }
                 }
             }

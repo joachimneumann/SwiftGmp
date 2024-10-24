@@ -12,12 +12,24 @@ class RepresentationTests {
     
     var calculator: Calculator = Calculator(precision: 20)
     var RString: String = ""
-//    let debug = true
-    let debug = false
+    let debug = true
+//    let debug = false
 
     @Test func DEBUG_TEST() {
         var mantissaExponent: MantissaExponent
         
+        calculator.evaluateString("3333378901")
+        #expect(calculator.R.debugDescription == "3333378901")
+
+        calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
+        #expect(calculator.R.debugDescription == "1234.56789")
+
+        calculator.evaluateString("99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+        #expect(calculator.R.debugDescription == "99.5")
+
+        calculator.evaluateString("67890")
+        #expect(calculator.R.debugDescription == "67890")
+
         //        mantissaExponent = MantissaExponent(mantissa: "1", exponent: 2)
         //        mantissaExponent.correctNumericalErrors(width: 10)
         //        #expect(mantissaExponent.mantissa == "1")
