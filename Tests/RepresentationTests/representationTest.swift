@@ -16,22 +16,94 @@ class RepresentationTests {
     let debug = false
 
     @Test func DEBUG_TEST() {
-//        calculator.evaluateString("-0.00000001")
-//        #expect(calculator.R.debugDescription == "-1.0e-8")
+//        calculator.evaluateString("0.00000001")
+//        #expect(calculator.R.debugDescription == "0.00000001")
+//        calculator.evaluateString("0.0000000099999999")
+//        #expect(calculator.R.debugDescription == "0.00000001")
 
-        calculator.evaluateString("-1234567.99")
-        #expect(calculator.R.debugDescription == "-1234567.9")
+//        calculator.evaluateString("0.000000001")
+//        #expect(calculator.R.debugDescription == "1.0e-9")
+//        calculator.evaluateString("0.00000000099999999")
+//        #expect(calculator.R.debugDescription == "1.0e-9")
+        
+//        calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
+//        #expect(calculator.R.debugDescription == "1.0e80")
+    }
+    
+    @Test func getIntegerTest() {
+        var s: String
+        var res: String?
 
-//        calculator.evaluateString("-0.001")
-//        #expect(calculator.R.debugDescription == "-0.001")
-//
-//        calculator.evaluateString("-0.1")
-//        #expect(calculator.R.debugDescription == "-0.1")
-//
-//        calculator.evaluateString("-1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
-//        #expect(calculator.R.debugDescription == "-1234.5678")
+        s = "3339999999"
+        res = s.getInteger(exponent: 1)
+        #expect(res == nil)
+
+        s = "3339999999"
+        res = s.getInteger(exponent: 2)
+        #expect(res! == "334")
+
+        s = "3339999999"
+        res = s.getInteger(exponent: 6)
+        #expect(res! == "3340000")
+
+        s = "3339999999"
+        res = s.getInteger(exponent: 7)
+        #expect(res == nil)
+
+        s = "3339999999"
+        res = s.getInteger(exponent: 1)
+        #expect(res == nil)
     }
 
+    @Test func getBigFloatTest() {
+        var s: String
+        var res: String?
+
+        s = "3339999999"
+        res = s.getBigFloat(exponent: 0)
+        #expect(res == "3.339999999")
+
+        res = s.getBigFloat(exponent: 1)
+        #expect(res == "33.39999999")
+
+        res = s.getBigFloat(exponent: 2)
+        #expect(res! == "334.0")
+
+        res = s.getBigFloat(exponent: 3)
+        #expect(res! == "3340.0")
+
+        res = s.getBigFloat(exponent: 5)
+        #expect(res! == "334000.0")
+
+        res = s.getBigFloat(exponent: 11)
+        #expect(res! == "333999999900.0")
+    }
+
+    @Test func getSmallFloatTest() {
+        var s: String
+        var res: String?
+
+        s = "0.003339999999"
+        res = s.getSmallFloat(exponent: -1)
+        #expect(res == "3.339999999")
+
+        res = s.getSmallFloat(exponent: -1)
+        #expect(res == "33.39999999")
+
+        res = s.getSmallFloat(exponent: -2)
+        #expect(res! == "334.0")
+
+        res = s.getSmallFloat(exponent: -3)
+        #expect(res! == "3340.0")
+
+        res = s.getSmallFloat(exponent: -5)
+        #expect(res! == "334000.0")
+
+        res = s.getSmallFloat(exponent: -11)
+        #expect(res! == "333999999900.0")
+    }
+
+    
     @Test func floatTest() {
         if debug { return }
         calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
@@ -88,12 +160,12 @@ class RepresentationTests {
 
         calculator.evaluateString("0.000000001")
         #expect(calculator.R.debugDescription == "1.0e-9")
-        calculator.evaluateString("0.00000000099999")
+        calculator.evaluateString("0.00000000099999999")
         #expect(calculator.R.debugDescription == "1.0e-9")
 
         calculator.evaluateString("0.0000000001")
         #expect(calculator.R.debugDescription == "1.0e-10")
-        calculator.evaluateString("0.000000000099899")
+        calculator.evaluateString("0.00000000009989999")
         #expect(calculator.R.debugDescription == "1.0e-10")
 
         calculator.evaluateString("0.00000000001")
@@ -142,7 +214,7 @@ class RepresentationTests {
         calculator.evaluateString("-1234567.9999")
         #expect(calculator.R.debugDescription == "-1234568")
 
-        calculator.evaluateString("-1234567.9989")
+        calculator.evaluateString("-1234567.9999")
         #expect(calculator.R.debugDescription == "-1234568")
 
         calculator.evaluateString("-1234567.998")
@@ -292,8 +364,20 @@ class RepresentationTests {
         calculator.evaluateString("6789012345.999999")
         #expect(calculator.R.debugDescription == "6789012346")
 
-        calculator.evaluateString("6789012345.998999")
+        calculator.evaluateString("6789012345.99999")
         #expect(calculator.R.debugDescription == "6789012346")
+
+        calculator.evaluateString("6789012345.9999")
+        #expect(calculator.R.debugDescription == "6789012346")
+
+        calculator.evaluateString("6789012345.99901")
+        #expect(calculator.R.debugDescription == "6789012346")
+
+        calculator.evaluateString("6789012345.99")
+        #expect(calculator.R.debugDescription == "6.789012e9")
+
+        calculator.evaluateString("6789012345.9")
+        #expect(calculator.R.debugDescription == "6.789012e9")
 
         calculator.evaluateString("6789012345.989999")
         #expect(calculator.R.debugDescription == "6.789012e9")
@@ -482,6 +566,12 @@ class RepresentationTests {
         
         calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
         #expect(calculator.R.debugDescription == "1.23499e80")
+        
+        calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
+        #expect(calculator.R.debugDescription == "1.0e80")
+        
+        calculator.evaluateString("99999999999999999999999999999999999999999999999999999999999999999999999999999999")
+        #expect(calculator.R.debugDescription == "1.0e80")
         
 
         calculator.evaluateString("331234000000000000000000000000000000000000000000000000000000000000000000000000000")

@@ -75,7 +75,11 @@ import SwiftGmp
     calculator.evaluateString("1e48")
     #expect(calculator.mantissaExponent!.mantissa == "1")
     #expect(calculator.mantissaExponent!.exponent == 48)
-    
+
+    calculator.evaluateString("1e-20")
+    #expect(calculator.R.debugDescription == "1.0e-20")
+
+
     calculator.maxOutputLength = 100
     calculator.evaluateString("1e48 + 1")
     #expect(calculator.mantissaExponent!.mantissa == "1000000000000000000000000000000000000000000000001")

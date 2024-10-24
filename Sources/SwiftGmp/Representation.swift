@@ -174,11 +174,11 @@ public struct Representation: CustomDebugStringConvertible {
             negativeSign = ""
         }
 
-        if  exponent >= 0 {
+        if exponent >= 0 {
             if exponent + 1 + length(negativeSign) <= width {
                 // could be an Integer
                 
-                if let integerString = mantissa.integerWithoutNumericalErrors(exponent: exponent) {
+                if let integerString = mantissa.getInteger(exponent: exponent) {
                     number = Number(mantissa: negativeSign + integerString)
                     assert(totalWidth <= width)
                     return
@@ -203,14 +203,17 @@ public struct Representation: CustomDebugStringConvertible {
             }
         } else {
             // exponent < 0, maybe float that is < 1.0
-            if exponent > -1 * width + 2 {
-                var floatMantissa = mantissa
-                for _ in 0 ..< -1 * exponent - 1 {
-                    floatMantissa = "0" + floatMantissa
-                }
-                floatMantissa.correctFractionalPartNumericalErrors(after: -1 * exponent)
-                floatMantissa = "0" + decimalSeparator.string + floatMantissa
-                number = Number(mantissa: negativeSign + floatMantissa)
+
+
+            var floatMantissa = mantissa
+            for _ in 0 ..< -1 * exponent - 1 {
+                floatMantissa = "0" + floatMantissa
+            }
+            floatMantissa.correctFractionalPartNumericalErrors(after: -1 * exponent)
+            let n = floatMantissa.numberOfLeadingZeroes
+            if n < width - 2 - length(negativeSign) {
+                floatMantissa = negativeSign + "0" + decimalSeparator.string + floatMantissa
+                number = Number(mantissa: floatMantissa)
                 assert(totalWidth <= width)
                 return
             }
@@ -266,17 +269,14 @@ extension String {
         var cutOffString = String(self[..<positionIndex])
         if self[positionIndex..<positionIndexPlus3] == "999" {
             cutOffString.incrementAbsIntegerValue()
-        } else if self.count >= position + 4 {
-            let positionIndexPlus4 = self.index(self.startIndex, offsetBy: position+4)
-            if self[positionIndex..<positionIndexPlus4] == "9989" {
-                cutOffString.incrementAbsIntegerValue()
-            }
         }
         cutOffString.removeTrailingZeroes()
         self = cutOffString
     }
     
-    mutating func integerWithoutNumericalErrors(exponent: Int) -> String? {
+    
+    func getInteger(exponent: Int) -> String? {
+        assert(exponent >= 0)
         var integerMantissa = self
         if self.count < exponent + 1 {
             integerMantissa = self.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
@@ -293,11 +293,62 @@ extension String {
             beforeSeparator.incrementAbsIntegerValue()
             return beforeSeparator
         }
-        if afterSeparator.prefix(4) == "9989" {
-            beforeSeparator.incrementAbsIntegerValue()
-            return beforeSeparator
-        }
 
         return nil
+    }
+    
+    func getBigFloat(exponent: Int) -> String? {
+        assert(exponent >= 0)
+        var sciMantissa = self
+        while sciMantissa.count < exponent + 1 + 2 {
+            sciMantissa = sciMantissa + "0"
+        }
+        let dotIndex = sciMantissa.index(sciMantissa.startIndex, offsetBy: exponent + 1)
+        var beforeSeparator: String = String(sciMantissa[..<dotIndex])
+        var afterSeparator: String = String(sciMantissa[dotIndex...])
+        if afterSeparator.prefix(3) == "999" {
+            beforeSeparator.incrementAbsIntegerValue()
+            afterSeparator = "0"
+        }
+        afterSeparator.removeTrailingZeroes()
+        if afterSeparator.isEmpty {
+            afterSeparator = "0"
+        }
+        return beforeSeparator + "." + afterSeparator
+    }
+    
+    func getSmallFloat(exponent: Int) -> String? {
+        assert(exponent < 0)
+        return self
+        var sciMantissa = self
+        while sciMantissa.count < exponent + 1 + 2 {
+            sciMantissa = sciMantissa + "0"
+        }
+        let dotIndex = sciMantissa.index(sciMantissa.startIndex, offsetBy: exponent + 1)
+        var beforeSeparator: String = String(sciMantissa[..<dotIndex])
+        var afterSeparator: String = String(sciMantissa[dotIndex...])
+        if afterSeparator.prefix(3) == "999" {
+            beforeSeparator.incrementAbsIntegerValue()
+            afterSeparator = "0"
+        }
+        if afterSeparator.prefix(4) == "9989" {
+            beforeSeparator.incrementAbsIntegerValue()
+            afterSeparator = "0"
+        }
+        afterSeparator.removeTrailingZeroes()
+        if afterSeparator.isEmpty {
+            afterSeparator = "0"
+        }
+        return beforeSeparator + "." + afterSeparator
+    }
+    
+    var numberOfLeadingZeroes: Int {
+        var ret: Int = 0
+        var temp = self
+        while temp.first == "0" {
+            temp.removeFirst()
+            ret += 1
+        }
+        return ret
     }
 }
