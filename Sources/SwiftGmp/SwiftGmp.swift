@@ -2,8 +2,8 @@ import Foundation
 import SwiftGmp_C_Target
 
 public struct MantissaExponent {
-    public let mantissa: String
-    public let exponent: Int
+    public var mantissa: String
+    public var exponent: Int
 }
 
 class SwiftGmp: Equatable, CustomDebugStringConvertible {

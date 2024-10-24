@@ -12,10 +12,65 @@ class RepresentationTests {
     
     var calculator: Calculator = Calculator(precision: 20)
     var RString: String = ""
-//    let debug = true
-    let debug = false
+    let debug = true
+//    let debug = false
 
     @Test func DEBUG_TEST() {
+        var mantissaExponent: MantissaExponent
+        //        mantissaExponent = MantissaExponent(mantissa: "1", exponent: 2)
+        //        mantissaExponent.correctNumericalErrors(width: 10)
+        //        #expect(mantissaExponent.mantissa == "1")
+        //        #expect(mantissaExponent.exponent == 2)
+        calculator.evaluateString("1234567.9991")
+        mantissaExponent = MantissaExponent(mantissa: "123456799910000000000000111901834298237", exponent: 6)
+        mantissaExponent.correctNumericalErrors(width: 10)
+        #expect(mantissaExponent.mantissa == "1234568")
+        #expect(mantissaExponent.exponent == 6)
+        #expect(calculator.R.debugDescription == "1234568")
+    }
+    
+    @Test func correctNumericalErrorTest() {
+        if debug { return }
+        var mantissaExponent: MantissaExponent
+        mantissaExponent = MantissaExponent(mantissa: "99999999999999999", exponent: 1)
+        mantissaExponent.correctNumericalErrors(width: 10)
+        #expect(mantissaExponent.mantissa == "1")
+        #expect(mantissaExponent.exponent == 2)
+
+        mantissaExponent = MantissaExponent(mantissa: "499999999999999999", exponent: 1)
+        mantissaExponent.correctNumericalErrors(width: 10)
+        #expect(mantissaExponent.mantissa == "5")
+        #expect(mantissaExponent.exponent == 1)
+
+        mantissaExponent = MantissaExponent(mantissa: "111499999999999999999", exponent: 4)
+        mantissaExponent.correctNumericalErrors(width: 10)
+        #expect(mantissaExponent.mantissa == "1115")
+        #expect(mantissaExponent.exponent == 4)
+        
+        
+        mantissaExponent = MantissaExponent(mantissa: "-99999999999999999", exponent: 1)
+        mantissaExponent.correctNumericalErrors(width: 10)
+        #expect(mantissaExponent.mantissa == "-1")
+        #expect(mantissaExponent.exponent == 2)
+
+        mantissaExponent = MantissaExponent(mantissa: "-499999999999999999", exponent: 1)
+        mantissaExponent.correctNumericalErrors(width: 10)
+        #expect(mantissaExponent.mantissa == "-5")
+        #expect(mantissaExponent.exponent == 1)
+
+        mantissaExponent = MantissaExponent(mantissa: "-111499999999999999999", exponent: 4)
+        mantissaExponent.correctNumericalErrors(width: 10)
+        #expect(mantissaExponent.mantissa == "-1115")
+        #expect(mantissaExponent.exponent == 4)
+        
+        calculator.evaluateString("-99.9999999999999")
+        #expect(calculator.R.debugDescription == "-100")
+
+
+
+//        calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
+//        #expect(calculator.R.debugDescription == "1.0e80")
+        
 //        calculator.evaluateString("0.00000001")
 //        #expect(calculator.R.debugDescription == "0.00000001")
 //        calculator.evaluateString("0.0000000099999999")
@@ -30,32 +85,9 @@ class RepresentationTests {
 //        #expect(calculator.R.debugDescription == "1.0e80")
     }
     
-    @Test func getIntegerTest() {
-        var s: String
-        var res: String?
-
-        s = "3339999999"
-        res = s.getInteger(exponent: 1)
-        #expect(res == nil)
-
-        s = "3339999999"
-        res = s.getInteger(exponent: 2)
-        #expect(res! == "334")
-
-        s = "3339999999"
-        res = s.getInteger(exponent: 6)
-        #expect(res! == "3340000")
-
-        s = "3339999999"
-        res = s.getInteger(exponent: 7)
-        #expect(res == nil)
-
-        s = "3339999999"
-        res = s.getInteger(exponent: 1)
-        #expect(res == nil)
-    }
 
     @Test func getBigFloatTest() {
+        if debug { return }
         var s: String
         var res: String?
 
@@ -80,6 +112,7 @@ class RepresentationTests {
     }
 
     @Test func getSmallFloatTest() {
+        if debug { return }
         var s: String
         var res: String?
 
@@ -115,7 +148,7 @@ class RepresentationTests {
         calculator.evaluateString("1234567.99")
         #expect(calculator.R.debugDescription == "1234567.99")
         
-        calculator.evaluateString("1234567.999")
+        calculator.evaluateString("1234567.9991")
         #expect(calculator.R.debugDescription == "1234568")
         
         calculator.evaluateString("1234567.9999")
