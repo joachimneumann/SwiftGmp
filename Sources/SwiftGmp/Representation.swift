@@ -374,9 +374,7 @@ extension MantissaExponent {
             if width >= exponent + 1 {
                 if mantissa.count == exponent + 1 {
                     // nothing to do
-                    return
-                }
-                if mantissa.count >= exponent + 1 + 3 {
+                } else if mantissa.count >= exponent + 1 + 3 {
                     let index = mantissa.index(mantissa.startIndex, offsetBy: exponent+1)
                     let indexPlus3 = mantissa.index(mantissa.startIndex, offsetBy: exponent + 4)
                     if mantissa[index..<indexPlus3] == "999" {

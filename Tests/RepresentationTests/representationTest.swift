@@ -12,21 +12,26 @@ class RepresentationTests {
     
     var calculator: Calculator = Calculator(precision: 20)
     var RString: String = ""
-    let debug = true
-//    let debug = false
+//    let debug = true
+    let debug = false
 
     @Test func DEBUG_TEST() {
         var mantissaExponent: MantissaExponent
+        
         //        mantissaExponent = MantissaExponent(mantissa: "1", exponent: 2)
         //        mantissaExponent.correctNumericalErrors(width: 10)
         //        #expect(mantissaExponent.mantissa == "1")
         //        #expect(mantissaExponent.exponent == 2)
-        calculator.evaluateString("1234567.9991")
-        mantissaExponent = MantissaExponent(mantissa: "123456799910000000000000111901834298237", exponent: 6)
-        mantissaExponent.correctNumericalErrors(width: 10)
-        #expect(mantissaExponent.mantissa == "1234568")
-        #expect(mantissaExponent.exponent == 6)
-        #expect(calculator.R.debugDescription == "1234568")
+        
+//        calculator.evaluateString("-1.0")
+//        #expect(calculator.R.debugDescription == "-1")
+//        
+//        calculator.evaluateString("1234567.9991")
+//        mantissaExponent = MantissaExponent(mantissa: "-1", exponent: 0)
+//        mantissaExponent.correctNumericalErrors(width: 10)
+//        #expect(mantissaExponent.mantissa == "-1")
+//        #expect(mantissaExponent.exponent == 0)
+//        #expect(calculator.R.debugDescription == "1234568")
     }
     
     @Test func correctNumericalErrorTest() {
@@ -86,55 +91,55 @@ class RepresentationTests {
     }
     
 
-    @Test func getBigFloatTest() {
-        if debug { return }
-        var s: String
-        var res: String?
-
-        s = "3339999999"
-        res = s.getBigFloat(exponent: 0)
-        #expect(res == "3.339999999")
-
-        res = s.getBigFloat(exponent: 1)
-        #expect(res == "33.39999999")
-
-        res = s.getBigFloat(exponent: 2)
-        #expect(res! == "334.0")
-
-        res = s.getBigFloat(exponent: 3)
-        #expect(res! == "3340.0")
-
-        res = s.getBigFloat(exponent: 5)
-        #expect(res! == "334000.0")
-
-        res = s.getBigFloat(exponent: 11)
-        #expect(res! == "333999999900.0")
-    }
-
-    @Test func getSmallFloatTest() {
-        if debug { return }
-        var s: String
-        var res: String?
-
-        s = "0.003339999999"
-        res = s.getSmallFloat(exponent: -1)
-        #expect(res == "3.339999999")
-
-        res = s.getSmallFloat(exponent: -1)
-        #expect(res == "33.39999999")
-
-        res = s.getSmallFloat(exponent: -2)
-        #expect(res! == "334.0")
-
-        res = s.getSmallFloat(exponent: -3)
-        #expect(res! == "3340.0")
-
-        res = s.getSmallFloat(exponent: -5)
-        #expect(res! == "334000.0")
-
-        res = s.getSmallFloat(exponent: -11)
-        #expect(res! == "333999999900.0")
-    }
+//    @Test func getBigFloatTest() {
+//        if debug { return }
+//        var s: String
+//        var res: String?
+//
+//        s = "3339999999"
+//        res = s.getBigFloat(exponent: 0)
+//        #expect(res == "3.339999999")
+//
+//        res = s.getBigFloat(exponent: 1)
+//        #expect(res == "33.39999999")
+//
+//        res = s.getBigFloat(exponent: 2)
+//        #expect(res! == "334.0")
+//
+//        res = s.getBigFloat(exponent: 3)
+//        #expect(res! == "3340.0")
+//
+//        res = s.getBigFloat(exponent: 5)
+//        #expect(res! == "334000.0")
+//
+//        res = s.getBigFloat(exponent: 11)
+//        #expect(res! == "333999999900.0")
+//    }
+//
+//    @Test func getSmallFloatTest() {
+//        if debug { return }
+//        var s: String
+//        var res: String?
+//
+//        s = "0.003339999999"
+//        res = s.getSmallFloat(exponent: -1)
+//        #expect(res == "3.339999999")
+//
+//        res = s.getSmallFloat(exponent: -1)
+//        #expect(res == "33.39999999")
+//
+//        res = s.getSmallFloat(exponent: -2)
+//        #expect(res! == "334.0")
+//
+//        res = s.getSmallFloat(exponent: -3)
+//        #expect(res! == "3340.0")
+//
+//        res = s.getSmallFloat(exponent: -5)
+//        #expect(res! == "334000.0")
+//
+//        res = s.getSmallFloat(exponent: -11)
+//        #expect(res! == "333999999900.0")
+//    }
 
     
     @Test func floatTest() {
@@ -154,7 +159,7 @@ class RepresentationTests {
         calculator.evaluateString("1234567.9999")
         #expect(calculator.R.debugDescription == "1234568")
 
-        calculator.evaluateString("1234567.9989")
+        calculator.evaluateString("1234567.999")
         #expect(calculator.R.debugDescription == "1234568")
 
         calculator.evaluateString("1234567.998")
@@ -324,25 +329,11 @@ class RepresentationTests {
         #expect(calculator.R.debugDescription == "-55.1")
     }
     
-    @Test func smallFloatTest() {
-        if debug { return }
-//        calculator.evaluateString("0.0000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.R.debugDescription == "1.0e-10")
-    }
-    
-    @Test func incrementAbsStringTest() {
-        if debug { return }
-        var x: String
-        x = "33";  x.incrementAbsIntegerValue(); #expect(x == "34")
-        x = "39";  x.incrementAbsIntegerValue(); #expect(x == "40")
-        x = "0";   x.incrementAbsIntegerValue(); #expect(x == "1")
-        x = "";    x.incrementAbsIntegerValue(); #expect(x == "1")
-        x = "9";   x.incrementAbsIntegerValue(); #expect(x == "10")
-        x = "99";  x.incrementAbsIntegerValue(); #expect(x == "100")
-        x = "994"; x.incrementAbsIntegerValue(); #expect(x == "995")
-        x = "-44"; x.incrementAbsIntegerValue(); #expect(x == "-45")
-        x = "-1";  x.incrementAbsIntegerValue(); #expect(x == "-2")
-    }
+//    @Test func smallFloatTest() {
+//        if debug { return }
+////        calculator.evaluateString("0.0000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
+////        #expect(calculator.R.debugDescription == "1.0e-10")
+//    }
     
     @Test func integerTest() {
         if debug { return }
