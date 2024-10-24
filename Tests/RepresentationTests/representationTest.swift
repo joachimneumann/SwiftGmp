@@ -41,33 +41,38 @@ class RepresentationTests {
         mantissaExponent.correctNumericalErrors(width: 10)
         #expect(mantissaExponent.mantissa == "1")
         #expect(mantissaExponent.exponent == 2)
+        #expect(!mantissaExponent.isNegative)
 
         mantissaExponent = MantissaExponent(mantissa: "499999999999999999", exponent: 1)
         mantissaExponent.correctNumericalErrors(width: 10)
         #expect(mantissaExponent.mantissa == "5")
         #expect(mantissaExponent.exponent == 1)
+        #expect(!mantissaExponent.isNegative)
 
         mantissaExponent = MantissaExponent(mantissa: "111499999999999999999", exponent: 4)
         mantissaExponent.correctNumericalErrors(width: 10)
         #expect(mantissaExponent.mantissa == "1115")
         #expect(mantissaExponent.exponent == 4)
-        
+        #expect(!mantissaExponent.isNegative)
         
         mantissaExponent = MantissaExponent(mantissa: "-99999999999999999", exponent: 1)
         mantissaExponent.correctNumericalErrors(width: 10)
-        #expect(mantissaExponent.mantissa == "-1")
+        #expect(mantissaExponent.mantissa == "1")
         #expect(mantissaExponent.exponent == 2)
+        #expect(mantissaExponent.isNegative)
 
         mantissaExponent = MantissaExponent(mantissa: "-499999999999999999", exponent: 1)
         mantissaExponent.correctNumericalErrors(width: 10)
-        #expect(mantissaExponent.mantissa == "-5")
+        #expect(mantissaExponent.mantissa == "5")
         #expect(mantissaExponent.exponent == 1)
+        #expect(mantissaExponent.isNegative)
 
         mantissaExponent = MantissaExponent(mantissa: "-111499999999999999999", exponent: 4)
         mantissaExponent.correctNumericalErrors(width: 10)
-        #expect(mantissaExponent.mantissa == "-1115")
+        #expect(mantissaExponent.mantissa == "1115")
         #expect(mantissaExponent.exponent == 4)
-        
+        #expect(mantissaExponent.isNegative)
+
         calculator.evaluateString("-99.9999999999999")
         #expect(calculator.R.debugDescription == "-100")
 

@@ -4,6 +4,20 @@ import SwiftGmp_C_Target
 public struct MantissaExponent {
     public var mantissa: String
     public var exponent: Int
+    public var isNegative: Bool
+    init(mantissa: String, exponent: Int) {
+        if mantissa.hasPrefix("-") {
+            self.mantissa = String(mantissa.dropFirst())
+            isNegative = true
+        } else {
+            self.mantissa = mantissa
+            isNegative = false
+        }
+        self.exponent = exponent
+    }
+    var negativeSign: String {
+        isNegative ? "-" : ""
+    }
 }
 
 class SwiftGmp: Equatable, CustomDebugStringConvertible {

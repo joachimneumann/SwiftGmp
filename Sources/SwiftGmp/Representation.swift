@@ -84,6 +84,7 @@ public struct Number: CustomDebugStringConvertible {
         self.exponent = exponent
         self.isDisplayBufferExponent = isDisplayBifferExponent
     }
+    
     public var debugDescription: String {
         var ret = mantissa
         if let e = exponent {
@@ -140,11 +141,10 @@ public struct Representation: CustomDebugStringConvertible {
     mutating private func setScientific(
     mantissa: String,
     exponent: Int,
-    negativeSign: String,
     isDisplayBufferExponent: Bool) {
         let exponentString = "e\(exponent)"
         let exponentWidth = length(exponentString)
-        let remainingMantissaWidth = width - exponentWidth - length(negativeSign) - 1
+        let remainingMantissaWidth = width - exponentWidth - 1
         var sciMantissa = mantissa
         sciMantissa.correctFractionalPartNumericalErrors(after: remainingMantissaWidth)
         sciMantissa.insert(decimalSeparator.character, at: sciMantissa.index(sciMantissa.startIndex, offsetBy: 1))
@@ -153,7 +153,7 @@ public struct Representation: CustomDebugStringConvertible {
         }
 
         number = Number(
-            mantissa: negativeSign+sciMantissa,
+            mantissa: sciMantissa,
             exponent: exponentString,
             isDisplayBifferExponent: isDisplayBufferExponent)
         assert(totalWidth <= width)
@@ -162,40 +162,33 @@ public struct Representation: CustomDebugStringConvertible {
     mutating public func setMantissaExponent(_ mantissaExponentParameter: MantissaExponent) {
         self.error = nil
         var mantissaExponent = mantissaExponentParameter
-        mantissaExponent.correctNumericalErrors(width: width)
+        let smartWidth = width - length(mantissaExponent.negativeSign)
+        mantissaExponent.correctNumericalErrors(width: smartWidth)
         var mantissa = mantissaExponent.mantissa
         let exponent = mantissaExponent.exponent
 
-        let negativeSign: String
-        if mantissa.starts(with: "-") {
-            negativeSign = "-"
-            mantissa = String(mantissa.dropFirst())
-        } else {
-            negativeSign = ""
-        }
-
         if exponent >= 0 {
-            if exponent + 1 + length(negativeSign) <= width {
-                if length(mantissa) <= width {
+            if exponent + 1 <= smartWidth {
+                if length(mantissa) <= smartWidth {
                     while length(mantissa) < exponent + 1 {
                         mantissa = mantissa + "0"
                     }
-                    number = Number(mantissa: negativeSign + mantissa)
+                    number = Number(mantissa: mantissaExponent.negativeSign + mantissa)
                     assert(totalWidth <= width)
                     return
                 }
 
                 // no integer, maybe float that is >= 1.0
-                let floatMantissaLength = width - length(negativeSign) - 1 + 4
+                let floatMantissaLength = width - 1 + 4
                 let floatMantissa = mantissa.padding(toLength: floatMantissaLength, withPad: "0", startingAt: 0)
                 let dotIndex = floatMantissa.index(floatMantissa.startIndex, offsetBy: exponent + 1)
                 let beforeSeparator: String = String(floatMantissa[..<dotIndex])
                 var afterSeparator: String = String(floatMantissa[dotIndex...])
-                if length(beforeSeparator) <= width - 2 - length(negativeSign) {
+                if length(beforeSeparator) <= width - 2 {
                     let w = length(beforeSeparator) + length(decimalSeparator.string)
-                    let remainingLength = width - w - length(negativeSign)
+                    let remainingLength = width - w
                     afterSeparator.correctFractionalPartNumericalErrors(after: remainingLength)
-                    number = Number(mantissa: negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator)
+                    number = Number(mantissa: beforeSeparator + decimalSeparator.string + afterSeparator)
                     assert(totalWidth <= width)
                     return
                 } else {
@@ -212,8 +205,8 @@ public struct Representation: CustomDebugStringConvertible {
             }
             floatMantissa.correctFractionalPartNumericalErrors(after: -1 * exponent)
             let n = floatMantissa.numberOfLeadingZeroes
-            if n < width - 2 - length(negativeSign) {
-                floatMantissa = negativeSign + "0" + decimalSeparator.string + floatMantissa
+            if n < width - 2 {
+                floatMantissa = "0" + decimalSeparator.string + floatMantissa
                 number = Number(mantissa: floatMantissa)
                 assert(totalWidth <= width)
                 return
@@ -224,7 +217,6 @@ public struct Representation: CustomDebugStringConvertible {
         setScientific(
             mantissa: mantissa,
             exponent: exponent,
-            negativeSign: negativeSign,
             isDisplayBufferExponent: false)
         assert(totalWidth <= width)
         return
@@ -362,14 +354,6 @@ extension String {
 
 extension MantissaExponent {
     mutating func correctNumericalErrors(width: Int) {
-        let negativeSign: String
-        if mantissa.starts(with: "-") {
-            negativeSign = "-"
-            mantissa = String(mantissa.dropFirst())
-        } else {
-            negativeSign = ""
-        }
-
         if exponent >= 0 {
             if width >= exponent + 1 {
                 if mantissa.count == exponent + 1 {
@@ -384,6 +368,5 @@ extension MantissaExponent {
                 }
             }
         }
-        mantissa = negativeSign + mantissa
     }
 }
