@@ -1,5 +1,5 @@
 //
-//  representationTest.swift
+//  displayTest.swift
 //  SwiftGmp
 //
 //  Created by Joachim Neumann on 20.10.24.
@@ -8,60 +8,60 @@
 import Testing
 @testable import SwiftGmp
 
-class RepresentationTests {
+class DisplayTests {
     
     var calculator: Calculator = Calculator(precision: 20)
     var RString: String = ""
     let debug = true
 //    let debug = false
 
-    @Test func DEBUG_TEST() {
+    @Test func display() {
 //        var mantissaExponent: MantissaExponent
 
 //        calculator.evaluateString("0.0000099999999999999999")
 //        #expect(calculator.R.debugDescription == "0.00001")
 //
-        calculator.evaluateString("0.001")
-        #expect(calculator.R.debugDescription == "0.001")
-        calculator.evaluateString("0.0001")
-        #expect(calculator.R.debugDescription == "0.0001")
-        calculator.evaluateString("0.00001")
-        #expect(calculator.R.debugDescription == "0.00001")
-        calculator.evaluateString("0.000001")
-        #expect(calculator.R.debugDescription == "0.000001")
-        calculator.evaluateString("0.0000001")
-        #expect(calculator.R.debugDescription == "0.0000001")
-        calculator.evaluateString("0.00000001")
-        #expect(calculator.R.debugDescription == "0.00000001")
-        calculator.evaluateString("0.000000001")
-        #expect(calculator.R.debugDescription == "1.0e-9")
-        calculator.evaluateString("0.0000000001")
-        #expect(calculator.R.debugDescription == "1.0e-10")
-        calculator.evaluateString("0.00000000001")
-        #expect(calculator.R.debugDescription == "1.0e-11")
-        calculator.evaluateString("0.000000000001")
-        #expect(calculator.R.debugDescription == "1.0e-12")
-//
-        calculator.evaluateString("0.000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "0.001")
-        calculator.evaluateString("0.0000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "0.0001")
-        calculator.evaluateString("0.00000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "0.00001")
-        calculator.evaluateString("0.000000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "0.000001")
-        calculator.evaluateString("0.0000000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "0.0000001")
-        calculator.evaluateString("0.00000000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "0.00000001")
-        calculator.evaluateString("0.000000000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "1.0e-9")
-        calculator.evaluateString("0.0000000000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "1.0e-10")
-        calculator.evaluateString("0.00000000000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "1.0e-11")
-        calculator.evaluateString("0.000000000000999999999999999999999999")
-        #expect(calculator.R.debugDescription == "1.0e-12")
+//        calculator.evaluateString("0.001")
+//        #expect(calculator.R.debugDescription == "0.001")
+//        calculator.evaluateString("0.0001")
+//        #expect(calculator.R.debugDescription == "0.0001")
+//        calculator.evaluateString("0.00001")
+//        #expect(calculator.R.debugDescription == "0.00001")
+//        calculator.evaluateString("0.000001")
+//        #expect(calculator.R.debugDescription == "0.000001")
+//        calculator.evaluateString("0.0000001")
+//        #expect(calculator.R.debugDescription == "0.0000001")
+//        calculator.evaluateString("0.00000001")
+//        #expect(calculator.R.debugDescription == "0.00000001")
+//        calculator.evaluateString("0.000000001")
+//        #expect(calculator.R.debugDescription == "1.0e-9")
+//        calculator.evaluateString("0.0000000001")
+//        #expect(calculator.R.debugDescription == "1.0e-10")
+//        calculator.evaluateString("0.00000000001")
+//        #expect(calculator.R.debugDescription == "1.0e-11")
+//        calculator.evaluateString("0.000000000001")
+//        #expect(calculator.R.debugDescription == "1.0e-12")
+////
+//        calculator.evaluateString("0.000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "0.001")
+//        calculator.evaluateString("0.0000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "0.0001")
+//        calculator.evaluateString("0.00000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "0.00001")
+//        calculator.evaluateString("0.000000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "0.000001")
+//        calculator.evaluateString("0.0000000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "0.0000001")
+//        calculator.evaluateString("0.00000000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "0.00000001")
+//        calculator.evaluateString("0.000000000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "1.0e-9")
+//        calculator.evaluateString("0.0000000000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "1.0e-10")
+//        calculator.evaluateString("0.00000000000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "1.0e-11")
+//        calculator.evaluateString("0.000000000000999999999999999999999999")
+//        #expect(calculator.R.debugDescription == "1.0e-12")
 //
 //        calculator.evaluateString("0.00000999999999999")
 //        #expect(calculator.R.debugDescription == "0.00001")

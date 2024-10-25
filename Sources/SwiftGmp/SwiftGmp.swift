@@ -8,11 +8,11 @@ public enum MantissaExponentType {
     case floatSmallerThanOne
     case scientifiNotation
 }
-public struct MantissaExponent {
+
+public struct Raw {
     public var mantissa: String
     public var exponent: Int
     public var isNegative: Bool
-    public var mantissaExponentType: MantissaExponentType
     init(mantissa: String, exponent: Int) {
         if mantissa.hasPrefix("-") {
             self.mantissa = String(mantissa.dropFirst())
@@ -22,7 +22,6 @@ public struct MantissaExponent {
             isNegative = false
         }
         self.exponent = exponent
-        mantissaExponentType = .unknown
     }
     var negativeSign: String {
         isNegative ? "-" : ""
@@ -81,7 +80,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         guard !isZero else { return "zero"}
-        let mantissaExponent = mantissaExponent(len: 20)
+        let mantissaExponent = raw()
         return "\(mantissaExponent.mantissa) \(mantissaExponent.exponent)"
     }
     
@@ -106,21 +105,41 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_custom_get_size(bits)
     }
     
-    func mantissaExponent(len: Int) -> MantissaExponent {
+    func raw(digits digitsParameter: Int? = nil, roundNines: Int = 0) -> Raw {
+        var digits: Int = bits / 3
+        if let digitsParameter {
+            digits = digitsParameter
+        }
         var exponent: mpfr_exp_t = 0
         
-        var charArray: Array<CChar> = Array(repeating: 0, count: len+10)
-        mpfr_get_str(&charArray, &exponent, 10, len, &mpfr, MPFR_RNDN)
+        var charArray: Array<CChar> = Array(repeating: 0, count: digits+10)
+        mpfr_get_str(&charArray, &exponent, 10, digits + roundNines, &mpfr, MPFR_RNDN)
         var mantissa: String = ""
         
         charArray.withUnsafeBufferPointer { ptr in
             mantissa = String(cString: ptr.baseAddress!)
         }
         
+        var roundingNeeded = true
+        if roundNines > 0 {
+            let suffix = mantissa.suffix(roundNines)
+            for s in suffix {
+                if s != "9" {
+                    roundingNeeded = false
+                }
+            }
+        } else {
+            roundingNeeded = false
+        }
+        mantissa.removeLast(roundNines)
+        if roundingNeeded {
+            if mantissa.incrementAbsIntegerValue() { exponent += 1 }
+        }
+
         mantissa.removeTrailingZeroes()
         if mantissa == "" { mantissa = "0" }
         
-        return MantissaExponent(mantissa: mantissa, exponent: exponent - 1)
+        return Raw(mantissa: mantissa, exponent: exponent - 1)
     }
     
     
@@ -344,4 +363,23 @@ extension String {
             self.removeLast()
         }
     }
+    
+    mutating func incrementAbsIntegerValue() -> Bool {
+        if self.last != nil {
+            if self.last == "9" {
+                self.removeLast()
+                let exponentNeedsToIncrease = self.incrementAbsIntegerValue()
+                return exponentNeedsToIncrease
+            } else {
+                let new = String(Int(String(self.last!))! + 1)
+                self.removeLast()
+                self += new
+                return false
+            }
+        } else {
+            self = "1"
+            return true
+        }
+    }
 }
+

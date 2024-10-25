@@ -14,16 +14,12 @@ public class Calculator {
     private var privateZombieDisplayBuffer: String? = nil
     private var memory: SwiftGmp?
     
-    public var representationWidth: Int {
-        didSet {
-            R.width = representationWidth
-        }
-    }
+    public var displayWidth: Int
     
     public var length: (String) -> Int = { s in
         s.count
     }
-    public var displayBifferExponentLength: (String) -> Int = { s in
+    public var displayBufferExponentLength: (String) -> Int = { s in
         s.count
     }
 
@@ -33,13 +29,13 @@ public class Calculator {
     }
 
     public var maxOutputLength: Int
-    public var R: Representation
+//    public var R: Representation
     public init(precision: Int, maxOutputLength: Int = 12) {
         token = Token(precision: precision)
         self.maxOutputLength = maxOutputLength
         privateDisplayBuffer = ""
-        R = Representation(length: length, displayBifferExponentLength: displayBifferExponentLength)
-        representationWidth = 10
+//        R = Representation(length: length, displayBifferExponentLength: displayBifferExponentLength)
+        displayWidth = 10
     }
     
     public var privateDisplayBufferHasDigits: Bool {
@@ -254,7 +250,7 @@ public class Calculator {
             token.clear()
             privateDisplayBuffer = error.localizedDescription
         }
-        R.setMantissaExponent(mantissaExponent!)
+//        R.setMantissaExponent(mantissaExponent!)
     }
     
     public var string: String {
@@ -301,7 +297,7 @@ public class Calculator {
         }
     }
     
-    public var mantissaExponent: MantissaExponent? {
+    public var mantissaExponent: Raw? {
         let temp: SwiftGmp?
         if !privateDisplayBuffer.isEmpty {
             temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
@@ -310,7 +306,7 @@ public class Calculator {
         }
         if temp == nil { return nil }
 
-        return temp!.mantissaExponent(len: max(1000, maxOutputLength))
+        return temp!.raw(digits: displayWidth)
     }
 
 }
