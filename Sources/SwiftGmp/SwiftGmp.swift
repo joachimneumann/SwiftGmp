@@ -1,10 +1,18 @@
 import Foundation
 import SwiftGmp_C_Target
 
+public enum MantissaExponentType {
+    case unknown
+    case integer
+    case floatLargerThanOne
+    case floatSmallerThanOne
+    case scientifiNotation
+}
 public struct MantissaExponent {
     public var mantissa: String
     public var exponent: Int
     public var isNegative: Bool
+    public var mantissaExponentType: MantissaExponentType
     init(mantissa: String, exponent: Int) {
         if mantissa.hasPrefix("-") {
             self.mantissa = String(mantissa.dropFirst())
@@ -14,6 +22,7 @@ public struct MantissaExponent {
             isNegative = false
         }
         self.exponent = exponent
+        mantissaExponentType = .unknown
     }
     var negativeSign: String {
         isNegative ? "-" : ""
@@ -72,7 +81,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         guard !isZero else { return "zero"}
-        let mantissaExponent = mantissaExponent(len: 100)
+        let mantissaExponent = mantissaExponent(len: 20)
         return "\(mantissaExponent.mantissa) \(mantissaExponent.exponent)"
     }
     

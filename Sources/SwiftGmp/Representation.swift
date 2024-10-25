@@ -146,7 +146,7 @@ public struct Representation: CustomDebugStringConvertible {
         let exponentWidth = length(exponentString)
         let remainingMantissaWidth = width - exponentWidth - 1
         var sciMantissa = mantissa
-        sciMantissa.correctFractionalPartNumericalErrors(after: remainingMantissaWidth)
+//        sciMantissa.correctFractionalPartNumericalErrors(after: remainingMantissaWidth)
         sciMantissa.insert(decimalSeparator.character, at: sciMantissa.index(sciMantissa.startIndex, offsetBy: 1))
         if sciMantissa.count == 2 {
             sciMantissa.append("0")
@@ -161,17 +161,47 @@ public struct Representation: CustomDebugStringConvertible {
         
     mutating public func setMantissaExponent(_ mantissaExponentParameter: MantissaExponent) {
         self.error = nil
+        
         var mantissaExponent = mantissaExponentParameter
         let smartWidth = width - length(mantissaExponent.negativeSign)
         mantissaExponent.correctNumericalErrors(width: smartWidth)
+
+        switch mantissaExponent.mantissaExponentType {
+            
+        case .unknown:
+            break
+        case .integer:
+            while length(mantissaExponent.mantissa) < mantissaExponent.exponent {
+                mantissaExponent.mantissa = mantissaExponent.mantissa + "0"
+            }
+            number = Number(mantissa: mantissaExponent.negativeSign + mantissaExponent.mantissa)
+            assert(totalWidth <= width)
+            return
+        case .floatLargerThanOne:
+            let dotIndex = mantissaExponent.mantissa.index(mantissaExponent.mantissa.startIndex, offsetBy: mantissaExponent.exponent + 1)
+            mantissaExponent.mantissa.insert(decimalSeparator.character, at: dotIndex)
+            number = Number(mantissa: mantissaExponent.negativeSign + mantissaExponent.mantissa)
+            assert(totalWidth <= width)
+            return
+        case .floatSmallerThanOne:
+            for _ in 1..<(-mantissaExponent.exponent) {
+                mantissaExponent.mantissa = "0" + mantissaExponent.mantissa
+            }
+            mantissaExponent.mantissa = "0" + decimalSeparator.string + mantissaExponent.mantissa
+            number = Number(mantissa: mantissaExponent.negativeSign + mantissaExponent.mantissa)
+            assert(totalWidth <= width)
+            return
+        case .scientifiNotation:
+            break
+        }
         var mantissa = mantissaExponent.mantissa
         let exponent = mantissaExponent.exponent
 
         if exponent >= 0 {
-            if exponent + 1 <= smartWidth {
-                if exponent + 1 >= mantissa.count {
+            if exponent <= smartWidth {
+                if exponent >= mantissa.count {
                     if length(mantissa) <= smartWidth {
-                        while length(mantissa) < exponent + 1 {
+                        while length(mantissa) < exponent {
                             mantissa = mantissa + "0"
                         }
                         number = Number(mantissa: mantissaExponent.negativeSign + mantissa)
@@ -181,7 +211,7 @@ public struct Representation: CustomDebugStringConvertible {
                 }
 
                 // no integer, maybe float that is >= 1.0
-                if exponent + 1 < smartWidth - 1 {
+                if exponent < smartWidth - 1 {
                     // I need to be a bit stricter to disallow "23452345435."
                     var floatMantissa = mantissa
                     let dotIndex = floatMantissa.index(floatMantissa.startIndex, offsetBy: exponent + 1)
@@ -210,11 +240,11 @@ public struct Representation: CustomDebugStringConvertible {
         }
         
         // scientific
-        setScientific(
-            mantissa: mantissa,
-            exponent: exponent,
-            isDisplayBufferExponent: false)
-        assert(totalWidth <= width)
+//        setScientific(
+//            mantissa: mantissa,
+//            exponent: exponent,
+//            isDisplayBufferExponent: false)
+//        assert(totalWidth <= width)
         return
     }
     
@@ -249,94 +279,6 @@ extension String {
         }
     }
     
-    mutating func correctNumericalErrorsForIntegers(exponent: inout Int, length: Int) {
-        assert(exponent >= 0)
-    }
-    
-    mutating func correctFractionalPartNumericalErrors(after position: Int) {
-        if self.count < position + 3 {
-            // the string is too short, so not correct anything
-            return
-        }
-        let positionIndex = self.index(self.startIndex, offsetBy: position)
-        let positionIndexPlus3 = self.index(self.startIndex, offsetBy: position+3)
-
-        var cutOffString = String(self[..<positionIndex])
-        if self[positionIndex..<positionIndexPlus3] == "999" {
-            cutOffString.incrementAbsIntegerValue()
-        }
-        cutOffString.removeTrailingZeroes()
-        self = cutOffString
-    }
-    
-    
-    func getInteger(exponent: Int) -> String? {
-        assert(exponent >= 0)
-        var integerMantissa = self
-        if self.count < exponent + 1 {
-            integerMantissa = self.padding(toLength: exponent + 1, withPad: "0", startingAt: 0)
-        }
-
-        if integerMantissa.count == exponent + 1 { return integerMantissa }
-        
-        integerMantissa = self.padding(toLength: exponent + 1 + 4, withPad: "0", startingAt: 0)
-        
-        let dotIndex = integerMantissa.index(integerMantissa.startIndex, offsetBy: exponent + 1)
-        var beforeSeparator: String = String(integerMantissa[..<dotIndex])
-        let afterSeparator: String = String(integerMantissa[dotIndex...])
-        if afterSeparator.prefix(3) == "999" {
-            beforeSeparator.incrementAbsIntegerValue()
-            return beforeSeparator
-        }
-
-        return nil
-    }
-    
-    func getBigFloat(exponent: Int) -> String? {
-        assert(exponent >= 0)
-        var bigFloatMantissa = self
-        while bigFloatMantissa.count < exponent + 1 + 2 {
-            bigFloatMantissa = bigFloatMantissa + "0"
-        }
-        let dotIndex = bigFloatMantissa.index(bigFloatMantissa.startIndex, offsetBy: exponent + 1)
-        var beforeSeparator: String = String(bigFloatMantissa[..<dotIndex])
-        var afterSeparator: String = String(bigFloatMantissa[dotIndex...])
-        if afterSeparator.prefix(3) == "999" {
-            beforeSeparator.incrementAbsIntegerValue()
-            afterSeparator = "0"
-        }
-        afterSeparator.removeTrailingZeroes()
-        if afterSeparator.isEmpty {
-            afterSeparator = "0"
-        }
-        return beforeSeparator + "." + afterSeparator
-    }
-    
-    func getSmallFloat(exponent: Int) -> String? {
-        assert(exponent < 0)
-        return self
-        var smallFloatMantissa = self
-        while smallFloatMantissa.count < exponent + 1 + 2 {
-            smallFloatMantissa = smallFloatMantissa + "0"
-        }
-        let dotIndex = smallFloatMantissa.index(smallFloatMantissa.startIndex, offsetBy: exponent + 1)
-        var beforeSeparator: String = String(smallFloatMantissa[..<dotIndex])
-        var afterSeparator: String = String(smallFloatMantissa[dotIndex...])
-        if afterSeparator.prefix(3) == "999" {
-            beforeSeparator.incrementAbsIntegerValue()
-            afterSeparator = "0"
-        }
-        if afterSeparator.prefix(4) == "9989" {
-            beforeSeparator.incrementAbsIntegerValue()
-            afterSeparator = "0"
-        }
-        afterSeparator.removeTrailingZeroes()
-        if afterSeparator.isEmpty {
-            afterSeparator = "0"
-        }
-        return beforeSeparator + "." + afterSeparator
-    }
-    
     var numberOfLeadingZeroes: Int {
         var ret: Int = 0
         var temp = self
@@ -350,11 +292,13 @@ extension String {
 
 extension MantissaExponent {
     mutating func correctNumericalErrors(width: Int) {
+        mantissaExponentType = .unknown
         if exponent >= 0 {
             if width >= exponent + 1 {
                 // might be an Integer
                 if mantissa.count <= exponent + 1 {
                     // mantissa is a perfect Integer
+                    mantissaExponentType = .integer
                     return
                 } else if mantissa.count >= exponent + 1 + 3 {
                     let index = mantissa.index(mantissa.startIndex, offsetBy: exponent+1)
@@ -363,6 +307,7 @@ extension MantissaExponent {
                         mantissa = String(mantissa[..<index])
                         if mantissa.incrementAbsIntegerValue() { exponent += 1 }
                         // After rounding, mantissa will be a perfect Integer
+                        mantissaExponentType = .integer
                         return
                     }
                 }
@@ -371,6 +316,7 @@ extension MantissaExponent {
             let exponentMantissaWidth = width - 1 // the "."
             if exponent < exponentMantissaWidth {
                 if mantissa.count <= exponentMantissaWidth {
+                    mantissaExponentType = .floatLargerThanOne
                     return
                 } else if mantissa.count >= exponentMantissaWidth + 3 {
                     let index = mantissa.index(mantissa.startIndex, offsetBy: exponentMantissaWidth+1)
@@ -379,11 +325,39 @@ extension MantissaExponent {
                         mantissa = String(mantissa[..<index])
                         if mantissa.incrementAbsIntegerValue() { exponent += 1 }
                         // After rounding, mantissa will be a perfect float
+                        mantissaExponentType = .floatLargerThanOne
                         return
                     } else {
                         let cutOffIndex = mantissa.index(mantissa.startIndex, offsetBy: exponentMantissaWidth)
                         // mantissa will be a perfect float
                         mantissa = String(mantissa[..<cutOffIndex])
+                        mantissa.removeTrailingZeroes()
+                        mantissaExponentType = .floatLargerThanOne
+                        return
+                    }
+                }
+            }
+        } else {
+            // exponent < 0, can it be a float < 1.0?
+            if -exponent < width - 2 {
+                if mantissa.count <= width {
+                    mantissaExponentType = .floatSmallerThanOne
+                    return
+                } else if mantissa.count >= exponent + 3 {
+                    let index = mantissa.index(mantissa.startIndex, offsetBy: -exponent+1)
+                    let indexPlus3 = mantissa.index(mantissa.startIndex, offsetBy: -exponent + 4)
+                    if mantissa[index..<indexPlus3] == "999" {
+                        mantissa = String(mantissa[..<index])
+                        if mantissa.incrementAbsIntegerValue() { exponent += 1 }
+                        // After rounding, mantissa will be a perfect float
+                        mantissaExponentType = .floatSmallerThanOne
+                        return
+                    } else {
+                        let cutOffIndex = mantissa.index(mantissa.startIndex, offsetBy: width)
+                        // mantissa will be a perfect float
+                        mantissa = String(mantissa[..<cutOffIndex])
+                        mantissa.removeTrailingZeroes()
+                        mantissaExponentType = .floatSmallerThanOne
                         return
                     }
                 }
