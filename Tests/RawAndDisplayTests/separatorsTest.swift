@@ -20,9 +20,9 @@ class separatorsTest {
     
     @Test func x() {
         
-        calculator.evaluateString("10000.3")
-        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
-        #expect(display.string == "10,000.3")
+        calculator.evaluateString("11111.3")
+        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.comma, separateGroups: true)
+        #expect(display.string == "11.111,3")
 
 //        calculator.evaluateString("10000")
 //        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
@@ -82,7 +82,34 @@ class separatorsTest {
         string = string.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
         string = string.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
         #expect(string == "9999.4")
-    }
+        
+        calculator.press(ClearOperation.clear)
+        calculator.press(DigitOperation.one)
+        calculator.press(DigitOperation.one)
+        calculator.press(DigitOperation.one)
+        calculator.press(DigitOperation.one)
+        calculator.press(DigitOperation.one)
+        calculator.press(DigitOperation.dot)
+        calculator.press(DigitOperation.three)
+        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
+        string = display.string
+        if s.separateGroups {
+            gr = s.decimalSeparator.groupString
+        } else {
+            gr = ""
+        }
+        expectation = "11\(gr)111\(s.decimalSeparator.character)3"
+        print(string + " " + expectation)
+        #expect(string == expectation)
+    
+        calculator.press(EqualOperation.equal)
+        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
+        string = display.string
+        expectation = "11\(gr)111\(s.decimalSeparator.character)3"
+        print(string + " " + expectation)
+        #expect(string == expectation)
+
+  }
         ////    let calculator = Calculator(precision: 20)
         ////    var RString: String
         ////
