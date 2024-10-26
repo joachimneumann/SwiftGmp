@@ -1148,322 +1148,307 @@ class rawAndDisplay {
 
       calculator.evaluateString("-55.1")
       #expect(calculator.display.string == "-55.1")
-//    }
-//    
-////    @Test func smallFloatTest() {
-////        if debug { return }
-//////        calculator.evaluateString("0.0000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//////        #expect(calculator.display.string == "1.0e-10")
-////    }
-//    
-//    @Test func integerTest() {
-//        if debug { return }
-//        calculator.evaluateString("1234")
-//        #expect(calculator.display.string == "1234")
-//
-//        calculator.evaluateString("12345")
-//        #expect(calculator.display.string == "12345")
-//
-//        calculator.evaluateString("123456")
-//        #expect(calculator.display.string == "123456")
-//
-//        calculator.evaluateString("1234567")
-//        #expect(calculator.display.string == "1234567")
-//
-//        calculator.evaluateString("12345678")
-//        #expect(calculator.display.string == "12345678")
-//
-//        calculator.evaluateString("123456789")
-//        #expect(calculator.display.string == "123456789")
-//
-//        calculator.evaluateString("1234567890")
-//        #expect(calculator.display.string == "1234567890")
-//
-//        calculator.evaluateString("3333378901")
-//        #expect(calculator.display.string == "3333378901")
-//
-//        calculator.evaluateString("33333789012")
-//        #expect(calculator.display.string == "3.33337e10")
-//
-//        calculator.evaluateString("6789")
-//        #expect(calculator.display.string == "6789")
-//
-//        calculator.evaluateString("67890")
-//        #expect(calculator.display.string == "67890")
-//
-//        calculator.evaluateString("678901")
-//        #expect(calculator.display.string == "678901")
-//
-//        calculator.evaluateString("6789012")
-//        #expect(calculator.display.string == "6789012")
-//
-//        calculator.evaluateString("67890123")
-//        #expect(calculator.display.string == "67890123")
-//
-//        calculator.evaluateString("678901234")
-//        #expect(calculator.display.string == "678901234")
-//
-//        calculator.evaluateString("6789012345")
-//        #expect(calculator.display.string == "6789012345")
-//
-//        calculator.evaluateString("6789012345.999999")
-//        #expect(calculator.display.string == "6789012346")
-//
-//        calculator.evaluateString("6789012345.99999")
-//        #expect(calculator.display.string == "6789012346")
-//
-//        calculator.evaluateString("6789012345.9999")
-//        #expect(calculator.display.string == "6789012346")
-//
-//        calculator.evaluateString("6789012345.99901")
-//        #expect(calculator.display.string == "6789012346")
-//
-//        calculator.evaluateString("6789012345.99")
-//        #expect(calculator.display.string == "6.789012e9")
-//
-//        calculator.evaluateString("6789012345.9")
-//        #expect(calculator.display.string == "6.789012e9")
-//
-//        calculator.evaluateString("6789012345.989999")
-//        #expect(calculator.display.string == "6.789012e9")
-//
-//        calculator.evaluateString("67890123456")
-//        #expect(calculator.display.string == "6.78901e10")
-//
-//        calculator.evaluateString("678901234567")
-//        #expect(calculator.display.string == "6.78901e11")
-//
-//        calculator.evaluateString("6789012345678")
-//        #expect(calculator.display.string == "6.78901e12")
-//
-//        calculator.evaluateString("100")
-//        #expect(calculator.display.string == "100")
-//        
-//        
-//        calculator.evaluateString("99.9999999999999")
-//        #expect(calculator.display.string == "100")
-//        
-//        calculator.evaluateString("100")
-//        #expect(calculator.display.string == "100")
-//        
-//        calculator.evaluateString("-100")
-//        #expect(calculator.display.string == "-100")
-//        
-//        calculator.evaluateString("-99.9999999999999")
-//        #expect(calculator.display.string == "-100")
-//        
-//        calculator.evaluateString("99.9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "100")
-//        
-//        calculator.evaluateString("99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "99.5")
-//        
-//        calculator.evaluateString("-99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-99.5")
-//        
-//        calculator.evaluateString("99.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "99.992")
-//        
-//        calculator.evaluateString("999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "999.992")
-//        
-//        calculator.evaluateString("9999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "9999.992")
-//        
-//        calculator.evaluateString("99999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "99999.992")
-//        
-//        calculator.evaluateString("1234567.999")
-//        #expect(calculator.display.string == "1234568")
-//        
-//        calculator.evaluateString("1234567.9999")
-//        #expect(calculator.display.string == "1234568")
-//        
-//        calculator.evaluateString("1234567.99999")
-//        #expect(calculator.display.string == "1234568")
-//
-//        calculator.evaluateString("1234567.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1234567")
-//        
-//        calculator.evaluateString("12345678.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "12345678")
-//        
-//        calculator.evaluateString("123456789.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "123456789")
-//        calculator.evaluateString("1234567890.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1234567890")
-//        
-//        calculator.evaluateString("12345678901.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.23456e10")
-//        
-//        calculator.evaluateString("123456789012.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.23456e11")
-//        
-//        calculator.evaluateString("1234567890123.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.23456e12")
-//        
-//        calculator.evaluateString("12345678901234.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.23456e13")
-//        
-//        calculator.evaluateString("123456789012345.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.23456e14")
-//        
-//        calculator.evaluateString("1234567890123456.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.23456e15")
-//        
-//        calculator.evaluateString("1234567")
-//        #expect(calculator.display.string == "1234567")
-//        
-//        calculator.evaluateString("1234567.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1234568")
-//        
-//        calculator.evaluateString("12345678.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "12345679")
-//        
-//        calculator.evaluateString("123456789.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "123456790")
-//        calculator.evaluateString("1234567890.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1234567891")
-//        
-//        calculator.evaluateString("12345678901.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.23456e10")
-//        
-//        calculator.evaluateString("123456789012.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.23456e11")
-//        
-//        calculator.evaluateString("1234567890123.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.23456e12")
-//        
-//        calculator.evaluateString("12345678901234.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.23456e13")
-//        
-//        calculator.evaluateString("123456789012345.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.23456e14")
-//        
-//        calculator.evaluateString("1234567890123456.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.23456e15")
-//        
-//        calculator.evaluateString("-1234567.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1234568")
-//        
-//        calculator.evaluateString("-12345678.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-12345679")
-//        
-//        calculator.evaluateString("-123456789.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-123456790")
-//        
-//        calculator.evaluateString("-1234567890.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1.23456e9")
-//        
-//        calculator.evaluateString("-12345678901.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1.2345e10")
-//        
-//        calculator.evaluateString("-123456789012.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1.2345e11")
-//        
-//        calculator.evaluateString("-1234567890123.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1.2345e12")
-//        
-//        calculator.evaluateString("-12345678901234.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1.2345e13")
-//        
-//        calculator.evaluateString("-123456789012345.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1.2345e14")
-//        
-//        calculator.evaluateString("-1234567890123456.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "-1.2345e15")
-//    }
-//    
-//    @Test func sciTest() {
-//        if debug { return }
-//        calculator.evaluateString("12345678900000007890123456")
-//        #expect(calculator.display.string == "1.23456e25")
-//
-//        calculator.evaluateString("12345678900000007890123456.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.23456e25")
-//
-//        calculator.evaluateString("12340000000000007890123456.99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.234e25")
-//
-//        calculator.evaluateString("123499999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.235e80")
-//
-//        calculator.evaluateString("12349999999999999999999999.999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.235e25")
-//        
-//        calculator.evaluateString("123400000000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.234e80")
-//        
-//        calculator.evaluateString("123490000000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.2349e80")
-//        
-//        calculator.evaluateString("123499000000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.23499e80")
-//        
-//        calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.23499e80")
-//        
-//        calculator.evaluateString("331234999900000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "3.31235e80")
-//        
-//        calculator.evaluateString("123499999000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.235e80")
-//        
-//        calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.23499e80")
-//        
-//        calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.0e80")
-//        
-//        calculator.evaluateString("99999999999999999999999999999999999999999999999999999999999999999999999999999999")
-//        #expect(calculator.display.string == "1.0e80")
-//        
-//
-//        calculator.evaluateString("331234000000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "3.31234e80")
-//        
-//        calculator.evaluateString("331234900000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "3.31234e80")
-//        
-//        calculator.evaluateString("331234990000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "3.31234e80")
-//        
-//        calculator.evaluateString("331234999900000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "3.31235e80")
-//        
-//        calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.23499e80")
-//        
-//        calculator.evaluateString("123499999000000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.235e80")
-//        
-//        calculator.evaluateString("123499999900000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.235e80")
-//        
-//        calculator.evaluateString("123499999990000000000000000000000000000000000000000000000000000000000000000000000")
-//        #expect(calculator.display.string == "1.235e80")
-//        
-//
-//        calculator.evaluateString("0.00000000000000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.0e-20")
-//
-//        calculator.evaluateString("0.000000000000000000012")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.2e-20")
-//
-//        calculator.evaluateString("0.0000000000000000000123")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.23e-20")
-//
-//        calculator.evaluateString("0.00000000000000000001234")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.234e-20")
-//
-//        calculator.evaluateString("0.000000000000000000012341")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.2341e-20")
-//
-//        calculator.evaluateString("0.000000000000000000012345")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.2345e-20")
-//
-//        calculator.evaluateString("0.0000000000000000000123456")//00000000000000000000000000000000000000000000000000000000000000000000001")
-//        #expect(calculator.display.string == "1.2345e-20")
+
+      calculator.evaluateString("1234")
+      #expect(calculator.display.string == "1234")
+
+      calculator.evaluateString("12345")
+      #expect(calculator.display.string == "12345")
+
+      calculator.evaluateString("123456")
+      #expect(calculator.display.string == "123456")
+
+      calculator.evaluateString("1234567")
+      #expect(calculator.display.string == "1234567")
+
+      calculator.evaluateString("12345678")
+      #expect(calculator.display.string == "12345678")
+
+      calculator.evaluateString("123456789")
+      #expect(calculator.display.string == "123456789")
+
+      calculator.evaluateString("1234567890")
+      #expect(calculator.display.string == "1234567890")
+
+      calculator.evaluateString("3333378901")
+      #expect(calculator.display.string == "3333378901")
+
+      calculator.evaluateString("33333789012")
+      #expect(calculator.display.string == "3.33337e10")
+
+      calculator.evaluateString("6789")
+      #expect(calculator.display.string == "6789")
+
+      calculator.evaluateString("67890")
+      #expect(calculator.display.string == "67890")
+
+      calculator.evaluateString("678901")
+      #expect(calculator.display.string == "678901")
+
+      calculator.evaluateString("6789012")
+      #expect(calculator.display.string == "6789012")
+
+      calculator.evaluateString("67890123")
+      #expect(calculator.display.string == "67890123")
+
+      calculator.evaluateString("678901234")
+      #expect(calculator.display.string == "678901234")
+
+      calculator.evaluateString("6789012345")
+      #expect(calculator.display.string == "6789012345")
+
+      calculator.evaluateString("6789012345.999999")
+      #expect(calculator.display.string == "6789012346")
+
+      calculator.evaluateString("6789012345.99999")
+      #expect(calculator.display.string == "6789012346")
+
+      calculator.evaluateString("6789012345.9999")
+      #expect(calculator.display.string == "6789012346")
+
+      calculator.evaluateString("6789012345.99901")
+      #expect(calculator.display.string == "6789012346")
+
+      calculator.evaluateString("6789012345.99")
+      #expect(calculator.display.string == "6789012345")
+
+      calculator.evaluateString("6789012345.9")
+      #expect(calculator.display.string == "6789012345")
+
+      calculator.evaluateString("6789012345.99999")
+      #expect(calculator.display.string == "6789012346")
+
+      calculator.evaluateString("67890123456")
+      #expect(calculator.display.string == "6.78901e10")
+
+      calculator.evaluateString("678901234567")
+      #expect(calculator.display.string == "6.78901e11")
+
+      calculator.evaluateString("6789012345678")
+      #expect(calculator.display.string == "6.78901e12")
+
+      calculator.evaluateString("100")
+      #expect(calculator.display.string == "100")
+
+
+      calculator.evaluateString("99.9999999999999")
+      #expect(calculator.display.string == "100")
+
+      calculator.evaluateString("100")
+      #expect(calculator.display.string == "100")
+
+      calculator.evaluateString("-100")
+      #expect(calculator.display.string == "-100")
+
+      calculator.evaluateString("-99.9999999999999")
+      #expect(calculator.display.string == "-100")
+
+      calculator.evaluateString("99.9999999999999999999999999999")
+      #expect(calculator.display.string == "100")
+
+      calculator.evaluateString("99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "99.5")
+
+      calculator.evaluateString("-99.4999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "-99.5")
+
+      calculator.evaluateString("99.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "99.992")
+
+      calculator.evaluateString("999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "999.992")
+
+      calculator.evaluateString("9999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "9999.992")
+
+      calculator.evaluateString("99999.9919999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "99999.992")
+
+      calculator.evaluateString("1234567.999999")
+      #expect(calculator.display.string == "1234568")
+
+      calculator.evaluateString("1234567.9999999")
+      #expect(calculator.display.string == "1234568")
+
+      calculator.evaluateString("1234567.9999999")
+      #expect(calculator.display.string == "1234568")
+
+      calculator.evaluateString("1234567.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1234567")
+
+      calculator.evaluateString("12345678.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "12345678")
+
+      calculator.evaluateString("123456789.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "123456789")
+      calculator.evaluateString("1234567890.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1234567890")
+
+      calculator.evaluateString("12345678901.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.23456e10")
+
+      calculator.evaluateString("123456789012.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.23456e11")
+
+      calculator.evaluateString("1234567890123.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.23456e12")
+
+      calculator.evaluateString("12345678901234.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.23456e13")
+
+      calculator.evaluateString("123456789012345.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.23456e14")
+
+      calculator.evaluateString("1234567890123456.000000000000000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.23456e15")
+
+      calculator.evaluateString("1234567")
+      #expect(calculator.display.string == "1234567")
+
+      calculator.evaluateString("1234567.99999999999999999")
+      #expect(calculator.display.string == "1234568")
+
+      calculator.evaluateString("12345678.99999999999999999")
+      #expect(calculator.display.string == "12345679")
+
+      calculator.evaluateString("123456789.99999999999999999")
+      #expect(calculator.display.string == "123456790")
+      calculator.evaluateString("1234567890.99999999999999999")
+      #expect(calculator.display.string == "1234567891")
+
+      calculator.evaluateString("12345678901.99999999999999999")
+      #expect(calculator.display.string == "1.23456e10")
+
+      calculator.evaluateString("123456789012.99999999999999999")
+      #expect(calculator.display.string == "1.23456e11")
+
+      calculator.evaluateString("1234567890123.99999999999999999")
+      #expect(calculator.display.string == "1.23456e12")
+
+      calculator.evaluateString("12345678901234.99999999999999999")
+      #expect(calculator.display.string == "1.23456e13")
+
+      calculator.evaluateString("123456789012345.99999999999999999")
+      #expect(calculator.display.string == "1.23456e14")
+
+      calculator.evaluateString("1234567890123456.99999999999999999")
+      #expect(calculator.display.string == "1.23456e15")
+
+      calculator.evaluateString("-1234567.99999999999999999")
+      #expect(calculator.display.string == "-1234568")
+
+      calculator.evaluateString("-12345678.99999999999999999")
+      #expect(calculator.display.string == "-12345679")
+
+      calculator.evaluateString("-123456789.99999999999999999")
+      #expect(calculator.display.string == "-123456790")
+
+      calculator.evaluateString("-1234567890.99999999999999999")
+      #expect(calculator.display.string == "-1.23456e9")
+
+      calculator.evaluateString("-12345678901.99999999999999999")
+      #expect(calculator.display.string == "-1.2345e10")
+
+      calculator.evaluateString("-123456789012.99999999999999999")
+      #expect(calculator.display.string == "-1.2345e11")
+
+      calculator.evaluateString("-1234567890123.99999999999999999")
+      #expect(calculator.display.string == "-1.2345e12")
+
+      calculator.evaluateString("-12345678901234.99999999999999999")
+      #expect(calculator.display.string == "-1.2345e13")
+
+      calculator.evaluateString("-123456789012345.99999999999999999")
+      #expect(calculator.display.string == "-1.2345e14")
+
+      calculator.evaluateString("-1234567890123456.99999999999999999")
+      #expect(calculator.display.string == "-1.2345e15")
+      
+      calculator.evaluateString("12345678900000007890123456.99999999999999999")
+      #expect(calculator.display.string == "1.23456e25")
+
+      calculator.evaluateString("12340000000000007890123456.99999999999999999")
+      #expect(calculator.display.string == "1.234e25")
+
+      calculator.evaluateString("123499999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "1.235e80")
+
+      calculator.evaluateString("12349999999999999999999999.999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "1.235e25")
+
+      calculator.evaluateString("123400000000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.234e80")
+
+      calculator.evaluateString("123490000000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.2349e80")
+
+      calculator.evaluateString("123499000000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.23499e80")
+
+      calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.23499e80")
+
+      calculator.evaluateString("331234999999999000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "3.31235e80")
+
+      calculator.evaluateString("123499999999990000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.235e80")
+
+      calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.23499e80")
+
+      calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.0e80")
+
+      calculator.evaluateString("99999999999999999999999999999999999999999999999999999999999999999999999999999999")
+      #expect(calculator.display.string == "1.0e80")
+
+
+      calculator.evaluateString("331234000000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "3.31234e80")
+
+      calculator.evaluateString("331234900000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "3.31234e80")
+
+      calculator.evaluateString("331234990000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "3.31234e80")
+
+      calculator.evaluateString("331234999999900000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "3.31235e80")
+
+      calculator.evaluateString("123499990000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.23499e80")
+
+      calculator.evaluateString("123499999999900000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.235e80")
+
+      calculator.evaluateString("123499999900000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.23499e80")
+
+      calculator.evaluateString("123499999990000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.23499e80")
+
+
+      calculator.evaluateString("0.00000000000000000001")//00000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.0e-20")
+
+      calculator.evaluateString("0.000000000000000000012")//00000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.2e-20")
+
+      calculator.evaluateString("0.0000000000000000000123")//00000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.23e-20")
+
+      calculator.evaluateString("0.00000000000000000001234")//00000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.234e-20")
+
+      calculator.evaluateString("0.000000000000000000012341")//00000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.2341e-20")
+
+      calculator.evaluateString("0.000000000000000000012345")//00000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.2345e-20")
+
+      calculator.evaluateString("0.0000000000000000000123456")//00000000000000000000000000000000000000000000000000000000000000000000001")
+      #expect(calculator.display.string == "1.2345e-20")
 //    }
 //
 //}
