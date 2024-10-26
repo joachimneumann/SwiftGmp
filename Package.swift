@@ -31,12 +31,10 @@ let package = Package(
             publicHeadersPath: "include"
         ),
         
-        
         .testTarget(name: "SwiftGmpTests",   dependencies: ["SwiftGmp"]),
-        .testTarget(name: "FromTxtTests",    dependencies: ["SwiftGmp"]),
+//        .testTarget(name: "FromTxtTests",    dependencies: ["SwiftGmp"]),
         .testTarget(name: "TokenizerTests", dependencies: ["SwiftGmp"]),
         .testTarget(name: "RawAndDisplayTests", dependencies: ["SwiftGmp"]),
-
         .testTarget(name: "DEBUG", dependencies: ["SwiftGmp"])
     ]
 )

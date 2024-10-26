@@ -59,7 +59,7 @@ public struct Separator: Codable {
 
 }
 
-struct Display {
+class Display {
     public enum DisplayType {
         case unknown
         case integer
@@ -67,10 +67,17 @@ struct Display {
         case floatSmallerThanOne
         case scientifiNotation
     }
-    let left: String
-    let right: String?
-    let type: DisplayType
+    var left: String
+    var right: String?
+    var type: DisplayType
+
+    let displayWidth: Int
+    var separator: Separator
     
+    var maxDigits: Int {
+        displayWidth
+    }
+
     var string: String {
         switch type {
         case .unknown:
@@ -82,28 +89,28 @@ struct Display {
         }
     }
     
-    init(_ left: String, right: String? = nil, type: DisplayType = .unknown) {
-        self.left = left
-        self.right = right
-        self.type = type
+    func length(_ s: String) -> Int { s.count }
+    func fits(_ s: String) -> Bool { s.count <= displayWidth }
+    
+    init(displayWidth: Int, separator: Separator = Separator(separatorType: .dot, groups: false)) {
+        self.displayWidth = displayWidth
+        self.separator = separator
+        self.left = "0"
+        self.right = nil
+        self.type = .unknown
     }
     
-    init(raw: Raw, displayWidth l: Int? = nil, separator: Separator = Separator(separatorType: .dot, groups: false)) {
-        let displayWidth = l ?? raw.length
+    func update(raw: Raw) {
         // is raw an integer?
         if
-            
-            // only allow numbers > 1.0, i.e., exponents >0 =
+            // Math: only allow numbers > 1.0, i.e., exponents >0 =
             raw.exponent >= 0 &&
                 
-            // only mantissas that are equal or shorter than the exponent + 1
+            // Math: only mantissas that are equal or shorter than the exponent + 1
             raw.mantissa.count <= raw.exponent + 1 &&
             
-            // only allow small enough exponents. 100 has exponent 2, therefore + 1
-            raw.exponent + 1 <= displayWidth - raw.negativeSign.count &&
-            
-            // only mantissas that are equal or shorter than the displayWidth
-            raw.negativeSign.count + raw.mantissa.count <= displayWidth {
+            // Logic: only allow small enough exponents. 100 has exponent 2, therefore + 1
+            raw.exponent + 1 <= maxDigits - raw.negativeSign.count {
             
             var temp = raw.mantissa
             if raw.mantissa.count < raw.exponent + 1 {
@@ -114,12 +121,14 @@ struct Display {
                     temp = temp + "0"
                 }
             }
+            
             // add grouping
             if let c = separator.groupCharacter {
                 temp.injectGrouping(c)
             }
-            // check again if the Integer still fits into the display
-            if temp.count <= displayWidth {
+            
+            // check if the Integer fits into the display
+            if fits(raw.negativeSign + temp) {
                 left = raw.negativeSign + temp
                 right = nil
                 type = .integer

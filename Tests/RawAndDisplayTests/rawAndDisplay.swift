@@ -11,7 +11,7 @@ import Testing
 class rawAndDisplay {
    var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
    var raw: Raw = Raw(mantissa: "0", exponent: 0, length: 10)
-   var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
+   var display: Display = Display(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
    let L = 10
    
    let debug = true
@@ -20,7 +20,7 @@ class rawAndDisplay {
    @Test func specialTests() {
       swiftGmp = SwiftGmp(withString: "100000000000000000000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == 20)
       #expect(raw.isNegative == false)
@@ -33,7 +33,7 @@ class rawAndDisplay {
       if debug { return }
       swiftGmp = SwiftGmp(withString: "9.99999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -43,7 +43,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "9999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -53,7 +53,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.9999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "99999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -63,7 +63,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.99999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -73,7 +73,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == 1)
       #expect(raw.isNegative == false)
@@ -83,7 +83,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "12", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 1)
       #expect(raw.isNegative == false)
@@ -93,7 +93,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "120", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 2)
       #expect(raw.isNegative == false)
@@ -103,7 +103,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "1_200", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 3)
       #expect(raw.isNegative == false)
@@ -113,7 +113,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "12_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 4)
       #expect(raw.isNegative == false)
@@ -123,7 +123,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "120_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 5)
       #expect(raw.isNegative == false)
@@ -133,7 +133,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "1_200_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 6)
       #expect(raw.isNegative == false)
@@ -143,7 +143,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "12_000_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 7)
       #expect(raw.isNegative == false)
@@ -153,7 +153,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "120_000_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 8)
       #expect(raw.isNegative == false)
@@ -163,7 +163,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "1_200_000_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 9)
       #expect(raw.isNegative == false)
@@ -173,7 +173,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "12_000_000_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 10)
       #expect(raw.isNegative == false)
@@ -183,7 +183,7 @@ class rawAndDisplay {
       //5555555555.1234567890
       swiftGmp = SwiftGmp(withString: "5555555555.12345", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "5555555555")
       #expect(raw.exponent == 9)
       #expect(raw.isNegative == false)
@@ -194,7 +194,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "120000000000000000000000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 23)
       #expect(raw.isNegative == false)
@@ -204,7 +204,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-12", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 1)
       #expect(raw.isNegative == true)
@@ -214,7 +214,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-120_000_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 8)
       #expect(raw.isNegative == true)
@@ -224,7 +224,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-1_200_000_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 9)
       #expect(raw.isNegative == true)
@@ -234,7 +234,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-12_000_000_000", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 10)
       #expect(raw.isNegative == true)
@@ -244,7 +244,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.9999999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == 1)
       #expect(raw.isNegative == false)
@@ -254,7 +254,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "111222333.99999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "111222334")
       #expect(raw.exponent == 8)
       #expect(raw.isNegative == false)
@@ -264,7 +264,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "111222333.9999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "111222334")
       #expect(raw.exponent == 8)
       #expect(raw.isNegative == false)
@@ -274,7 +274,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "111222333.999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "111222333999")
       #expect(raw.exponent == 8)
       #expect(raw.isNegative == false)
@@ -285,7 +285,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "1112223334.99999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1112223335")
       #expect(raw.exponent == 9)
       #expect(raw.isNegative == false)
@@ -295,7 +295,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "11122233344.99999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "11122233345")
       #expect(raw.exponent == 10)
       #expect(raw.isNegative == false)
@@ -308,7 +308,7 @@ class rawAndDisplay {
       if debug { return }
       swiftGmp = SwiftGmp(withString: "1.1", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "11")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -318,7 +318,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "1.1999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "11999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -328,7 +328,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "1.199999999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -338,7 +338,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.9999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "99999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -348,7 +348,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.99999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -358,7 +358,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "9999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -368,7 +368,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.9999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "99999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -378,7 +378,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.99999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -388,7 +388,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.99999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -398,7 +398,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "9999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -408,7 +408,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "9.9999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "99999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == false)
@@ -418,7 +418,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "11122233.999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "11122233999")
       #expect(raw.exponent == 7)
       #expect(raw.isNegative == false)
@@ -428,7 +428,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "111222333.999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "111222333999")
       #expect(raw.exponent == 8)
       #expect(raw.isNegative == false)
@@ -441,7 +441,7 @@ class rawAndDisplay {
       if debug { return }
       swiftGmp = SwiftGmp(withString: "-1.1", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "11")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -451,7 +451,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-1.1999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "11999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -461,7 +461,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-1.199999999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "12")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -471,7 +471,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.9999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "99999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -481,7 +481,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.99999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -491,7 +491,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "9999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -501,7 +501,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.9999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "99999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -511,7 +511,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.99999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -521,7 +521,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.99999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -531,7 +531,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "9999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -541,7 +541,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-9.9999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "99999999999")
       #expect(raw.exponent == 0)
       #expect(raw.isNegative == true)
@@ -551,7 +551,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-11122233.999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "11122233999")
       #expect(raw.exponent == 7)
       #expect(raw.isNegative == true)
@@ -564,7 +564,7 @@ class rawAndDisplay {
       if debug { return }
       swiftGmp = SwiftGmp(withString: "0.1", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -1)
       #expect(raw.isNegative == false)
@@ -574,7 +574,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.01", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -2)
       #expect(raw.isNegative == false)
@@ -584,7 +584,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -3)
       #expect(raw.isNegative == false)
@@ -594,7 +594,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.0001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -4)
       #expect(raw.isNegative == false)
@@ -604,7 +604,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.00001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -5)
       #expect(raw.isNegative == false)
@@ -614,7 +614,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -6)
       #expect(raw.isNegative == false)
@@ -624,7 +624,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.0000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -7)
       #expect(raw.isNegative == false)
@@ -634,7 +634,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.00000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -8)
       #expect(raw.isNegative == false)
@@ -644,7 +644,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.000000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -9)
       #expect(raw.isNegative == false)
@@ -654,7 +654,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.0000000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -10)
       #expect(raw.isNegative == false)
@@ -664,7 +664,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "0.9999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "9999")
       #expect(raw.exponent == -1)
       #expect(raw.isNegative == false)
@@ -677,7 +677,7 @@ class rawAndDisplay {
       if debug { return }
       swiftGmp = SwiftGmp(withString: "-0.1", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -1)
       #expect(raw.isNegative == true)
@@ -687,7 +687,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.01", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -2)
       #expect(raw.isNegative == true)
@@ -697,7 +697,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -3)
       #expect(raw.isNegative == true)
@@ -707,7 +707,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.0001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -4)
       #expect(raw.isNegative == true)
@@ -717,7 +717,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.00001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -5)
       #expect(raw.isNegative == true)
@@ -727,7 +727,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -6)
       #expect(raw.isNegative == true)
@@ -737,7 +737,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.0000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -7)
       #expect(raw.isNegative == true)
@@ -747,7 +747,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.00000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -8)
       #expect(raw.isNegative == true)
@@ -757,7 +757,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.000000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -9)
       #expect(raw.isNegative == true)
@@ -767,7 +767,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.0000000001", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == -10)
       #expect(raw.isNegative == true)
@@ -777,7 +777,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "-0.9999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "9999")
       #expect(raw.exponent == -1)
       #expect(raw.isNegative == true)
@@ -842,7 +842,7 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "99.999999999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw)
+      display.update(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == 2)
       #expect(raw.isNegative == false)
@@ -852,10 +852,11 @@ class rawAndDisplay {
       
       swiftGmp = SwiftGmp(withString: "49.9999999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
+       display.update(raw: raw)
       #expect(raw.mantissa == "5")
       #expect(raw.exponent == 1)
       #expect(!raw.isNegative)
-      #expect(Display(raw: raw).string == "50")
+      #expect(display.string == "50")
       
       swiftGmp = SwiftGmp(withString: "1114.99999999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)

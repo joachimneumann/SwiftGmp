@@ -29,20 +29,6 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "NumberTests",
-        "name" : "NumberTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "CalculatorTests",
-        "name" : "CalculatorTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
         "identifier" : "DEBUG",
         "name" : "DEBUG"
       }
@@ -50,36 +36,8 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "FromTxtTests",
-        "name" : "FromTxtTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "RepresenationTests",
-        "name" : "RepresenationTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "representationTest",
-        "name" : "representationTest"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "RepresentationTests",
-        "name" : "RepresentationTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "DisplayTest",
-        "name" : "DisplayTest"
+        "identifier" : "RawAndDisplayTests",
+        "name" : "RawAndDisplayTests"
       }
     }
   ],

@@ -11,17 +11,17 @@ import Testing
 class separatorsTest {
     var calculator = Calculator(precision: 20)
     var raw: Raw = Raw(mantissa: "0", exponent: 0, length: 10)
-    var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
+    var display: Display = Display(displayWidth: 10, separator: Separator(separatorType: .comma, groups: true))
 
     struct S {
         let decimalSeparator: Separator.SeparatorType
         let separateGroups: Bool
     }
     
-    @Test func x() {
+    @Test func simple() {
         
         calculator.evaluateString("11111.3")
-        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: Separator(separatorType: .comma, groups: true))
+        display.update(raw: calculator.raw)
         #expect(display.string == "11.111,3")
 
 //        calculator.evaluateString("10000")
@@ -49,7 +49,8 @@ class separatorsTest {
         
         calculator.evaluateString("10000")
         let separator = Separator(separatorType: s.decimalSeparator, groups: s.separateGroups)
-        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
+        display.separator = separator
+        display.update(raw: calculator.raw)
         string = display.string
         
         print(string)
@@ -60,7 +61,7 @@ class separatorsTest {
         #expect(string == "10000")
         
         calculator.evaluateString("9999.3999999999999999999999999999999")
-        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
+        display.update(raw: calculator.raw)
         string = display.string
         
         print(string)
@@ -78,20 +79,20 @@ class separatorsTest {
         calculator.press(DigitOperation.one)
         calculator.press(DigitOperation.dot)
         calculator.press(DigitOperation.three)
-        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
+        display.update(raw: calculator.raw)
         string = display.string
         expectation = "11" + (separator.groupString ?? "") + "111" + separator.string + "3"
         print(string + " " + expectation)
         #expect(string == expectation)
     
         calculator.press(EqualOperation.equal)
-        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
+        display.update(raw: calculator.raw)
         string = display.string
         print(string + " " + expectation)
         #expect(string == expectation)
 
         calculator.evaluateString("1e1234")
-        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
+        display.update(raw: calculator.raw)
         string = display.string
         expectation = "1\(separator.string)0e1" + (separator.groupString ?? "") + "234"
         print(string + " " + expectation)

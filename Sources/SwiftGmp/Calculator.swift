@@ -10,7 +10,7 @@ import Foundation
 public class Calculator {
     
     var token: Token
-    var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
+    var display: Display = Display(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
     
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil
@@ -315,7 +315,7 @@ public class Calculator {
                     return "nan"
                 }
                 let raw = swiftGmp.raw(digits: displayWidth)
-                let display = Display(raw: raw)
+                display.update(raw: raw)
                 return display.string
             }
         }
