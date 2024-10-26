@@ -14,14 +14,14 @@ class separatorsTest {
     var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
 
     struct S {
-        let decimalSeparator: DecimalSeparator
+        let decimalSeparator: FloatSeparator.SeparatorType
         let separateGroups: Bool
     }
     
     @Test func x() {
         
         calculator.evaluateString("11111.3")
-        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.comma, separateGroups: true)
+        display = Display(raw: calculator.raw, displayLength: raw.length, floatSeparator: FloatSeparator(separatorType: .comma, groups: true))
         #expect(display.string == "11.111,3")
 
 //        calculator.evaluateString("10000")
@@ -45,42 +45,29 @@ class separatorsTest {
         S(decimalSeparator: .dot, separateGroups: false)])
     func multipleSeparatorsTest(s: S) {
         var string: String
-        var gr: String
-        var de: String
         var expectation: String
         
         calculator.evaluateString("10000")
-        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
+        let separator = FloatSeparator(separatorType: s.decimalSeparator, groups: s.separateGroups)
+        display = Display(raw: calculator.raw, displayLength: raw.length, floatSeparator: separator)
         string = display.string
         
-        de = s.decimalSeparator.string
-        if s.separateGroups {
-            gr = s.decimalSeparator.groupString
-        } else {
-            gr = ""
-        }
         print(string)
-        expectation = "10" + gr + "000"
+        expectation = "10" + (separator.groupString ?? "") + "000"
         #expect(string == expectation)
-        string = string.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-        string = string.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+        string = string.replacingOccurrences(of: (separator.groupString ?? ""), with: "")
+        string = string.replacingOccurrences(of: separator.string, with: ".")
         #expect(string == "10000")
         
         calculator.evaluateString("9999.3999999999999999999999999999999")
-        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
+        display = Display(raw: calculator.raw, displayLength: raw.length, floatSeparator: separator)
         string = display.string
         
-        de = s.decimalSeparator.string
-        if s.separateGroups {
-            gr = s.decimalSeparator.groupString
-        } else {
-            gr = ""
-        }
         print(string)
-        expectation = "9" + gr + "999" + de + "4"
+        expectation = "9" + (separator.groupString ?? "") + "999" + separator.string + "4"
         #expect(string == expectation)
-        string = string.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
-        string = string.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+        string = string.replacingOccurrences(of: (separator.groupString ?? ""), with: "")
+        string = string.replacingOccurrences(of: separator.string, with: ".")
         #expect(string == "9999.4")
         
         calculator.press(ClearOperation.clear)
@@ -91,21 +78,15 @@ class separatorsTest {
         calculator.press(DigitOperation.one)
         calculator.press(DigitOperation.dot)
         calculator.press(DigitOperation.three)
-        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
+        display = Display(raw: calculator.raw, displayLength: raw.length, floatSeparator: separator)
         string = display.string
-        if s.separateGroups {
-            gr = s.decimalSeparator.groupString
-        } else {
-            gr = ""
-        }
-        expectation = "11\(gr)111\(s.decimalSeparator.character)3"
+        expectation = "11" + (separator.groupString ?? "") + "111" + separator.string + "3"
         print(string + " " + expectation)
         #expect(string == expectation)
     
         calculator.press(EqualOperation.equal)
-        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
+        display = Display(raw: calculator.raw, displayLength: raw.length, floatSeparator: separator)
         string = display.string
-        expectation = "11\(gr)111\(s.decimalSeparator.character)3"
         print(string + " " + expectation)
         #expect(string == expectation)
 

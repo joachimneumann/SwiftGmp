@@ -7,12 +7,18 @@
 
 import Foundation
 
-public enum DecimalSeparator: String, Codable, CaseIterable {
-    case comma = ","
-    case dot = "."
+public struct FloatSeparator: Codable {
+    enum SeparatorType: String, Codable, CaseIterable {
+        case comma = ","
+        case dot = "."
+    }
+
+    var separatorType: SeparatorType
+    var groups: Bool
+
     public var character: Character {
         get {
-            switch self {
+            switch self.separatorType {
             case .comma: return ","
             case .dot: return "."
             }
@@ -20,28 +26,37 @@ public enum DecimalSeparator: String, Codable, CaseIterable {
     }
     public var string: String {
         get {
-            switch self {
+            switch self.separatorType {
             case .comma: return ","
             case .dot: return "."
             }
         }
     }
-    public var groupCharacter: Character {
+    public var groupCharacter: Character? {
         get {
-            switch self {
-            case .comma: return "."
-            case .dot: return ","
+            if groups {
+                switch self.separatorType {
+                case .comma: return "."
+                case .dot: return ","
+                }
+            } else {
+                return nil
             }
         }
     }
-    public var groupString: String {
+    public var groupString: String? {
         get {
-            switch self {
-            case .comma: return "."
-            case .dot: return ","
+            if groups {
+                switch self.separatorType {
+                case .comma: return "."
+                case .dot: return ","
+                }
+            } else {
+                return nil
             }
         }
     }
+
 }
 
 struct Display {
@@ -78,7 +93,7 @@ struct Display {
         self.type = type
     }
     
-    init(raw: Raw, displayLength l: Int? = nil, decimalSeparator: DecimalSeparator = DecimalSeparator.dot, separateGroups: Bool = false) {
+    init(raw: Raw, displayLength l: Int? = nil, floatSeparator: FloatSeparator = FloatSeparator(separatorType: .dot, groups: false)) {
         let displayLength = l ?? raw.length
         // is raw an integer?
         if
@@ -105,8 +120,8 @@ struct Display {
                 }
             }
             // add grouping
-            if separateGroups {
-                temp.injectGrouping(decimalSeparator.groupCharacter)
+            if let c = floatSeparator.groupCharacter {
+                temp.injectGrouping(c)
             }
             // check again if the Integer still fits into the display
             if length(temp) <= displayLength {
@@ -123,13 +138,13 @@ struct Display {
                        
             var beforeSeparator = temp.sub(to: raw.exponent + 1)
             var afterSeparator = temp.sub(from: raw.exponent + 1)
-            if separateGroups {
-                beforeSeparator.injectGrouping(decimalSeparator.groupCharacter)
+            if let c = floatSeparator.groupCharacter {
+                beforeSeparator.injectGrouping(c)
             }
-            let remainingLength = displayLength - length(beforeSeparator) - length(decimalSeparator.string) - length(raw.negativeSign)
+            let remainingLength = displayLength - length(beforeSeparator) - length(floatSeparator.string) - length(raw.negativeSign)
             if remainingLength >= 1 {
                 afterSeparator = String(afterSeparator.prefix(remainingLength))
-                temp = raw.negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator
+                temp = raw.negativeSign + beforeSeparator + floatSeparator.string + afterSeparator
                 left = temp
                 right = nil
                 type = .floatLargerThanOne
@@ -143,7 +158,7 @@ struct Display {
             for _ in 0 ..< (-1 * raw.exponent) {
                 temp = "0" + temp
             }
-            temp.insert(decimalSeparator.character, at: 1)
+            temp.insert(floatSeparator.character, at: 1)
             temp = raw.negativeSign + temp
             temp = String(temp.prefix(displayLength))
             left = temp
@@ -154,7 +169,7 @@ struct Display {
         
         // Scientific!
         var temp = raw.mantissa
-        temp.insert(decimalSeparator.character, at: 1)
+        temp.insert(floatSeparator.character, at: 1)
         if temp.count == 2 {
             temp = temp + "0"
         }
