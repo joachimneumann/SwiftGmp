@@ -60,6 +60,23 @@ struct Display {
             type = .floatLargerThanOne
             return
         }
+
+        // float < 1.0?
+        if raw.exponent < 0 && -1 * raw.exponent <= displayLength - 2 {
+            var temp = raw.mantissa
+            for _ in 0 ..< (-1 * raw.exponent) {
+                temp = "0" + temp
+            }
+            let dotIndex = temp.index(temp.startIndex, offsetBy: 1)
+            temp.insert(decimalSeparator, at: dotIndex)
+            temp = raw.negativeSign + temp
+            temp = String(temp.prefix(displayLength))
+            left = temp
+            right = nil
+            type = .floatSmallerThanOne
+            return
+        }
+
         left = "0"
         right = nil
         type = .unknown
