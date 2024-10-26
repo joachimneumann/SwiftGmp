@@ -77,8 +77,19 @@ struct Display {
             return
         }
 
-        left = "0"
-        right = nil
-        type = .unknown
+        // Scientific!
+        var temp = raw.mantissa
+        let dotIndex = temp.index(temp.startIndex, offsetBy: 1)
+        temp.insert(decimalSeparator, at: dotIndex)
+        if temp.count == 2 {
+            temp = temp + "0"
+        }
+        temp = raw.negativeSign + temp
+        
+        let exponentString: String = "e\(raw.exponent)"
+        temp = String(temp.prefix(displayLength - length(exponentString)))
+        left = temp
+        right = exponentString
+        type = .scientifiNotation
     }
 }

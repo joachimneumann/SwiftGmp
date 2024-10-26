@@ -18,15 +18,15 @@ class rawAndDisplay {
     let debug = false
 
     @Test func specialTests() {
-        //        swiftGmp = SwiftGmp(withString: "100000000000000000000", bits: 100)
-        //        raw = swiftGmp.raw(digits: L)
-        //        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
-        //        #expect(raw.mantissa == "1")
-        //        #expect(raw.exponent == 20)
-        //        #expect(raw.isNegative == false)
-        //        #expect(display.type == .scientifiNotation)
-        //        #expect(display.left == "1.0e20")
-        //        #expect(display.right == nil)
+                swiftGmp = SwiftGmp(withString: "100000000000000000000", bits: 100)
+                raw = swiftGmp.raw(digits: L)
+                display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+                #expect(raw.mantissa == "1")
+                #expect(raw.exponent == 20)
+                #expect(raw.isNegative == false)
+                #expect(display.type == .scientifiNotation)
+                #expect(display.left == "1.0")
+                #expect(display.right == "e20")
     }
 
     @Test func integer() {
@@ -177,9 +177,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 10)
         #expect(raw.isNegative == false)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "1.2")
+        #expect(display.right == "e10")
             
         swiftGmp = SwiftGmp(withString: "120000000000000000000000", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -187,9 +187,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 23)
         #expect(raw.isNegative == false)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+        #expect(display.type == .scientifiNotation)
+        #expect(display.left == "1.2")
+        #expect(display.right == "e23")
 
         swiftGmp = SwiftGmp(withString: "-12", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -217,9 +217,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 9)
         #expect(raw.isNegative == true)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+        #expect(display.type == .scientifiNotation)
+        #expect(display.left == "-1.2")
+        #expect(display.right == "e9")
 
         swiftGmp = SwiftGmp(withString: "-12_000_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -227,9 +227,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 10)
         #expect(raw.isNegative == true)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+        #expect(display.type == .scientifiNotation)
+        #expect(display.left == "-1.2")
+        #expect(display.right == "e10")
         
         swiftGmp = SwiftGmp(withString: "9.9999999999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -267,9 +267,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "111222333999")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == false)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "1.112223")
+        #expect(display.right == "e8")
         
         
         swiftGmp = SwiftGmp(withString: "1112223334.99999", bits: 100)
@@ -288,9 +288,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "11122233345")
         #expect(raw.exponent == 10)
         #expect(raw.isNegative == false)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "1.11222")
+        #expect(display.right == "e10")
     }
     
     @Test func floatLargerThan_1() {
@@ -421,9 +421,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "111222333999")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == false)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "1.112223")
+        #expect(display.right == "e8")
     }
     
     @Test func negativeFloatLargerThan_1() {
@@ -544,9 +544,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "11122233999")
         #expect(raw.exponent == 7)
         #expect(raw.isNegative == true)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "-1.11222")
+        #expect(display.right == "e7")
     }
     
     @Test func floatSmallerThan_1() {
@@ -637,9 +637,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -9)
         #expect(raw.isNegative == false)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "1.0")
+        #expect(display.right == "e-9")
 
         swiftGmp = SwiftGmp(withString: "0.0000000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -647,9 +647,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -10)
         #expect(raw.isNegative == false)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "1.0")
+        #expect(display.right == "e-10")
 
         swiftGmp = SwiftGmp(withString: "0.9999", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -740,9 +740,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -8)
         #expect(raw.isNegative == true)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "-1.0")
+        #expect(display.right == "e-8")
 
         swiftGmp = SwiftGmp(withString: "-0.000000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -750,9 +750,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -9)
         #expect(raw.isNegative == true)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "-1.0")
+        #expect(display.right == "e-9")
 
         swiftGmp = SwiftGmp(withString: "-0.0000000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -760,9 +760,9 @@ class rawAndDisplay {
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -10)
         #expect(raw.isNegative == true)
-        #expect(display.type == .unknown)
-        #expect(display.left == "0")
-        #expect(display.right == nil)
+       #expect(display.type == .scientifiNotation)
+        #expect(display.left == "-1.0")
+        #expect(display.right == "e-10")
 
         swiftGmp = SwiftGmp(withString: "-0.9999", bits: 100)
         raw = swiftGmp.raw(digits: L)
