@@ -130,7 +130,7 @@ class Token {
     }
     
     init(precision: Int) {
-        print("Token Init()")
+        //print("Token Init()")
         self.precision = precision
         var allOperationsUnsorted: [any OpProtocol] = []
         allOperationsUnsorted.append(contentsOf: InplaceOperation.allCases)

@@ -75,7 +75,7 @@ struct Display {
         self.right = right
         self.type = type
     }
-    init(raw: Raw, displayLength l: Int? = nil, decimalSeparator: Character = ".") {
+    init(raw: Raw, displayLength l: Int? = nil, decimalSeparator: DecimalSeparator = DecimalSeparator.dot, separateGroups: Bool = false) {
         let displayLength = l ?? raw.length
         // is raw an integer?
         if
@@ -105,7 +105,7 @@ struct Display {
         if raw.exponent >= 0 && raw.exponent < displayLength - 2 - length(raw.negativeSign) {
             var temp = raw.mantissa
             let dotIndex = temp.index(temp.startIndex, offsetBy: raw.exponent + 1)
-            temp.insert(decimalSeparator, at: dotIndex)
+            temp.insert(decimalSeparator.character, at: dotIndex)
             temp = raw.negativeSign + temp
             temp = String(temp.prefix(displayLength))
             left = temp
@@ -121,7 +121,7 @@ struct Display {
                 temp = "0" + temp
             }
             let dotIndex = temp.index(temp.startIndex, offsetBy: 1)
-            temp.insert(decimalSeparator, at: dotIndex)
+            temp.insert(decimalSeparator.character, at: dotIndex)
             temp = raw.negativeSign + temp
             temp = String(temp.prefix(displayLength))
             left = temp
@@ -133,7 +133,7 @@ struct Display {
         // Scientific!
         var temp = raw.mantissa
         let dotIndex = temp.index(temp.startIndex, offsetBy: 1)
-        temp.insert(decimalSeparator, at: dotIndex)
+        temp.insert(decimalSeparator.character, at: dotIndex)
         if temp.count == 2 {
             temp = temp + "0"
         }
