@@ -106,37 +106,37 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_custom_get_size(bits)
     }
     
-    func raw(digits digitsParameter: Int? = nil, roundNines: Int = 0) -> Raw {
+    func raw(digits digitsParameter: Int? = nil) -> Raw {
         var digits: Int = bits / 3
         if let digitsParameter {
             digits = digitsParameter
         }
         var exponent: mpfr_exp_t = 0
         
-        var charArray: Array<CChar> = Array(repeating: 0, count: digits+10)
-        mpfr_get_str(&charArray, &exponent, 10, digits + roundNines, &mpfr, MPFR_RNDN)
+        var charArray: Array<CChar> = Array(repeating: 0, count: digits+3)
+        mpfr_get_str(&charArray, &exponent, 10, digits + 3, &mpfr, MPFR_RNDN)
         var mantissa: String = ""
         
         charArray.withUnsafeBufferPointer { ptr in
             mantissa = String(cString: ptr.baseAddress!)
         }
         
-        var roundingNeeded = true
-        if roundNines > 0 {
-            let suffix = mantissa.suffix(roundNines)
+        mantissa.removeTrailingZeroes()
+
+        if mantissa.count >= digits + 3 {
+            var no999 = false
+            let suffix = mantissa.suffix(3)
             for s in suffix {
                 if s != "9" {
-                    roundingNeeded = false
+                    no999 = true
                 }
             }
-        } else {
-            roundingNeeded = false
+            mantissa.removeLast(3)
+            if !no999 {
+                if mantissa.incrementAbsIntegerValue() { exponent += 1 }
+            }
         }
-        mantissa.removeLast(roundNines)
-        if roundingNeeded {
-            if mantissa.incrementAbsIntegerValue() { exponent += 1 }
-        }
-
+        
         mantissa.removeTrailingZeroes()
         if mantissa == "" { mantissa = "0" }
         
