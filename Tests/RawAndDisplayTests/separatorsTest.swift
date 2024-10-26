@@ -21,7 +21,7 @@ class separatorsTest {
     @Test func x() {
         
         calculator.evaluateString("11111.3")
-        display = Display(raw: calculator.raw, displayLength: raw.length, separator: Separator(type: .comma, groups: true))
+        display = Display(raw: calculator.raw, displayLength: raw.length, separator: Separator(separatorType: .comma, groups: true))
         #expect(display.string == "11.111,3")
 
 //        calculator.evaluateString("10000")
@@ -48,7 +48,7 @@ class separatorsTest {
         var expectation: String
         
         calculator.evaluateString("10000")
-        let separator = Separator(type: s.decimalSeparator, groups: s.separateGroups)
+        let separator = Separator(separatorType: s.decimalSeparator, groups: s.separateGroups)
         display = Display(raw: calculator.raw, displayLength: raw.length, separator: separator)
         string = display.string
         

@@ -60,10 +60,6 @@ public struct Separator: Codable {
 }
 
 struct Display {
-    public var length: (String) -> Int = { s in
-        s.count
-    }
-    
     public enum DisplayType {
         case unknown
         case integer
@@ -101,20 +97,20 @@ struct Display {
             raw.exponent >= 0 &&
                 
             // only mantissas that are equal or shorter than the exponent + 1
-            length(raw.mantissa) <= raw.exponent + 1 &&
+            raw.mantissa.count <= raw.exponent + 1 &&
             
             // only allow small enough exponents. 100 has exponent 2, therefore + 1
-            raw.exponent + 1 <= displayLength - length(raw.negativeSign) &&
+            raw.exponent + 1 <= displayLength - raw.negativeSign.count &&
             
             // only mantissas that are equal or shorter than the displayLength
-            length(raw.negativeSign + raw.mantissa) <= displayLength {
+            raw.negativeSign.count + raw.mantissa.count <= displayLength {
             
             var temp = raw.mantissa
-            if length(raw.mantissa) < raw.exponent + 1 {
+            if raw.mantissa.count < raw.exponent + 1 {
                 // mantissa has the lenth that is smaller than the exponent:
                 // --> not all digits are in the mantissa
                 // --> add 0 at the end
-                while length(temp) < raw.exponent + 1 {
+                while temp.count < raw.exponent + 1 {
                     temp = temp + "0"
                 }
             }
@@ -123,7 +119,7 @@ struct Display {
                 temp.injectGrouping(c)
             }
             // check again if the Integer still fits into the display
-            if length(temp) <= displayLength {
+            if temp.count <= displayLength {
                 left = raw.negativeSign + temp
                 right = nil
                 type = .integer
@@ -132,7 +128,7 @@ struct Display {
         }
         
         // float > 1.0?
-        if raw.exponent >= 0 && raw.exponent < displayLength - 2 - length(raw.negativeSign) {
+        if raw.exponent >= 0 && raw.exponent < displayLength - 2 - raw.negativeSign.count {
             var temp = raw.mantissa
                        
             var beforeSeparator = temp.sub(to: raw.exponent + 1)
@@ -140,7 +136,7 @@ struct Display {
             if let c = separator.groupCharacter {
                 beforeSeparator.injectGrouping(c)
             }
-            let remainingLength = displayLength - length(beforeSeparator) - length(separator.string) - length(raw.negativeSign)
+            let remainingLength = displayLength - beforeSeparator.count - separator.string.count - raw.negativeSign.count
             if remainingLength >= 1 {
                 afterSeparator = String(afterSeparator.prefix(remainingLength))
                 temp = raw.negativeSign + beforeSeparator + separator.string + afterSeparator
@@ -152,7 +148,7 @@ struct Display {
         }
         
         // float < 1.0?
-        if raw.exponent < 0 && -1 * raw.exponent <= displayLength - 2 - length(raw.negativeSign) {
+        if raw.exponent < 0 && -1 * raw.exponent <= displayLength - 2 - raw.negativeSign.count {
             var temp = raw.mantissa
             for _ in 0 ..< (-1 * raw.exponent) {
                 temp = "0" + temp
@@ -179,7 +175,7 @@ struct Display {
         if let c = separator.groupCharacter {
             exponentString.injectGrouping(c)
         }
-        temp = String(temp.prefix(displayLength - length(exponentString)))
+        temp = String(temp.prefix(displayLength - exponentString.count))
         left = temp
         right = exponentString
         type = .scientifiNotation
