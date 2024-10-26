@@ -10,11 +10,12 @@ import Testing
 //    var display: Display
 //    let L = 10
     
-    calculator.evaluateString("1e10")
-    #expect(calculator.display.string == "1.0e10")
+//    calculator.evaluateString("1e10")
+//    #expect(calculator.string == "1.0e10")
     
 
-
+    calculator.evaluateString("55555555.1234567890")
+    #expect(calculator.string == "55555555.1")
 
 
 

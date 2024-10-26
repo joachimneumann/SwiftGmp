@@ -89,7 +89,7 @@ class separatorsTest {
         ////    calculator.evaluateString("9995.9999999999999999999999999999999")
         ////    calculator.R.setRaw(calculator.raw!, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
         //////    R = Representation(raw: calculator.raw!, font: font, displayBufferExponentFont: font, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups, ePadding: 0.0)
-        ////    RString = calculator.display.string
+        ////    RString = calculator.string
         ////    RString = RString.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
         ////    RString = RString.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
         ////    #expect(RString == "9996")

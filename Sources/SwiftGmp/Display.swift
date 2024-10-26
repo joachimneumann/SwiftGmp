@@ -127,7 +127,7 @@ struct Display {
                 beforeSeparator.injectGrouping(decimalSeparator.groupCharacter)
             }
             let remainingLength = displayLength - length(beforeSeparator) - length(decimalSeparator.string) - length(raw.negativeSign)
-            if remainingLength >= 2 {
+            if remainingLength >= 1 {
                 afterSeparator = String(afterSeparator.prefix(remainingLength))
                 temp = raw.negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator
                 left = temp
