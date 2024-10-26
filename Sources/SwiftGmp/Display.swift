@@ -49,7 +49,7 @@ struct Display {
         }
         
         // float > 1.0?
-        if raw.exponent >= 0 && raw.exponent < displayLength - 2 {
+        if raw.exponent >= 0 && raw.exponent < displayLength - 2 - length(raw.negativeSign) {
             var temp = raw.mantissa
             let dotIndex = temp.index(temp.startIndex, offsetBy: raw.exponent + 1)
             temp.insert(decimalSeparator, at: dotIndex)
@@ -62,7 +62,7 @@ struct Display {
         }
 
         // float < 1.0?
-        if raw.exponent < 0 && -1 * raw.exponent <= displayLength - 2 {
+        if raw.exponent < 0 && -1 * raw.exponent <= displayLength - 2 - length(raw.negativeSign) {
             var temp = raw.mantissa
             for _ in 0 ..< (-1 * raw.exponent) {
                 temp = "0" + temp
