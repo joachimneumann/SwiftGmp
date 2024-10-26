@@ -22,6 +22,17 @@ struct Display {
     let right: String?
     let type: DisplayType
     
+    var string: String {
+        switch type {
+        case .unknown:
+            return ""
+        case .scientifiNotation:
+            return left + (right ?? "")
+        default:
+            return left
+        }
+    }
+    
     init(raw: Raw, displayLength: Int, decimalSeparator: Character) {
         
         // is raw an integer?

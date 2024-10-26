@@ -250,13 +250,12 @@ public class Calculator {
             token.clear()
             privateDisplayBuffer = error.localizedDescription
         }
-//        R.setMantissaExponent(mantissaExponent!)
     }
     
     public var string: String {
         var asSubSequence: String.SubSequence
-        var asString: String
-        let asDouble: Double
+//        var asString: String
+//        let asDouble: Double
         if !privateDisplayBuffer.isEmpty {
             if privateDisplayBuffer.hasSuffix(".0") {
                 privateDisplayBuffer = String(privateDisplayBuffer.dropLast(2))
@@ -264,29 +263,13 @@ public class Calculator {
             asSubSequence = privateDisplayBuffer.prefix(maxOutputLength)
             return String(asSubSequence)
         } else {
-            asDouble = token.lastSwiftGmp?.toDouble() ?? 0
-            asString = String(asDouble)
-            if asString.hasSuffix(".0") {
-                asString = String(asString.dropLast(2))
-            }
-            if asString.contains(".") {
-                // float or scientific
-                let parts = asString.split(separator: ".")
-                if parts[0].count >= maxOutputLength - 1 {
-                    return "too large"
-                }
-                asSubSequence = asString.prefix(maxOutputLength)
-                asString = String(asSubSequence)
-                return asString
-            } else {
-                // Integer
-                if asString.count > maxOutputLength {
-                    return "too large"
-                } else {
-                    return asString
-                }
+            if let swiftGmp = token.lastSwiftGmp {
+                let raw = swiftGmp.raw(digits: 10)
+                let display = Display(raw: raw, displayLength: 10, decimalSeparator: ".")
+                return display.string
             }
         }
+        return ""
     }
     
     public var double: Double {
@@ -297,16 +280,14 @@ public class Calculator {
         }
     }
     
-    public var mantissaExponent: Raw? {
-        let temp: SwiftGmp?
+    public var raw: Raw {
+        let temp: SwiftGmp
         if !privateDisplayBuffer.isEmpty {
             temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
         } else {
-            temp = token.lastSwiftGmp
+            temp = token.lastSwiftGmp!
         }
-        if temp == nil { return nil }
-
-        return temp!.raw(digits: displayWidth)
+        return temp.raw(digits: displayWidth)
     }
 
 }
