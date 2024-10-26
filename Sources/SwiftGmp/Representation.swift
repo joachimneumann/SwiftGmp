@@ -38,42 +38,7 @@
 //    return ret
 //}
 //
-//public enum DecimalSeparator: String, Codable, CaseIterable {
-//    case comma = ","
-//    case dot = "."
-//    public var character: Character {
-//        get {
-//            switch self {
-//            case .comma: return ","
-//            case .dot: return "."
-//            }
-//        }
-//    }
-//    public var string: String {
-//        get {
-//            switch self {
-//            case .comma: return ","
-//            case .dot: return "."
-//            }
-//        }
-//    }
-//    public var groupCharacter: Character {
-//        get {
-//            switch self {
-//            case .comma: return "."
-//            case .dot: return ","
-//            }
-//        }
-//    }
-//    public var groupString: String {
-//        get {
-//            switch self {
-//            case .comma: return "."
-//            case .dot: return ","
-//            }
-//        }
-//    }
-//}
+
 //
 //public struct Number: CustomDebugStringConvertible {
 //    public var mantissa: String

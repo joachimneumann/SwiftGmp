@@ -5,6 +5,43 @@
 //  Created by Joachim Neumann on 25.10.2024.
 //
 
+public enum DecimalSeparator: String, Codable, CaseIterable {
+    case comma = ","
+    case dot = "."
+    public var character: Character {
+        get {
+            switch self {
+            case .comma: return ","
+            case .dot: return "."
+            }
+        }
+    }
+    public var string: String {
+        get {
+            switch self {
+            case .comma: return ","
+            case .dot: return "."
+            }
+        }
+    }
+    public var groupCharacter: Character {
+        get {
+            switch self {
+            case .comma: return "."
+            case .dot: return ","
+            }
+        }
+    }
+    public var groupString: String {
+        get {
+            switch self {
+            case .comma: return "."
+            case .dot: return ","
+            }
+        }
+    }
+}
+
 struct Display {
     
     public var length: (String) -> Int = { s in
@@ -33,6 +70,11 @@ struct Display {
         }
     }
     
+    init(_ left: String, right: String? = nil, type: DisplayType = .unknown) {
+        self.left = left
+        self.right = right
+        self.type = type
+    }
     init(raw: Raw, displayLength: Int, decimalSeparator: Character) {
         
         // is raw an integer?

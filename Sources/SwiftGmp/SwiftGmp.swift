@@ -121,8 +121,6 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             mantissa = String(cString: ptr.baseAddress!)
         }
         
-        mantissa.removeTrailingZeroes()
-
         if mantissa.count >= digits + 3 {
             var no999 = false
             let suffix = mantissa.suffix(3)

@@ -10,6 +10,10 @@ import Foundation
 public class Calculator {
     
     var token: Token
+    var display: Display = Display(
+        raw: Raw(mantissa: "0", exponent: 0),
+        displayLength: 10, decimalSeparator: DecimalSeparator.dot.character)
+    
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil
     private var memory: SwiftGmp?
@@ -248,16 +252,20 @@ public class Calculator {
             token.clear()
             privateDisplayBuffer = error.localizedDescription
         }
+        if !privateDisplayBuffer.isEmpty {
+            let asSubSequence = privateDisplayBuffer.prefix(displayWidth)
+            display = Display(String(asSubSequence))
+        } else {
+            if let swiftGmp = token.lastSwiftGmp {
+                let raw = swiftGmp.raw(digits: 10)
+                display = Display(raw: raw, displayLength: 10, decimalSeparator: ".")
+            }
+        }
     }
     
     public var string: String {
         var asSubSequence: String.SubSequence
-//        var asString: String
-//        let asDouble: Double
         if !privateDisplayBuffer.isEmpty {
-            if privateDisplayBuffer.hasSuffix(".0") {
-                privateDisplayBuffer = String(privateDisplayBuffer.dropLast(2))
-            }
             asSubSequence = privateDisplayBuffer.prefix(displayWidth)
             return String(asSubSequence)
         } else {
