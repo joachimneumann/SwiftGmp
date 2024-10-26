@@ -7,18 +7,18 @@
 
 import Foundation
 
-public struct FloatSeparator: Codable {
+public struct Separator: Codable {
     enum SeparatorType: String, Codable, CaseIterable {
         case comma = ","
         case dot = "."
     }
 
-    var separatorType: SeparatorType
+    var type: SeparatorType
     var groups: Bool
 
     public var character: Character {
         get {
-            switch self.separatorType {
+            switch self.type {
             case .comma: return ","
             case .dot: return "."
             }
@@ -26,7 +26,7 @@ public struct FloatSeparator: Codable {
     }
     public var string: String {
         get {
-            switch self.separatorType {
+            switch self.type {
             case .comma: return ","
             case .dot: return "."
             }
@@ -35,7 +35,7 @@ public struct FloatSeparator: Codable {
     public var groupCharacter: Character? {
         get {
             if groups {
-                switch self.separatorType {
+                switch self.type {
                 case .comma: return "."
                 case .dot: return ","
                 }
@@ -47,7 +47,7 @@ public struct FloatSeparator: Codable {
     public var groupString: String? {
         get {
             if groups {
-                switch self.separatorType {
+                switch self.type {
                 case .comma: return "."
                 case .dot: return ","
                 }
@@ -93,7 +93,7 @@ struct Display {
         self.type = type
     }
     
-    init(raw: Raw, displayLength l: Int? = nil, floatSeparator: FloatSeparator = FloatSeparator(separatorType: .dot, groups: false)) {
+    init(raw: Raw, displayLength l: Int? = nil, separator: Separator = Separator(type: .dot, groups: false)) {
         let displayLength = l ?? raw.length
         // is raw an integer?
         if
@@ -120,7 +120,7 @@ struct Display {
                 }
             }
             // add grouping
-            if let c = floatSeparator.groupCharacter {
+            if let c = separator.groupCharacter {
                 temp.injectGrouping(c)
             }
             // check again if the Integer still fits into the display
@@ -138,13 +138,13 @@ struct Display {
                        
             var beforeSeparator = temp.sub(to: raw.exponent + 1)
             var afterSeparator = temp.sub(from: raw.exponent + 1)
-            if let c = floatSeparator.groupCharacter {
+            if let c = separator.groupCharacter {
                 beforeSeparator.injectGrouping(c)
             }
-            let remainingLength = displayLength - length(beforeSeparator) - length(floatSeparator.string) - length(raw.negativeSign)
+            let remainingLength = displayLength - length(beforeSeparator) - length(separator.string) - length(raw.negativeSign)
             if remainingLength >= 1 {
                 afterSeparator = String(afterSeparator.prefix(remainingLength))
-                temp = raw.negativeSign + beforeSeparator + floatSeparator.string + afterSeparator
+                temp = raw.negativeSign + beforeSeparator + separator.string + afterSeparator
                 left = temp
                 right = nil
                 type = .floatLargerThanOne
@@ -158,7 +158,7 @@ struct Display {
             for _ in 0 ..< (-1 * raw.exponent) {
                 temp = "0" + temp
             }
-            temp.insert(floatSeparator.character, at: 1)
+            temp.insert(separator.character, at: 1)
             temp = raw.negativeSign + temp
             temp = String(temp.prefix(displayLength))
             left = temp
@@ -169,13 +169,17 @@ struct Display {
         
         // Scientific!
         var temp = raw.mantissa
-        temp.insert(floatSeparator.character, at: 1)
+        temp.insert(separator.character, at: 1)
         if temp.count == 2 {
             temp = temp + "0"
         }
         temp = raw.negativeSign + temp
         
-        let exponentString: String = "e\(raw.exponent)"
+        var exponentString: String = "e\(raw.exponent)"
+        // add grouping
+        if let c = separator.groupCharacter {
+            exponentString.injectGrouping(c)
+        }
         temp = String(temp.prefix(displayLength - length(exponentString)))
         left = temp
         right = exponentString
