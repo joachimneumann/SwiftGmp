@@ -13,7 +13,8 @@ public struct Raw {
     public var mantissa: String
     public var exponent: Int
     public var isNegative: Bool
-    init(mantissa: String, exponent: Int) {
+    public let length: Int
+    init(mantissa: String, exponent: Int, length: Int) {
         if mantissa.hasPrefix("-") {
             self.mantissa = String(mantissa.dropFirst())
             isNegative = true
@@ -22,6 +23,7 @@ public struct Raw {
             isNegative = false
         }
         self.exponent = exponent
+        self.length = length
     }
     var negativeSign: String {
         isNegative ? "-" : ""
@@ -138,7 +140,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mantissa.removeTrailingZeroes()
         if mantissa == "" { mantissa = "0" }
         
-        return Raw(mantissa: mantissa, exponent: exponent - 1)
+        return Raw(mantissa: mantissa, exponent: exponent - 1, length: digits)
     }
     
     

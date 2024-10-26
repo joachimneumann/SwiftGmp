@@ -75,8 +75,8 @@ struct Display {
         self.right = right
         self.type = type
     }
-    init(raw: Raw, displayLength: Int, decimalSeparator: Character) {
-        
+    init(raw: Raw, displayLength l: Int? = nil, decimalSeparator: Character = ".") {
+        let displayLength = l ?? raw.length
         // is raw an integer?
         if
         // only allow numbers > 1.0, i.e., exponents >0 =

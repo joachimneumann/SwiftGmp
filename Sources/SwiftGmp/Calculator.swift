@@ -10,9 +10,7 @@ import Foundation
 public class Calculator {
     
     var token: Token
-    var display: Display = Display(
-        raw: Raw(mantissa: "0", exponent: 0),
-        displayLength: 10, decimalSeparator: DecimalSeparator.dot.character)
+    var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
     
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil
@@ -258,7 +256,7 @@ public class Calculator {
         } else {
             if let swiftGmp = token.lastSwiftGmp {
                 let raw = swiftGmp.raw(digits: 10)
-                display = Display(raw: raw, displayLength: 10, decimalSeparator: ".")
+                display = Display(raw: raw)
             }
         }
     }
@@ -271,7 +269,7 @@ public class Calculator {
         } else {
             if let swiftGmp = token.lastSwiftGmp {
                 let raw = swiftGmp.raw(digits: 10)
-                let display = Display(raw: raw, displayLength: 10, decimalSeparator: ".")
+                let display = Display(raw: raw)
                 return display.string
             }
         }

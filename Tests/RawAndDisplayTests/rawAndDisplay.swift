@@ -9,18 +9,18 @@ import Testing
 @testable import SwiftGmp
 
 class rawAndDisplay {
-    var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
-    var raw: Raw = Raw(mantissa: "0", exponent: 0)
-    var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0), displayLength: 10, decimalSeparator: ".")
-    let L = 10
+   var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
+   var raw: Raw = Raw(mantissa: "0", exponent: 0, length: 10)
+   var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
+   let L = 10
 
-    let debug = true
+   let debug = true
 //    let debug = false
 
     @Test func specialTests() {
                 swiftGmp = SwiftGmp(withString: "100000000000000000000", bits: 100)
                 raw = swiftGmp.raw(digits: L)
-                display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+                display = Display(raw: raw)
                 #expect(raw.mantissa == "1")
                 #expect(raw.exponent == 20)
                 #expect(raw.isNegative == false)
@@ -33,7 +33,7 @@ class rawAndDisplay {
         if debug { return }
         swiftGmp = SwiftGmp(withString: "9.99999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -43,7 +43,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "9999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -53,7 +53,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.9999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "99999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -63,7 +63,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.99999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -73,7 +73,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.999999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == 1)
         #expect(raw.isNegative == false)
@@ -83,7 +83,7 @@ class rawAndDisplay {
         
         swiftGmp = SwiftGmp(withString: "12", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 1)
         #expect(raw.isNegative == false)
@@ -93,7 +93,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "120", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 2)
         #expect(raw.isNegative == false)
@@ -103,7 +103,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "1_200", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 3)
         #expect(raw.isNegative == false)
@@ -113,7 +113,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "12_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 4)
         #expect(raw.isNegative == false)
@@ -123,7 +123,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "120_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 5)
         #expect(raw.isNegative == false)
@@ -133,7 +133,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "1_200_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 6)
         #expect(raw.isNegative == false)
@@ -143,7 +143,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "12_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 7)
         #expect(raw.isNegative == false)
@@ -153,7 +153,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "120_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == false)
@@ -163,7 +163,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "1_200_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 9)
         #expect(raw.isNegative == false)
@@ -173,7 +173,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "12_000_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 10)
         #expect(raw.isNegative == false)
@@ -183,7 +183,7 @@ class rawAndDisplay {
          //5555555555.1234567890
         swiftGmp = SwiftGmp(withString: "5555555555.12345", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "5555555555")
         #expect(raw.exponent == 9)
         #expect(raw.isNegative == false)
@@ -194,7 +194,7 @@ class rawAndDisplay {
            
         swiftGmp = SwiftGmp(withString: "120000000000000000000000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 23)
         #expect(raw.isNegative == false)
@@ -204,7 +204,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-12", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 1)
         #expect(raw.isNegative == true)
@@ -214,7 +214,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-120_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == true)
@@ -224,7 +224,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-1_200_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 9)
         #expect(raw.isNegative == true)
@@ -234,7 +234,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-12_000_000_000", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 10)
         #expect(raw.isNegative == true)
@@ -244,7 +244,7 @@ class rawAndDisplay {
         
         swiftGmp = SwiftGmp(withString: "9.9999999999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == 1)
         #expect(raw.isNegative == false)
@@ -254,7 +254,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "111222333.99999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "111222334")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == false)
@@ -264,7 +264,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "111222333.9999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "111222334")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == false)
@@ -274,7 +274,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "111222333.999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "111222333999")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == false)
@@ -285,7 +285,7 @@ class rawAndDisplay {
         
         swiftGmp = SwiftGmp(withString: "1112223334.99999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1112223335")
         #expect(raw.exponent == 9)
         #expect(raw.isNegative == false)
@@ -295,7 +295,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "11122233344.99999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "11122233345")
         #expect(raw.exponent == 10)
         #expect(raw.isNegative == false)
@@ -308,7 +308,7 @@ class rawAndDisplay {
         if debug { return }
         swiftGmp = SwiftGmp(withString: "1.1", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "11")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -318,7 +318,7 @@ class rawAndDisplay {
         
         swiftGmp = SwiftGmp(withString: "1.1999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "11999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -328,7 +328,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "1.199999999999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -338,7 +338,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.9999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "99999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -348,7 +348,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.99999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -358,7 +358,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "9999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -368,7 +368,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.9999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "99999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -378,7 +378,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.99999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -388,7 +388,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.99999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -398,7 +398,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "9999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -408,7 +408,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "9.9999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "99999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == false)
@@ -418,7 +418,7 @@ class rawAndDisplay {
         
         swiftGmp = SwiftGmp(withString: "11122233.999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "11122233999")
         #expect(raw.exponent == 7)
         #expect(raw.isNegative == false)
@@ -428,7 +428,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "111222333.999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "111222333999")
         #expect(raw.exponent == 8)
         #expect(raw.isNegative == false)
@@ -441,7 +441,7 @@ class rawAndDisplay {
         if debug { return }
         swiftGmp = SwiftGmp(withString: "-1.1", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "11")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -451,7 +451,7 @@ class rawAndDisplay {
         
         swiftGmp = SwiftGmp(withString: "-1.1999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "11999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -461,7 +461,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-1.199999999999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -471,7 +471,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.9999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "99999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -481,7 +481,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.99999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -491,7 +491,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "9999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -501,7 +501,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.9999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "99999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -511,7 +511,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.99999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -521,7 +521,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.99999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -531,7 +531,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "9999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -541,7 +541,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-9.9999999999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "99999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
@@ -551,7 +551,7 @@ class rawAndDisplay {
         
         swiftGmp = SwiftGmp(withString: "-11122233.999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "11122233999")
         #expect(raw.exponent == 7)
         #expect(raw.isNegative == true)
@@ -564,7 +564,7 @@ class rawAndDisplay {
         if debug { return }
         swiftGmp = SwiftGmp(withString: "0.1", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -1)
         #expect(raw.isNegative == false)
@@ -574,7 +574,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.01", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -2)
         #expect(raw.isNegative == false)
@@ -584,7 +584,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -3)
         #expect(raw.isNegative == false)
@@ -594,7 +594,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.0001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -4)
         #expect(raw.isNegative == false)
@@ -604,7 +604,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.00001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -5)
         #expect(raw.isNegative == false)
@@ -614,7 +614,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -6)
         #expect(raw.isNegative == false)
@@ -624,7 +624,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.0000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -7)
         #expect(raw.isNegative == false)
@@ -634,7 +634,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.00000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -8)
         #expect(raw.isNegative == false)
@@ -644,7 +644,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.000000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -9)
         #expect(raw.isNegative == false)
@@ -654,7 +654,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.0000000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -10)
         #expect(raw.isNegative == false)
@@ -664,7 +664,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "0.9999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "9999")
         #expect(raw.exponent == -1)
         #expect(raw.isNegative == false)
@@ -677,7 +677,7 @@ class rawAndDisplay {
         if debug { return }
         swiftGmp = SwiftGmp(withString: "-0.1", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -1)
         #expect(raw.isNegative == true)
@@ -687,7 +687,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.01", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -2)
         #expect(raw.isNegative == true)
@@ -697,7 +697,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -3)
         #expect(raw.isNegative == true)
@@ -707,7 +707,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.0001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -4)
         #expect(raw.isNegative == true)
@@ -717,7 +717,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.00001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -5)
         #expect(raw.isNegative == true)
@@ -727,7 +727,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -6)
         #expect(raw.isNegative == true)
@@ -737,7 +737,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.0000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -7)
         #expect(raw.isNegative == true)
@@ -747,7 +747,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.00000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -8)
         #expect(raw.isNegative == true)
@@ -757,7 +757,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.000000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -9)
         #expect(raw.isNegative == true)
@@ -767,7 +767,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.0000000001", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "1")
         #expect(raw.exponent == -10)
         #expect(raw.isNegative == true)
@@ -777,7 +777,7 @@ class rawAndDisplay {
 
         swiftGmp = SwiftGmp(withString: "-0.9999", bits: 100)
         raw = swiftGmp.raw(digits: L)
-        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        display = Display(raw: raw)
         #expect(raw.mantissa == "9999")
         #expect(raw.exponent == -1)
         #expect(raw.isNegative == true)
@@ -841,7 +841,7 @@ class rawAndDisplay {
 
       swiftGmp = SwiftGmp(withString: "99.999999999999999999", bits: 100)
       raw = swiftGmp.raw(digits: L)
-      display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+      display = Display(raw: raw)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == 2)
       #expect(raw.isNegative == false)
@@ -854,287 +854,300 @@ class rawAndDisplay {
       #expect(raw.mantissa == "5")
       #expect(raw.exponent == 1)
       #expect(!raw.isNegative)
-      #expect(Display(raw: raw, displayLength: L, decimalSeparator: ".").string == "50")
+      #expect(Display(raw: raw).string == "50")
 
-      raw = Raw(mantissa: "111499999999999999999", exponent: 4)
+      swiftGmp = SwiftGmp(withString: "1114.99999999999999999", bits: 100)
+      raw = swiftGmp.raw(digits: L)
       #expect(raw.mantissa == "1115")
-      #expect(raw.exponent == 4)
+      #expect(raw.exponent == 3)
       #expect(!raw.isNegative)
 
-      raw = Raw(mantissa: "-99999999999999999", exponent: 1)
+      swiftGmp = SwiftGmp(withString: "-99.999999999999999", bits: 100)
+      raw = swiftGmp.raw(digits: L)
       #expect(raw.mantissa == "1")
       #expect(raw.exponent == 2)
       #expect(raw.isNegative)
 
-      raw = Raw(mantissa: "-499999999999999999", exponent: 1)
+      swiftGmp = SwiftGmp(withString: "-49.9999999999999999", bits: 100)
+      raw = swiftGmp.raw(digits: L)
       #expect(raw.mantissa == "5")
       #expect(raw.exponent == 1)
       #expect(raw.isNegative)
 
-      raw = Raw(mantissa: "-111499999999999999999", exponent: 4)
+      swiftGmp = SwiftGmp(withString: "-1114.99999999999999999", bits: 100)
+      raw = swiftGmp.raw(digits: L)
       #expect(raw.mantissa == "1115")
-      #expect(raw.exponent == 4)
+      #expect(raw.exponent == 3)
       #expect(raw.isNegative)
 
       calculator.evaluateString("-99.9999999999999")
       #expect(calculator.display.string == "-100")
-//
-//
-//
-////        calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
-////        #expect(calculator.display.string == "1.0e80")
-//        
-////        calculator.evaluateString("0.00000001")
-////        #expect(calculator.display.string == "0.00000001")
-////        calculator.evaluateString("0.0000000099999999")
-////        #expect(calculator.display.string == "0.00000001")
-//
-////        calculator.evaluateString("0.000000001")
-////        #expect(calculator.display.string == "1.0e-9")
-////        calculator.evaluateString("0.00000000099999999")
-////        #expect(calculator.display.string == "1.0e-9")
-//        
-////        calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
-////        #expect(calculator.display.string == "1.0e80")
-//    }
-//    
-//
-////    @Test func getBigFloatTest() {
-////        if debug { return }
-////        var s: String
-////        var res: String?
-////
-////        s = "3339999999"
-////        res = s.getBigFloat(exponent: 0)
-////        #expect(res == "3.339999999")
-////
-////        res = s.getBigFloat(exponent: 1)
-////        #expect(res == "33.39999999")
-////
-////        res = s.getBigFloat(exponent: 2)
-////        #expect(res! == "334.0")
-////
-////        res = s.getBigFloat(exponent: 3)
-////        #expect(res! == "3340.0")
-////
-////        res = s.getBigFloat(exponent: 5)
-////        #expect(res! == "334000.0")
-////
-////        res = s.getBigFloat(exponent: 11)
-////        #expect(res! == "333999999900.0")
-////    }
-////
-////    @Test func getSmallFloatTest() {
-////        if debug { return }
-////        var s: String
-////        var res: String?
-////
-////        s = "0.003339999999"
-////        res = s.getSmallFloat(exponent: -1)
-////        #expect(res == "3.339999999")
-////
-////        res = s.getSmallFloat(exponent: -1)
-////        #expect(res == "33.39999999")
-////
-////        res = s.getSmallFloat(exponent: -2)
-////        #expect(res! == "334.0")
-////
-////        res = s.getSmallFloat(exponent: -3)
-////        #expect(res! == "3340.0")
-////
-////        res = s.getSmallFloat(exponent: -5)
-////        #expect(res! == "334000.0")
-////
-////        res = s.getSmallFloat(exponent: -11)
-////        #expect(res! == "333999999900.0")
-////    }
-//
-//    
-//    @Test func floatTest() {
-//        if debug { return }
-//        calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
-//        #expect(calculator.display.string == "1234.56789")
-//    
-//        calculator.evaluateString("1234567.9")
-//        #expect(calculator.display.string == "1234567.9")
-//        
-//        calculator.evaluateString("1234567.99")
-//        #expect(calculator.display.string == "1234567.99")
-//        
-//        calculator.evaluateString("1234567.9991")
-//        #expect(calculator.display.string == "1234568")
-//        
-//        calculator.evaluateString("1234567.9999")
-//        #expect(calculator.display.string == "1234568")
-//
-//        calculator.evaluateString("1234567.999")
-//        #expect(calculator.display.string == "1234568")
-//
-//        calculator.evaluateString("1234567.998")
-//        #expect(calculator.display.string == "1234567.99")
-//
-//        calculator.evaluateString("10.0")
-//        #expect(calculator.display.string == "10")
-//
-//        calculator.evaluateString("1.0")
-//        #expect(calculator.display.string == "1")
-//
-//        calculator.evaluateString("0.1")
-//        #expect(calculator.display.string == "0.1")
-//
-//        calculator.evaluateString("0.01")
-//        #expect(calculator.display.string == "0.01")
-//
-//        calculator.evaluateString("0.0001")
-//        #expect(calculator.display.string == "0.0001")
-//
-//        calculator.evaluateString("0.00001")
-//        #expect(calculator.display.string == "0.00001")
-//
-//        calculator.evaluateString("0.000001")
-//        #expect(calculator.display.string == "0.000001")
-//
-//        calculator.evaluateString("0.0000001")
-//        #expect(calculator.display.string == "0.0000001")
-//        calculator.evaluateString("0.000000099999")
-//        #expect(calculator.display.string == "0.0000001")
-//
-//        calculator.evaluateString("0.00000001")
-//        #expect(calculator.display.string == "0.00000001")
-//        calculator.evaluateString("0.000000009999")
-//        #expect(calculator.display.string == "0.00000001")
-//
-//        calculator.evaluateString("0.000000001")
-//        #expect(calculator.display.string == "1.0e-9")
-//        calculator.evaluateString("0.00000000099999999")
-//        #expect(calculator.display.string == "1.0e-9")
-//
-//        calculator.evaluateString("0.0000000001")
-//        #expect(calculator.display.string == "1.0e-10")
-//        calculator.evaluateString("0.00000000009989999")
-//        #expect(calculator.display.string == "1.0e-10")
-//
-//        calculator.evaluateString("0.00000000001")
-//        #expect(calculator.display.string == "1.0e-11")
-//
-//        calculator.evaluateString("0.000000000001")
-//        #expect(calculator.display.string == "1.0e-12")
-//
-//        calculator.evaluateString("0.001")
-//        #expect(calculator.display.string == "0.001")
-//
-//        calculator.evaluateString("0.001")
-//        #expect(calculator.display.string == "0.001")
-//
-//        calculator.evaluateString("0.0999999999999")
-//        #expect(calculator.display.string == "0.1")
-//
-//        calculator.evaluateString("0.00000999999999999")
-//        #expect(calculator.display.string == "0.00001")
-//
-//
-//        calculator.evaluateString("5.1")
-//        #expect(calculator.display.string == "5.1")
-//
-//        calculator.evaluateString("1.0")
-//        #expect(calculator.display.string == "1")
-//
-//        calculator.evaluateString("55.1")
-//        #expect(calculator.display.string == "55.1")
-//
-//        calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
-//        #expect(calculator.display.string == "1234.56789")
-//
-//        calculator.evaluateString("-1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
-//        #expect(calculator.display.string == "-1234.5678")
-//
-//        calculator.evaluateString("-1234567.9")
-//        #expect(calculator.display.string == "-1234567.9")
-//        
-//        calculator.evaluateString("-1234567.99")
-//        #expect(calculator.display.string == "-1234567.9")
-//        
-//        calculator.evaluateString("-1234567.999")
-//        #expect(calculator.display.string == "-1234568")
-//        
-//        calculator.evaluateString("-1234567.9999")
-//        #expect(calculator.display.string == "-1234568")
-//
-//        calculator.evaluateString("-1234567.9999")
-//        #expect(calculator.display.string == "-1234568")
-//
-//        calculator.evaluateString("-1234567.998")
-//        #expect(calculator.display.string == "-1234567.9")
-//
-//        calculator.evaluateString("-10.0")
-//        #expect(calculator.display.string == "-10")
-//
-//        calculator.evaluateString("-1.0")
-//        #expect(calculator.display.string == "-1")
-//
-//        calculator.evaluateString("-0.1")
-//        #expect(calculator.display.string == "-0.1")
-//
-//        calculator.evaluateString("-0.01")
-//        #expect(calculator.display.string == "-0.01")
-//
-//        calculator.evaluateString("-0.0001")
-//        #expect(calculator.display.string == "-0.0001")
-//
-//        calculator.evaluateString("-0.00001")
-//        #expect(calculator.display.string == "-0.00001")
-//
-//        calculator.evaluateString("-0.000001")
-//        #expect(calculator.display.string == "-0.000001")
-//
-//        calculator.evaluateString("-0.0000001")
-//        #expect(calculator.display.string == "-0.0000001")
-//        calculator.evaluateString("-0.000000099999")
-//        #expect(calculator.display.string == "-0.0000001")
-//
-//        calculator.evaluateString("-0.00000001")
-//        #expect(calculator.display.string == "0.00000001")
-//        #expect(calculator.display.string == "-1.0e-8")
-//        calculator.evaluateString("-0.000000009999")
-//        #expect(calculator.display.string == "-1.0e-8")
-//
-//        calculator.evaluateString("-0.000000001")
-//        #expect(calculator.display.string == "-1.0e-9")
-//        calculator.evaluateString("-0.00000000099999")
-//        #expect(calculator.display.string == "-1.0e-9")
-//
-//        calculator.evaluateString("-0.0000000001")
-//        #expect(calculator.display.string == "-1.0e-10")
-//        calculator.evaluateString("-0.000000000099899")
-//        #expect(calculator.display.string == "-1.0e-10")
-//
-//        calculator.evaluateString("-0.00000000001")
-//        #expect(calculator.display.string == "-1.0e-11")
-//
-//        calculator.evaluateString("-0.000000000001")
-//        #expect(calculator.display.string == "-1.0e-12")
-//
-//        calculator.evaluateString("-0.001")
-//        #expect(calculator.display.string == "-0.001")
-//
-//        calculator.evaluateString("-0.001")
-//        #expect(calculator.display.string == "-0.001")
-//
-//        calculator.evaluateString("-0.0999999999999")
-//        #expect(calculator.display.string == "-0.1")
-//
-//        calculator.evaluateString("-0.00000999999999999")
-//        #expect(calculator.display.string == "-0.00001")
-//
-//
-//        calculator.evaluateString("-5.1")
-//        #expect(calculator.display.string == "-5.1")
-//
-//        calculator.evaluateString("-1.0")
-//        #expect(calculator.display.string == "-1")
-//
-//        calculator.evaluateString("-55.1")
-//        #expect(calculator.display.string == "-55.1")
+
+      calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.0e80")
+
+      calculator.evaluateString("0.00000001")
+      #expect(calculator.display.string == "0.00000001")
+      
+      calculator.evaluateString("0.000000009999999999999")
+      #expect(calculator.display.string == "0.00000001")
+
+      calculator.evaluateString("0.000000001")
+      #expect(calculator.display.string == "1.0e-9")
+      calculator.evaluateString("0.0000000009999999999999")
+      #expect(calculator.display.string == "1.0e-9")
+
+      calculator.evaluateString("100000000000000000000000000000000000000000000000000000000000000000000000000000000")
+      #expect(calculator.display.string == "1.0e80")
+
+      calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
+      #expect(calculator.display.string == "1234.56789")
+
+      calculator.evaluateString("1234567.9")
+      #expect(calculator.display.string == "1234567.9")
+
+      calculator.evaluateString("1234567.99")
+      #expect(calculator.display.string == "1234567.99")
+
+      calculator.evaluateString("1234567.9991")
+      #expect(calculator.display.string == "1234567.99")
+
+      calculator.evaluateString("1234567.9999")
+      #expect(calculator.display.string == "1234567.99")
+
+      calculator.evaluateString("1234567.999")
+      #expect(calculator.display.string == "1234567.99")
+
+      calculator.evaluateString("12345677.998")
+      #expect(calculator.display.string == "12345677.9")
+
+      calculator.evaluateString("12345677.9991")
+      #expect(calculator.display.string == "12345677.9")
+
+      calculator.evaluateString("12345677.9999")
+      #expect(calculator.display.string == "12345677.9")
+
+      calculator.evaluateString("12345677.999")
+      #expect(calculator.display.string == "12345677.9")
+
+      calculator.evaluateString("12345677.998")
+      #expect(calculator.display.string == "12345677.9")
+
+      calculator.evaluateString("123456777.998")
+      #expect(calculator.display.string == "1.234567e8")
+
+      calculator.evaluateString("123456777.9991")
+      #expect(calculator.display.string == "1.234567e8")
+
+      calculator.evaluateString("123456777.9999")
+      #expect(calculator.display.string == "123456778")
+
+      calculator.evaluateString("123456777.999")
+      #expect(calculator.display.string == "1.234567e8")
+
+      calculator.evaluateString("1234567777.998")
+      #expect(calculator.display.string == "1234567777")
+
+      calculator.evaluateString("1234567777.998")
+      #expect(calculator.display.string == "1234567777")
+
+      calculator.evaluateString("1234567777.9991")
+      #expect(calculator.display.string == "1234567778")
+
+      calculator.evaluateString("1234567777.9999")
+      #expect(calculator.display.string == "1234567778")
+
+      calculator.evaluateString("1234567777.999")
+      #expect(calculator.display.string == "1234567778")
+
+      calculator.evaluateString("1234567777.998")
+      #expect(calculator.display.string == "1234567777")
+
+      calculator.evaluateString("10.0")
+      #expect(calculator.display.string == "10")
+
+      calculator.evaluateString("1.0")
+      #expect(calculator.display.string == "1")
+
+      calculator.evaluateString("0.1")
+      #expect(calculator.display.string == "0.1")
+
+      calculator.evaluateString("0.01")
+      #expect(calculator.display.string == "0.01")
+
+      calculator.evaluateString("0.0001")
+      #expect(calculator.display.string == "0.0001")
+
+      calculator.evaluateString("0.00001")
+      #expect(calculator.display.string == "0.00001")
+
+      calculator.evaluateString("0.000001")
+      #expect(calculator.display.string == "0.000001")
+
+      calculator.evaluateString("0.0000001")
+      #expect(calculator.display.string == "0.0000001")
+      calculator.evaluateString("0.000000099999999999999")
+      #expect(calculator.display.string == "0.0000001")
+
+      calculator.evaluateString("0.00000001")
+      #expect(calculator.display.string == "0.00000001")
+      calculator.evaluateString("0.000000009999999999999")
+      #expect(calculator.display.string == "0.00000001")
+
+      calculator.evaluateString("0.000000001")
+      #expect(calculator.display.string == "1.0e-9")
+      calculator.evaluateString("0.0000000009999999999999999")
+      #expect(calculator.display.string == "1.0e-9")
+
+      calculator.evaluateString("0.0000000001")
+      #expect(calculator.display.string == "1.0e-10")
+      calculator.evaluateString("0.00000000009999999999999999")
+      #expect(calculator.display.string == "1.0e-10")
+
+      calculator.evaluateString("0.00000000001")
+      #expect(calculator.display.string == "1.0e-11")
+
+      calculator.evaluateString("0.000000000001")
+      #expect(calculator.display.string == "1.0e-12")
+
+      calculator.evaluateString("0.001")
+      #expect(calculator.display.string == "0.001")
+
+      calculator.evaluateString("0.001")
+      #expect(calculator.display.string == "0.001")
+
+      calculator.evaluateString("0.0999999999999999")
+      #expect(calculator.display.string == "0.1")
+
+      calculator.evaluateString("0.00000999999999999999")
+      #expect(calculator.display.string == "0.00001")
+
+
+      calculator.evaluateString("5.1")
+      #expect(calculator.display.string == "5.1")
+
+      calculator.evaluateString("1.0")
+      #expect(calculator.display.string == "1")
+
+      calculator.evaluateString("55.1")
+      #expect(calculator.display.string == "55.1")
+
+      calculator.evaluateString("1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
+      #expect(calculator.display.string == "1234.56789")
+
+      calculator.evaluateString("-1234.5678901234567890123456789012345678901234567890123456789012345678901234567890")
+      #expect(calculator.display.string == "-1234.5678")
+
+      calculator.evaluateString("-1234567.9")
+      #expect(calculator.display.string == "-1234567.9")
+
+      calculator.evaluateString("-1234567.99")
+      #expect(calculator.display.string == "-1234567.9")
+
+      calculator.evaluateString("-1234567.999")
+      #expect(calculator.display.string == "-1234567.9")
+
+      calculator.evaluateString("-1234567.9999")
+      #expect(calculator.display.string == "-1234567.9")
+
+      calculator.evaluateString("-1234567.9999")
+      #expect(calculator.display.string == "-1234567.9")
+
+      calculator.evaluateString("-1234567.998")
+      #expect(calculator.display.string == "-1234567.9")
+
+      calculator.evaluateString("3331234567.9")
+      #expect(calculator.display.string == "3331234567")
+
+      calculator.evaluateString("331234567.9")
+      #expect(calculator.display.string == "3.312345e8")
+
+      calculator.evaluateString("-31234567.9")
+      #expect(calculator.display.string == "-3.12345e7")
+
+      calculator.evaluateString("-31234567.99")
+      #expect(calculator.display.string == "-3.12345e7")
+
+      calculator.evaluateString("-31234567.999")
+      #expect(calculator.display.string == "-3.12345e7")
+
+      calculator.evaluateString("-31234567.9999")
+      #expect(calculator.display.string == "-3.12345e7")
+
+      calculator.evaluateString("-31234567.9999")
+      #expect(calculator.display.string == "-3.12345e7")
+
+      calculator.evaluateString("-31234567.998")
+      #expect(calculator.display.string == "-3.12345e7")
+
+      calculator.evaluateString("-10.0")
+      #expect(calculator.display.string == "-10")
+
+      calculator.evaluateString("-1.0")
+      #expect(calculator.display.string == "-1")
+
+      calculator.evaluateString("-0.1")
+      #expect(calculator.display.string == "-0.1")
+
+      calculator.evaluateString("-0.01")
+      #expect(calculator.display.string == "-0.01")
+
+      calculator.evaluateString("-0.0001")
+      #expect(calculator.display.string == "-0.0001")
+
+      calculator.evaluateString("-0.00001")
+      #expect(calculator.display.string == "-0.00001")
+
+      calculator.evaluateString("-0.000001")
+      #expect(calculator.display.string == "-0.000001")
+
+      calculator.evaluateString("-0.0000001")
+      #expect(calculator.display.string == "-0.0000001")
+      calculator.evaluateString("-0.0000000999999999999999")
+      #expect(calculator.display.string == "-0.0000001")
+
+      calculator.evaluateString("-0.00000001")
+      #expect(calculator.display.string == "-1.0e-8")
+      calculator.evaluateString("-0.000000009999999999999999")
+      #expect(calculator.display.string == "-1.0e-8")
+
+      calculator.evaluateString("-0.000000001")
+      #expect(calculator.display.string == "-1.0e-9")
+      calculator.evaluateString("-0.00000000099999999999999")
+      #expect(calculator.display.string == "-1.0e-9")
+
+      calculator.evaluateString("-0.0000000001")
+      #expect(calculator.display.string == "-1.0e-10")
+      calculator.evaluateString("-0.000000000099999999999999")
+      #expect(calculator.display.string == "-1.0e-10")
+
+      calculator.evaluateString("-0.00000000001")
+      #expect(calculator.display.string == "-1.0e-11")
+
+      calculator.evaluateString("-0.000000000001")
+      #expect(calculator.display.string == "-1.0e-12")
+
+      calculator.evaluateString("-0.001")
+      #expect(calculator.display.string == "-0.001")
+
+      calculator.evaluateString("-0.001")
+      #expect(calculator.display.string == "-0.001")
+
+      calculator.evaluateString("-0.0999999999999999999999")
+      #expect(calculator.display.string == "-0.1")
+
+      calculator.evaluateString("-0.00000999999999999999999999")
+      #expect(calculator.display.string == "-0.00001")
+
+
+      calculator.evaluateString("-5.1")
+      #expect(calculator.display.string == "-5.1")
+
+      calculator.evaluateString("-1.0")
+      #expect(calculator.display.string == "-1")
+
+      calculator.evaluateString("-55.1")
+      #expect(calculator.display.string == "-55.1")
 //    }
 //    
 ////    @Test func smallFloatTest() {
