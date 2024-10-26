@@ -44,10 +44,11 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     init(withString string: String, bits: Int) {
+        let without_ = string.replacingOccurrences(of: "_", with: "")
         self.bits = bits
 
         mpfr_init2(&mpfr, bits) // nan
-        mpfr_set_str (&mpfr, string, 10, MPFR_RNDN)
+        mpfr_set_str (&mpfr, without_, 10, MPFR_RNDN)
     }
     
     init(withSwiftGmp: SwiftGmp, bits: Int) {
