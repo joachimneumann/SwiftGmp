@@ -4,12 +4,14 @@ import Testing
 @testable import SwiftGmp
 
 @Test func DEBUG_TESTS() {
-    var swiftGmp: SwiftGmp
-    var raw: Raw
-    var display: Display
-    let L = 10
+    let calculator = Calculator(precision: 100)
+//    var swiftGmp: SwiftGmp
+//    var raw: Raw
+//    var display: Display
+//    let L = 10
     
-
+    calculator.evaluateString("1e10")
+    #expect(calculator.display.string == "1.0e10")
     
 
 

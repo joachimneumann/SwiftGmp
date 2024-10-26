@@ -250,15 +250,6 @@ public class Calculator {
             token.clear()
             privateDisplayBuffer = error.localizedDescription
         }
-        if !privateDisplayBuffer.isEmpty {
-            let asSubSequence = privateDisplayBuffer.prefix(displayWidth)
-            display = Display(String(asSubSequence))
-        } else {
-            if let swiftGmp = token.lastSwiftGmp {
-                let raw = swiftGmp.raw(digits: 10)
-                display = Display(raw: raw)
-            }
-        }
     }
     
     public var string: String {
@@ -268,7 +259,7 @@ public class Calculator {
             return String(asSubSequence)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
-                let raw = swiftGmp.raw(digits: 10)
+                let raw = swiftGmp.raw(digits: displayWidth)
                 let display = Display(raw: raw)
                 return display.string
             }

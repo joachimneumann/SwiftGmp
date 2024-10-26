@@ -125,17 +125,12 @@ struct Display {
             var afterSeparator = temp.sub(from: raw.exponent + 1)
             if separateGroups {
                 beforeSeparator.injectGrouping(decimalSeparator.groupCharacter)
-                let remainingLength = displayLength - length(beforeSeparator) - 1 - length(raw.negativeSign)
-                if remainingLength >= 2 {
-                    afterSeparator = String(afterSeparator.prefix(remainingLength))
-                }
+            }
+            let remainingLength = displayLength - length(beforeSeparator) - length(decimalSeparator.string) - length(raw.negativeSign)
+            if remainingLength >= 2 {
+                afterSeparator = String(afterSeparator.prefix(remainingLength))
                 temp = raw.negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator
                 left = temp
-                right = nil
-                type = .floatLargerThanOne
-                return
-            } else {
-                left = raw.negativeSign + beforeSeparator + decimalSeparator.string + afterSeparator
                 right = nil
                 type = .floatLargerThanOne
                 return
