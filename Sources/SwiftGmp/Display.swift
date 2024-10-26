@@ -121,9 +121,8 @@ struct Display {
         if raw.exponent >= 0 && raw.exponent < displayLength - 2 - length(raw.negativeSign) {
             var temp = raw.mantissa
                        
-            let dotIndex = temp.index(temp.startIndex, offsetBy: raw.exponent + 1)
-            var beforeSeparator = String(temp[..<dotIndex])
-            var afterSeparator = String(temp[dotIndex...])
+            var beforeSeparator = temp.sub(to: raw.exponent + 1)
+            var afterSeparator = temp.sub(from: raw.exponent + 1)
             if separateGroups {
                 beforeSeparator.injectGrouping(decimalSeparator.groupCharacter)
                 let remainingLength = displayLength - length(beforeSeparator) - 1 - length(raw.negativeSign)
@@ -149,8 +148,7 @@ struct Display {
             for _ in 0 ..< (-1 * raw.exponent) {
                 temp = "0" + temp
             }
-            let dotIndex = temp.index(temp.startIndex, offsetBy: 1)
-            temp.insert(decimalSeparator.character, at: dotIndex)
+            temp.insert(decimalSeparator.character, at: 1)
             temp = raw.negativeSign + temp
             temp = String(temp.prefix(displayLength))
             left = temp
@@ -161,8 +159,7 @@ struct Display {
         
         // Scientific!
         var temp = raw.mantissa
-        let dotIndex = temp.index(temp.startIndex, offsetBy: 1)
-        temp.insert(decimalSeparator.character, at: dotIndex)
+        temp.insert(decimalSeparator.character, at: 1)
         if temp.count == 2 {
             temp = temp + "0"
         }
@@ -181,7 +178,29 @@ extension String {
         var count = self.count
         while count >= 4 {
             count = count - 3
-            self.insert(c, at: self.index(self.startIndex, offsetBy: count))
+            self.insert(c, at: count)
         }
+    }
+
+    func sub(from index: Int) -> String {
+        let start = self.index(self.startIndex, offsetBy: index)
+        return String(self[start...])
+    }
+
+    func sub(to index: Int) -> String {
+        let end = self.index(self.startIndex, offsetBy: index)
+        return String(self[..<end])
+    }
+
+    func sub(from index1: Int, to index2: Int) -> String {
+        let start = index(startIndex, offsetBy: index1)
+        let end = index(startIndex, offsetBy: index2)
+        return String(self[start..<end])
+    }
+    
+    mutating func insert(_ c: Character, at: Int) {
+        let index = self.index(self.startIndex, offsetBy: at)
+        self.insert(c, at: index)
+
     }
 }
