@@ -8,17 +8,17 @@
 import Foundation
 
 public struct Separator: Codable {
-    enum SeparatorType: String, Codable, CaseIterable {
+    public enum SeparatorType: String, Codable, CaseIterable {
         case comma = ","
         case dot = "."
     }
 
-    var type: SeparatorType
-    var groups: Bool
+    public var separatorType: SeparatorType
+    public var groups: Bool
 
     public var character: Character {
         get {
-            switch self.type {
+            switch self.separatorType {
             case .comma: return ","
             case .dot: return "."
             }
@@ -26,7 +26,7 @@ public struct Separator: Codable {
     }
     public var string: String {
         get {
-            switch self.type {
+            switch self.separatorType {
             case .comma: return ","
             case .dot: return "."
             }
@@ -35,7 +35,7 @@ public struct Separator: Codable {
     public var groupCharacter: Character? {
         get {
             if groups {
-                switch self.type {
+                switch self.separatorType {
                 case .comma: return "."
                 case .dot: return ","
                 }
@@ -47,7 +47,7 @@ public struct Separator: Codable {
     public var groupString: String? {
         get {
             if groups {
-                switch self.type {
+                switch self.separatorType {
                 case .comma: return "."
                 case .dot: return ","
                 }
@@ -60,7 +60,6 @@ public struct Separator: Codable {
 }
 
 struct Display {
-    
     public var length: (String) -> Int = { s in
         s.count
     }
@@ -93,7 +92,7 @@ struct Display {
         self.type = type
     }
     
-    init(raw: Raw, displayLength l: Int? = nil, separator: Separator = Separator(type: .dot, groups: false)) {
+    init(raw: Raw, displayLength l: Int? = nil, separator: Separator = Separator(separatorType: .dot, groups: false)) {
         let displayLength = l ?? raw.length
         // is raw an integer?
         if
