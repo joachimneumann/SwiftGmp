@@ -1,5 +1,5 @@
 //
-//  displayTest.swift
+//  rawAndDisplay.swift
 //  SwiftGmp
 //
 //  Created by Joachim Neumann on 20.10.24.
@@ -8,7 +8,7 @@
 import Testing
 @testable import SwiftGmp
 
-class DisplayTests {
+class rawAndDisplay {
     var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
     var raw: Raw = Raw(mantissa: "0", exponent: 0)
     var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0), displayLength: 10, decimalSeparator: ".")
