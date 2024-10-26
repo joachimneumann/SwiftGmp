@@ -27,11 +27,16 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:.swiftpm/SwiftGmp.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "TokenizerTests"
@@ -41,7 +46,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "SwiftGmpTests"
@@ -51,7 +56,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "NumberTests"
@@ -61,7 +66,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CalculatorTests"
@@ -71,7 +76,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DEBUG"
@@ -81,7 +86,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FromTxtTests"
@@ -91,7 +96,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "RepresenationTests"
@@ -101,7 +106,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "representationTest"
@@ -111,12 +116,101 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "RepresentationTests"
                BuildableName = "RepresentationTests"
                BlueprintName = "RepresentationTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DisplayTest"
+               BuildableName = "DisplayTest"
+               BlueprintName = "DisplayTest"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "DEBUG_TESTS()">
+               </Test>
+               <Test
+                  Identifier = "DisplayTests">
+               </Test>
+               <Test
+                  Identifier = "DisplayTests/integer()">
+               </Test>
+               <Test
+                  Identifier = "anotherTest()">
+               </Test>
+               <Test
+                  Identifier = "basics1BcTest()">
+               </Test>
+               <Test
+                  Identifier = "basics1Test()">
+               </Test>
+               <Test
+                  Identifier = "basics2BcTest()">
+               </Test>
+               <Test
+                  Identifier = "basics2Test()">
+               </Test>
+               <Test
+                  Identifier = "basics3BcTest()">
+               </Test>
+               <Test
+                  Identifier = "basics3Test()">
+               </Test>
+               <Test
+                  Identifier = "calculatorBcTest()">
+               </Test>
+               <Test
+                  Identifier = "calculatorTest()">
+               </Test>
+               <Test
+                  Identifier = "largeBcTest()">
+               </Test>
+               <Test
+                  Identifier = "largeTest()">
+               </Test>
+               <Test
+                  Identifier = "pendingTest()">
+               </Test>
+               <Test
+                  Identifier = "precisionTest()">
+               </Test>
+               <Test
+                  Identifier = "pressTest()">
+               </Test>
+               <Test
+                  Identifier = "testChatGTPBcTest()">
+               </Test>
+               <Test
+                  Identifier = "testChatGTPTest()">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "RawAndDisplayTest"
+               BuildableName = "RawAndDisplayTest"
+               BlueprintName = "RawAndDisplayTest"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "RawAndDisplayTests"
+               BuildableName = "RawAndDisplayTests"
+               BlueprintName = "RawAndDisplayTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
