@@ -38,7 +38,7 @@ import SwiftGmp
     #expect(calculator.string == "3")
 
 
-    calculator.maxOutputLength = 10
+    calculator.displayWidth = 10
     calculator.press(ClearOperation.clear)
     calculator.press(DigitOperation.one)
     calculator.press(TwoOperantOperation.div)

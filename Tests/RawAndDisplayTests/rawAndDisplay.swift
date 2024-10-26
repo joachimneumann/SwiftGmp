@@ -177,10 +177,21 @@ class rawAndDisplay {
         #expect(raw.mantissa == "12")
         #expect(raw.exponent == 10)
         #expect(raw.isNegative == false)
-       #expect(display.type == .scientifiNotation)
+        #expect(display.type == .scientifiNotation)
         #expect(display.left == "1.2")
         #expect(display.right == "e10")
-            
+         //5555555555.1234567890
+        swiftGmp = SwiftGmp(withString: "5555555555.12345", bits: 100)
+        raw = swiftGmp.raw(digits: L)
+        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        #expect(raw.mantissa == "5555555555")
+        #expect(raw.exponent == 9)
+        #expect(raw.isNegative == false)
+        #expect(display.type == .integer)
+        #expect(display.left == "5555555555")
+        // raw cuts to 10 digits, then this is an integer.
+        #expect(display.right == nil)
+           
         swiftGmp = SwiftGmp(withString: "120000000000000000000000", bits: 100)
         raw = swiftGmp.raw(digits: L)
         display = Display(raw: raw, displayLength: L, decimalSeparator: ".")

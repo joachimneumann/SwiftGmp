@@ -28,14 +28,12 @@ public class Calculator {
         return privateDisplayBuffer
     }
 
-    public var maxOutputLength: Int
 //    public var R: Representation
-    public init(precision: Int, maxOutputLength: Int = 12) {
+    public init(precision: Int, displayWidth: Int = 10) {
         token = Token(precision: precision)
-        self.maxOutputLength = maxOutputLength
         privateDisplayBuffer = ""
 //        R = Representation(length: length, displayBifferExponentLength: displayBifferExponentLength)
-        displayWidth = 10
+        self.displayWidth = displayWidth
     }
     
     public var privateDisplayBufferHasDigits: Bool {
@@ -260,7 +258,7 @@ public class Calculator {
             if privateDisplayBuffer.hasSuffix(".0") {
                 privateDisplayBuffer = String(privateDisplayBuffer.dropLast(2))
             }
-            asSubSequence = privateDisplayBuffer.prefix(maxOutputLength)
+            asSubSequence = privateDisplayBuffer.prefix(displayWidth)
             return String(asSubSequence)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
@@ -269,7 +267,7 @@ public class Calculator {
                 return display.string
             }
         }
-        return ""
+        return "0"
     }
     
     public var double: Double {
