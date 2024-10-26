@@ -1,14 +1,6 @@
 import Foundation
 import SwiftGmp_C_Target
 
-public enum MantissaExponentType {
-    case unknown
-    case integer
-    case floatLargerThanOne
-    case floatSmallerThanOne
-    case scientifiNotation
-}
-
 public struct Raw {
     public var mantissa: String
     public var exponent: Int
@@ -83,8 +75,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         guard !isZero else { return "zero"}
-        let mantissaExponent = raw()
-        return "\(mantissaExponent.mantissa) \(mantissaExponent.exponent)"
+        let raw = raw()
+        return "\(raw.mantissa) \(raw.exponent)"
     }
     
     static func isValidSwiftGmpString(_ gmpString: String, bits: Int) -> Bool {
@@ -101,6 +93,11 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_set(&ret.mpfr, &mpfr, MPFR_RNDN)
         return ret
     }
+
+    func replaceWith(_ other: SwiftGmp) {
+        mpfr_set(&mpfr, &other.mpfr, MPFR_RNDN)
+    }
+
     func toDouble() -> Double {
         return mpfr_get_d(&mpfr, MPFR_RNDN)
     }

@@ -33,7 +33,7 @@ def should_ignore_line(line):
     """
     Returns True if the line is funny
     """
-    return (line.startswith("maxOutputLength") or
+    return (line.startswith("displayWidth") or
             line.startswith("precision") or
             line.startswith("C") or
             line.startswith("M") or

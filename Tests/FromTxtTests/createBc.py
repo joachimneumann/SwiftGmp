@@ -84,6 +84,6 @@ for file in glob.glob("*.bc"):
 #                    else:
 #                        if components[0].strip() == "precision":
 #                            writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
-#                        elif components[0].strip() == "maxOutputLength":
+#                        elif components[0].strip() == "displayWidth":
     writeln("}")
     f.close()

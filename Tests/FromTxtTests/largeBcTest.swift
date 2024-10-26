@@ -7,7 +7,7 @@ import Testing
 @Test func largeBcTest() {
     let calculator = Calculator(precision: 100)
 
-// maxOutputLength = 100
+// displayWidth = 100
 // precision = 100
     var swiftGmp, bc: SwiftGmp
 
@@ -32,7 +32,7 @@ import Testing
     swiftGmp = calculator.asSwiftGmp("1e48")
     bc = calculator.asSwiftGmp("1000000000000000000000000000000000000000000000000")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
-// maxOutputLength = 10
+// displayWidth = 10
     swiftGmp = calculator.asSwiftGmp("1e9")
     bc = calculator.asSwiftGmp("1000000000")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
@@ -60,7 +60,7 @@ import Testing
     swiftGmp = calculator.asSwiftGmp("1e48")
     bc = calculator.asSwiftGmp("1000000000000000000000000000000000000000000000000")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
-// maxOutputLength = 100
+// displayWidth = 100
     swiftGmp = calculator.asSwiftGmp("1e48 + 1")
     bc = calculator.asSwiftGmp("1000000000000000000000000000000000000000000000001")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
@@ -73,7 +73,7 @@ import Testing
     swiftGmp = calculator.asSwiftGmp("1e88+3-1e88")
     bc = calculator.asSwiftGmp("3")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
-// maxOutputLength = 10
+// displayWidth = 10
     swiftGmp = calculator.asSwiftGmp("55555.1234567890")
     bc = calculator.asSwiftGmp("55555.1234567890")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
@@ -104,12 +104,12 @@ import Testing
     swiftGmp = calculator.asSwiftGmp("55555555555555.1234567890")
     bc = calculator.asSwiftGmp("55555555555555.1234567890")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
-// maxOutputLength = 1000
+// displayWidth = 1000
 // precision = 1000
     swiftGmp = calculator.asSwiftGmp("pi")
     bc = calculator.asSwiftGmp("3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170676")
     #expect(swiftGmp.similar(to: bc, precision: 1e-96))
-// maxOutputLength = 4159
+// displayWidth = 4159
 // precision = 4159
     swiftGmp = calculator.asSwiftGmp("sqrt(pi)")
     bc = calculator.asSwiftGmp("1.7724538509055160272981674833411451827975494561223871282138077898529112845910321813749506567385446653")

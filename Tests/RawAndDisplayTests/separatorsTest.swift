@@ -21,19 +21,19 @@ class separatorsTest {
     @Test func x() {
         
         calculator.evaluateString("11111.3")
-        display = Display(raw: calculator.raw, displayLength: raw.length, separator: Separator(separatorType: .comma, groups: true))
+        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: Separator(separatorType: .comma, groups: true))
         #expect(display.string == "11.111,3")
 
 //        calculator.evaluateString("10000")
-//        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
+//        display = Display(raw: calculator.raw, displayWidth: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
 //        #expect(display.string == "10,000")
 //
 //        calculator.evaluateString("10000000")
-//        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
+//        display = Display(raw: calculator.raw, displayWidth: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
 //        #expect(display.string == "10,000,000")
 //
 //        calculator.evaluateString("100000000")
-//        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
+//        display = Display(raw: calculator.raw, displayWidth: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
 //        #expect(display.string == "1.0e8")
     }
     
@@ -49,7 +49,7 @@ class separatorsTest {
         
         calculator.evaluateString("10000")
         let separator = Separator(separatorType: s.decimalSeparator, groups: s.separateGroups)
-        display = Display(raw: calculator.raw, displayLength: raw.length, separator: separator)
+        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
         string = display.string
         
         print(string)
@@ -60,7 +60,7 @@ class separatorsTest {
         #expect(string == "10000")
         
         calculator.evaluateString("9999.3999999999999999999999999999999")
-        display = Display(raw: calculator.raw, displayLength: raw.length, separator: separator)
+        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
         string = display.string
         
         print(string)
@@ -78,20 +78,20 @@ class separatorsTest {
         calculator.press(DigitOperation.one)
         calculator.press(DigitOperation.dot)
         calculator.press(DigitOperation.three)
-        display = Display(raw: calculator.raw, displayLength: raw.length, separator: separator)
+        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
         string = display.string
         expectation = "11" + (separator.groupString ?? "") + "111" + separator.string + "3"
         print(string + " " + expectation)
         #expect(string == expectation)
     
         calculator.press(EqualOperation.equal)
-        display = Display(raw: calculator.raw, displayLength: raw.length, separator: separator)
+        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
         string = display.string
         print(string + " " + expectation)
         #expect(string == expectation)
 
         calculator.evaluateString("1e1234")
-        display = Display(raw: calculator.raw, displayLength: raw.length, separator: separator)
+        display = Display(raw: calculator.raw, displayWidth: raw.length, separator: separator)
         string = display.string
         expectation = "1\(separator.string)0e1" + (separator.groupString ?? "") + "234"
         print(string + " " + expectation)

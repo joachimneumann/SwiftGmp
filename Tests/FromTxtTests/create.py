@@ -124,8 +124,8 @@ for file in glob.glob("*.txt"):
                         if len(components) == 2:
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
-                            elif components[0].strip() == "maxOutputLength":
-                                writeln("    calculator.maxOutputLength = "+components[1].strip())
+                            elif components[0].strip() == "displayWidth":
+                                writeln("    calculator.displayWidth = "+components[1].strip())
                             elif components[0].strip() == "C":
                                 writeln("    calculator.press(ClearOperation.clear)")
                                 writeln("    #expect(calculator.string == \""+components[1].strip()+"\")")

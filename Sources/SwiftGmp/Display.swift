@@ -88,8 +88,8 @@ struct Display {
         self.type = type
     }
     
-    init(raw: Raw, displayLength l: Int? = nil, separator: Separator = Separator(separatorType: .dot, groups: false)) {
-        let displayLength = l ?? raw.length
+    init(raw: Raw, displayWidth l: Int? = nil, separator: Separator = Separator(separatorType: .dot, groups: false)) {
+        let displayWidth = l ?? raw.length
         // is raw an integer?
         if
             
@@ -100,10 +100,10 @@ struct Display {
             raw.mantissa.count <= raw.exponent + 1 &&
             
             // only allow small enough exponents. 100 has exponent 2, therefore + 1
-            raw.exponent + 1 <= displayLength - raw.negativeSign.count &&
+            raw.exponent + 1 <= displayWidth - raw.negativeSign.count &&
             
-            // only mantissas that are equal or shorter than the displayLength
-            raw.negativeSign.count + raw.mantissa.count <= displayLength {
+            // only mantissas that are equal or shorter than the displayWidth
+            raw.negativeSign.count + raw.mantissa.count <= displayWidth {
             
             var temp = raw.mantissa
             if raw.mantissa.count < raw.exponent + 1 {
@@ -119,7 +119,7 @@ struct Display {
                 temp.injectGrouping(c)
             }
             // check again if the Integer still fits into the display
-            if temp.count <= displayLength {
+            if temp.count <= displayWidth {
                 left = raw.negativeSign + temp
                 right = nil
                 type = .integer
@@ -128,7 +128,7 @@ struct Display {
         }
         
         // float > 1.0?
-        if raw.exponent >= 0 && raw.exponent < displayLength - 2 - raw.negativeSign.count {
+        if raw.exponent >= 0 && raw.exponent < displayWidth - 2 - raw.negativeSign.count {
             var temp = raw.mantissa
                        
             var beforeSeparator = temp.sub(to: raw.exponent + 1)
@@ -136,7 +136,7 @@ struct Display {
             if let c = separator.groupCharacter {
                 beforeSeparator.injectGrouping(c)
             }
-            let remainingLength = displayLength - beforeSeparator.count - separator.string.count - raw.negativeSign.count
+            let remainingLength = displayWidth - beforeSeparator.count - separator.string.count - raw.negativeSign.count
             if remainingLength >= 1 {
                 afterSeparator = String(afterSeparator.prefix(remainingLength))
                 temp = raw.negativeSign + beforeSeparator + separator.string + afterSeparator
@@ -148,14 +148,14 @@ struct Display {
         }
         
         // float < 1.0?
-        if raw.exponent < 0 && -1 * raw.exponent <= displayLength - 2 - raw.negativeSign.count {
+        if raw.exponent < 0 && -1 * raw.exponent <= displayWidth - 2 - raw.negativeSign.count {
             var temp = raw.mantissa
             for _ in 0 ..< (-1 * raw.exponent) {
                 temp = "0" + temp
             }
             temp.insert(separator.character, at: 1)
             temp = raw.negativeSign + temp
-            temp = String(temp.prefix(displayLength))
+            temp = String(temp.prefix(displayWidth))
             left = temp
             right = nil
             type = .floatSmallerThanOne
@@ -175,7 +175,7 @@ struct Display {
         if let c = separator.groupCharacter {
             exponentString.injectGrouping(c)
         }
-        temp = String(temp.prefix(displayLength - exponentString.count))
+        temp = String(temp.prefix(displayWidth - exponentString.count))
         left = temp
         right = exponentString
         type = .scientifiNotation
