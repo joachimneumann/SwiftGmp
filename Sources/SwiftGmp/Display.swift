@@ -23,9 +23,16 @@ struct Display {
     let type: DisplayType
     
     init(raw: Raw, displayLength: Int, decimalSeparator: Character) {
-        // integer?
+        
+        // is raw an integer?
         if
-        length(raw.negativeSign) + raw.exponent + 1 <= displayLength &&
+        // only allow numbers > 1.0, i.e., exponents >0 =
+        raw.exponent >= 0 &&
+        // only allow small enough exponents. 100 has exponent 2, therefore + 1
+        raw.exponent + 1 <= displayLength - length(raw.negativeSign) &&
+        // only mantissas that are equal or shorter than the exponent + 1
+        length(raw.mantissa) <= raw.exponent + 1 &&
+        // only mantissas that are equal or shorter than the displayLength
         length(raw.negativeSign + raw.mantissa) <= displayLength {
             if length(raw.mantissa) < raw.exponent + 1 {
                 var temp = raw.mantissa

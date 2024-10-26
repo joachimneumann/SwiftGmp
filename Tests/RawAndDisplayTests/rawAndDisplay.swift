@@ -9,13 +9,66 @@ import Testing
 @testable import SwiftGmp
 
 class DisplayTests {
-    
-    var calculator: Calculator = Calculator(precision: 20)
-    var RString: String = ""
+    var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
+    var raw: Raw = Raw(mantissa: "0", exponent: 0)
+    var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0), displayLength: 10, decimalSeparator: ".")
+    let L = 10
+
     let debug = true
 //    let debug = false
 
-    @Test func display() {
+    @Test func integer() {
+        if debug { return }
+        swiftGmp = SwiftGmp(withString: "9.99999999", bits: 100)
+        raw = swiftGmp.raw(digits: L)
+        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        #expect(raw.mantissa == "999999999")
+        #expect(raw.exponent == 0)
+        #expect(raw.isNegative == false)
+        #expect(display.type == .floatLargerThanOne)
+        #expect(display.left == "9.99999999")
+        #expect(display.right == nil)
+
+        swiftGmp = SwiftGmp(withString: "9.999999999", bits: 100)
+        raw = swiftGmp.raw(digits: L)
+        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        #expect(raw.mantissa == "9999999999")
+        #expect(raw.exponent == 0)
+        #expect(raw.isNegative == false)
+        #expect(display.type == .floatLargerThanOne)
+        #expect(display.left == "9.99999999")
+        #expect(display.right == nil)
+
+        swiftGmp = SwiftGmp(withString: "9.9999999999", bits: 100)
+        raw = swiftGmp.raw(digits: L)
+        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        #expect(raw.mantissa == "99999999999")
+        #expect(raw.exponent == 0)
+        #expect(raw.isNegative == false)
+        #expect(display.type == .floatLargerThanOne)
+        #expect(display.left == "9.99999999")
+        #expect(display.right == nil)
+
+        swiftGmp = SwiftGmp(withString: "9.99999999999", bits: 100)
+        raw = swiftGmp.raw(digits: L)
+        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        #expect(raw.mantissa == "999999999999")
+        #expect(raw.exponent == 0)
+        #expect(raw.isNegative == false)
+        #expect(display.type == .floatLargerThanOne)
+        #expect(display.left == "9.99999999")
+        #expect(display.right == nil)
+
+        swiftGmp = SwiftGmp(withString: "9.999999999999", bits: 100)
+        raw = swiftGmp.raw(digits: L)
+        display = Display(raw: raw, displayLength: L, decimalSeparator: ".")
+        #expect(raw.mantissa == "1")
+        #expect(raw.exponent == 1)
+        #expect(raw.isNegative == false)
+        #expect(display.type == .integer)
+        #expect(display.left == "10")
+        #expect(display.right == nil)
+    }
 //        var mantissaExponent: MantissaExponent
 
 //        calculator.evaluateString("0.0000099999999999999999")
@@ -65,7 +118,7 @@ class DisplayTests {
 //
 //        calculator.evaluateString("0.00000999999999999")
 //        #expect(calculator.R.debugDescription == "0.00001")
-    }
+//    }
     
 //    @Test func correctNumericalErrorTest() {
 //        if debug { return }

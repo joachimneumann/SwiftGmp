@@ -1,0 +1,87 @@
+{
+  "configurations" : [
+    {
+      "id" : "FD659F4A-390B-428F-8C3D-97BCFDA018E4",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TokenizerTests",
+        "name" : "TokenizerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SwiftGmpTests",
+        "name" : "SwiftGmpTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NumberTests",
+        "name" : "NumberTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "CalculatorTests",
+        "name" : "CalculatorTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "DEBUG",
+        "name" : "DEBUG"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "FromTxtTests",
+        "name" : "FromTxtTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "RepresenationTests",
+        "name" : "RepresenationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "representationTest",
+        "name" : "representationTest"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "RepresentationTests",
+        "name" : "RepresentationTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "DisplayTest",
+        "name" : "DisplayTest"
+      }
+    }
+  ],
+  "version" : 1
+}
