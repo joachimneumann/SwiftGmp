@@ -157,7 +157,50 @@ public class Calculator {
             guard inPlaceAllowed else { return }
             if let last = token.lastSwiftGmp {
                 if !last.isZero || !op.isEqual(to: InplaceOperation.changeSign) {
-                    last.execute(inPlaceOp)
+                    let raw = last.raw(digits: displayWidth)
+                    var done = false
+                    if op.isEqual(to: InplaceOperation.sind) {
+                        if raw.mantissa == "0" {
+                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        } else if raw.mantissa == "9" && raw.exponent == 1 {
+                            last.replaceWith(SwiftGmp(withString: "1", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        } else if raw.mantissa == "18" && raw.exponent == 2 {
+                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        } else if raw.mantissa == "27" && raw.exponent == 2 {
+                            last.replaceWith(SwiftGmp(withString: "-1", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        }
+                    }
+                    if !done && op.isEqual(to: InplaceOperation.cosd) {
+                        if raw.mantissa == "0" {
+                            last.replaceWith(SwiftGmp(withString: "1", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        } else if raw.mantissa == "9" && raw.exponent == 1 {
+                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        } else if raw.mantissa == "18" && raw.exponent == 2 {
+                            last.replaceWith(SwiftGmp(withString: "-1", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        } else if raw.mantissa == "27" && raw.exponent == 2 {
+                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        }
+                    }
+                    if !done && op.isEqual(to: InplaceOperation.tand) {
+                        if raw.mantissa == "0" {
+                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        } else if raw.mantissa == "45" && raw.exponent == 1 {
+                            last.replaceWith(SwiftGmp(withString: "1", bits: token.generousBits(for: token.precision)))
+                            done = true
+                        }
+                    }
+                    if !done {
+                        last.execute(inPlaceOp)
+                    }
                 }
             } else {
                 fatalError("last token not a SwiftGmp")
@@ -259,6 +302,18 @@ public class Calculator {
             return String(asSubSequence)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
+                if swiftGmp.isZero {
+                    return "0"
+                }
+                if swiftGmp.isInf {
+                    return "inf"
+                }
+                if !swiftGmp.isValid {
+                    return "invalid"
+                }
+                if swiftGmp.isNan {
+                    return "nan"
+                }
                 let raw = swiftGmp.raw(digits: displayWidth)
                 let display = Display(raw: raw)
                 return display.string
