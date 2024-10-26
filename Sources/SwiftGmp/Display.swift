@@ -177,25 +177,25 @@ extension String {
         }
     }
 
-    func sub(from index: Int) -> String {
-        let start = self.index(self.startIndex, offsetBy: index)
+    func sub(from position: Int) -> String {
+        let start = self.index(self.startIndex, offsetBy: position)
         return String(self[start...])
     }
 
-    func sub(to index: Int) -> String {
-        let end = self.index(self.startIndex, offsetBy: index)
+    func sub(to position: Int) -> String {
+        let end = self.index(self.startIndex, offsetBy: position)
         return String(self[..<end])
     }
 
-    func sub(from index1: Int, to index2: Int) -> String {
-        let start = index(startIndex, offsetBy: index1)
-        let end = index(startIndex, offsetBy: index2)
+    func sub(from position1: Int, to position2: Int) -> String {
+        let start = index(startIndex, offsetBy: position1)
+        let end = index(startIndex, offsetBy: position2)
         return String(self[start..<end])
     }
     
     mutating func insert(_ c: Character, at: Int) {
-        let index = self.index(self.startIndex, offsetBy: at)
-        self.insert(c, at: index)
+        let position = self.index(self.startIndex, offsetBy: at)
+        self.insert(c, at: position)
 
     }
 }
