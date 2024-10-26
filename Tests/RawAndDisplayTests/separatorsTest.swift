@@ -1,5 +1,5 @@
 //
-//  separators.swift
+//  separatorsTest.swift
 //  SwiftGmp
 //
 //  Created by Joachim Neumann on 26.10.2024.
@@ -18,20 +18,59 @@ class separatorsTest {
         let separateGroups: Bool
     }
     
+    @Test func x() {
+        
+        calculator.evaluateString("10000.3")
+        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
+        #expect(display.string == "10,000.3")
+
+//        calculator.evaluateString("10000")
+//        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
+//        #expect(display.string == "10,000")
+//
+//        calculator.evaluateString("10000000")
+//        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
+//        #expect(display.string == "10,000,000")
+//
+//        calculator.evaluateString("100000000")
+//        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
+//        #expect(display.string == "1.0e8")
+    }
+    
+    
     @Test(arguments: [
         S(decimalSeparator: .comma, separateGroups: true),
         S(decimalSeparator: .comma, separateGroups: false),
         S(decimalSeparator: .dot, separateGroups: true),
         S(decimalSeparator: .dot, separateGroups: false)])
-    func separatorTest(s: S) {
+    func multipleSeparatorsTest(s: S) {
         var string: String
+        var gr: String
+        var de: String
+        var expectation: String
+        
+        calculator.evaluateString("10000")
+        display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
+        string = display.string
+        
+        de = s.decimalSeparator.string
+        if s.separateGroups {
+            gr = s.decimalSeparator.groupString
+        } else {
+            gr = ""
+        }
+        print(string)
+        expectation = "10" + gr + "000"
+        #expect(string == expectation)
+        string = string.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
+        string = string.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
+        #expect(string == "10000")
+        
         calculator.evaluateString("9999.3999999999999999999999999999999")
         display = Display(raw: calculator.raw, displayLength: raw.length, decimalSeparator: s.decimalSeparator, separateGroups: s.separateGroups)
         string = display.string
         
-        var gr: String
-        let de: String = s.decimalSeparator.string
-        var expectation: String
+        de = s.decimalSeparator.string
         if s.separateGroups {
             gr = s.decimalSeparator.groupString
         } else {
@@ -43,8 +82,7 @@ class separatorsTest {
         string = string.replacingOccurrences(of: s.decimalSeparator.groupString, with: "")
         string = string.replacingOccurrences(of: s.decimalSeparator.string, with: ".")
         #expect(string == "9999.4")
-        
-        
+    }
         ////    let calculator = Calculator(precision: 20)
         ////    var RString: String
         ////
@@ -142,7 +180,7 @@ class separatorsTest {
         ////    #expect(R.debugDescription == "1\(s.decimalSeparator.character)3")
         //
         //
-    }
+//    }
     
 }
 
