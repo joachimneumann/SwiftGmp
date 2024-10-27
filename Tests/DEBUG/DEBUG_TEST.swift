@@ -9,7 +9,13 @@ import Testing
 //    var raw: Raw
 //    var display: Display
 //    let L = 10
-    
+
+    calculator.evaluateString("sin(pi)")
+    #expect(calculator.string == "0")
+
+    calculator.evaluateString("cos(pi)")
+    #expect(calculator.string == "-1")
+
     calculator.evaluateString("sqrt(-1)")
     #expect(calculator.string == "nan")
 

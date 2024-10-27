@@ -15,6 +15,13 @@
     {
       "target" : {
         "containerPath" : "container:",
+        "identifier" : "RawAndDisplayTests",
+        "name" : "RawAndDisplayTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
         "identifier" : "FromTxtTests",
         "name" : "FromTxtTests"
       }

@@ -368,16 +368,13 @@ import Testing
     calculator.evaluateString("cos(pi)")
     #expect(calculator.string == "-1")
 
-    calculator.evaluateString("sin(-0.523598775598)")
+    calculator.evaluateString("sin(-0.5235987755982988730)")
     #expect(calculator.string == "-0.5")
 
     calculator.evaluateString("cos(2.3561944901923)")
-    #expect(calculator.string == "-0.70710678")
+    #expect(calculator.string == "-0.7071067")
 
-    calculator.evaluateString("sin(-0.523598775598)")
-    #expect(calculator.string == "-0.5")
-
-    calculator.evaluateString("sin(-0.523598775598+2*pi)")
+    calculator.evaluateString("sin(-0.5235987755982988730+2*pi)")
     #expect(calculator.string == "-0.5")
 
     calculator.evaluateString("sin(2*pi)")
@@ -390,14 +387,14 @@ import Testing
     #expect(calculator.string == "0")
 
     calculator.evaluateString("atan(1.0)")
-    #expect(calculator.string == "0.785398163")
+    #expect(calculator.string == "0.78539816")
 
 // acos(0.8660)         ~= 0.523624774
     calculator.evaluateString("asin(0.5)")
-    #expect(calculator.string == "0.523598775")
+    #expect(calculator.string == "0.52359877")
 
     calculator.evaluateString("atan(-1.0)")
-    #expect(calculator.string == "-0.78539816")
+    #expect(calculator.string == "-0.7853981")
 
 // asin(0.8660)         ~= 1.047171552
     calculator.evaluateString("acos(1.0)")

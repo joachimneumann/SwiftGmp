@@ -200,6 +200,12 @@ public class Calculator {
                     }
                     if !done {
                         last.execute(inPlaceOp)
+                        if inPlaceOp.isEqual(to: InplaceOperation.sin) || inPlaceOp.isEqual(to: InplaceOperation.cos) {
+                            let raw = last.raw()
+                            if raw.exponent < -token.precision {
+                                last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            }
+                        }
                     }
                 }
             } else {
