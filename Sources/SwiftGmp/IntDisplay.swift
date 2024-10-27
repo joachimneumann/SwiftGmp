@@ -73,7 +73,8 @@ public struct Separator: Codable {
 /// But this will allow to inherit a class FloatDisplay that uses a proportional font and
 /// a displaywidth that is a CGFloat.
 ///
-class IntDisplay {
+
+open class IntDisplay {
     public enum DisplayType {
         case unknown
         case integer
@@ -103,8 +104,7 @@ class IntDisplay {
         }
     }
     
-    func length(_ s: String) -> Int { s.count }
-    func fits(_ s: String) -> Bool { length(s) <= displayWidth }
+    func fits(_ s: String) -> Bool { s.count <= displayWidth }
     func repeatWidestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
     func repeatNarrowestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
 
@@ -116,7 +116,7 @@ class IntDisplay {
         self.type = .unknown
     }
     
-    func update(raw: Raw) {
+    public func update(raw: Raw) {
         // is raw an integer?
         if
             raw.canBeInteger &&
