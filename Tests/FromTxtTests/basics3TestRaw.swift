@@ -20,10 +20,10 @@ import Testing
     #expect(calculator.string == "8")
 
     calculator.evaluateString("exp(1.0)")
-    #expect(calculator.string == "2.7183")
+    #expect(calculator.string == "2.71828182")
 
     calculator.evaluateString("exp(2.0)")
-    #expect(calculator.string == "7.3891")
+    #expect(calculator.string == "7.38905609")
 
     calculator.evaluateString("exp10(1.0)")
     #expect(calculator.string == "10")
@@ -53,10 +53,10 @@ import Testing
     #expect(calculator.string == "0")
 
     calculator.evaluateString("pi")
-    #expect(calculator.string == "3.1416")
+    #expect(calculator.string == "3.14159265")
 
     calculator.evaluateString("e")
-    #expect(calculator.string == "2.7183")
+    #expect(calculator.string == "2.71828182")
 
     calculator.evaluateString("abs(-3.0)")
     #expect(calculator.string == "3")
@@ -68,16 +68,16 @@ import Testing
     #expect(calculator.string == "2")
 
     calculator.evaluateString("sqrt(2.0)")
-    #expect(calculator.string == "1.4142")
+    #expect(calculator.string == "1.41421356")
 
     calculator.evaluateString("zeta(3.0)")
-    #expect(calculator.string == "1.2021")
+    #expect(calculator.string == "1.20205690")
 
     calculator.evaluateString("ln(1.0)")
     #expect(calculator.string == "0")
 
     calculator.evaluateString("ln(2.0)")
-    #expect(calculator.string == "0.6931")
+    #expect(calculator.string == "0.69314718")
 
     calculator.evaluateString("log10(10.0)")
     #expect(calculator.string == "1")

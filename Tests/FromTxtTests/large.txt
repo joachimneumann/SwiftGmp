@@ -1,5 +1,5 @@
-displayWidth = 100
 precision = 100
+displayWidth = 100
 
 1e9 = 1_000_000_000
 1e12 = 1_000_000_000_000

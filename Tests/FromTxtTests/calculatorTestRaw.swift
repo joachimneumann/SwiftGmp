@@ -11,7 +11,7 @@ import Testing
     #expect(calculator.string == "7")
 
     calculator.evaluateString("sin(sin(1))")
-    #expect(calculator.string == "0.745624141665")
+    #expect(calculator.string == "0.74562414")
 
     calculator.evaluateString("4.5")
     #expect(calculator.string == "4.5")

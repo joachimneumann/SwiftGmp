@@ -7,8 +7,8 @@ import SwiftGmp
 @Test func largeTest() {
     let calculator = Calculator(precision: 20)
 
-    calculator.displayWidth = 100
     calculator.setPrecision(newPrecision: 100)
+    calculator.displayWidth = 100
     calculator.evaluateString("1e9")
     #expect(calculator.string == "1000000000")
     calculator.evaluateString("1e12")

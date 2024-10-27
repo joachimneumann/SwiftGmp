@@ -10,7 +10,7 @@ import SwiftGmp
     calculator.evaluateString("1 + 2 * 3")
     #expect(calculator.string == "7")
     calculator.evaluateString("sin(sin(1))")
-    #expect(calculator.double.similar(to: 0.745624141665))
+    #expect(calculator.double.similar(to: 0.74562414))
     calculator.evaluateString("4.5")
     #expect(calculator.string == "4.5")
     calculator.press(MemoryOperation.clearM)
