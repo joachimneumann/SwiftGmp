@@ -10,8 +10,11 @@ import Testing
 //    var display: Display
 //    let L = 10
     
-    calculator.evaluateString("sind(180)")
-    #expect(calculator.string == "0")
+    calculator.evaluateString("sqrt(-1)")
+    #expect(calculator.string == "nan")
+
+//    calculator.evaluateString("sind(180)")
+//    #expect(calculator.string == "0")
 
 //    calculator.evaluateString("1 + 3 * 10")
 //    let xraw = calculator.string

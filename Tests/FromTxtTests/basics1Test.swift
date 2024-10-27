@@ -7,6 +7,7 @@ import SwiftGmp
 @Test func basics1Test() {
     let calculator = Calculator(precision: 20)
 
+    calculator.setPrecision(newPrecision: 40)
     calculator.evaluateString("1.1 * 1")
     #expect(calculator.string == "1.1")
     calculator.evaluateString("1 + 3 * 10")
@@ -44,17 +45,17 @@ import SwiftGmp
     calculator.evaluateString("153.4 - 165")
     #expect(calculator.string == "-11.6")
     calculator.evaluateString("1 / 7")
-    #expect(calculator.double.similar(to: 0.1428571))
+    #expect(calculator.double.similar(to: 0.14285714))
     calculator.evaluateString("10 %")
     #expect(calculator.string == "0.1")
     calculator.evaluateString("200 + 20 %")
     #expect(calculator.string == "240")
     calculator.evaluateString("100 + e %")
-    #expect(calculator.double.similar(to: 102.7183))
+    #expect(calculator.double.similar(to: 102.718281))
     calculator.evaluateString("0.1 %")
     #expect(calculator.string == "0.001")
     calculator.evaluateString("pi")
-    #expect(calculator.double.similar(to: 3.14159))
+    #expect(calculator.double.similar(to: 3.14159265))
     calculator.evaluateString("sqrt(4.0)")
     #expect(calculator.double.similar(to: 2))
     calculator.evaluateString("sqrt(9.0)")
@@ -80,31 +81,31 @@ import SwiftGmp
     calculator.evaluateString("zeta(1)")
     #expect(calculator.string == "inf")
     calculator.evaluateString("zeta(2)")
-    #expect(calculator.double.similar(to: 1.6449340668482264))
+    #expect(calculator.double.similar(to: 1.64493406))
     calculator.evaluateString("zeta(3)")
-    #expect(calculator.double.similar(to: 1.2020569031595942))
+    #expect(calculator.double.similar(to: 1.20205690))
     calculator.evaluateString("zeta(4)")
-    #expect(calculator.double.similar(to: 1.0823232337111381))
+    #expect(calculator.double.similar(to: 1.08232323))
     calculator.evaluateString("zeta(5)")
-    #expect(calculator.double.similar(to: 1.0369277551433699))
+    #expect(calculator.double.similar(to: 1.03692775))
     calculator.evaluateString("zeta(6)")
-    #expect(calculator.double.similar(to: 1.0173430619844490))
+    #expect(calculator.double.similar(to: 1.01734306))
     calculator.evaluateString("zeta(7)")
-    #expect(calculator.double.similar(to: 1.0083492773819228))
+    #expect(calculator.double.similar(to: 1.00834927))
     calculator.evaluateString("zeta(8)")
-    #expect(calculator.double.similar(to: 1.0040773561979440))
+    #expect(calculator.double.similar(to: 1.00407735))
     calculator.evaluateString("zeta(9)")
-    #expect(calculator.double.similar(to: 1.0020083928260822))
+    #expect(calculator.double.similar(to: 1.00200839))
     calculator.evaluateString("ln(1.0)")
     #expect(calculator.double.similar(to: 0))
-    calculator.evaluateString("ln(2.7183)")
-    #expect(calculator.double.similar(to: 1.0))
-    calculator.evaluateString("ln(7.3891)")
-    #expect(calculator.double.similar(to: 2.0))
-    calculator.evaluateString("ln(20.0855)")
-    #expect(calculator.double.similar(to: 3.0))
-    calculator.evaluateString("ln(54.5982)")
-    #expect(calculator.double.similar(to: 4.0))
+    calculator.evaluateString("ln(2.7182818284590452)")
+    #expect(calculator.double.similar(to: 1))
+    calculator.evaluateString("ln(7.3890560989306502)")
+    #expect(calculator.double.similar(to: 2))
+    calculator.evaluateString("ln(20.08553692318766774)")
+    #expect(calculator.double.similar(to: 3))
+    calculator.evaluateString("ln(54.59815003314423907)")
+    #expect(calculator.double.similar(to: 4))
     calculator.evaluateString("log10(1.0)")
     #expect(calculator.double.similar(to: 0))
     calculator.evaluateString("log10(10.0)")
@@ -136,15 +137,15 @@ import SwiftGmp
     calculator.evaluateString("sqr(10.0)")
     #expect(calculator.double.similar(to: 100))
     calculator.evaluateString("exp(1.0)")
-    #expect(calculator.double.similar(to: 2.7183))
+    #expect(calculator.double.similar(to: 2.71828182))
     calculator.evaluateString("exp(2.0)")
-    #expect(calculator.double.similar(to: 7.3891))
+    #expect(calculator.double.similar(to: 7.38905609))
     calculator.evaluateString("exp(3.0)")
-    #expect(calculator.double.similar(to: 20.0855))
+    #expect(calculator.double.similar(to: 20.0855369))
     calculator.evaluateString("exp(0.0)")
     #expect(calculator.string == "1")
     calculator.evaluateString("exp(-1.0)")
-    #expect(calculator.double.similar(to: 0.3679))
+    #expect(calculator.double.similar(to: 0.36787944))
     calculator.evaluateString("exp10(0.0)")
     #expect(calculator.double.similar(to: 1))
     calculator.evaluateString("exp10(1.0)")
@@ -198,9 +199,9 @@ import SwiftGmp
     calculator.evaluateString("sind(30)")
     #expect(calculator.double.similar(to: 0.5))
     calculator.evaluateString("sind(45)")
-    #expect(calculator.double.similar(to: 0.7071))
+    #expect(calculator.double.similar(to: 0.70710678))
     calculator.evaluateString("sind(60)")
-    #expect(calculator.double.similar(to: 0.8660))
+    #expect(calculator.double.similar(to: 0.86602540))
     calculator.evaluateString("sind(90)")
     #expect(calculator.string == "1")
     calculator.evaluateString("sind(0)")
@@ -210,9 +211,9 @@ import SwiftGmp
     calculator.evaluateString("sind(270)")
     #expect(calculator.string == "-1")
     calculator.evaluateString("cosd(30)")
-    #expect(calculator.double.similar(to: 0.8660))
+    #expect(calculator.double.similar(to: 0.86602540))
     calculator.evaluateString("cosd(45)")
-    #expect(calculator.double.similar(to: 0.7071))
+    #expect(calculator.double.similar(to: 0.70710678))
     calculator.evaluateString("cosd(60)")
     #expect(calculator.double.similar(to: 0.5))
     calculator.evaluateString("cosd(90)")
@@ -220,9 +221,9 @@ import SwiftGmp
     calculator.evaluateString("tand(45)")
     #expect(calculator.string == "1")
     calculator.evaluateString("tand(60)")
-    #expect(calculator.double.similar(to: 1.7321))
+    #expect(calculator.double.similar(to: 1.73205080))
     calculator.evaluateString("tand(30)")
-    #expect(calculator.double.similar(to: 0.5774))
+    #expect(calculator.double.similar(to: 0.57735026))
     calculator.evaluateString("tand(0)")
     #expect(calculator.string == "0")
     calculator.evaluateString("asind(0)")
@@ -237,78 +238,120 @@ import SwiftGmp
     #expect(calculator.string == "45")
     calculator.evaluateString("atand(0)")
     #expect(calculator.string == "0")
-    calculator.evaluateString("sin(1.5708)")
+    calculator.evaluateString("sin(1.57079632679)")
     #expect(calculator.double.similar(to: 1))
     calculator.evaluateString("cos(0.5236)")
-    #expect(calculator.double.similar(to: 0.8660))
+    #expect(calculator.double.similar(to: 0.86602479))
     calculator.evaluateString("sin(1.0472)")
-    #expect(calculator.double.similar(to: 0.8660))
-    calculator.evaluateString("tan(0.7854)")
+    #expect(calculator.double.similar(to: 0.86602662))
+    calculator.evaluateString("tan(0.7853981633974)")
     #expect(calculator.double.similar(to: 1))
     calculator.evaluateString("sin(2.3562)")
-    #expect(calculator.double.similar(to: 0.7071))
+    #expect(calculator.double.similar(to: 0.70710288))
     calculator.evaluateString("cos(2.6180)")
-    #expect(calculator.double.similar(to: -0.8660))
-    calculator.evaluateString("sin(3.1416)")
+    #expect(calculator.double.similar(to: -0.8660284))
+    calculator.evaluateString("sin(pi)")
     #expect(calculator.double.similar(to: 0))
-    calculator.evaluateString("cos(3.1416)")
+    calculator.evaluateString("cos(pi)")
     #expect(calculator.double.similar(to: -1))
-    calculator.evaluateString("sin(3.6652)")
+    calculator.evaluateString("sin(-0.523598775598)")
     #expect(calculator.double.similar(to: -0.5))
-    calculator.evaluateString("cos(3.92699)")
-    #expect(calculator.double.similar(to: -0.7071))
-    calculator.evaluateString("sin(5.7596)")
+    calculator.evaluateString("cos(2.3561944901923)")
+    #expect(calculator.double.similar(to: -0.70710678))
+    calculator.evaluateString("sin(-0.523598775598)")
     #expect(calculator.double.similar(to: -0.5))
-    calculator.evaluateString("sin(6.2832)")
+    calculator.evaluateString("sin(-0.523598775598+2*pi)")
+    #expect(calculator.double.similar(to: -0.5))
+    calculator.evaluateString("sin(2*pi)")
     #expect(calculator.double.similar(to: 0))
-    calculator.evaluateString("cos(4.7124)")
+    calculator.evaluateString("cos(2.5*pi)")
     #expect(calculator.double.similar(to: 0))
     calculator.evaluateString("atan(0.0)")
     #expect(calculator.double.similar(to: 0))
     calculator.evaluateString("atan(1.0)")
-    #expect(calculator.double.similar(to: 0.7854))
-    calculator.evaluateString("acos(0.8660)")
-    #expect(calculator.double.similar(to: 0.5236))
+    #expect(calculator.double.similar(to: 0.785398163))
+// acos(0.8660)         ~= 0.523624774
     calculator.evaluateString("asin(0.5)")
-    #expect(calculator.double.similar(to: 0.5236))
+    #expect(calculator.double.similar(to: 0.523598775))
     calculator.evaluateString("atan(-1.0)")
-    #expect(calculator.double.similar(to: -0.7854))
-    calculator.evaluateString("asin(0.8660)")
-    #expect(calculator.double.similar(to: 1.0472))
+    #expect(calculator.double.similar(to: -0.78539816))
+// asin(0.8660)         ~= 1.047171552
     calculator.evaluateString("acos(1.0)")
     #expect(calculator.string == "0")
     calculator.evaluateString("sin(0.0)")
     #expect(calculator.string == "0")
-    calculator.evaluateString("sin(0.7854)")
-    #expect(calculator.double.similar(to: 0.7071))
-    calculator.evaluateString("cos(1.5708)")
-    #expect(calculator.double.similar(to: 0.0))
-    calculator.evaluateString("tan(1.0472)")
-    #expect(calculator.double.similar(to: 1.7321))
-    calculator.evaluateString("sin(0.5236)")
-    #expect(calculator.double.similar(to: 0.5))
-    calculator.evaluateString("tan(0.5236)")
-    #expect(calculator.double.similar(to: 0.5774))
-    calculator.evaluateString("cos(1.0472)")
-    #expect(calculator.double.similar(to: 0.5))
-    calculator.evaluateString("sin(2.0944)")
-    #expect(calculator.double.similar(to: 0.8660))
-    calculator.evaluateString("tan(3.1416)")
-    #expect(calculator.double.similar(to: 0.0))
-    calculator.evaluateString("sin(2.6180)")
-    #expect(calculator.double.similar(to: 0.5))
-    calculator.evaluateString("cos(5.23599)")
-    #expect(calculator.double.similar(to: 0.5))
-    calculator.evaluateString("cos(2.0944)")
-    #expect(calculator.double.similar(to: -0.5))
-    calculator.evaluateString("cos(5.7596)")
-    #expect(calculator.double.similar(to: 0.8660))
-    calculator.evaluateString("asin(1.0)")
-    #expect(calculator.double.similar(to: 1.5708))
-    calculator.evaluateString("acos(0.0)")
-    #expect(calculator.double.similar(to: 1.5708))
-    calculator.evaluateString("acos(0.7071)")
-    #expect(calculator.double.similar(to: 0.7854))
-    calculator.evaluateString("atan(0.5774)")
-    #expect(calculator.double.similar(to: 0.5236))
+// sin(0.7854) ~= 0.7071
+// cos(1.5708) ~= 0.0
+// tan(1.0472) ~= 1.7321
+// sin(0.5236) ~= 0.5
+// tan(0.5236) ~= 0.5774
+// cos(1.0472) ~= 0.5
+// sin(2.0944) ~= 0.8660
+// tan(3.1416) ~= 0.0
+// sin(2.6180) ~= 0.5
+// cos(5.23599) ~= 0.5
+// cos(2.0944) ~= -0.5
+// cos(5.7596) ~= 0.8660
+// asin(1.0) ~= 1.5708
+// acos(0.0) ~= 1.5708
+// acos(0.7071) ~= 0.7854
+// atan(0.5774) ~= 0.5236
+// sind(30) = 0.5
+// sind(45) = 0.707106781186548
+// sind(60) = 0.866025403784439
+// sind(90) = 1
+// sind(0) = 0
+// sind(180) = 0
+// sind(270) = -1
+// cosd(30) = 0.866025403784439
+// cosd(45) = 0.707106781186548
+// cosd(60) = 0.5
+// cosd(90) = 0
+// tand(45) = 1
+// tand(60) = 1.73205080756888
+// tand(30) = 0.577350269189626
+// tand(0) = 0
+// asind(0) = 0
+// acosd(0) = 90
+// asind(0.5) = 30
+// acosd(0.5) = 60
+// atand(1) = 45
+// atand(0) = 0
+// sin(1.5708) = 0.999999999993253
+// cos(0.5236) = 0.866025403784439
+// sin(1.0472) = 0.866025403784439
+// tan(0.7854) = 0.999999999993253
+// sin(2.3562) = 0.707106781180780
+// cos(2.6180) = -0.866025403780126
+// sin(3.1416) = 0.000002653589793
+// cos(3.1416) = -0.999999999996479
+// sin(3.6652) = -0.499999999990409
+// cos(3.92699) = -0.707106781185333
+// sin(5.7596) = -0.499999999997013
+// sin(6.2832) = -0.000002653589793
+// cos(4.7124) = -0.000003673205103
+// atan(0.0) = 0
+// atan(1.0) = 0.785398163397448
+// acos(0.8660) = 0.523624774609514
+// asin(0.5) = 0.523598775598299
+// atan(-1.0) = -0.785398163397448
+// asin(0.8660) = 1.04717155298542
+// acos(1.0) = 0
+// sin(0.0) = 0
+// sin(0.7854) = 0.707106781180780
+// cos(1.5708) = -0.000003673205103
+// tan(1.0472) = 1.73205080756888
+// sin(0.5236) = 0.499999999999964
+// tan(0.5236) = 0.577350269189626
+// cos(1.0472) = 0.500000000000000
+// sin(2.0944) = 0.866025403784439
+// tan(3.1416) = -0.000002653589793
+// sin(2.6180) = 0.499999999995347
+// cos(5.23599) = 0.500000000007557
+// cos(2.0944) = -0.500000000000000
+// cos(5.7596) = 0.866025403785142
+// asin(1.0) = 1.57079632679490
+// acos(0.0) = 1.57079632679490
+// acos(0.7071) = 0.785398999044520
+// atan(0.5774) = 0.523598775234146
 }

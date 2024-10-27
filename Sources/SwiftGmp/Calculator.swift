@@ -308,11 +308,11 @@ public class Calculator {
                 if swiftGmp.isInf {
                     return "inf"
                 }
-                if !swiftGmp.isValid {
-                    return "invalid"
-                }
                 if swiftGmp.isNan {
                     return "nan"
+                }
+                if !swiftGmp.isValid {
+                    return "invalid"
                 }
                 let raw = swiftGmp.raw(digits: displayWidth)
                 display.update(raw: raw)

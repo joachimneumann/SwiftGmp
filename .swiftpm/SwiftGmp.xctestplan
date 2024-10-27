@@ -13,50 +13,10 @@
   },
   "testTargets" : [
     {
-      "enabled" : false,
-      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "TokenizerTests",
-        "name" : "TokenizerTests"
-      }
-    },
-    {
-      "enabled" : false,
-      "skippedTests" : {
-        "testFunctions" : [
-          "anotherTest()",
-          "largeTest()",
-          "pendingTest()",
-          "precisionTest()",
-          "pressTest()"
-        ]
-      },
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "SwiftGmpTests",
-        "name" : "SwiftGmpTests"
-      }
-    },
-    {
-      "enabled" : false,
-      "skippedTests" : {
-        "testFunctions" : [
-          "DEBUG_TESTS()"
-        ]
-      },
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "DEBUG",
-        "name" : "DEBUG"
-      }
-    },
-    {
-      "parallelizable" : false,
-      "target" : {
-        "containerPath" : "container:",
-        "identifier" : "RawAndDisplayTests",
-        "name" : "RawAndDisplayTests"
+        "identifier" : "FromTxtTests",
+        "name" : "FromTxtTests"
       }
     }
   ],

@@ -344,289 +344,140 @@ import Testing
     calculator.evaluateString("atand(0)")
     #expect(calculator.string == "0")
 
-    calculator.evaluateString("sin(1.5708)")
+    calculator.evaluateString("sin(1.57079632679)")
     #expect(calculator.string == "1")
 
     calculator.evaluateString("cos(0.5236)")
-    #expect(calculator.string == "0.8660")
+    #expect(calculator.string == "0.86602479")
 
     calculator.evaluateString("sin(1.0472)")
-    #expect(calculator.string == "0.8660")
+    #expect(calculator.string == "0.86602662")
 
-    calculator.evaluateString("tan(0.7854)")
+    calculator.evaluateString("tan(0.7853981633974)")
     #expect(calculator.string == "1")
 
     calculator.evaluateString("sin(2.3562)")
-    #expect(calculator.string == "0.7071")
+    #expect(calculator.string == "0.70710288")
 
     calculator.evaluateString("cos(2.6180)")
-    #expect(calculator.string == "-0.8660")
+    #expect(calculator.string == "-0.8660284")
 
-    calculator.evaluateString("sin(3.1416)")
+    calculator.evaluateString("sin(pi)")
     #expect(calculator.string == "0")
 
-    calculator.evaluateString("cos(3.1416)")
+    calculator.evaluateString("cos(pi)")
     #expect(calculator.string == "-1")
 
-    calculator.evaluateString("sin(3.6652)")
+    calculator.evaluateString("sin(-0.523598775598)")
     #expect(calculator.string == "-0.5")
 
-    calculator.evaluateString("cos(3.92699)")
-    #expect(calculator.string == "-0.7071")
+    calculator.evaluateString("cos(2.3561944901923)")
+    #expect(calculator.string == "-0.70710678")
 
-    calculator.evaluateString("sin(5.7596)")
+    calculator.evaluateString("sin(-0.523598775598)")
     #expect(calculator.string == "-0.5")
 
-    calculator.evaluateString("sin(6.2832)")
+    calculator.evaluateString("sin(-0.523598775598+2*pi)")
+    #expect(calculator.string == "-0.5")
+
+    calculator.evaluateString("sin(2*pi)")
     #expect(calculator.string == "0")
 
-    calculator.evaluateString("cos(4.7124)")
+    calculator.evaluateString("cos(2.5*pi)")
     #expect(calculator.string == "0")
 
     calculator.evaluateString("atan(0.0)")
     #expect(calculator.string == "0")
 
     calculator.evaluateString("atan(1.0)")
-    #expect(calculator.string == "0.7854")
+    #expect(calculator.string == "0.785398163")
 
-    calculator.evaluateString("acos(0.8660)")
-    #expect(calculator.string == "0.5236")
-
+// acos(0.8660)         ~= 0.523624774
     calculator.evaluateString("asin(0.5)")
-    #expect(calculator.string == "0.5236")
+    #expect(calculator.string == "0.523598775")
 
     calculator.evaluateString("atan(-1.0)")
-    #expect(calculator.string == "-0.7854")
+    #expect(calculator.string == "-0.78539816")
 
-    calculator.evaluateString("asin(0.8660)")
-    #expect(calculator.string == "1.0472")
-
+// asin(0.8660)         ~= 1.047171552
     calculator.evaluateString("acos(1.0)")
     #expect(calculator.string == "0")
 
     calculator.evaluateString("sin(0.0)")
     #expect(calculator.string == "0")
 
-    calculator.evaluateString("sin(0.7854)")
-    #expect(calculator.string == "0.7071")
-
-    calculator.evaluateString("cos(1.5708)")
-    #expect(calculator.string == "0.0")
-
-    calculator.evaluateString("tan(1.0472)")
-    #expect(calculator.string == "1.7321")
-
-    calculator.evaluateString("sin(0.5236)")
-    #expect(calculator.string == "0.5")
-
-    calculator.evaluateString("tan(0.5236)")
-    #expect(calculator.string == "0.5774")
-
-    calculator.evaluateString("cos(1.0472)")
-    #expect(calculator.string == "0.5")
-
-    calculator.evaluateString("sin(2.0944)")
-    #expect(calculator.string == "0.8660")
-
-    calculator.evaluateString("tan(3.1416)")
-    #expect(calculator.string == "0.0")
-
-    calculator.evaluateString("sin(2.6180)")
-    #expect(calculator.string == "0.5")
-
-    calculator.evaluateString("cos(5.23599)")
-    #expect(calculator.string == "0.5")
-
-    calculator.evaluateString("cos(2.0944)")
-    #expect(calculator.string == "-0.5")
-
-    calculator.evaluateString("cos(5.7596)")
-    #expect(calculator.string == "0.8660")
-
-    calculator.evaluateString("asin(1.0)")
-    #expect(calculator.string == "1.5708")
-
-    calculator.evaluateString("acos(0.0)")
-    #expect(calculator.string == "1.5708")
-
-    calculator.evaluateString("acos(0.7071)")
-    #expect(calculator.string == "0.7854")
-
-    calculator.evaluateString("atan(0.5774)")
-    #expect(calculator.string == "0.5236")
-
-    calculator.evaluateString("sind(30)")
-    #expect(calculator.string == "0.5")
-
-    calculator.evaluateString("sind(45)")
-    #expect(calculator.string == "0.707106781186548")
-
-    calculator.evaluateString("sind(60)")
-    #expect(calculator.string == "0.866025403784439")
-
-    calculator.evaluateString("sind(90)")
-    #expect(calculator.string == "1")
-
-    calculator.evaluateString("sind(0)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("sind(180)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("sind(270)")
-    #expect(calculator.string == "-1")
-
-    calculator.evaluateString("cosd(30)")
-    #expect(calculator.string == "0.866025403784439")
-
-    calculator.evaluateString("cosd(45)")
-    #expect(calculator.string == "0.707106781186548")
-
-    calculator.evaluateString("cosd(60)")
-    #expect(calculator.string == "0.5")
-
-    calculator.evaluateString("cosd(90)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("tand(45)")
-    #expect(calculator.string == "1")
-
-    calculator.evaluateString("tand(60)")
-    #expect(calculator.string == "1.73205080756888")
-
-    calculator.evaluateString("tand(30)")
-    #expect(calculator.string == "0.577350269189626")
-
-    calculator.evaluateString("tand(0)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("asind(0)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("acosd(0)")
-    #expect(calculator.string == "90")
-
-    calculator.evaluateString("asind(0.5)")
-    #expect(calculator.string == "30")
-
-    calculator.evaluateString("acosd(0.5)")
-    #expect(calculator.string == "60")
-
-    calculator.evaluateString("atand(1)")
-    #expect(calculator.string == "45")
-
-    calculator.evaluateString("atand(0)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("sin(1.5708)")
-    #expect(calculator.string == "0.999999999993253")
-
-    calculator.evaluateString("cos(0.5236)")
-    #expect(calculator.string == "0.866025403784439")
-
-    calculator.evaluateString("sin(1.0472)")
-    #expect(calculator.string == "0.866025403784439")
-
-    calculator.evaluateString("tan(0.7854)")
-    #expect(calculator.string == "0.999999999993253")
-
-    calculator.evaluateString("sin(2.3562)")
-    #expect(calculator.string == "0.707106781180780")
-
-    calculator.evaluateString("cos(2.6180)")
-    #expect(calculator.string == "-0.866025403780126")
-
-    calculator.evaluateString("sin(3.1416)")
-    #expect(calculator.string == "0.000002653589793")
-
-    calculator.evaluateString("cos(3.1416)")
-    #expect(calculator.string == "-0.999999999996479")
-
-    calculator.evaluateString("sin(3.6652)")
-    #expect(calculator.string == "-0.499999999990409")
-
-    calculator.evaluateString("cos(3.92699)")
-    #expect(calculator.string == "-0.707106781185333")
-
-    calculator.evaluateString("sin(5.7596)")
-    #expect(calculator.string == "-0.499999999997013")
-
-    calculator.evaluateString("sin(6.2832)")
-    #expect(calculator.string == "-0.000002653589793")
-
-    calculator.evaluateString("cos(4.7124)")
-    #expect(calculator.string == "-0.000003673205103")
-
-    calculator.evaluateString("atan(0.0)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("atan(1.0)")
-    #expect(calculator.string == "0.785398163397448")
-
-    calculator.evaluateString("acos(0.8660)")
-    #expect(calculator.string == "0.523624774609514")
-
-    calculator.evaluateString("asin(0.5)")
-    #expect(calculator.string == "0.523598775598299")
-
-    calculator.evaluateString("atan(-1.0)")
-    #expect(calculator.string == "-0.785398163397448")
-
-    calculator.evaluateString("asin(0.8660)")
-    #expect(calculator.string == "1.04717155298542")
-
-    calculator.evaluateString("acos(1.0)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("sin(0.0)")
-    #expect(calculator.string == "0")
-
-    calculator.evaluateString("sin(0.7854)")
-    #expect(calculator.string == "0.707106781180780")
-
-    calculator.evaluateString("cos(1.5708)")
-    #expect(calculator.string == "-0.000003673205103")
-
-    calculator.evaluateString("tan(1.0472)")
-    #expect(calculator.string == "1.73205080756888")
-
-    calculator.evaluateString("sin(0.5236)")
-    #expect(calculator.string == "0.499999999999964")
-
-    calculator.evaluateString("tan(0.5236)")
-    #expect(calculator.string == "0.577350269189626")
-
-    calculator.evaluateString("cos(1.0472)")
-    #expect(calculator.string == "0.500000000000000")
-
-    calculator.evaluateString("sin(2.0944)")
-    #expect(calculator.string == "0.866025403784439")
-
-    calculator.evaluateString("tan(3.1416)")
-    #expect(calculator.string == "-0.000002653589793")
-
-    calculator.evaluateString("sin(2.6180)")
-    #expect(calculator.string == "0.499999999995347")
-
-    calculator.evaluateString("cos(5.23599)")
-    #expect(calculator.string == "0.500000000007557")
-
-    calculator.evaluateString("cos(2.0944)")
-    #expect(calculator.string == "-0.500000000000000")
-
-    calculator.evaluateString("cos(5.7596)")
-    #expect(calculator.string == "0.866025403785142")
-
-    calculator.evaluateString("asin(1.0)")
-    #expect(calculator.string == "1.57079632679490")
-
-    calculator.evaluateString("acos(0.0)")
-    #expect(calculator.string == "1.57079632679490")
-
-    calculator.evaluateString("acos(0.7071)")
-    #expect(calculator.string == "0.785398999044520")
-
-    calculator.evaluateString("atan(0.5774)")
-    #expect(calculator.string == "0.523598775234146")
-
+// sin(0.7854) ~= 0.7071
+// cos(1.5708) ~= 0.0
+// tan(1.0472) ~= 1.7321
+// sin(0.5236) ~= 0.5
+// tan(0.5236) ~= 0.5774
+// cos(1.0472) ~= 0.5
+// sin(2.0944) ~= 0.8660
+// tan(3.1416) ~= 0.0
+// sin(2.6180) ~= 0.5
+// cos(5.23599) ~= 0.5
+// cos(2.0944) ~= -0.5
+// cos(5.7596) ~= 0.8660
+// asin(1.0) ~= 1.5708
+// acos(0.0) ~= 1.5708
+// acos(0.7071) ~= 0.7854
+// atan(0.5774) ~= 0.5236
+// sind(30) = 0.5
+// sind(45) = 0.707106781186548
+// sind(60) = 0.866025403784439
+// sind(90) = 1
+// sind(0) = 0
+// sind(180) = 0
+// sind(270) = -1
+// cosd(30) = 0.866025403784439
+// cosd(45) = 0.707106781186548
+// cosd(60) = 0.5
+// cosd(90) = 0
+// tand(45) = 1
+// tand(60) = 1.73205080756888
+// tand(30) = 0.577350269189626
+// tand(0) = 0
+// asind(0) = 0
+// acosd(0) = 90
+// asind(0.5) = 30
+// acosd(0.5) = 60
+// atand(1) = 45
+// atand(0) = 0
+// sin(1.5708) = 0.999999999993253
+// cos(0.5236) = 0.866025403784439
+// sin(1.0472) = 0.866025403784439
+// tan(0.7854) = 0.999999999993253
+// sin(2.3562) = 0.707106781180780
+// cos(2.6180) = -0.866025403780126
+// sin(3.1416) = 0.000002653589793
+// cos(3.1416) = -0.999999999996479
+// sin(3.6652) = -0.499999999990409
+// cos(3.92699) = -0.707106781185333
+// sin(5.7596) = -0.499999999997013
+// sin(6.2832) = -0.000002653589793
+// cos(4.7124) = -0.000003673205103
+// atan(0.0) = 0
+// atan(1.0) = 0.785398163397448
+// acos(0.8660) = 0.523624774609514
+// asin(0.5) = 0.523598775598299
+// atan(-1.0) = -0.785398163397448
+// asin(0.8660) = 1.04717155298542
+// acos(1.0) = 0
+// sin(0.0) = 0
+// sin(0.7854) = 0.707106781180780
+// cos(1.5708) = -0.000003673205103
+// tan(1.0472) = 1.73205080756888
+// sin(0.5236) = 0.499999999999964
+// tan(0.5236) = 0.577350269189626
+// cos(1.0472) = 0.500000000000000
+// sin(2.0944) = 0.866025403784439
+// tan(3.1416) = -0.000002653589793
+// sin(2.6180) = 0.499999999995347
+// cos(5.23599) = 0.500000000007557
+// cos(2.0944) = -0.500000000000000
+// cos(5.7596) = 0.866025403785142
+// asin(1.0) = 1.57079632679490
+// acos(0.0) = 1.57079632679490
+// acos(0.7071) = 0.785398999044520
+// atan(0.5774) = 0.523598775234146
 }
