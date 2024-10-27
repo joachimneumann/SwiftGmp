@@ -5,18 +5,17 @@ public struct Raw {
     public var mantissa: String
     public var exponent: Int
     public var isNegative: Bool
+    public var canBeInteger: Bool
     public let length: Int
-    init(mantissa: String, exponent: Int, length: Int) {
-        if mantissa.hasPrefix("-") {
-            self.mantissa = String(mantissa.dropFirst())
-            isNegative = true
-        } else {
-            self.mantissa = mantissa
-            isNegative = false
-        }
+    
+    init(mantissa: String, exponent: Int, isNegative: Bool, length: Int, canBeInteger: Bool = true) {
+        self.mantissa = mantissa
         self.exponent = exponent
+        self.isNegative = isNegative
         self.length = length
+        self.canBeInteger = canBeInteger
     }
+    
     var negativeSign: String {
         isNegative ? "-" : ""
     }
@@ -120,6 +119,14 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             mantissa = String(cString: ptr.baseAddress!)
         }
         
+        var isNegative: Bool
+        if mantissa.hasPrefix("-") {
+            mantissa = String(mantissa.dropFirst())
+            isNegative = true
+        } else {
+            isNegative = false
+        }
+
         if mantissa.count >= digits + 3 {
             var no999 = false
             let suffix = mantissa.suffix(3)
@@ -128,16 +135,26 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
                     no999 = true
                 }
             }
-            mantissa.removeLast(3)
             if !no999 {
+                mantissa.removeLast(3)
                 if mantissa.incrementAbsIntegerValue() { exponent += 1 }
             }
         }
         
         mantissa.removeTrailingZeroes()
+        
+        var canBeInteger = true
+        if mantissa.count > digits {
+            mantissa = String(mantissa.prefix(digits))
+            canBeInteger = false
+        }
+        if exponent < mantissa.count {
+            canBeInteger = false
+        }
+        
         if mantissa == "" { mantissa = "0" }
         
-        return Raw(mantissa: mantissa, exponent: exponent - 1, length: digits)
+        return Raw(mantissa: mantissa, exponent: exponent - 1, isNegative: isNegative, length: digits, canBeInteger: canBeInteger)
     }
     
     

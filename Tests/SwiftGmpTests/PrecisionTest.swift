@@ -1,5 +1,5 @@
 import Testing
-import SwiftGmp
+@testable import SwiftGmp
 
 @Test func precisionTest() {
     let calculator = Calculator(precision: 5)
@@ -38,7 +38,7 @@ import SwiftGmp
     #expect(calculator.string == "3")
 
 
-    calculator.displayWidth = 10
+    calculator.display.displayWidth = 10
     calculator.press(ClearOperation.clear)
     calculator.press(DigitOperation.one)
     calculator.press(TwoOperantOperation.div)

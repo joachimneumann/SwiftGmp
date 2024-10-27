@@ -93,7 +93,7 @@ for file in glob.glob("*.txt"):
     writeln("//       It will be overwritten sooner or later.")
     writeln("")
     writeln("import Testing")
-    writeln("import SwiftGmp")
+    writeln("@testable import SwiftGmp")
     writeln("")
     writeln("@Test func "+basename+"Test() {")
     writeln("    let calculator = Calculator(precision: "+str(precision)+")")
@@ -125,7 +125,7 @@ for file in glob.glob("*.txt"):
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             elif components[0].strip() == "displayWidth":
-                                writeln("    calculator.displayWidth = "+components[1].strip())
+                                writeln("    calculator.display.displayWidth = "+components[1].strip())
                             elif components[0].strip() == "C":
                                 writeln("    calculator.press(ClearOperation.clear)")
                                 writeln("    #expect(calculator.string == \""+components[1].strip()+"\")")

@@ -8,14 +8,15 @@ import Testing
     let calculator = Calculator(precision: 20)
 
     calculator.setPrecision(newPrecision: 20)
+    calculator.display.displayWidth = 10
     calculator.evaluateString("81.651654 / 40.563652")
-    #expect(calculator.string == "2.012927")
+    #expect(calculator.string == "2.01292659")
 
     calculator.evaluateString("50.817846 + 68.530428")
     #expect(calculator.string == "119.348274")
 
     calculator.evaluateString("68.115634 / 97.517606")
-    #expect(calculator.string == "0.698496")
+    #expect(calculator.string == "0.69849575")
 
     calculator.evaluateString("17.172385 + 71.542294")
     #expect(calculator.string == "88.714679")
@@ -24,28 +25,28 @@ import Testing
     #expect(calculator.string == "-25.034693")
 
     calculator.evaluateString("71.331751 / 12.865136")
-    #expect(calculator.string == "5.544578")
+    #expect(calculator.string == "5.54457807")
 
     calculator.evaluateString("6.188656 * 41.325041")
-    #expect(calculator.string == "255.746463")
+    #expect(calculator.string == "255.746462")
 
     calculator.evaluateString("80.94458 / 19.996754")
-    #expect(calculator.string == "4.047886")
+    #expect(calculator.string == "4.04788597")
 
     calculator.evaluateString("88.315693 * 68.125939")
-    #expect(calculator.string == "6016.589514")
+    #expect(calculator.string == "6016.58951")
 
     calculator.evaluateString("77.9241 + 34.598681")
     #expect(calculator.string == "112.522781")
 
     calculator.evaluateString("79.31113 / 15.064157")
-    #expect(calculator.string == "5.26489")
+    #expect(calculator.string == "5.26489003")
 
     calculator.evaluateString("93.637647 * 58.307156")
-    #expect(calculator.string == "5459.744891")
+    #expect(calculator.string == "5459.74489")
 
     calculator.evaluateString("99.836875 / 80.051363")
-    #expect(calculator.string == "1.24716")
+    #expect(calculator.string == "1.24716021")
 
     calculator.evaluateString("46.051561 - 23.047301")
     #expect(calculator.string == "23.00426")
@@ -57,31 +58,31 @@ import Testing
     #expect(calculator.string == "114.099018")
 
     calculator.evaluateString("41.585473 / 79.932095")
-    #expect(calculator.string == "0.52026")
+    #expect(calculator.string == "0.52026001")
 
     calculator.evaluateString("44.623381 - 78.659429")
     #expect(calculator.string == "-34.036048")
 
     calculator.evaluateString("17.83145 / 33.175151")
-    #expect(calculator.string == "0.537494")
+    #expect(calculator.string == "0.53749416")
 
     calculator.evaluateString("61.236168 / 93.237541")
-    #expect(calculator.string == "0.656776")
+    #expect(calculator.string == "0.65677587")
 
     calculator.evaluateString("21.699896 * 50.749272")
-    #expect(calculator.string == "1101.253924")
+    #expect(calculator.string == "1101.25392")
 
     calculator.evaluateString("63.192287 / 64.230503")
-    #expect(calculator.string == "0.983836")
+    #expect(calculator.string == "0.98383609")
 
     calculator.evaluateString("95.071567 - 73.832131")
     #expect(calculator.string == "21.239436")
 
     calculator.evaluateString("89.770876 * 40.95793")
-    #expect(calculator.string == "3676.829255")
+    #expect(calculator.string == "3676.82925")
 
     calculator.evaluateString("59.795255 / 35.64017")
-    #expect(calculator.string == "1.677749")
+    #expect(calculator.string == "1.67774887")
 
     calculator.evaluateString("43.889693 + 38.70593")
     #expect(calculator.string == "82.595623")
@@ -102,31 +103,31 @@ import Testing
     #expect(calculator.string == "39.044684")
 
     calculator.evaluateString("44.269269 * 88.118796")
-    #expect(calculator.string == "3900.954684")
+    #expect(calculator.string == "3900.95468")
 
     calculator.evaluateString("32.130965 * 90.909822")
-    #expect(calculator.string == "2921.020309")
+    #expect(calculator.string == "2921.02030")
 
     calculator.evaluateString("0.474176 * 91.957211")
-    #expect(calculator.string == "43.603902")
+    #expect(calculator.string == "43.6039024")
 
     calculator.evaluateString("37.152682 - 92.681725")
     #expect(calculator.string == "-55.529043")
 
     calculator.evaluateString("99.386825 / 62.475758")
-    #expect(calculator.string == "1.590806")
+    #expect(calculator.string == "1.59080622")
 
     calculator.evaluateString("56.005524 * 41.296364")
-    #expect(calculator.string == "2312.824505")
+    #expect(calculator.string == "2312.82450")
 
     calculator.evaluateString("87.936743 / 84.010076")
-    #expect(calculator.string == "1.04674")
+    #expect(calculator.string == "1.04674042")
 
     calculator.evaluateString("60.344804 - 34.855243")
     #expect(calculator.string == "25.489561")
 
     calculator.evaluateString("70.955536 / 71.350043")
-    #expect(calculator.string == "0.994471")
+    #expect(calculator.string == "0.99447082")
 
     calculator.evaluateString("3.081405 + 74.061566")
     #expect(calculator.string == "77.142971")
@@ -138,19 +139,19 @@ import Testing
     #expect(calculator.string == "48.055776")
 
     calculator.evaluateString("72.127467 * 41.197848")
-    #expect(calculator.string == "2971.496422")
+    #expect(calculator.string == "2971.49642")
 
     calculator.evaluateString("97.695999 - 43.420576")
     #expect(calculator.string == "54.275423")
 
     calculator.evaluateString("8.996259 * 75.571637")
-    #expect(calculator.string == "679.86202")
+    #expect(calculator.string == "679.862019")
 
     calculator.evaluateString("28.115601 / 39.811977")
-    #expect(calculator.string == "0.70621")
+    #expect(calculator.string == "0.70620961")
 
     calculator.evaluateString("95.546103 * 39.272629")
-    #expect(calculator.string == "3752.346656")
+    #expect(calculator.string == "3752.34665")
 
     calculator.evaluateString("49.269089 - 9.385887")
     #expect(calculator.string == "39.883202")
@@ -177,10 +178,10 @@ import Testing
     #expect(calculator.string == "29.595021")
 
     calculator.evaluateString("18.185088 * 97.811252")
-    #expect(calculator.string == "1778.706225")
+    #expect(calculator.string == "1778.70622")
 
     calculator.evaluateString("79.125319 * 91.722454")
-    #expect(calculator.string == "7257.568432")
+    #expect(calculator.string == "7257.56843")
 
     calculator.evaluateString("58.313262 - 9.456464")
     #expect(calculator.string == "48.856798")
@@ -189,7 +190,7 @@ import Testing
     #expect(calculator.string == "105.284373")
 
     calculator.evaluateString("87.457541 / 66.828695")
-    #expect(calculator.string == "1.308682")
+    #expect(calculator.string == "1.30868246")
 
     calculator.evaluateString("11.182359 + 38.469985")
     #expect(calculator.string == "49.652344")
@@ -201,19 +202,19 @@ import Testing
     #expect(calculator.string == "124.138947")
 
     calculator.evaluateString("16.189502 / 74.620683")
-    #expect(calculator.string == "0.216957")
+    #expect(calculator.string == "0.21695730")
 
     calculator.evaluateString("22.627569 * 16.189757")
-    #expect(calculator.string == "366.334844")
+    #expect(calculator.string == "366.334843")
 
     calculator.evaluateString("73.690941 / 98.73313")
-    #expect(calculator.string == "0.746365")
+    #expect(calculator.string == "0.74636488")
 
     calculator.evaluateString("80.991584 + 24.625791")
     #expect(calculator.string == "105.617375")
 
     calculator.evaluateString("23.950864 / 34.61646")
-    #expect(calculator.string == "0.691892")
+    #expect(calculator.string == "0.69189235")
 
     calculator.evaluateString("2.706182 + 35.137254")
     #expect(calculator.string == "37.843436")
@@ -222,13 +223,13 @@ import Testing
     #expect(calculator.string == "143.551297")
 
     calculator.evaluateString("19.801356 / 35.201236")
-    #expect(calculator.string == "0.562519")
+    #expect(calculator.string == "0.56251877")
 
     calculator.evaluateString("26.195557 + 55.823881")
     #expect(calculator.string == "82.019438")
 
     calculator.evaluateString("93.926737 / 92.390922")
-    #expect(calculator.string == "1.016623")
+    #expect(calculator.string == "1.01662300")
 
     calculator.evaluateString("52.613184 - 2.867121")
     #expect(calculator.string == "49.746063")
@@ -237,19 +238,19 @@ import Testing
     #expect(calculator.string == "48.512446")
 
     calculator.evaluateString("22.830967 * 86.834119")
-    #expect(calculator.string == "1982.506905")
+    #expect(calculator.string == "1982.50690")
 
     calculator.evaluateString("94.91586 - 23.691441")
     #expect(calculator.string == "71.224419")
 
     calculator.evaluateString("7.652716 * 93.798509")
-    #expect(calculator.string == "717.813351")
+    #expect(calculator.string == "717.813350")
 
     calculator.evaluateString("37.483091 / 62.705197")
-    #expect(calculator.string == "0.597767")
+    #expect(calculator.string == "0.59776689")
 
     calculator.evaluateString("71.124738 / 85.678025")
-    #expect(calculator.string == "0.83014")
+    #expect(calculator.string == "0.83013979")
 
     calculator.evaluateString("71.165846 - 88.178268")
     #expect(calculator.string == "-17.012422")
@@ -264,7 +265,7 @@ import Testing
     #expect(calculator.string == "140.964815")
 
     calculator.evaluateString("64.691063 / 66.443741")
-    #expect(calculator.string == "0.973622")
+    #expect(calculator.string == "0.97362162")
 
     calculator.evaluateString("69.786451 - 89.997669")
     #expect(calculator.string == "-20.211218")
@@ -276,7 +277,7 @@ import Testing
     #expect(calculator.string == "691.946866")
 
     calculator.evaluateString("39.818178 / 54.426106")
-    #expect(calculator.string == "0.731601")
+    #expect(calculator.string == "0.73160071")
 
     calculator.evaluateString("86.666221 + 15.538018")
     #expect(calculator.string == "102.204239")
@@ -288,7 +289,7 @@ import Testing
     #expect(calculator.string == "171.24036")
 
     calculator.evaluateString("62.791216 / 77.969075")
-    #expect(calculator.string == "0.805335")
+    #expect(calculator.string == "0.80533488")
 
     calculator.evaluateString("29.634264 - 34.682167")
     #expect(calculator.string == "-5.047903")
@@ -300,25 +301,25 @@ import Testing
     #expect(calculator.string == "-52.062127")
 
     calculator.evaluateString("94.419906 * 51.481133")
-    #expect(calculator.string == "4860.843739")
+    #expect(calculator.string == "4860.84373")
 
     calculator.evaluateString("39.967609 * 93.762488")
-    #expect(calculator.string == "3747.462459")
+    #expect(calculator.string == "3747.46245")
 
     calculator.evaluateString("11.976291 / 99.11258")
-    #expect(calculator.string == "0.120835")
+    #expect(calculator.string == "0.12083522")
 
     calculator.evaluateString("72.196582 + 48.631424")
     #expect(calculator.string == "120.828006")
 
     calculator.evaluateString("55.127565 / 74.921373")
-    #expect(calculator.string == "0.735806")
+    #expect(calculator.string == "0.73580558")
 
     calculator.evaluateString("2.12243 / 34.45723")
-    #expect(calculator.string == "0.061596")
+    #expect(calculator.string == "0.06159607")
 
     calculator.evaluateString("49.725944 * 55.862281")
-    #expect(calculator.string == "2777.804657")
+    #expect(calculator.string == "2777.80465")
 
     calculator.evaluateString("8.681463 + 56.765269")
     #expect(calculator.string == "65.446732")
@@ -327,7 +328,7 @@ import Testing
     #expect(calculator.string == "103.001668")
 
     calculator.evaluateString("57.032746 / 11.776241")
-    #expect(calculator.string == "4.843035")
+    #expect(calculator.string == "4.84303488")
 
     calculator.evaluateString("73.366532 - 33.232551")
     #expect(calculator.string == "40.133981")
@@ -336,10 +337,10 @@ import Testing
     #expect(calculator.string == "83.780444")
 
     calculator.evaluateString("96.824437 * 56.618942")
-    #expect(calculator.string == "5482.097183")
+    #expect(calculator.string == "5482.09718")
 
     calculator.evaluateString("84.344644 / 59.055717")
-    #expect(calculator.string == "1.428221")
+    #expect(calculator.string == "1.42822148")
 
     calculator.evaluateString("3.925836 - 89.718428")
     #expect(calculator.string == "-85.792592")
@@ -348,13 +349,13 @@ import Testing
     #expect(calculator.string == "-16.312994")
 
     calculator.evaluateString("5.090155 / 21.919771")
-    #expect(calculator.string == "0.232218")
+    #expect(calculator.string == "0.23221752")
 
     calculator.evaluateString("19.030602 + 93.996764")
     #expect(calculator.string == "113.027366")
 
     calculator.evaluateString("17.664115 * 95.742056")
-    #expect(calculator.string == "1691.198688")
+    #expect(calculator.string == "1691.19868")
 
     calculator.evaluateString("52.129916 + 98.442839")
     #expect(calculator.string == "150.572755")
@@ -363,7 +364,7 @@ import Testing
     #expect(calculator.string == "62.009137")
 
     calculator.evaluateString("1.684655 * 35.143308")
-    #expect(calculator.string == "59.20435")
+    #expect(calculator.string == "59.2043495")
 
     calculator.evaluateString("10.503897 - 62.829025")
     #expect(calculator.string == "-52.325128")
@@ -372,10 +373,10 @@ import Testing
     #expect(calculator.string == "95.315")
 
     calculator.evaluateString("32.945184 / 62.874348")
-    #expect(calculator.string == "0.523985")
+    #expect(calculator.string == "0.52398450")
 
     calculator.evaluateString("44.872147 / 39.545626")
-    #expect(calculator.string == "1.134693")
+    #expect(calculator.string == "1.13469305")
 
     calculator.evaluateString("40.346363 + 96.718852")
     #expect(calculator.string == "137.065215")
@@ -384,25 +385,25 @@ import Testing
     #expect(calculator.string == "-30.847692")
 
     calculator.evaluateString("26.746151 / 46.500323")
-    #expect(calculator.string == "0.575182")
+    #expect(calculator.string == "0.57518204")
 
     calculator.evaluateString("88.675257 / 75.38798")
-    #expect(calculator.string == "1.176252")
+    #expect(calculator.string == "1.17625193")
 
     calculator.evaluateString("77.690011 + 30.263029")
     #expect(calculator.string == "107.95304")
 
     calculator.evaluateString("58.759077 / 30.54882")
-    #expect(calculator.string == "1.923448")
+    #expect(calculator.string == "1.92344833")
 
     calculator.evaluateString("88.078297 * 56.383116")
-    #expect(calculator.string == "4966.128837")
+    #expect(calculator.string == "4966.12883")
 
     calculator.evaluateString("30.275551 / 77.913403")
-    #expect(calculator.string == "0.388579")
+    #expect(calculator.string == "0.38857949")
 
     calculator.evaluateString("44.949831 / 95.970968")
-    #expect(calculator.string == "0.468369")
+    #expect(calculator.string == "0.46836904")
 
     calculator.evaluateString("57.812285 + 38.070131")
     #expect(calculator.string == "95.882416")
@@ -414,28 +415,28 @@ import Testing
     #expect(calculator.string == "137.786258")
 
     calculator.evaluateString("42.541289 * 62.738136")
-    #expect(calculator.string == "2668.961175")
+    #expect(calculator.string == "2668.96117")
 
     calculator.evaluateString("34.795104 / 49.554193")
-    #expect(calculator.string == "0.702163")
+    #expect(calculator.string == "0.70216266")
 
     calculator.evaluateString("2.505697 * 20.191147")
-    #expect(calculator.string == "50.592896")
+    #expect(calculator.string == "50.5928964")
 
     calculator.evaluateString("64.010212 / 28.39995")
-    #expect(calculator.string == "2.253885")
+    #expect(calculator.string == "2.25388467")
 
     calculator.evaluateString("6.864224 / 85.123169")
-    #expect(calculator.string == "0.080639")
+    #expect(calculator.string == "0.08063872")
 
     calculator.evaluateString("38.196608 / 61.786029")
-    #expect(calculator.string == "0.618208")
+    #expect(calculator.string == "0.61820784")
 
     calculator.evaluateString("57.241922 - 26.15532")
     #expect(calculator.string == "31.086602")
 
     calculator.evaluateString("22.67777 * 89.555936")
-    #expect(calculator.string == "2030.928919")
+    #expect(calculator.string == "2030.92891")
 
     calculator.evaluateString("5.728776 + 68.544946")
     #expect(calculator.string == "74.273722")
@@ -444,16 +445,16 @@ import Testing
     #expect(calculator.string == "2.410225")
 
     calculator.evaluateString("85.265549 / 97.306894")
-    #expect(calculator.string == "0.876254")
+    #expect(calculator.string == "0.87625393")
 
     calculator.evaluateString("93.222455 + 34.158929")
     #expect(calculator.string == "127.381384")
 
     calculator.evaluateString("84.340129 / 64.093667")
-    #expect(calculator.string == "1.315889")
+    #expect(calculator.string == "1.31588865")
 
     calculator.evaluateString("86.904099 / 78.682416")
-    #expect(calculator.string == "1.104492")
+    #expect(calculator.string == "1.10449199")
 
     calculator.evaluateString("6.550028 * 22.074715")
     #expect(calculator.string == "144.590001")
@@ -462,7 +463,7 @@ import Testing
     #expect(calculator.string == "152.669517")
 
     calculator.evaluateString("6.562474 * 8.945287")
-    #expect(calculator.string == "58.703213")
+    #expect(calculator.string == "58.7032133")
 
     calculator.evaluateString("65.712561 + 55.871315")
     #expect(calculator.string == "121.583876")
@@ -471,13 +472,13 @@ import Testing
     #expect(calculator.string == "30.204525")
 
     calculator.evaluateString("12.299057 * 45.260976")
-    #expect(calculator.string == "556.667324")
+    #expect(calculator.string == "556.667323")
 
     calculator.evaluateString("40.893155 / 80.466412")
-    #expect(calculator.string == "0.508202")
+    #expect(calculator.string == "0.50820154")
 
     calculator.evaluateString("90.303122 / 18.840676")
-    #expect(calculator.string == "4.792987")
+    #expect(calculator.string == "4.79298736")
 
     calculator.evaluateString("0.850323 + 83.436132")
     #expect(calculator.string == "84.286455")
@@ -486,7 +487,7 @@ import Testing
     #expect(calculator.string == "104.735666")
 
     calculator.evaluateString("61.520892 * 9.546457")
-    #expect(calculator.string == "587.30655")
+    #expect(calculator.string == "587.306550")
 
     calculator.evaluateString("27.730166 + 63.820423")
     #expect(calculator.string == "91.550589")
@@ -495,7 +496,7 @@ import Testing
     #expect(calculator.string == "85.883378")
 
     calculator.evaluateString("38.725592 / 21.010346")
-    #expect(calculator.string == "1.843168")
+    #expect(calculator.string == "1.84316774")
 
     calculator.evaluateString("6.54684 - 72.525105")
     #expect(calculator.string == "-65.978265")
@@ -504,7 +505,7 @@ import Testing
     #expect(calculator.string == "46.557879")
 
     calculator.evaluateString("97.072229 * 91.234577")
-    #expect(calculator.string == "8856.343751")
+    #expect(calculator.string == "8856.34375")
 
     calculator.evaluateString("87.596152 * 9.815829")
     #expect(calculator.string == "859.828849")
@@ -513,7 +514,7 @@ import Testing
     #expect(calculator.string == "61.168354")
 
     calculator.evaluateString("99.000982 / 14.729172")
-    #expect(calculator.string == "6.721422")
+    #expect(calculator.string == "6.72142208")
 
     calculator.evaluateString("64.124976 + 77.027962")
     #expect(calculator.string == "141.152938")
@@ -525,7 +526,7 @@ import Testing
     #expect(calculator.string == "105.284972")
 
     calculator.evaluateString("5.970765 / 58.942825")
-    #expect(calculator.string == "0.101298")
+    #expect(calculator.string == "0.10129757")
 
     calculator.evaluateString("97.099263 + 71.829515")
     #expect(calculator.string == "168.928778")
@@ -543,7 +544,7 @@ import Testing
     #expect(calculator.string == "84.744809")
 
     calculator.evaluateString("35.339072 / 86.651096")
-    #expect(calculator.string == "0.407832")
+    #expect(calculator.string == "0.40783179")
 
     calculator.evaluateString("53.926198 - 10.910446")
     #expect(calculator.string == "43.015752")
@@ -552,7 +553,7 @@ import Testing
     #expect(calculator.string == "100.217284")
 
     calculator.evaluateString("76.614024 * 74.459197")
-    #expect(calculator.string == "5704.618706")
+    #expect(calculator.string == "5704.61870")
 
     calculator.evaluateString("36.662236 + 60.467136")
     #expect(calculator.string == "97.129372")
@@ -570,7 +571,7 @@ import Testing
     #expect(calculator.string == "990.273256")
 
     calculator.evaluateString("60.853048 / 14.68687")
-    #expect(calculator.string == "4.143364")
+    #expect(calculator.string == "4.14336397")
 
     calculator.evaluateString("27.880907 - 9.497255")
     #expect(calculator.string == "18.383652")
@@ -582,22 +583,22 @@ import Testing
     #expect(calculator.string == "68.953978")
 
     calculator.evaluateString("11.717794 * 73.543562")
-    #expect(calculator.string == "861.76831")
+    #expect(calculator.string == "861.768309")
 
     calculator.evaluateString("69.317198 * 83.578221")
-    #expect(calculator.string == "5793.408094")
+    #expect(calculator.string == "5793.40809")
 
     calculator.evaluateString("48.082249 / 31.256557")
-    #expect(calculator.string == "1.538309")
+    #expect(calculator.string == "1.53830919")
 
     calculator.evaluateString("59.622424 / 50.043763")
-    #expect(calculator.string == "1.191406")
+    #expect(calculator.string == "1.19140569")
 
     calculator.evaluateString("93.632774 + 98.925143")
     #expect(calculator.string == "192.557917")
 
     calculator.evaluateString("15.272669 * 88.251607")
-    #expect(calculator.string == "1347.837582")
+    #expect(calculator.string == "1347.83758")
 
     calculator.evaluateString("78.398989 - 51.509752")
     #expect(calculator.string == "26.889237")
@@ -609,10 +610,10 @@ import Testing
     #expect(calculator.string == "8112.63487")
 
     calculator.evaluateString("8.745174 * 91.144581")
-    #expect(calculator.string == "797.07522")
+    #expect(calculator.string == "797.075220")
 
     calculator.evaluateString("93.066732 * 94.314237")
-    #expect(calculator.string == "8777.517819")
+    #expect(calculator.string == "8777.51781")
 
     calculator.evaluateString("94.168436 + 73.475628")
     #expect(calculator.string == "167.644064")
@@ -621,28 +622,28 @@ import Testing
     #expect(calculator.string == "-24.853702")
 
     calculator.evaluateString("32.603656 / 68.951934")
-    #expect(calculator.string == "0.472846")
+    #expect(calculator.string == "0.47284614")
 
     calculator.evaluateString("70.017363 / 21.099284")
-    #expect(calculator.string == "3.318471")
+    #expect(calculator.string == "3.31847104")
 
     calculator.evaluateString("1.789433 / 29.289003")
-    #expect(calculator.string == "0.061096")
+    #expect(calculator.string == "0.06109572")
 
     calculator.evaluateString("20.04425 / 58.061606")
-    #expect(calculator.string == "0.345224")
+    #expect(calculator.string == "0.34522383")
 
     calculator.evaluateString("78.533782 - 39.891802")
     #expect(calculator.string == "38.64198")
 
     calculator.evaluateString("55.941154 * 45.784567")
-    #expect(calculator.string == "2561.241513")
+    #expect(calculator.string == "2561.24151")
 
     calculator.evaluateString("97.673676 / 25.241437")
-    #expect(calculator.string == "3.869577")
+    #expect(calculator.string == "3.86957668")
 
     calculator.evaluateString("32.361657 / 26.535311")
-    #expect(calculator.string == "1.21957")
+    #expect(calculator.string == "1.21956953")
 
     calculator.evaluateString("43.043696 + 10.92823")
     #expect(calculator.string == "53.971926")
@@ -663,25 +664,25 @@ import Testing
     #expect(calculator.string == "-20.115405")
 
     calculator.evaluateString("48.2597 * 84.965538")
-    #expect(calculator.string == "4100.411374")
+    #expect(calculator.string == "4100.41137")
 
     calculator.evaluateString("48.946952 - 78.129347")
     #expect(calculator.string == "-29.182395")
 
     calculator.evaluateString("41.214647 * 42.877304")
-    #expect(calculator.string == "1767.172949")
+    #expect(calculator.string == "1767.17294")
 
     calculator.evaluateString("59.811775 / 22.838769")
-    #expect(calculator.string == "2.61887")
+    #expect(calculator.string == "2.61887035")
 
     calculator.evaluateString("90.237591 + 20.163291")
     #expect(calculator.string == "110.400882")
 
     calculator.evaluateString("70.839661 * 97.271651")
-    #expect(calculator.string == "6890.690782")
+    #expect(calculator.string == "6890.69078")
 
     calculator.evaluateString("10.935885 / 50.213889")
-    #expect(calculator.string == "0.217786")
+    #expect(calculator.string == "0.21778605")
 
     calculator.evaluateString("41.566237 - 82.185268")
     #expect(calculator.string == "-40.619031")
@@ -708,10 +709,10 @@ import Testing
     #expect(calculator.string == "-52.633193")
 
     calculator.evaluateString("52.089188 / 95.445109")
-    #expect(calculator.string == "0.54575")
+    #expect(calculator.string == "0.54575020")
 
     calculator.evaluateString("31.204198 / 57.46115")
-    #expect(calculator.string == "0.543049")
+    #expect(calculator.string == "0.54304861")
 
     calculator.evaluateString("95.669464 - 71.590286")
     #expect(calculator.string == "24.079178")
@@ -726,16 +727,16 @@ import Testing
     #expect(calculator.string == "39.976801")
 
     calculator.evaluateString("3.954104 * 54.085848")
-    #expect(calculator.string == "213.861068")
+    #expect(calculator.string == "213.861067")
 
     calculator.evaluateString("42.291863 - 19.988713")
     #expect(calculator.string == "22.30315")
 
     calculator.evaluateString("93.388339 / 77.405116")
-    #expect(calculator.string == "1.206488")
+    #expect(calculator.string == "1.20648794")
 
     calculator.evaluateString("43.611937 / 96.158972")
-    #expect(calculator.string == "0.45354")
+    #expect(calculator.string == "0.45353996")
 
     calculator.evaluateString("34.09177 - 56.952652")
     #expect(calculator.string == "-22.860882")
@@ -753,19 +754,19 @@ import Testing
     #expect(calculator.string == "177.56484")
 
     calculator.evaluateString("50.649361 * 10.052714")
-    #expect(calculator.string == "509.16354")
+    #expect(calculator.string == "509.163540")
 
     calculator.evaluateString("9.250616 + 82.462055")
     #expect(calculator.string == "91.712671")
 
     calculator.evaluateString("5.543059 * 54.200285")
-    #expect(calculator.string == "300.435378")
+    #expect(calculator.string == "300.435377")
 
     calculator.evaluateString("53.874319 - 71.514554")
     #expect(calculator.string == "-17.640235")
 
     calculator.evaluateString("32.516047 / 45.112234")
-    #expect(calculator.string == "0.720781")
+    #expect(calculator.string == "0.72078113")
 
     calculator.evaluateString("15.563675 + 57.006144")
     #expect(calculator.string == "72.569819")
@@ -783,10 +784,10 @@ import Testing
     #expect(calculator.string == "36.330349")
 
     calculator.evaluateString("68.701655 / 56.972838")
-    #expect(calculator.string == "1.205867")
+    #expect(calculator.string == "1.20586682")
 
     calculator.evaluateString("82.11731 / 85.239085")
-    #expect(calculator.string == "0.963376")
+    #expect(calculator.string == "0.96337624")
 
     calculator.evaluateString("26.391945 * 16.183917")
     #expect(calculator.string == "427.125047")
@@ -795,7 +796,7 @@ import Testing
     #expect(calculator.string == "2355.26117")
 
     calculator.evaluateString("99.817681 * 26.042278")
-    #expect(calculator.string == "2599.479798")
+    #expect(calculator.string == "2599.47979")
 
     calculator.evaluateString("33.780335 - 77.706936")
     #expect(calculator.string == "-43.926601")
@@ -813,7 +814,7 @@ import Testing
     #expect(calculator.string == "118.662789")
 
     calculator.evaluateString("86.055204 * 4.138501")
-    #expect(calculator.string == "356.139548")
+    #expect(calculator.string == "356.139547")
 
     calculator.evaluateString("0.63335 - 22.773793")
     #expect(calculator.string == "-22.140443")
@@ -822,7 +823,7 @@ import Testing
     #expect(calculator.string == "119.711")
 
     calculator.evaluateString("65.794443 / 45.545166")
-    #expect(calculator.string == "1.444598")
+    #expect(calculator.string == "1.44459772")
 
     calculator.evaluateString("16.368648 * 53.158496")
     #expect(calculator.string == "870.132709")
@@ -834,34 +835,34 @@ import Testing
     #expect(calculator.string == "162.808527")
 
     calculator.evaluateString("51.313679 / 62.940329")
-    #expect(calculator.string == "0.815275")
+    #expect(calculator.string == "0.81527503")
 
     calculator.evaluateString("32.502716 + 49.094778")
     #expect(calculator.string == "81.597494")
 
     calculator.evaluateString("67.818719 / 73.114684")
-    #expect(calculator.string == "0.927566")
+    #expect(calculator.string == "0.92756632")
 
     calculator.evaluateString("65.381604 * 93.021006")
-    #expect(calculator.string == "6081.862578")
+    #expect(calculator.string == "6081.86257")
 
     calculator.evaluateString("23.243049 / 4.708298")
-    #expect(calculator.string == "4.936614")
+    #expect(calculator.string == "4.93661382")
 
     calculator.evaluateString("72.301764 / 2.94652")
-    #expect(calculator.string == "24.538019")
+    #expect(calculator.string == "24.5380190")
 
     calculator.evaluateString("66.235736 / 18.391365")
-    #expect(calculator.string == "3.601458")
+    #expect(calculator.string == "3.60145840")
 
     calculator.evaluateString("40.516997 * 70.134655")
-    #expect(calculator.string == "2841.645606")
+    #expect(calculator.string == "2841.64560")
 
     calculator.evaluateString("49.247898 - 43.456478")
     #expect(calculator.string == "5.79142")
 
     calculator.evaluateString("50.848695 * 65.567808")
-    #expect(calculator.string == "3334.037471")
+    #expect(calculator.string == "3334.03747")
 
     calculator.evaluateString("12.917582 - 12.274207")
     #expect(calculator.string == "0.643375")
@@ -882,28 +883,28 @@ import Testing
     #expect(calculator.string == "110.59893")
 
     calculator.evaluateString("73.161522 / 50.680554")
-    #expect(calculator.string == "1.443582")
+    #expect(calculator.string == "1.44358173")
 
     calculator.evaluateString("26.684301 * 45.163892")
-    #expect(calculator.string == "1205.166888")
+    #expect(calculator.string == "1205.16688")
 
     calculator.evaluateString("43.689996 * 74.948244")
-    #expect(calculator.string == "3274.488481")
+    #expect(calculator.string == "3274.48848")
 
     calculator.evaluateString("41.294614 / 76.283904")
-    #expect(calculator.string == "0.541328")
+    #expect(calculator.string == "0.54132801")
 
     calculator.evaluateString("46.749907 + 29.688602")
     #expect(calculator.string == "76.438509")
 
     calculator.evaluateString("95.313245 * 79.595988")
-    #expect(calculator.string == "7586.551905")
+    #expect(calculator.string == "7586.55190")
 
     calculator.evaluateString("43.709077 - 40.916693")
     #expect(calculator.string == "2.792384")
 
     calculator.evaluateString("6.81425 * 86.247694")
-    #expect(calculator.string == "587.713349")
+    #expect(calculator.string == "587.713348")
 
     calculator.evaluateString("62.03049 - 43.681705")
     #expect(calculator.string == "18.348785")
@@ -915,7 +916,7 @@ import Testing
     #expect(calculator.string == "96.00769")
 
     calculator.evaluateString("72.740641 * 45.265621")
-    #expect(calculator.string == "3292.650287")
+    #expect(calculator.string == "3292.6502877")
 
     calculator.evaluateString("26.610329 + 55.511873")
     #expect(calculator.string == "82.122202")
@@ -942,7 +943,7 @@ import Testing
     #expect(calculator.string == "0.336006")
 
     calculator.evaluateString("66.136471 * 30.767718")
-    #expect(calculator.string == "2034.868289")
+    #expect(calculator.string == "2034.8682899")
 
     calculator.evaluateString("96.68225 / 84.251627")
     #expect(calculator.string == "1.147542")
@@ -963,7 +964,7 @@ import Testing
     #expect(calculator.string == "44.605413")
 
     calculator.evaluateString("38.248182 * 79.801553")
-    #expect(calculator.string == "3052.264323")
+    #expect(calculator.string == "3052.2643233")
 
     calculator.evaluateString("72.995537 + 73.116777")
     #expect(calculator.string == "146.112314")
@@ -1020,7 +1021,7 @@ import Testing
     #expect(calculator.string == "-76.117624")
 
     calculator.evaluateString("75.960368 * 38.904353")
-    #expect(calculator.string == "2955.188971")
+    #expect(calculator.string == "2955.1889711")
 
     calculator.evaluateString("76.268466 * 62.03606")
     #expect(calculator.string == "4731.395133")
@@ -1029,7 +1030,7 @@ import Testing
     #expect(calculator.string == "29.570311")
 
     calculator.evaluateString("77.304292 * 75.066082")
-    #expect(calculator.string == "5802.930322")
+    #expect(calculator.string == "5802.9303222")
 
     calculator.evaluateString("25.336451 / 75.087532")
     #expect(calculator.string == "0.337426")
@@ -1038,7 +1039,7 @@ import Testing
     #expect(calculator.string == "65.399435")
 
     calculator.evaluateString("79.751454 * 50.776681")
-    #expect(calculator.string == "4049.514139")
+    #expect(calculator.string == "4049.5141399")
 
     calculator.evaluateString("20.619602 + 38.609482")
     #expect(calculator.string == "59.229084")
@@ -1050,7 +1051,7 @@ import Testing
     #expect(calculator.string == "120.892528")
 
     calculator.evaluateString("70.543807 * 62.564364")
-    #expect(calculator.string == "4413.528419")
+    #expect(calculator.string == "4413.5284199")
 
     calculator.evaluateString("77.128486 - 88.450523")
     #expect(calculator.string == "-11.322037")
@@ -1071,10 +1072,10 @@ import Testing
     #expect(calculator.string == "1.117564")
 
     calculator.evaluateString("46.821754 * 23.191382")
-    #expect(calculator.string == "1085.861183")
+    #expect(calculator.string == "1085.8611833")
 
     calculator.evaluateString("80.952946 * 98.390657")
-    #expect(calculator.string == "7965.013543")
+    #expect(calculator.string == "7965.0135433")
 
     calculator.evaluateString("32.66393 + 61.955686")
     #expect(calculator.string == "94.619616")
@@ -1128,7 +1129,7 @@ import Testing
     #expect(calculator.string == "0.149259")
 
     calculator.evaluateString("80.465744 * 45.764446")
-    #expect(calculator.string == "3682.470196")
+    #expect(calculator.string == "3682.4701966")
 
     calculator.evaluateString("95.708464 / 91.825749")
     #expect(calculator.string == "1.042284")
@@ -1152,7 +1153,7 @@ import Testing
     #expect(calculator.string == "1603.053438")
 
     calculator.evaluateString("87.507724 * 58.633915")
-    #expect(calculator.string == "5130.920451")
+    #expect(calculator.string == "5130.9204511")
 
     calculator.evaluateString("80.406989 / 24.212435")
     #expect(calculator.string == "3.320896")
@@ -1170,13 +1171,13 @@ import Testing
     #expect(calculator.string == "5.0268")
 
     calculator.evaluateString("70.356961 * 49.785978")
-    #expect(calculator.string == "3502.790112")
+    #expect(calculator.string == "3502.7901122")
 
     calculator.evaluateString("85.738537 + 15.82217")
     #expect(calculator.string == "101.560707")
 
     calculator.evaluateString("83.038563 * 47.705108")
-    #expect(calculator.string == "3961.363616")
+    #expect(calculator.string == "3961.3636166")
 
     calculator.evaluateString("45.915743 + 29.205557")
     #expect(calculator.string == "75.1213")
@@ -1191,7 +1192,7 @@ import Testing
     #expect(calculator.string == "95.394721")
 
     calculator.evaluateString("17.024705 * 70.930562")
-    #expect(calculator.string == "1207.571894")
+    #expect(calculator.string == "1207.5718944")
 
     calculator.evaluateString("48.696501 - 69.214711")
     #expect(calculator.string == "-20.51821")
@@ -1260,7 +1261,7 @@ import Testing
     #expect(calculator.string == "0.073722")
 
     calculator.evaluateString("59.789254 * 46.786012")
-    #expect(calculator.string == "2797.300755")
+    #expect(calculator.string == "2797.3007555")
 
     calculator.evaluateString("68.008921 / 22.140733")
     #expect(calculator.string == "3.071665")
@@ -1290,7 +1291,7 @@ import Testing
     #expect(calculator.string == "1.12803")
 
     calculator.evaluateString("40.401125 * 37.243151")
-    #expect(calculator.string == "1504.665199")
+    #expect(calculator.string == "1504.6651999")
 
     calculator.evaluateString("98.40084 - 25.369962")
     #expect(calculator.string == "73.030878")
@@ -1314,7 +1315,7 @@ import Testing
     #expect(calculator.string == "118.65582")
 
     calculator.evaluateString("45.797004 * 31.844065")
-    #expect(calculator.string == "1458.362772")
+    #expect(calculator.string == "1458.3627722")
 
     calculator.evaluateString("32.010265 - 17.196229")
     #expect(calculator.string == "14.814036")
@@ -1332,7 +1333,7 @@ import Testing
     #expect(calculator.string == "26.796023")
 
     calculator.evaluateString("92.859102 * 85.433584")
-    #expect(calculator.string == "7933.285891")
+    #expect(calculator.string == "7933.2858911")
 
     calculator.evaluateString("73.00346 * 84.22062")
     #expect(calculator.string == "6148.396663")
@@ -1365,10 +1366,10 @@ import Testing
     #expect(calculator.string == "132.909311")
 
     calculator.evaluateString("30.506839 * 95.474807")
-    #expect(calculator.string == "2912.634566")
+    #expect(calculator.string == "2912.6345666")
 
     calculator.evaluateString("62.356563 * 51.197054")
-    #expect(calculator.string == "3192.472323")
+    #expect(calculator.string == "3192.4723233")
 
     calculator.evaluateString("11.921235 - 54.963649")
     #expect(calculator.string == "-43.042414")
@@ -1377,7 +1378,7 @@ import Testing
     #expect(calculator.string == "35.308979")
 
     calculator.evaluateString("45.447951 * 96.014297")
-    #expect(calculator.string == "4363.653065")
+    #expect(calculator.string == "4363.6530655")
 
     calculator.evaluateString("59.214735 / 53.062722")
     #expect(calculator.string == "1.115939")
@@ -1407,7 +1408,7 @@ import Testing
     #expect(calculator.string == "-39.779347")
 
     calculator.evaluateString("66.371396 * 39.783085")
-    #expect(calculator.string == "2640.458889")
+    #expect(calculator.string == "2640.4588899")
 
     calculator.evaluateString("24.774465 / 34.959012")
     #expect(calculator.string == "0.708672")
@@ -1416,7 +1417,7 @@ import Testing
     #expect(calculator.string == "102.758075")
 
     calculator.evaluateString("40.582006 * 29.086852")
-    #expect(calculator.string == "1180.402802")
+    #expect(calculator.string == "1180.4028022")
 
     calculator.evaluateString("80.77704 / 32.108029")
     #expect(calculator.string == "2.515789")
@@ -1446,7 +1447,7 @@ import Testing
     #expect(calculator.string == "-66.604897")
 
     calculator.evaluateString("71.812988 * 15.209191")
-    #expect(calculator.string == "1092.217451")
+    #expect(calculator.string == "1092.2174511")
 
     calculator.evaluateString("67.310808 * 3.310219")
     #expect(calculator.string == "222.813516")
@@ -1455,13 +1456,13 @@ import Testing
     #expect(calculator.string == "0.25863")
 
     calculator.evaluateString("55.342458 * 27.865427")
-    #expect(calculator.string == "1542.141223")
+    #expect(calculator.string == "1542.1412233")
 
     calculator.evaluateString("46.959268 + 79.136649")
     #expect(calculator.string == "126.095917")
 
     calculator.evaluateString("92.656006 * 24.266536")
-    #expect(calculator.string == "2248.440305")
+    #expect(calculator.string == "2248.4403055")
 
     calculator.evaluateString("25.247652 * 23.567135")
     #expect(calculator.string == "595.014823")
@@ -1470,16 +1471,16 @@ import Testing
     #expect(calculator.string == "-77.119764")
 
     calculator.evaluateString("87.706847 * 55.115554")
-    #expect(calculator.string == "4834.011462")
+    #expect(calculator.string == "4834.0114622")
 
     calculator.evaluateString("79.970931 * 91.748788")
-    #expect(calculator.string == "7337.235994")
+    #expect(calculator.string == "7337.2359944")
 
     calculator.evaluateString("82.61939 - 2.578508")
     #expect(calculator.string == "80.040882")
 
     calculator.evaluateString("17.570511 * 57.214689")
-    #expect(calculator.string == "1005.291322")
+    #expect(calculator.string == "1005.2913222")
 
     calculator.evaluateString("35.476465 - 64.903958")
     #expect(calculator.string == "-29.427493")
@@ -1500,7 +1501,7 @@ import Testing
     #expect(calculator.string == "55.552576")
 
     calculator.evaluateString("55.613175 * 83.272693")
-    #expect(calculator.string == "4631.058849")
+    #expect(calculator.string == "4631.0588499")
 
     calculator.evaluateString("53.089693 + 20.187337")
     #expect(calculator.string == "73.27703")
@@ -1569,13 +1570,13 @@ import Testing
     #expect(calculator.string == "100")
 
     calculator.evaluateString("(3 + 2) * sqrt(4 - 1)")
-    #expect(calculator.string == "8.6602540378")
+    #expect(calculator.string == "8.66025403")
 
     calculator.evaluateString("10 * log10(5 + 5)")
     #expect(calculator.string == "10")
 
     calculator.evaluateString("100 * log10(2 + 3)")
-    #expect(calculator.string == "69.897000433")
+    #expect(calculator.string == "69.8970004")
 
     calculator.evaluateString("((2 + (3 * (4 + 2))) + ((5 * (2 + 2)) ^ 2))")
     #expect(calculator.string == "420")
@@ -1587,7 +1588,7 @@ import Testing
     #expect(calculator.string == "166")
 
     calculator.evaluateString("(((((4 * 5) + 2) ^ 2) - sqrt(16)) / (3 * (2 + 1)))")
-    #expect(calculator.string == "53.333333333")
+    #expect(calculator.string == "53.3333333")
 
     calculator.evaluateString("(2 + (3 * (4 ^ 2))) + (5 + (6 / (1 + sqrt(4))))")
     #expect(calculator.string == "57")
@@ -1600,5 +1601,1505 @@ import Testing
 
     calculator.evaluateString("((((5 + 2) ^ 2) - ((sqrt(25) * 4))) + (8 ^ (1 + 1)))")
     #expect(calculator.string == "93")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.01292659")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "119.348274")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.69849575")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "88.714679")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-25.034693")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5.54457807")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "255.746462")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4.04788597")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "6016.58951")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "112.522781")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5.26489003")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5459.74489")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.24716021")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "23.00426")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "7.104182")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "114.099018")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.52026001")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-34.036048")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.53749416")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.65677587")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1101.25392")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.98383609")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "21.239436")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3676.82925")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.67774887")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "82.595623")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "74.123129")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "142.331395")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-69.42879")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-9.594653")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "39.044684")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3900.95468")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2921.02030")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "43.6039024")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-55.529043")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.59080622")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2312.82450")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.04674042")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "25.489561")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.99447082")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "77.142971")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-24.147314")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "48.055776")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2971.49642")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "54.275423")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "679.862019")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.70620961")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3752.34665")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "39.883202")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "19.710874")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-31.741075")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-23.238376")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "35.042602")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "18.083761")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "119.503721")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "29.595021")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1778.70622")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "7257.56843")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "48.856798")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "105.284373")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.30868246")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "49.652344")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "49.515394")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "124.138947")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.21695730")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "366.334843")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.74636488")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "105.617375")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.69189235")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "37.843436")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "143.551297")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.56251877")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "82.019438")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.01662300")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "49.746063")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "48.512446")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1982.50690")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "71.224419")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "717.813350")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.59776689")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.83013979")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-17.012422")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "83.092682")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "71.563056")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "140.964815")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.97362162")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-20.211218")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-68.256143")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "691.946866")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.73160071")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "102.204239")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-22.779377")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "171.24036")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.80533488")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-5.047903")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "90.426768")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-52.062127")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4860.84373")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3747.46245")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.12083522")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "120.828006")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.73580558")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.06159607")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2777.80465")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "65.446732")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "103.001668")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4.84303488")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "40.133981")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "83.780444")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5482.09718")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.42822148")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-85.792592")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-16.312994")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.23221752")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "113.027366")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1691.19868")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "150.572755")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "62.009137")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "59.2043495")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-52.325128")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "95.315")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.52398450")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.13469305")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "137.065215")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-30.847692")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.57518204")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.17625193")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "107.95304")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.92344833")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4966.12883")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.38857949")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.46836904")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "95.882416")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "41.235102")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "137.786258")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2668.96117")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.70216266")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "50.5928964")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.25388467")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.08063872")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.61820784")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "31.086602")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2030.92891")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "74.273722")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.410225")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.87625393")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "127.381384")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.31588865")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.10449199")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "144.590001")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "152.669517")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "58.7032133")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "121.583876")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "30.204525")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "556.667323")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.50820154")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4.79298736")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "84.286455")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "104.735666")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "587.306550")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "91.550589")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "85.883378")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.84316774")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-65.978265")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "46.557879")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "8856.34375")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "859.828849")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "61.168354")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "6.72142208")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "141.152938")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "166.726552")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "105.284972")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.10129757")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "168.928778")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "123.93923")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-73.299572")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-13.747688")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "84.744809")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.40783179")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "43.015752")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "100.217284")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5704.61870")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "97.129372")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "179.392185")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "126.461741")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "156.352696")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "990.273256")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4.14336397")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "18.383652")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "99.253187")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "68.953978")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "861.768309")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5793.40809")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.53830919")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.19140569")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "192.557917")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1347.83758")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "26.889237")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "137.971667")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "8112.63487")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "797.075220")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "8777.51781")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "167.644064")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-24.853702")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.47284614")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.31847104")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.06109572")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.34522383")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "38.64198")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2561.24151")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.86957668")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.21956953")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "53.971926")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "154.786451")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "39.819136")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-26.925183")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "98.973447")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-20.115405")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4100.41137")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-29.182395")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1767.17294")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.61887035")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "110.400882")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "6890.69078")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.21778605")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-40.619031")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-35.751221")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "133.766379")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-9.168917")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.729455")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-41.423909")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "161.889567")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-52.633193")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.54575020")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.54304861")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "24.079178")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-24.222303")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "179.630441")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "39.976801")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "213.861067")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "22.30315")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.20648794")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.45353996")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-22.860882")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "76.820438")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "41.76496")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "46.027387")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "177.56484")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "509.163540")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "91.712671")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "300.435377")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-17.640235")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.72078113")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "72.569819")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "95.537572")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "971.922421")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-78.088935")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "36.330349")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.20586682")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.96337624")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "427.125047")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2355.26117")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2599.47979")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-43.926601")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-0.970007")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "119.39272")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "28.449104")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "118.662789")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "356.139547")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-22.140443")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "119.711")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.44459772")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "870.132709")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "106.651328")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "162.808527")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.81527503")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "81.597494")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.92756632")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "6081.86257")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4.93661382")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "24.5380190")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.60145840")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2841.64560")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5.79142")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3334.03747")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.643375")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "32.445073")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-50.441222")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "89.826653")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "447.600121")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "110.59893")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.44358173")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1205.16688")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3274.48848")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.54132801")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "76.438509")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "7586.55190")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.792384")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "587.713348")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "18.348785")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "58.580221")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "96.00769")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3292.650287")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "82.122202")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "12.481273")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-28.16223")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "166.126779")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1130.241299")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "353.948354")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.910862")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.336006")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2034.868289")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.147542")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "6155.3879")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.057219")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "68.372706")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "95.207634")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "44.605413")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3052.264323")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "146.112314")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "79.07306")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "15.807088")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "60.370689")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "263.124994")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.261827")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "47.241585")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "60.379819")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-88.2133")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-59.188013")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4.777938")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-35.747984")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.219516")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "718.663384")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1080.045848")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4.522469")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "96.095027")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-76.117624")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2955.188971")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4731.395133")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "29.570311")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5802.930322")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.337426")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "65.399435")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4049.514139")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "59.229084")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "29.350509")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "120.892528")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4413.528419")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-11.322037")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "72.15099")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "40.325605")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-12.664889")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "6.593943")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.117564")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1085.861183")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "7965.013543")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "94.619616")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-60.490547")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "369.501228")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-20.224442")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "685.314908")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-46.288422")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-33.001564")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "879.538882")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "86.208709")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-14.05862")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "12.030838")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1003.38259")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.636537")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "19.213642")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "22.89641")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "250.551277")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.149259")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3682.470196")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.042284")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "21.117435")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "61.381775")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-16.673187")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "105.736371")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1026.594289")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1603.053438")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5130.920451")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.320896")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "66.590022")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "23.4944")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.518486")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5.0268")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3502.790112")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "101.560707")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3961.363616")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "75.1213")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "94.029782")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-43.931969")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "95.394721")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1207.571894")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-20.51821")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-1.797783")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "50.977155")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "84.789043")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.938795")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "108.428202")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "12.975127")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "283.430281")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "868.16141")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.911321")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "19.761634")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "86.27606")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "174.690919")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.42499")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1234.542183")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.697697")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "47.436828")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.376572")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-26.268063")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2008.170416")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.231345")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.073722")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2797.300755")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.071665")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3527.85688")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "113.078582")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "147.262697")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "73.259973")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "71.207462")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3051.312547")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.940201")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.12803")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1504.665199")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "73.030878")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "142.08807")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.802076")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "26.673902")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "35.551632")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "171.35884")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "118.65582")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1458.362772")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "14.814036")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "11.025897")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "127.283514")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "75.646226")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "26.796023")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "7933.285891")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "6148.396663")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-38.046808")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "124.267054")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "84.078677")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "5.951663")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.153236")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-14.573344")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "98.052863")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "74.339771")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "132.909311")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2912.634566")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3192.472323")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-43.042414")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "35.308979")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4363.653065")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.115939")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1.55361")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1035.456295")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "315.096268")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2798.786409")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4047.70233")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "74.419514")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "99.543084")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-39.779347")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2640.458889")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.708672")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "102.758075")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1180.402802")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2.515789")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "624.714739")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "179.354683")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "14.265571")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.944786")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.205065")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "19.270203")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "70.590808")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-66.604897")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1092.217451")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "222.813516")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "0.25863")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1542.141223")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "126.095917")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "2248.440305")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "595.014823")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-77.119764")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4834.011462")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "7337.235994")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "80.040882")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "1005.291322")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-29.427493")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-6.792703")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "3.701115")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "111.405991")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "36.130298")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "55.552576")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "4631.058849")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "73.27703")
+
+    calculator.evaluateString("")
+    #expect(calculator.string == "-10.47198")
 
 }

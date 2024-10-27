@@ -80,7 +80,7 @@ class IntDisplay {
     var right: String?
     var type: DisplayType
 
-    let displayWidth: Int
+    var displayWidth: Int
     var separator: Separator
     
     var maxDigits: Int {
@@ -114,6 +114,8 @@ class IntDisplay {
     func update(raw: Raw) {
         // is raw an integer?
         if
+            raw.canBeInteger &&
+                
             // Math: only allow numbers > 1.0, i.e., exponents >0 =
             raw.exponent >= 0 &&
                 

@@ -5,25 +5,36 @@ import Testing
 
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 100)
-//    var swiftGmp: SwiftGmp
-//    var raw: Raw
-//    var display: Display
-//    let L = 10
+    calculator.display.displayWidth = 10
+    calculator.evaluateString("-9.9999999999")
+    var raw = calculator.raw
+    #expect(raw.mantissa == "9999999999")
 
-    calculator.evaluateString("sin(pi)")
-    #expect(calculator.string == "0")
+//    swiftGmp = SwiftGmp(withString: "-9.999999999", bits: 100)
+//    raw = swiftGmp.raw(digits: L)
+//    display.update(raw: raw)
+//    #expect(raw.mantissa == "9999999999")
+//    #expect(raw.exponent == 0)
+//    #expect(raw.isNegative == true)
+//    #expect(raw.canBeInteger == false)
+//    
+//    
+//    calculator.evaluateString("10000")
+//    x = calculator.raw
+//    calculator.evaluateString("1234567890")
+//    x = calculator.raw
+//    calculator.evaluateString("12345678901")
+//    x = calculator.raw
+//    calculator.evaluateString("12345678901")
+//
+//    calculator.evaluateString("555555555.1234567890")
+//    #expect(calculator.string == "5.555555e8")
+//
+//    calculator.evaluateString("5555555555.1234567890")
+//    #expect(calculator.string == "5.555555e9")
+//
+//    calculator.evaluateString("55555555555.1234567890")
+//    #expect(calculator.string == "5.55555e10")
 
-    calculator.evaluateString("cos(pi)")
-    #expect(calculator.string == "-1")
-
-    calculator.evaluateString("sqrt(-1)")
-    #expect(calculator.string == "nan")
-
-//    calculator.evaluateString("sind(180)")
-//    #expect(calculator.string == "0")
-
-//    calculator.evaluateString("1 + 3 * 10")
-//    let xraw = calculator.string
-//    #expect(calculator.string == "31")
     
 }

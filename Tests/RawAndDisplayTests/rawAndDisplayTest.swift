@@ -10,7 +10,7 @@ import Testing
 
 class rawAndDisplayTest {
     var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
-    var raw: Raw = Raw(mantissa: "0", exponent: 0, length: 10)
+    var raw: Raw = Raw(mantissa: "0", exponent: 0, isNegative: false, length: 10)
     var display: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
     let L = 10
     
@@ -187,10 +187,10 @@ class rawAndDisplayTest {
         #expect(raw.mantissa == "5555555555")
         #expect(raw.exponent == 9)
         #expect(raw.isNegative == false)
-        #expect(display.type == .integer)
-        #expect(display.left == "5555555555")
-        // raw cuts to 10 digits, then this is an integer.
-        #expect(display.right == nil)
+        #expect(raw.canBeInteger == false)
+        #expect(display.type == .scientifiNotation)
+        #expect(display.left == "5.555555")
+        #expect(display.right == "e9")
         
         swiftGmp = SwiftGmp(withString: "120000000000000000000000", bits: 100)
         raw = swiftGmp.raw(digits: L)
@@ -557,6 +557,7 @@ class rawAndDisplayTest {
         #expect(raw.mantissa == "9999999999")
         #expect(raw.exponent == 0)
         #expect(raw.isNegative == true)
+        #expect(raw.canBeInteger == false)
         #expect(display.type == .floatLargerThanOne)
         #expect(display.left == "-9.9999999")
         #expect(display.right == nil)
@@ -970,10 +971,7 @@ class rawAndDisplayTest {
         #expect(calculator.string == "1.234567e8")
         
         calculator.evaluateString("1234567777.998")
-        #expect(calculator.string == "1234567777")
-        
-        calculator.evaluateString("1234567777.998")
-        #expect(calculator.string == "1234567777")
+        #expect(calculator.string == "1.234567e9")
         
         calculator.evaluateString("1234567777.9991")
         #expect(calculator.string == "1234567778")
@@ -983,9 +981,6 @@ class rawAndDisplayTest {
         
         calculator.evaluateString("1234567777.999")
         #expect(calculator.string == "1234567778")
-        
-        calculator.evaluateString("1234567777.998")
-        #expect(calculator.string == "1234567777")
         
         calculator.evaluateString("10.0")
         #expect(calculator.string == "10")
@@ -1081,7 +1076,7 @@ class rawAndDisplayTest {
         #expect(calculator.string == "-1234567.9")
         
         calculator.evaluateString("3331234567.9")
-        #expect(calculator.string == "3331234567")
+        #expect(calculator.string == "3.331234e9")
         
         calculator.evaluateString("331234567.9")
         #expect(calculator.string == "3.312345e8")
@@ -1234,10 +1229,10 @@ class rawAndDisplayTest {
         #expect(calculator.string == "6789012346")
         
         calculator.evaluateString("6789012345.99")
-        #expect(calculator.string == "6789012345")
+        #expect(calculator.string == "6.789012e9")
         
         calculator.evaluateString("6789012345.9")
-        #expect(calculator.string == "6789012345")
+        #expect(calculator.string == "6.789012e9")
         
         calculator.evaluateString("6789012345.99999")
         #expect(calculator.string == "6789012346")

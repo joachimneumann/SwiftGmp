@@ -2,7 +2,7 @@
 //       It will be overwritten sooner or later.
 
 import Testing
-import SwiftGmp
+@testable import SwiftGmp
 
 @Test func basics3Test() {
     let calculator = Calculator(precision: 20)

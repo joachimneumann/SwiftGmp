@@ -15,8 +15,8 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "RawAndDisplayTests",
-        "name" : "RawAndDisplayTests"
+        "identifier" : "DEBUG",
+        "name" : "DEBUG"
       }
     },
     {
@@ -24,6 +24,27 @@
         "containerPath" : "container:",
         "identifier" : "FromTxtTests",
         "name" : "FromTxtTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "RawAndDisplayTests",
+        "name" : "RawAndDisplayTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TokenizerTests",
+        "name" : "TokenizerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SwiftGmpTests",
+        "name" : "SwiftGmpTests"
       }
     }
   ],

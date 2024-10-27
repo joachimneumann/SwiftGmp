@@ -124,7 +124,7 @@ for filename in glob.glob("*.txt"):
                         if components[0].strip() == "precision":
                             writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                         elif components[0].strip() == "displayWidth":
-                            pass
+                            writeln("    calculator.display.displayWidth = "+components[1].strip())
                         elif components[0].strip() == "C":
                             pass
                         elif components[0].strip() == "DISPLAY":
