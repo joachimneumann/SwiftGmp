@@ -11,7 +11,7 @@ import Testing
 class separatorsTest {
     var calculator = Calculator(precision: 20)
     var raw: Raw = Raw(mantissa: "0", exponent: 0, length: 10)
-    var display: Display = Display(displayWidth: 10, separator: Separator(separatorType: .comma, groups: true))
+    var display: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .comma, groups: true))
 
     struct S {
         let decimalSeparator: Separator.SeparatorType

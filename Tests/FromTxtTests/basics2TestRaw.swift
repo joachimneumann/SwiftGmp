@@ -6,10 +6,6 @@ import Testing
 
 @Test func basics2TestRaw() {
     let calculator = Calculator(precision: 20)
-    var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
-    var raw: Raw = Raw(mantissa: "0", exponent: 0, length: 10)
-    var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
-    let L = 10
 
     calculator.evaluateString("2 ^ 3 * 4")
     #expect(calculator.string == "32")

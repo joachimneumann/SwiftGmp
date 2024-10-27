@@ -1,5 +1,5 @@
 //
-//  Display.swift
+//  IntDisplay.swift
 //  SwiftGmp
 //
 //  Created by Joachim Neumann on 25.10.2024.
@@ -59,7 +59,7 @@ public struct Separator: Codable {
 
 }
 
-class Display {
+class IntDisplay {
     public enum DisplayType {
         case unknown
         case integer
@@ -90,7 +90,8 @@ class Display {
     }
     
     func length(_ s: String) -> Int { s.count }
-    func fits(_ s: String) -> Bool { s.count <= displayWidth }
+    func fits(_ s: String) -> Bool { length(s) <= displayWidth }
+    func repeatWidestCharacter(_ count: Int) -> String { String(repeating: "0", count: count) }
     
     init(displayWidth: Int, separator: Separator = Separator(separatorType: .dot, groups: false)) {
         self.displayWidth = displayWidth
@@ -110,7 +111,8 @@ class Display {
             raw.mantissa.count <= raw.exponent + 1 &&
             
             // Logic: only allow small enough exponents. 100 has exponent 2, therefore + 1
-            raw.exponent + 1 <= maxDigits - raw.negativeSign.count {
+            raw.exponent + 1 + raw.negativeSign.count <= maxDigits
+        {
             
             var temp = raw.mantissa
             if raw.mantissa.count < raw.exponent + 1 {
@@ -137,19 +139,30 @@ class Display {
         }
         
         // float > 1.0?
-        if raw.exponent >= 0 && raw.exponent < displayWidth - 2 - raw.negativeSign.count {
-            var temp = raw.mantissa
-                       
-            var beforeSeparator = temp.sub(to: raw.exponent + 1)
-            var afterSeparator = temp.sub(from: raw.exponent + 1)
+        if
+            // Math
+            raw.exponent >= 0 &&
+            
+            // check if the float fits into the display
+            fits(raw.negativeSign + repeatWidestCharacter(raw.exponent+1) + "." + repeatWidestCharacter(1))
+        {
+            
+            // group separator
+            var beforeSeparator = raw.mantissa.sub(to: raw.exponent + 1)
             if let c = separator.groupCharacter {
                 beforeSeparator.injectGrouping(c)
             }
-            let remainingLength = displayWidth - beforeSeparator.count - separator.string.count - raw.negativeSign.count
-            if remainingLength >= 1 {
-                afterSeparator = String(afterSeparator.prefix(remainingLength))
-                temp = raw.negativeSign + beforeSeparator + separator.string + afterSeparator
-                left = temp
+            
+            let afterSeparator = raw.mantissa.sub(from: raw.exponent + 1)
+            
+            if afterSeparator.count > 0 {
+                var digitIndex = 0
+                var temp = beforeSeparator + separator.string
+                while digitIndex < afterSeparator.count && fits(raw.negativeSign + temp + afterSeparator.at(digitIndex)) {
+                    temp = temp + afterSeparator.at(digitIndex)
+                    digitIndex += 1
+                }
+                left = raw.negativeSign + temp
                 right = nil
                 type = .floatLargerThanOne
                 return
@@ -208,6 +221,10 @@ extension String {
     func sub(to position: Int) -> String {
         let end = self.index(self.startIndex, offsetBy: position)
         return String(self[..<end])
+    }
+
+    func at(_ position: Int) -> String {
+        sub(from: position, to: position+1)
     }
 
     func sub(from position1: Int, to position2: Int) -> String {

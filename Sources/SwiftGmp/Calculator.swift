@@ -10,7 +10,7 @@ import Foundation
 public class Calculator {
     
     var token: Token
-    var display: Display = Display(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
+    var display: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
     
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil

@@ -6,10 +6,6 @@ import Testing
 
 @Test func testChatGTPTestRaw() {
     let calculator = Calculator(precision: 20)
-    var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
-    var raw: Raw = Raw(mantissa: "0", exponent: 0, length: 10)
-    var display: Display = Display(raw: Raw(mantissa: "0", exponent: 0, length: 10))
-    let L = 10
 
     calculator.setPrecision(newPrecision: 20)
     calculator.evaluateString("81.651654 / 40.563652")
