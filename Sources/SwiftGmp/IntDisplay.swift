@@ -59,6 +59,15 @@ public struct Separator: Codable {
 
 }
 
+/// Note:
+///
+/// To get a string of length displayWidth, I typically start with a small string and then
+/// try adding one digit at a time until it does not fit in the display.
+///
+/// This logic is unneccesarly complicated for a test Display with Integer String lengths.
+/// But this will allow to inherit a class FloatDisplay that uses a proportional font and
+/// a displaywidth that is a CGFloat.
+///
 class IntDisplay {
     public enum DisplayType {
         case unknown
@@ -91,8 +100,9 @@ class IntDisplay {
     
     func length(_ s: String) -> Int { s.count }
     func fits(_ s: String) -> Bool { length(s) <= displayWidth }
-    func repeatWidestCharacter(_ count: Int) -> String { String(repeating: "0", count: count) }
-    
+    func repeatWidestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
+    func repeatNarrowestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
+
     init(displayWidth: Int, separator: Separator = Separator(separatorType: .dot, groups: false)) {
         self.displayWidth = displayWidth
         self.separator = separator
@@ -143,8 +153,8 @@ class IntDisplay {
             // Math
             raw.exponent >= 0 &&
             
-            // check if the float fits into the display
-            fits(raw.negativeSign + repeatWidestCharacter(raw.exponent+1) + "." + repeatWidestCharacter(1))
+            // check if the float may fit into the display
+            fits(raw.negativeSign + repeatNarrowestDigit(raw.exponent+1) + "." + repeatNarrowestDigit(1))
         {
             
             // group separator
@@ -156,9 +166,12 @@ class IntDisplay {
             let afterSeparator = raw.mantissa.sub(from: raw.exponent + 1)
             
             if afterSeparator.count > 0 {
-                var digitIndex = 0
-                var temp = beforeSeparator + separator.string
-                while digitIndex < afterSeparator.count && fits(raw.negativeSign + temp + afterSeparator.at(digitIndex)) {
+                var temp = beforeSeparator + separator.string + afterSeparator.at(0)
+                var digitIndex = 1
+                while
+                    digitIndex < afterSeparator.count &&
+                    fits(raw.negativeSign + temp + afterSeparator.at(digitIndex))
+                {
                     temp = temp + afterSeparator.at(digitIndex)
                     digitIndex += 1
                 }
@@ -170,35 +183,63 @@ class IntDisplay {
         }
         
         // float < 1.0?
-        if raw.exponent < 0 && -1 * raw.exponent <= displayWidth - 2 - raw.negativeSign.count {
-            var temp = raw.mantissa
-            for _ in 0 ..< (-1 * raw.exponent) {
-                temp = "0" + temp
+        if
+            // Math
+            raw.exponent < 0 &&
+            raw.mantissa.count > 0 &&
+
+            // 0.001 --> exponent = -3
+            fits(repeatNarrowestDigit(0) + separator.string + repeatNarrowestDigit(-1 * raw.exponent))
+        {
+            var temp = "0."
+            for _ in 1 ..< (-1 * raw.exponent) {
+                temp += "0"
             }
-            temp.insert(separator.character, at: 1)
-            temp = raw.negativeSign + temp
-            temp = String(temp.prefix(displayWidth))
-            left = temp
-            right = nil
-            type = .floatSmallerThanOne
-            return
+            temp += raw.mantissa.at(0)
+            if fits(raw.negativeSign + temp) {
+                var digitIndex = 1
+                while
+                    digitIndex < raw.mantissa.count &&
+                    fits(raw.negativeSign + temp + raw.mantissa.at(digitIndex))
+                {
+                    temp += raw.mantissa.at(digitIndex)
+                    digitIndex += 1
+                }
+                left = raw.negativeSign + temp
+                right = nil
+                type = .floatSmallerThanOne
+                return
+            }
         }
         
-        // Scientific!
-        var temp = raw.mantissa
-        temp.insert(separator.character, at: 1)
-        if temp.count == 2 {
-            temp = temp + "0"
-        }
-        temp = raw.negativeSign + temp
-        
+        // Scientific. Must work.
         var exponentString: String = "e\(raw.exponent)"
         // add grouping
         if let c = separator.groupCharacter {
             exponentString.injectGrouping(c)
         }
-        temp = String(temp.prefix(displayWidth - exponentString.count))
-        left = temp
+
+        guard raw.mantissa.count >= 1 else {
+            left = "error"
+            right = nil
+            type = .unknown
+            return
+        }
+        
+        var mantissaString = raw.mantissa.at(0) + separator.string
+        if raw.mantissa.count == 1 {
+            mantissaString += "0"
+        }
+        
+        var digitIndex = 1
+        while
+            digitIndex < raw.mantissa.count &&
+            fits(raw.negativeSign + mantissaString + raw.mantissa.at(digitIndex) + exponentString)
+        {
+            mantissaString += raw.mantissa.at(digitIndex)
+            digitIndex += 1
+        }
+        left = raw.negativeSign + mantissaString
         right = exponentString
         type = .scientifiNotation
     }
