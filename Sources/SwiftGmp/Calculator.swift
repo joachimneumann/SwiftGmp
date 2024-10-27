@@ -28,11 +28,9 @@ public class Calculator {
         return privateDisplayBuffer
     }
 
-//    public var R: Representation
     public init(precision: Int, displayWidth: Int = 10) {
         token = Token(precision: precision)
         privateDisplayBuffer = ""
-//        R = Representation(length: length, displayBifferExponentLength: displayBifferExponentLength)
         self.display.displayWidth = displayWidth
     }
     

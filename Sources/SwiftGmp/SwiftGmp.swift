@@ -23,7 +23,6 @@ public struct Raw {
 
 class SwiftGmp: Equatable, CustomDebugStringConvertible {
     
-    
     private(set) var bits: Int
     private static var rad_deg_bits: Int = 10
     private static var deg2rad: SwiftGmp = SwiftGmp(bits: rad_deg_bits)
