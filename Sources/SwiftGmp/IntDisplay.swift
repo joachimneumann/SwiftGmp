@@ -13,6 +13,11 @@ public struct Separator: Codable {
         case dot = "."
     }
 
+    public init(separatorType: SeparatorType, groups: Bool) {
+        self.separatorType = separatorType
+        self.groups = groups
+    }
+    
     public var separatorType: SeparatorType
     public var groups: Bool
 
@@ -103,7 +108,7 @@ class IntDisplay {
     func repeatWidestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
     func repeatNarrowestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
 
-    init(displayWidth: Int, separator: Separator = Separator(separatorType: .dot, groups: false)) {
+    public init(displayWidth: Int, separator: Separator = Separator(separatorType: .dot, groups: false)) {
         self.displayWidth = displayWidth
         self.separator = separator
         self.left = "0"
