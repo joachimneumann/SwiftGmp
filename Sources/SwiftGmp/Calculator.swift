@@ -306,18 +306,6 @@ public class Calculator {
             return String(asSubSequence)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
-                if swiftGmp.isZero {
-                    return "0"
-                }
-                if swiftGmp.isInf {
-                    return "inf"
-                }
-                if swiftGmp.isNan {
-                    return "nan"
-                }
-                if !swiftGmp.isValid {
-                    return "invalid"
-                }
                 let raw = swiftGmp.raw(digits: intDisplay.displayWidth)
                 intDisplay.update(raw: raw)
                 return intDisplay.string
@@ -342,7 +330,7 @@ public class Calculator {
             if let swiftGmp = token.lastSwiftGmp {
                 return swiftGmp.raw(digits: digits)
             } else {
-                return Raw(mantissa: "0", exponent: 0, isNegative: false, length: 0, canBeInteger: true)
+                return Raw(mantissa: "0", exponent: 0, isNegative: false, canBeInteger: true, isError: false)
             }
         }
     }

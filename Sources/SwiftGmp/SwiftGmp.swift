@@ -6,14 +6,14 @@ public struct Raw {
     public var exponent: Int
     public var isNegative: Bool
     public var canBeInteger: Bool
-    public let length: Int
+    public let isError: Bool
     
-    init(mantissa: String, exponent: Int, isNegative: Bool, length: Int, canBeInteger: Bool = true) {
+    init(mantissa: String, exponent: Int, isNegative: Bool, canBeInteger: Bool, isError: Bool) {
         self.mantissa = mantissa
         self.exponent = exponent
         self.isNegative = isNegative
-        self.length = length
         self.canBeInteger = canBeInteger
+        self.isError = isError
     }
     
     var negativeSign: String {
@@ -104,6 +104,19 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     func raw(digits: Int) -> Raw {
+        if self.isZero {
+            return Raw(mantissa: "0", exponent: 0, isNegative: false, canBeInteger: true, isError: false)
+        }
+        if self.isInf {
+            return Raw(mantissa: "inf", exponent: 0, isNegative: false, canBeInteger: true, isError: true)
+        }
+        if self.isNan {
+            return Raw(mantissa: "nan", exponent: 0, isNegative: false, canBeInteger: true, isError: true)
+        }
+        if !self.isValid {
+            return Raw(mantissa: "invalid", exponent: 0, isNegative: false, canBeInteger: true, isError: true)
+        }
+        
         var exponent: mpfr_exp_t = 0
         
         var charArray: Array<CChar> = Array(repeating: 0, count: digits+4)
@@ -149,7 +162,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         
         if mantissa == "" { mantissa = "0" }
         
-        return Raw(mantissa: mantissa, exponent: exponent - 1, isNegative: isNegative, length: digits, canBeInteger: canBeInteger)
+        return Raw(mantissa: mantissa, exponent: exponent - 1, isNegative: isNegative, canBeInteger: canBeInteger, isError: false)
     }
     
     

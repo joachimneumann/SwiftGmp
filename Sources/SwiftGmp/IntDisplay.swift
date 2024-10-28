@@ -77,6 +77,7 @@ public struct Separator: Codable {
 open class IntDisplay {
     public enum DisplayType {
         case unknown
+        case error
         case integer
         case floatLargerThanOne
         case floatSmallerThanOne
@@ -119,6 +120,14 @@ open class IntDisplay {
     }
     
     public func update(raw: Raw) {
+        
+        if raw.isError {
+            left = raw.mantissa
+            right = nil
+            type = .error
+            return
+        }
+        
         // is raw an integer?
         if
             raw.canBeInteger &&
