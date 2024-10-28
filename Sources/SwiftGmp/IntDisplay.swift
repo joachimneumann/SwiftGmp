@@ -82,8 +82,8 @@ open class IntDisplay {
         case floatSmallerThanOne
         case scientifiNotation
     }
-    var left: String
-    var right: String?
+    public var left: String
+    public var right: String?
     var type: DisplayType
 
     var displayWidth: Int
@@ -104,7 +104,9 @@ open class IntDisplay {
         }
     }
     
-    func fits(_ s: String) -> Bool { s.count <= displayWidth }
+    open func fits(_ mantissa: String, _ exponent: String? = nil) -> Bool {
+        mantissa.count + (exponent != nil ? exponent!.count : 0) <= displayWidth
+    }
     func repeatWidestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
     func repeatNarrowestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
 
@@ -241,7 +243,7 @@ open class IntDisplay {
         var digitIndex = 1
         while
             digitIndex < raw.mantissa.count &&
-            fits(raw.negativeSign + mantissaString + raw.mantissa.at(digitIndex) + exponentString)
+            fits(raw.negativeSign + mantissaString + raw.mantissa.at(digitIndex), exponentString)
         {
             mantissaString += raw.mantissa.at(digitIndex)
             digitIndex += 1
