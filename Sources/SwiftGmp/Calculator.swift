@@ -335,13 +335,16 @@ public class Calculator {
     }
     
     public var raw: Raw {
-        let temp: SwiftGmp
         if !privateDisplayBuffer.isEmpty {
-            temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
+            let temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
+            return temp.raw(digits: display.displayWidth)
         } else {
-            temp = token.lastSwiftGmp!
+            if let swiftGmp = token.lastSwiftGmp {
+                return swiftGmp.raw(digits: display.displayWidth)
+            } else {
+                return Raw(mantissa: "0", exponent: 0, isNegative: false, length: 0, canBeInteger: true)
+            }
         }
-        return temp.raw(digits: display.displayWidth)
     }
 
 }

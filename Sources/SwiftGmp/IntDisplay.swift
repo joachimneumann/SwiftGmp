@@ -89,7 +89,7 @@ open class IntDisplay {
     var displayWidth: Int
     var separator: Separator
     
-    var maxDigits: Int {
+    open var maxDigits: Int {
         displayWidth
     }
 
