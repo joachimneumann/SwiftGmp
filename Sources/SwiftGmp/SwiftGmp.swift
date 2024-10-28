@@ -70,9 +70,6 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     var debugDescription: String {
-        guard !isNan else { return "nan"}
-        guard isValid else { return "not valid"}
-        guard !isZero else { return "zero"}
         let raw = raw(digits: 20)
         return "\(raw.mantissa) \(raw.exponent)"
     }
