@@ -297,9 +297,19 @@ class Token {
         }
     }
         
+    var zero: SwiftGmp {
+        SwiftGmp(withString: "0", bits: generousBits(for: precision))
+    }
+    var one: SwiftGmp {
+        SwiftGmp(withString: "1", bits: generousBits(for: precision))
+    }
+    var minusOne: SwiftGmp {
+        SwiftGmp(withString: "-1", bits: generousBits(for: precision))
+    }
+    
     func newToken(_ constant: ConstantOperation) {
         if numberExpected {
-            let temp = SwiftGmp(withString: "0", bits: generousBits(for: precision))
+            let temp = zero
             temp.execute(constant)
             tokens.append(OneToken(tokenEnum: .swiftGmp(temp)))
         } else {

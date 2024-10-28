@@ -15,6 +15,13 @@ public struct Raw {
         self.canBeInteger = canBeInteger
         self.isError = isError
     }
+    init() {
+        self.mantissa = "0"
+        self.exponent = 0
+        self.isNegative = false
+        self.canBeInteger = true
+        self.isError = false
+    }
     
     var negativeSign: String {
         isNegative ? "-" : ""

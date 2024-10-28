@@ -58,7 +58,7 @@ public class Calculator {
             pendingOperators = []
         }
     }
-    
+
     public func press(_ op: any OpProtocol) {
         if let _ = op as? TwoOperantOperation {
             privateZombieDisplayBuffer = displayBuffer
@@ -151,42 +151,42 @@ public class Calculator {
                     if op.isEqual(to: InplaceOperation.sind) {
                         let raw = last.raw(digits: intDisplay.displayWidth)
                         if raw.mantissa == "0" {
-                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.zero)
                             done = true
                         } else if raw.mantissa == "9" && raw.exponent == 1 {
-                            last.replaceWith(SwiftGmp(withString: "1", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.one)
                             done = true
                         } else if raw.mantissa == "18" && raw.exponent == 2 {
-                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.zero)
                             done = true
                         } else if raw.mantissa == "27" && raw.exponent == 2 {
-                            last.replaceWith(SwiftGmp(withString: "-1", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.minusOne)
                             done = true
                         }
                     }
                     if !done && op.isEqual(to: InplaceOperation.cosd) {
                         let raw = last.raw(digits: intDisplay.displayWidth)
                         if raw.mantissa == "0" {
-                            last.replaceWith(SwiftGmp(withString: "1", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.one)
                             done = true
                         } else if raw.mantissa == "9" && raw.exponent == 1 {
-                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.zero)
                             done = true
                         } else if raw.mantissa == "18" && raw.exponent == 2 {
-                            last.replaceWith(SwiftGmp(withString: "-1", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.minusOne)
                             done = true
                         } else if raw.mantissa == "27" && raw.exponent == 2 {
-                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.zero)
                             done = true
                         }
                     }
                     if !done && op.isEqual(to: InplaceOperation.tand) {
                         let raw = last.raw(digits: intDisplay.displayWidth)
                         if raw.mantissa == "0" {
-                            last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.zero)
                             done = true
                         } else if raw.mantissa == "45" && raw.exponent == 1 {
-                            last.replaceWith(SwiftGmp(withString: "1", bits: token.generousBits(for: token.precision)))
+                            last.replaceWith(token.one)
                             done = true
                         }
                     }
@@ -195,7 +195,7 @@ public class Calculator {
                         if inPlaceOp.isEqual(to: InplaceOperation.sin) || inPlaceOp.isEqual(to: InplaceOperation.cos) {
                             let raw = last.raw(digits: intDisplay.displayWidth)
                             if raw.exponent < -token.precision {
-                                last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
+                                last.replaceWith(token.zero)
                             }
                         }
                     }
