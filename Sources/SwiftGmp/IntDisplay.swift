@@ -94,7 +94,7 @@ open class IntDisplay {
         displayWidth
     }
 
-    var string: String {
+    public var string: String {
         switch type {
         case .unknown:
             return ""
