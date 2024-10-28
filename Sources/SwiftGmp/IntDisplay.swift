@@ -108,7 +108,6 @@ open class IntDisplay {
     open func fits(_ mantissa: String, _ exponent: String? = nil) -> Bool {
         mantissa.count + (exponent != nil ? exponent!.count : 0) <= displayWidth
     }
-    func repeatWidestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
     func repeatNarrowestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
 
     public init(displayWidth: Int, separator: Separator = Separator(separatorType: .dot, groups: false)) {

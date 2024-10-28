@@ -29,7 +29,7 @@ public class Calculator {
     }
     
     public var privateDisplayBufferHasDigits: Bool {
-        !privateDisplayBuffer.isEmpty
+        !privateDisplayBuffer.isEmpty && !(privateDisplayBuffer == "0")
     }
     
     public func setPrecision(newPrecision: Int) {
@@ -112,7 +112,11 @@ public class Calculator {
                     privateDisplayBuffer.append(digitOp.rawValue)
                 }
             } else {
-                privateDisplayBuffer.append(digitOp.rawValue)
+                if privateDisplayBuffer == "0" {
+                    privateDisplayBuffer = digitOp.rawValue
+                } else {
+                    privateDisplayBuffer.append(digitOp.rawValue)
+                }
             }
         } else if let memOp = op as? MemoryOperation {
             switch memOp {
