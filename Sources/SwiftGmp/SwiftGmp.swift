@@ -73,7 +73,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         guard !isNan else { return "nan"}
         guard isValid else { return "not valid"}
         guard !isZero else { return "zero"}
-        let raw = raw()
+        let raw = raw(digits: 20)
         return "\(raw.mantissa) \(raw.exponent)"
     }
     
@@ -103,11 +103,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         mpfr_custom_get_size(bits)
     }
     
-    func raw(digits digitsParameter: Int? = nil) -> Raw {
-        var digits: Int = bits / 3
-        if let digitsParameter {
-            digits = digitsParameter
-        }
+    func raw(digits: Int) -> Raw {
         var exponent: mpfr_exp_t = 0
         
         var charArray: Array<CChar> = Array(repeating: 0, count: digits+4)

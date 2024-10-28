@@ -10,7 +10,7 @@ import Foundation
 public class Calculator {
     
     var token: Token
-    var display: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
+    var intDisplay: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
     
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil
@@ -31,7 +31,7 @@ public class Calculator {
     public init(precision: Int, displayWidth: Int = 10) {
         token = Token(precision: precision)
         privateDisplayBuffer = ""
-        self.display.displayWidth = displayWidth
+        self.intDisplay.displayWidth = displayWidth
     }
     
     public var privateDisplayBufferHasDigits: Bool {
@@ -155,7 +155,7 @@ public class Calculator {
                 if !last.isZero || !op.isEqual(to: InplaceOperation.changeSign) {
                     var done = false
                     if op.isEqual(to: InplaceOperation.sind) {
-                        let raw = last.raw(digits: display.displayWidth)
+                        let raw = last.raw(digits: intDisplay.displayWidth)
                         if raw.mantissa == "0" {
                             last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
                             done = true
@@ -171,7 +171,7 @@ public class Calculator {
                         }
                     }
                     if !done && op.isEqual(to: InplaceOperation.cosd) {
-                        let raw = last.raw(digits: display.displayWidth)
+                        let raw = last.raw(digits: intDisplay.displayWidth)
                         if raw.mantissa == "0" {
                             last.replaceWith(SwiftGmp(withString: "1", bits: token.generousBits(for: token.precision)))
                             done = true
@@ -187,7 +187,7 @@ public class Calculator {
                         }
                     }
                     if !done && op.isEqual(to: InplaceOperation.tand) {
-                        let raw = last.raw(digits: display.displayWidth)
+                        let raw = last.raw(digits: intDisplay.displayWidth)
                         if raw.mantissa == "0" {
                             last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
                             done = true
@@ -199,7 +199,7 @@ public class Calculator {
                     if !done {
                         last.execute(inPlaceOp)
                         if inPlaceOp.isEqual(to: InplaceOperation.sin) || inPlaceOp.isEqual(to: InplaceOperation.cos) {
-                            let raw = last.raw(digits: display.displayWidth)
+                            let raw = last.raw(digits: intDisplay.displayWidth)
                             if raw.exponent < -token.precision {
                                 last.replaceWith(SwiftGmp(withString: "0", bits: token.generousBits(for: token.precision)))
                             }
@@ -302,7 +302,7 @@ public class Calculator {
     public var string: String {
         var asSubSequence: String.SubSequence
         if !privateDisplayBuffer.isEmpty {
-            asSubSequence = privateDisplayBuffer.prefix(display.displayWidth)
+            asSubSequence = privateDisplayBuffer.prefix(intDisplay.displayWidth)
             return String(asSubSequence)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
@@ -318,9 +318,9 @@ public class Calculator {
                 if !swiftGmp.isValid {
                     return "invalid"
                 }
-                let raw = swiftGmp.raw(digits: display.displayWidth)
-                display.update(raw: raw)
-                return display.string
+                let raw = swiftGmp.raw(digits: intDisplay.displayWidth)
+                intDisplay.update(raw: raw)
+                return intDisplay.string
             }
         }
         return "0"
@@ -334,13 +334,13 @@ public class Calculator {
         }
     }
     
-    public var raw: Raw {
+    public func raw(_ digits: Int) -> Raw {
         if !privateDisplayBuffer.isEmpty {
             let temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
-            return temp.raw(digits: display.displayWidth)
+            return temp.raw(digits: digits)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
-                return swiftGmp.raw(digits: display.displayWidth)
+                return swiftGmp.raw(digits: digits)
             } else {
                 return Raw(mantissa: "0", exponent: 0, isNegative: false, length: 0, canBeInteger: true)
             }
