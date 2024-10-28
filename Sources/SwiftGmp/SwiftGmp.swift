@@ -110,7 +110,7 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         }
         var exponent: mpfr_exp_t = 0
         
-        var charArray: Array<CChar> = Array(repeating: 0, count: digits+3)
+        var charArray: Array<CChar> = Array(repeating: 0, count: digits+4)
         mpfr_get_str(&charArray, &exponent, 10, digits + 3, &mpfr, MPFR_RNDN)
         var mantissa: String = ""
         
