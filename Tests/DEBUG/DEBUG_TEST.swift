@@ -5,9 +5,9 @@ import Testing
 
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 100)
-    calculator.display.displayWidth = 10
+    calculator.intDisplay.displayWidth = 10
     calculator.evaluateString("-9.9999999999")
-    var raw = calculator.raw
+    let raw = calculator.raw
     #expect(raw.mantissa == "9999999999")
 
 //    swiftGmp = SwiftGmp(withString: "-9.999999999", bits: 100)

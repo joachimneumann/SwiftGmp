@@ -71,6 +71,9 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     
     var debugDescription: String {
         let raw = raw(digits: 20)
+        if raw.isError {
+            return raw.mantissa
+        }
         return "\(raw.mantissa) \(raw.exponent)"
     }
     

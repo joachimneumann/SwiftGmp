@@ -10,7 +10,7 @@ import Testing
 
 class rawAndDisplayTest {
     var swiftGmp: SwiftGmp = SwiftGmp(withString: "0", bits: 100)
-    var raw: Raw = Raw(mantissa: "0", exponent: 0, isNegative: false, length: 10)
+    var raw: Raw = Raw(mantissa: "0", exponent: 0, isNegative: false, canBeInteger: true, isError: false)
     var display: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
     let L = 10
     

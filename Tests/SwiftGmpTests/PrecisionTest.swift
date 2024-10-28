@@ -38,7 +38,7 @@ import Testing
     #expect(calculator.string == "3")
 
 
-    calculator.display.displayWidth = 10
+    calculator.intDisplay.displayWidth = 10
     calculator.press(ClearOperation.clear)
     calculator.press(DigitOperation.one)
     calculator.press(TwoOperantOperation.div)

@@ -10,19 +10,13 @@ import Foundation
 public class Calculator {
     
     var token: Token
+    
     var intDisplay: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
     
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil
     private var memory: SwiftGmp?
         
-    public var length: (String) -> Int = { s in
-        s.count
-    }
-    public var displayBufferExponentLength: (String) -> Int = { s in
-        s.count
-    }
-
     public var displayBuffer: String {
         if let ret = privateZombieDisplayBuffer { return ret }
         return privateDisplayBuffer
@@ -322,13 +316,13 @@ public class Calculator {
         }
     }
     
-    public func raw(_ digits: Int) -> Raw {
+    public var raw: Raw {
         if !privateDisplayBuffer.isEmpty {
             let temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
-            return temp.raw(digits: digits)
+            return temp.raw(digits: intDisplay.displayWidth)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
-                return swiftGmp.raw(digits: digits)
+                return swiftGmp.raw(digits: intDisplay.displayWidth)
             } else {
                 return Raw(mantissa: "0", exponent: 0, isNegative: false, canBeInteger: true, isError: false)
             }
