@@ -15,6 +15,9 @@ extension OpProtocol where Self: Equatable {
     }
 }
 
+public enum ConfigOperation: String, OpProtocol {
+    case language = "language"
+}
 
 public enum DigitOperation: String, OpProtocol, CaseIterable {
     case zero  = "0"
