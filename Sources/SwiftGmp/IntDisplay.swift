@@ -83,8 +83,8 @@ open class IntDisplay {
         case floatSmallerThanOne
         case scientifiNotation
     }
-    public var left: String
-    public var right: String?
+    open var left: String
+    open var right: String?
     var type: DisplayType
 
     var displayWidth: Int
