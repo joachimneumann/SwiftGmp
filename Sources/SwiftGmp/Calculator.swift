@@ -89,6 +89,13 @@ public class Calculator {
         } else if let constOp = op as? ConstantOperation {
             privateDisplayBuffer = ""
             token.newToken(constOp)
+        } else if let inplaceOperation = op as? InplaceOperation, inplaceOperation.isEqual(to: InplaceOperation.changeSign), privateDisplayBuffer != "", privateDisplayBuffer != "0" {
+            if privateDisplayBuffer.first == "-" {
+                privateDisplayBuffer.removeFirst()
+            } else {
+                privateDisplayBuffer.insert("-", at: privateDisplayBuffer.startIndex)
+            }
+            
         } else if let digitOp = op as? DigitOperation {
             if !token.numberExpected {
                 assert(token.tokens.count > 0)
@@ -213,7 +220,7 @@ public class Calculator {
                 clear()
             case .back:
                 privateDisplayBuffer.removeLast()
-                if privateDisplayBuffer == "0" {
+                if privateDisplayBuffer == "0" || privateDisplayBuffer == "-0" || privateDisplayBuffer == "-" {
                     privateDisplayBuffer = ""
                 }
             }
@@ -230,7 +237,7 @@ public class Calculator {
                 token.walkThroughTokens(tokens: &token.tokens)
             }
         } else {
-            fatalError("Unsupported operation")
+            fatalError("Unsupported operation \(op.getRawValue())")
         }
         
         pendingOperators = []

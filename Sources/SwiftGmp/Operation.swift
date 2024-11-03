@@ -4,6 +4,7 @@ public protocol OpProtocol: Equatable {
     var operatorPriority: Int { get }
     var requiresValidNumber: Bool { get }
     var numberExpected: Bool { get }
+    var argument: String? { get }
     func getRawValue() -> String
     func isEqual(to other: any OpProtocol) -> Bool
 }
@@ -13,6 +14,7 @@ extension OpProtocol where Self: Equatable {
         guard let other = other as? Self else { return false }
         return self == other
     }
+    public var argument: String? { nil }
 }
 
 public enum DigitOperation: String, OpProtocol, CaseIterable {
