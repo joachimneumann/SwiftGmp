@@ -5,7 +5,7 @@ import Testing
 
 @Test func DEBUG_TESTS() {
     let calculator = Calculator(precision: 100)
-    calculator.intDisplay.displayWidth = 10
+    calculator.monoFontDisplay.displayWidth = 10
     calculator.evaluateString("-9.9999999999")
     let raw = calculator.raw
     #expect(raw.mantissa == "9999999999")

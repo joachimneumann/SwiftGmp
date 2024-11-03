@@ -1,5 +1,5 @@
 //
-//  IntDisplay.swift
+//  MonoFontDisplay.swift
 //  SwiftGmp
 //
 //  Created by Joachim Neumann on 25.10.2024.
@@ -74,7 +74,7 @@ public struct Separator: Codable {
 /// a displaywidth that is a CGFloat.
 ///
 
-open class IntDisplay {
+open class MonoFontDisplay {
     public enum DisplayType {
         case unknown
         case error

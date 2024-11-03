@@ -11,7 +11,7 @@ public class Calculator {
     
     var token: Token
     
-    var intDisplay: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
+    var monoFontDisplay: MonoFontDisplay = MonoFontDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
     
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil
@@ -25,7 +25,7 @@ public class Calculator {
     public init(precision: Int, displayWidth: Int = 10) {
         token = Token(precision: precision)
         privateDisplayBuffer = ""
-        self.intDisplay.displayWidth = displayWidth
+        self.monoFontDisplay.displayWidth = displayWidth
     }
     
     public var privateDisplayBufferHasDigits: Bool {
@@ -160,7 +160,7 @@ public class Calculator {
                 if !last.isZero || !op.isEqual(to: InplaceOperation.changeSign) {
                     var done = false
                     if op.isEqual(to: InplaceOperation.sind) {
-                        let raw = last.raw(digits: intDisplay.displayWidth)
+                        let raw = last.raw(digits: monoFontDisplay.displayWidth)
                         if raw.mantissa == "0" {
                             last.replaceWith(token.zero)
                             done = true
@@ -176,7 +176,7 @@ public class Calculator {
                         }
                     }
                     if !done && op.isEqual(to: InplaceOperation.cosd) {
-                        let raw = last.raw(digits: intDisplay.displayWidth)
+                        let raw = last.raw(digits: monoFontDisplay.displayWidth)
                         if raw.mantissa == "0" {
                             last.replaceWith(token.one)
                             done = true
@@ -192,7 +192,7 @@ public class Calculator {
                         }
                     }
                     if !done && op.isEqual(to: InplaceOperation.tand) {
-                        let raw = last.raw(digits: intDisplay.displayWidth)
+                        let raw = last.raw(digits: monoFontDisplay.displayWidth)
                         if raw.mantissa == "0" {
                             last.replaceWith(token.zero)
                             done = true
@@ -204,7 +204,7 @@ public class Calculator {
                     if !done {
                         last.execute(inPlaceOp)
                         if inPlaceOp.isEqual(to: InplaceOperation.sin) || inPlaceOp.isEqual(to: InplaceOperation.cos) {
-                            let raw = last.raw(digits: intDisplay.displayWidth)
+                            let raw = last.raw(digits: monoFontDisplay.displayWidth)
                             if raw.exponent < -token.precision {
                                 last.replaceWith(token.zero)
                             }
@@ -307,13 +307,13 @@ public class Calculator {
     public var string: String {
         var asSubSequence: String.SubSequence
         if !privateDisplayBuffer.isEmpty {
-            asSubSequence = privateDisplayBuffer.prefix(intDisplay.displayWidth)
+            asSubSequence = privateDisplayBuffer.prefix(monoFontDisplay.displayWidth)
             return String(asSubSequence)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
-                let raw = swiftGmp.raw(digits: intDisplay.displayWidth)
-                intDisplay.update(raw: raw)
-                return intDisplay.string
+                let raw = swiftGmp.raw(digits: monoFontDisplay.displayWidth)
+                monoFontDisplay.update(raw: raw)
+                return monoFontDisplay.string
             }
         }
         return "0"
@@ -330,10 +330,10 @@ public class Calculator {
     public var raw: Raw {
         if !privateDisplayBuffer.isEmpty {
             let temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
-            return temp.raw(digits: intDisplay.displayWidth)
+            return temp.raw(digits: monoFontDisplay.displayWidth)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
-                return swiftGmp.raw(digits: intDisplay.displayWidth)
+                return swiftGmp.raw(digits: monoFontDisplay.displayWidth)
             } else {
                 return Raw(mantissa: "0", exponent: 0, isNegative: false, canBeInteger: true, isError: false)
             }

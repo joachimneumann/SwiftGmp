@@ -10,7 +10,7 @@ import Testing
 
 @Test func pressTest() {
     let calculator = Calculator(precision: 20)
-    calculator.intDisplay.displayWidth = 10
+    calculator.monoFontDisplay.displayWidth = 10
 
     // 1 + 2 = 3
     calculator.press(DigitOperation.one)

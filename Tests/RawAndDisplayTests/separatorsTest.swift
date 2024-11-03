@@ -11,7 +11,7 @@ import Testing
 class separatorsTest {
     var calculator = Calculator(precision: 20)
     var raw: Raw = Raw(mantissa: "0", exponent: 0, isNegative: false, canBeInteger: true, isError: false)
-    var display: IntDisplay = IntDisplay(displayWidth: 10, separator: Separator(separatorType: .comma, groups: true))
+    var monoFontDisplay: MonoFontDisplay = MonoFontDisplay(displayWidth: 10, separator: Separator(separatorType: .comma, groups: true))
 
     struct S {
         let decimalSeparator: Separator.SeparatorType
@@ -21,8 +21,8 @@ class separatorsTest {
     @Test func simple() {
         
         calculator.evaluateString("11111.3")
-        display.update(raw: calculator.raw)
-        #expect(display.string == "11.111,3")
+        monoFontDisplay.update(raw: calculator.raw)
+        #expect(monoFontDisplay.string == "11.111,3")
 
 //        calculator.evaluateString("10000")
 //        display = Display(raw: calculator.raw, displayWidth: raw.length, decimalSeparator: DecimalSeparator.dot, separateGroups: true)
@@ -49,9 +49,9 @@ class separatorsTest {
         
         calculator.evaluateString("10000")
         let separator = Separator(separatorType: s.decimalSeparator, groups: s.separateGroups)
-        display.separator = separator
-        display.update(raw: calculator.raw)
-        string = display.string
+        monoFontDisplay.separator = separator
+        monoFontDisplay.update(raw: calculator.raw)
+        string = monoFontDisplay.string
         
         print(string)
         expectation = "10" + (separator.groupString ?? "") + "000"
@@ -61,8 +61,8 @@ class separatorsTest {
         #expect(string == "10000")
         
         calculator.evaluateString("9999.3999999999999999999999999999999")
-        display.update(raw: calculator.raw)
-        string = display.string
+        monoFontDisplay.update(raw: calculator.raw)
+        string = monoFontDisplay.string
         
         print(string)
         expectation = "9" + (separator.groupString ?? "") + "999" + separator.string + "4"
@@ -79,21 +79,21 @@ class separatorsTest {
         calculator.press(DigitOperation.one)
         calculator.press(DigitOperation.dot)
         calculator.press(DigitOperation.three)
-        display.update(raw: calculator.raw)
-        string = display.string
+        monoFontDisplay.update(raw: calculator.raw)
+        string = monoFontDisplay.string
         expectation = "11" + (separator.groupString ?? "") + "111" + separator.string + "3"
         print(string + " " + expectation)
         #expect(string == expectation)
     
         calculator.press(EqualOperation.equal)
-        display.update(raw: calculator.raw)
-        string = display.string
+        monoFontDisplay.update(raw: calculator.raw)
+        string = monoFontDisplay.string
         print(string + " " + expectation)
         #expect(string == expectation)
 
         calculator.evaluateString("1e1234")
-        display.update(raw: calculator.raw)
-        string = display.string
+        monoFontDisplay.update(raw: calculator.raw)
+        string = monoFontDisplay.string
         expectation = "1\(separator.string)0e1" + (separator.groupString ?? "") + "234"
         print(string + " " + expectation)
         #expect(string == expectation)

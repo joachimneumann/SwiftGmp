@@ -8,7 +8,7 @@ import Testing
     let calculator = Calculator(precision: 20)
 
     calculator.setPrecision(newPrecision: 20)
-    calculator.intDisplay.displayWidth = 10
+    calculator.monoFontDisplay.displayWidth = 10
     calculator.evaluateString("81.651654 / 40.563652")
     #expect(calculator.string == "2.01292659")
 

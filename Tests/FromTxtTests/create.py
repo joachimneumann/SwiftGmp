@@ -125,7 +125,7 @@ for file in glob.glob("*.txt"):
                             if components[0].strip() == "precision":
                                 writeln("    calculator.setPrecision(newPrecision: "+components[1].strip()+")")
                             elif components[0].strip() == "displayWidth":
-                                writeln("    calculator.intDisplay.displayWidth = "+components[1].strip())
+                                writeln("    calculator.monoFontDisplay.displayWidth = "+components[1].strip())
                             elif components[0].strip() == "C":
                                 writeln("    calculator.press(ClearOperation.clear)")
                                 writeln("    #expect(calculator.string == \""+components[1].strip()+"\")")
