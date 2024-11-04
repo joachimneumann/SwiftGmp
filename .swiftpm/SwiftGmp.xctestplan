@@ -15,13 +15,6 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "DEBUG",
-        "name" : "DEBUG"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:",
         "identifier" : "FromTxtTests",
         "name" : "FromTxtTests"
       }
@@ -29,8 +22,8 @@
     {
       "target" : {
         "containerPath" : "container:",
-        "identifier" : "RawAndDisplayTests",
-        "name" : "RawAndDisplayTests"
+        "identifier" : "DEBUG",
+        "name" : "DEBUG"
       }
     },
     {
@@ -43,10 +36,17 @@
     {
       "target" : {
         "containerPath" : "container:",
+        "identifier" : "RawAndDisplayTests",
+        "name" : "RawAndDisplayTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
         "identifier" : "SwiftGmpTests",
         "name" : "SwiftGmpTests"
       }
     }
   ],
-  "version" : 1
+  "version" : 2
 }

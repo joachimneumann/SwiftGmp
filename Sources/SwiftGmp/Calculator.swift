@@ -8,10 +8,11 @@
 import Foundation
 
 public class Calculator {
-    
+    public var separator: Separator
+
     var token: Token
     
-    var monoFontDisplay: MonoFontDisplay = MonoFontDisplay(displayWidth: 10, separator: Separator(separatorType: .dot, groups: false))
+    let monoFontDisplay: MonoFontDisplay = MonoFontDisplay(displayWidth: 10)
     
     private var privateDisplayBuffer: String
     private var privateZombieDisplayBuffer: String? = nil
@@ -22,7 +23,8 @@ public class Calculator {
         return privateDisplayBuffer
     }
 
-    public init(precision: Int, displayWidth: Int = 10) {
+    public init(precision: Int, displayWidth: Int = 10, separator: Separator = Separator(separatorType: .dot, groups: false)) {
+        self.separator = separator
         token = Token(precision: precision)
         privateDisplayBuffer = ""
         self.monoFontDisplay.displayWidth = displayWidth
@@ -112,11 +114,11 @@ public class Calculator {
                 }
             }
             if digitOp == .dot {
-                if privateDisplayBuffer.contains(".") { return }
+                if privateDisplayBuffer.contains(separator.character) { return }
                 if privateDisplayBuffer == "" {
-                    privateDisplayBuffer = "0."
+                    privateDisplayBuffer = "0"+separator.string
                 } else {
-                    privateDisplayBuffer.append(digitOp.rawValue)
+                    privateDisplayBuffer.append(separator.string)
                 }
             } else {
                 if privateDisplayBuffer == "0" {
@@ -260,10 +262,20 @@ public class Calculator {
             }
         }
     }
+
+    func withoutSeparators(_ s: String) -> String {
+        var ret: String = s
+        if separator.groups {
+            if let gr = separator.groupString {
+                ret = s.replacingOccurrences(of: gr, with: "")
+            }
+        }
+        return ret.replacingOccurrences(of: separator.string, with: ".")
+    }
     
     func displayBufferToToken() {
         if !privateDisplayBuffer.isEmpty {
-            let swiftGmp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
+            let swiftGmp = SwiftGmp(withString: withoutSeparators(privateDisplayBuffer), bits: token.generousBits(for: token.precision))
             token.newToken(swiftGmp)
             privateDisplayBuffer = ""
         }
@@ -312,7 +324,7 @@ public class Calculator {
         } else {
             if let swiftGmp = token.lastSwiftGmp {
                 let raw = swiftGmp.raw(digits: monoFontDisplay.displayWidth)
-                monoFontDisplay.update(raw: raw)
+                monoFontDisplay.update(raw: raw, separator: separator)
                 return monoFontDisplay.string
             }
         }
@@ -329,7 +341,7 @@ public class Calculator {
     
     public var raw: Raw {
         if !privateDisplayBuffer.isEmpty {
-            let temp = SwiftGmp(withString: privateDisplayBuffer.replacingOccurrences(of: ",", with: "."), bits: token.generousBits(for: token.precision))
+            let temp = SwiftGmp(withString: withoutSeparators(privateDisplayBuffer), bits: token.generousBits(for: token.precision))
             return temp.raw(digits: monoFontDisplay.displayWidth)
         } else {
             if let swiftGmp = token.lastSwiftGmp {

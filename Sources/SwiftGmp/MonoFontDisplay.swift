@@ -18,8 +18,6 @@ import Foundation
 ///
 
 open class MonoFontDisplay {
-    public var separator: Separator
-
     public enum DisplayType {
         case unknown
         case error
@@ -54,16 +52,14 @@ open class MonoFontDisplay {
     }
     func repeatNarrowestDigit(_ count: Int) -> String { String(repeating: "0", count: count) }
 
-    public init(displayWidth: Int, separator: Separator = Separator(separatorType: .dot, groups: false)) {
+    public init(displayWidth: Int) {
         self.displayWidth = displayWidth
-        self.separator = separator
         self.left = "0"
         self.right = nil
         self.type = .unknown
     }
     
-    public func update(raw: Raw) {
-        
+    public func update(raw: Raw, separator: Separator) {
         if raw.isError {
             left = raw.mantissa
             right = nil
@@ -115,7 +111,7 @@ open class MonoFontDisplay {
             raw.exponent >= 0 &&
             
             // check if the float may fit into the display
-            fits(raw.negativeSign + repeatNarrowestDigit(raw.exponent+1) + "." + repeatNarrowestDigit(1))
+                fits(raw.negativeSign + repeatNarrowestDigit(raw.exponent+1) + separator.string + repeatNarrowestDigit(1))
         {
             
             // group separator
@@ -152,7 +148,7 @@ open class MonoFontDisplay {
             // 0.001 --> exponent = -3
             fits(repeatNarrowestDigit(0) + separator.string + repeatNarrowestDigit(-1 * raw.exponent))
         {
-            var temp = "0."
+            var temp = "0" + separator.string
             for _ in 1 ..< (-1 * raw.exponent) {
                 temp += "0"
             }
@@ -207,7 +203,7 @@ open class MonoFontDisplay {
 }
 
 extension String {
-    mutating func injectGrouping(_ c: Character) {
+    public mutating func injectGrouping(_ c: Character) {
         var count = self.count
         while count >= 4 {
             count = count - 3
