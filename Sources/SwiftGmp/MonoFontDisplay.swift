@@ -7,63 +7,6 @@
 
 import Foundation
 
-public struct Separator: Codable {
-    public enum SeparatorType: String, Codable, CaseIterable {
-        case comma = ","
-        case dot = "."
-    }
-
-    public init(separatorType: SeparatorType, groups: Bool) {
-        self.separatorType = separatorType
-        self.groups = groups
-    }
-    
-    public var separatorType: SeparatorType
-    public var groups: Bool
-
-    public var character: Character {
-        get {
-            switch self.separatorType {
-            case .comma: return ","
-            case .dot: return "."
-            }
-        }
-    }
-    public var string: String {
-        get {
-            switch self.separatorType {
-            case .comma: return ","
-            case .dot: return "."
-            }
-        }
-    }
-    public var groupCharacter: Character? {
-        get {
-            if groups {
-                switch self.separatorType {
-                case .comma: return "."
-                case .dot: return ","
-                }
-            } else {
-                return nil
-            }
-        }
-    }
-    public var groupString: String? {
-        get {
-            if groups {
-                switch self.separatorType {
-                case .comma: return "."
-                case .dot: return ","
-                }
-            } else {
-                return nil
-            }
-        }
-    }
-
-}
-
 /// Note:
 ///
 /// To get a string of length displayWidth, I typically start with a small string and then
@@ -75,6 +18,8 @@ public struct Separator: Codable {
 ///
 
 open class MonoFontDisplay {
+    public var separator: Separator
+
     public enum DisplayType {
         case unknown
         case error
@@ -88,7 +33,6 @@ open class MonoFontDisplay {
     var type: DisplayType
 
     var displayWidth: Int
-    var separator: Separator
     
     open var maxDigits: Int {
         displayWidth
