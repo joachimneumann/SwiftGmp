@@ -15,11 +15,11 @@ public class Calculator {
     let monoFontDisplay: MonoFontDisplay = MonoFontDisplay(displayWidth: 10)
     
     private var privateDisplayBuffer: String
-    private var privateZombieDisplayBuffer: String? = nil
+    private var twoOperantDisplayBufferCache: String? = nil
     private var memory: SwiftGmp?
         
     public var displayBuffer: String {
-        if let ret = privateZombieDisplayBuffer { return ret }
+        if let ret = twoOperantDisplayBufferCache { return ret }
         return privateDisplayBuffer
     }
 
@@ -63,9 +63,9 @@ public class Calculator {
 
     public func press(_ op: any OpProtocol) {
         if let _ = op as? TwoOperantOperation {
-            privateZombieDisplayBuffer = displayBuffer
+            twoOperantDisplayBufferCache = displayBuffer
         } else {
-            privateZombieDisplayBuffer = nil
+            twoOperantDisplayBufferCache = nil
         }
         if let twoOperantOp = op as? TwoOperantOperation {
             displayBufferToToken()
