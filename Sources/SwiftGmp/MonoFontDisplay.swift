@@ -92,9 +92,7 @@ open class MonoFontDisplay {
             }
             
             // add grouping
-            if let c = separator.groupCharacter {
-                temp.injectGrouping(c)
-            }
+            temp.injectSeparator(separator)
             
             // check if the Integer fits into the display
             if fits(raw.negativeSign + temp) {
@@ -116,9 +114,7 @@ open class MonoFontDisplay {
             
             // group separator
             var beforeSeparator = raw.mantissa.sub(to: raw.exponent + 1)
-            if let c = separator.groupCharacter {
-                beforeSeparator.injectGrouping(c)
-            }
+            beforeSeparator.injectSeparator(separator)
             
             let afterSeparator = raw.mantissa.sub(from: raw.exponent + 1)
             
@@ -172,9 +168,7 @@ open class MonoFontDisplay {
         // Scientific. Must work.
         var exponentString: String = "e\(raw.exponent)"
         // add grouping
-        if let c = separator.groupCharacter {
-            exponentString.injectGrouping(c)
-        }
+        exponentString.injectSeparator(separator)
 
         guard raw.mantissa.count >= 1 else {
             left = "error"
@@ -203,12 +197,32 @@ open class MonoFontDisplay {
 }
 
 extension String {
-    public mutating func injectGrouping(_ c: Character) {
-        var count = self.count
-        while count >= 4 {
-            count = count - 3
-            self.insert(c, at: count)
+    public mutating func injectSeparator(_ separator: Separator) {
+        let parts = self.split(separator: separator.character)
+        var beforeDecimalPoint: String = String(parts[0])
+        if let c = separator.groupCharacter {
+            var count = beforeDecimalPoint.count
+            while count >= 4 {
+                count = count - 3
+                beforeDecimalPoint.insert(c, at: count)
+            }
         }
+        if parts.count == 1 {
+            if self.hasSuffix(separator.string) {
+                self = beforeDecimalPoint + separator.string
+            } else {
+                self = beforeDecimalPoint
+            }
+        } else {
+            self = beforeDecimalPoint + separator.string + String(parts[1])
+        }
+    }
+    public mutating func removeSeparator(_ separator: Separator) {
+        var ret: String = self
+        if let gr = separator.groupString {
+            ret = ret.replacingOccurrences(of: gr, with: "")
+        }
+        self = ret.replacingOccurrences(of: separator.string, with: ".")
     }
 
     func sub(from position: Int) -> String {

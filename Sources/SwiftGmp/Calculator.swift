@@ -18,9 +18,19 @@ public class Calculator {
     private var twoOperantDisplayBufferCache: String? = nil
     private var memory: SwiftGmp?
         
-    public var displayBuffer: String {
-        if let ret = twoOperantDisplayBufferCache { return ret }
-        return privateDisplayBuffer
+    public func displayBuffer(withSeparators: Bool) -> String {
+        var ret: String
+        if twoOperantDisplayBufferCache != nil {
+            ret = twoOperantDisplayBufferCache!
+        } else {
+            ret = privateDisplayBuffer
+        }
+        if withSeparators {
+            ret.injectSeparator(separator)
+        } else {
+            ret = ret.replacingOccurrences(of: separator.string, with: ".")
+        }
+        return ret
     }
 
     public init(precision: Int, displayWidth: Int = 10, separator: Separator = Separator(separatorType: .dot, groups: false)) {
@@ -63,7 +73,7 @@ public class Calculator {
 
     public func press(_ op: any OpProtocol) {
         if let _ = op as? TwoOperantOperation {
-            twoOperantDisplayBufferCache = displayBuffer
+            twoOperantDisplayBufferCache = displayBuffer(withSeparators: false)
         } else {
             twoOperantDisplayBufferCache = nil
         }
@@ -113,7 +123,7 @@ public class Calculator {
                     return
                 }
             }
-            if digitOp == .dot {
+            if digitOp == .dot || digitOp == .comma {
                 if privateDisplayBuffer.contains(separator.character) { return }
                 if privateDisplayBuffer == "" {
                     privateDisplayBuffer = "0"+separator.string
