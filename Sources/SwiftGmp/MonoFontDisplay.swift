@@ -59,7 +59,7 @@ open class MonoFontDisplay {
         self.type = .unknown
     }
     
-    public func update(raw: Raw, separator: Separator) {
+    public func update(raw: Raw) {
         if raw.isError {
             left = raw.mantissa
             right = nil
@@ -91,9 +91,6 @@ open class MonoFontDisplay {
                 }
             }
             
-            // add grouping
-            temp.injectSeparator(separator)
-            
             // check if the Integer fits into the display
             if fits(raw.negativeSign + temp) {
                 left = raw.negativeSign + temp
@@ -109,17 +106,14 @@ open class MonoFontDisplay {
             raw.exponent >= 0 &&
             
             // check if the float may fit into the display
-                fits(raw.negativeSign + repeatNarrowestDigit(raw.exponent+1) + separator.string + repeatNarrowestDigit(1))
+                fits(raw.negativeSign + repeatNarrowestDigit(raw.exponent+1) + "." + repeatNarrowestDigit(1))
         {
             
             // group separator
-            var beforeSeparator = raw.mantissa.sub(to: raw.exponent + 1)
-            beforeSeparator.injectSeparator(separator)
-            
+            let beforeSeparator = raw.mantissa.sub(to: raw.exponent + 1)
             let afterSeparator = raw.mantissa.sub(from: raw.exponent + 1)
-            
             if afterSeparator.count > 0 {
-                var temp = beforeSeparator + separator.string + afterSeparator.at(0)
+                var temp = beforeSeparator + "." + afterSeparator.at(0)
                 var digitIndex = 1
                 while
                     digitIndex < afterSeparator.count &&
@@ -142,9 +136,9 @@ open class MonoFontDisplay {
             raw.mantissa.count > 0 &&
 
             // 0.001 --> exponent = -3
-            fits(repeatNarrowestDigit(0) + separator.string + repeatNarrowestDigit(-1 * raw.exponent))
+            fits(repeatNarrowestDigit(0) + "." + repeatNarrowestDigit(-1 * raw.exponent))
         {
-            var temp = "0" + separator.string
+            var temp = "0."
             for _ in 1 ..< (-1 * raw.exponent) {
                 temp += "0"
             }
@@ -166,9 +160,7 @@ open class MonoFontDisplay {
         }
         
         // Scientific. Must work.
-        var exponentString: String = "e\(raw.exponent)"
-        // add grouping
-        exponentString.injectSeparator(separator)
+        let exponentString: String = "e\(raw.exponent)"
 
         guard raw.mantissa.count >= 1 else {
             left = "error"
@@ -177,7 +169,7 @@ open class MonoFontDisplay {
             return
         }
         
-        var mantissaString = raw.mantissa.at(0) + separator.string
+        var mantissaString = raw.mantissa.at(0) + "."
         if raw.mantissa.count == 1 {
             mantissaString += "0"
         }

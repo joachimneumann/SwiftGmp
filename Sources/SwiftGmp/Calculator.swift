@@ -8,8 +8,6 @@
 import Foundation
 
 public class Calculator {
-    public var separator: Separator
-
     var token: Token
     
     let monoFontDisplay: MonoFontDisplay = MonoFontDisplay(displayWidth: 10)
@@ -18,23 +16,11 @@ public class Calculator {
     private var twoOperantDisplayBufferCache: String? = nil
     private var memory: SwiftGmp?
         
-    public func displayBuffer(withSeparators: Bool) -> String {
-        var ret: String
-        if twoOperantDisplayBufferCache != nil {
-            ret = twoOperantDisplayBufferCache!
-        } else {
-            ret = privateDisplayBuffer
-        }
-        if withSeparators {
-            ret.injectSeparator(separator)
-        } else {
-            ret = ret.replacingOccurrences(of: separator.string, with: ".")
-        }
-        return ret
+    public var displayBuffer: String {
+        twoOperantDisplayBufferCache != nil ? twoOperantDisplayBufferCache! : privateDisplayBuffer
     }
 
-    public init(precision: Int, displayWidth: Int = 10, separator: Separator = Separator(separatorType: .dot, groups: false)) {
-        self.separator = separator
+    public init(precision: Int, displayWidth: Int = 10) {
         token = Token(precision: precision)
         privateDisplayBuffer = ""
         self.monoFontDisplay.displayWidth = displayWidth
@@ -73,7 +59,7 @@ public class Calculator {
 
     public func press(_ op: any OpProtocol) {
         if let _ = op as? TwoOperantOperation {
-            twoOperantDisplayBufferCache = displayBuffer(withSeparators: false)
+            twoOperantDisplayBufferCache = displayBuffer
         } else {
             twoOperantDisplayBufferCache = nil
         }
@@ -123,12 +109,12 @@ public class Calculator {
                     return
                 }
             }
-            if digitOp == .dot || digitOp == .comma {
-                if privateDisplayBuffer.contains(separator.character) { return }
+            if digitOp == .dot {
+                if privateDisplayBuffer.contains(".") { return }
                 if privateDisplayBuffer == "" {
-                    privateDisplayBuffer = "0"+separator.string
+                    privateDisplayBuffer = "0."
                 } else {
-                    privateDisplayBuffer.append(separator.string)
+                    privateDisplayBuffer.append(".")
                 }
             } else {
                 if privateDisplayBuffer == "0" {
@@ -272,20 +258,10 @@ public class Calculator {
             }
         }
     }
-
-    func withoutSeparators(_ s: String) -> String {
-        var ret: String = s
-        if separator.groups {
-            if let gr = separator.groupString {
-                ret = s.replacingOccurrences(of: gr, with: "")
-            }
-        }
-        return ret.replacingOccurrences(of: separator.string, with: ".")
-    }
-    
+  
     func displayBufferToToken() {
         if !privateDisplayBuffer.isEmpty {
-            let swiftGmp = SwiftGmp(withString: withoutSeparators(privateDisplayBuffer), bits: token.generousBits(for: token.precision))
+            let swiftGmp = SwiftGmp(withString: privateDisplayBuffer, bits: token.generousBits(for: token.precision))
             token.newToken(swiftGmp)
             privateDisplayBuffer = ""
         }
@@ -334,7 +310,7 @@ public class Calculator {
         } else {
             if let swiftGmp = token.lastSwiftGmp {
                 let raw = swiftGmp.raw(digits: monoFontDisplay.displayWidth)
-                monoFontDisplay.update(raw: raw, separator: separator)
+                monoFontDisplay.update(raw: raw)
                 return monoFontDisplay.string
             }
         }
@@ -351,7 +327,7 @@ public class Calculator {
     
     public var raw: Raw {
         if !privateDisplayBuffer.isEmpty {
-            let temp = SwiftGmp(withString: withoutSeparators(privateDisplayBuffer), bits: token.generousBits(for: token.precision))
+            let temp = SwiftGmp(withString: privateDisplayBuffer, bits: token.generousBits(for: token.precision))
             return temp.raw(digits: monoFontDisplay.displayWidth)
         } else {
             if let swiftGmp = token.lastSwiftGmp {
