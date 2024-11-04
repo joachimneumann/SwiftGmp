@@ -197,34 +197,6 @@ open class MonoFontDisplay {
 }
 
 extension String {
-    public mutating func injectSeparator(_ separator: Separator) {
-        let parts = self.split(separator: separator.character)
-        var beforeDecimalPoint: String = String(parts[0])
-        if let c = separator.groupCharacter {
-            var count = beforeDecimalPoint.count
-            while count >= 4 {
-                count = count - 3
-                beforeDecimalPoint.insert(c, at: count)
-            }
-        }
-        if parts.count == 1 {
-            if self.hasSuffix(separator.string) {
-                self = beforeDecimalPoint + separator.string
-            } else {
-                self = beforeDecimalPoint
-            }
-        } else {
-            self = beforeDecimalPoint + separator.string + String(parts[1])
-        }
-    }
-    public mutating func removeSeparator(_ separator: Separator) {
-        var ret: String = self
-        if let gr = separator.groupString {
-            ret = ret.replacingOccurrences(of: gr, with: "")
-        }
-        self = ret.replacingOccurrences(of: separator.string, with: ".")
-    }
-
     func sub(from position: Int) -> String {
         let start = self.index(self.startIndex, offsetBy: position)
         return String(self[start...])
