@@ -28,8 +28,10 @@ open class MonoFontDisplay {
     }
     open var left: String
     open var right: String?
-    var type: DisplayType
-
+    private var type: DisplayType
+    
+    public var isError: Bool { type == .error }
+    
     var displayWidth: Int
     
     open var maxDigits: Int {
