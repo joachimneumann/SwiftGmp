@@ -136,7 +136,7 @@ open class MonoFontDisplay {
             raw.mantissa.count > 0 &&
 
             // 0.001 --> exponent = -3
-            fits(repeatNarrowestDigit(0) + "." + repeatNarrowestDigit(-1 * raw.exponent))
+            fits(repeatNarrowestDigit(1) + "." + repeatNarrowestDigit(-1 * raw.exponent))
         {
             var temp = "0."
             for _ in 1 ..< (-1 * raw.exponent) {
