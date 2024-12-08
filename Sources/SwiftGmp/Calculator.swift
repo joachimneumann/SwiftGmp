@@ -260,12 +260,16 @@ public class Calculator {
     }
   
     func displayBufferToToken() {
+        if privateDisplayBuffer.isEmpty && token.tokens.isEmpty {
+            privateDisplayBuffer = "0"
+        }
         if !privateDisplayBuffer.isEmpty {
             let swiftGmp = SwiftGmp(withString: privateDisplayBuffer, bits: token.generousBits(for: token.precision))
             token.newToken(swiftGmp)
             privateDisplayBuffer = ""
         }
     }
+    
     private var inPlaceAllowed: Bool {
         displayBufferToToken()
         return token.lastSwiftGmp != nil
