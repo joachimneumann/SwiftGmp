@@ -35,26 +35,28 @@ public enum ClearOperation: String, OpProtocol, CaseIterable {
     case clear = "AC"
     case back = "back"
 }
+
 public enum EqualOperation: String, OpProtocol, CaseIterable {
     case equal = "="
 }
+
 public enum PercentOperation: String, OpProtocol, CaseIterable {
     case percent = "%"
 }
 
 public enum MemoryOperation: String, OpProtocol, CaseIterable {
-    case recallM  = "MR"
-    case addToM   = "M+"
-    case subFromM = "M-"
-    case clearM   = "MC"
+    case clearM   = "mc"
+    case recallM  = "mr"
+    case addToM   = "m+"
+    case subFromM = "m-"
 }
 
 public enum ConstantOperation: String, OpProtocol, CaseIterable {
     // this operation in an inplace operation, but if no number is found
     // it creates a zero out of thin air and then perated on the zero.
-    case pi = "pi"
+    case pi = "π"
     case e = "e"
-    case rand = "rand"
+    case rand = "Rand"
 }
 
 public enum InplaceOperation: String, OpProtocol, CaseIterable {
@@ -98,7 +100,7 @@ public enum TwoOperantOperation: String, OpProtocol, CaseIterable {
     case sub = "-"
     case mul = "*"
     case div = "/"
-    case powxy = "^"
+    case powxy
     case powyx
     case sqrty
     case logy
@@ -109,6 +111,15 @@ public enum ParenthesisOperation: String, OpProtocol, CaseIterable {
     case left = "("
     case right = ")"
 }
+
+public enum ControlOperation: String, OpProtocol, CaseIterable {
+    case calc = "calc"
+    case settings = "settings"
+    case second = "2nd"
+    case rad = "Rad"
+    case deg = "Deg"
+}
+
 
 
 extension DigitOperation {
@@ -227,4 +238,12 @@ extension ParenthesisOperation {
     public func getRawValue() -> String {
         return self.rawValue
     }
+}
+
+
+extension ControlOperation {
+    public var operatorPriority: Int { 5 }
+    public var numberExpected: Bool { false }
+    public var requiresValidNumber: Bool { false }
+    public func getRawValue() -> String { return self.rawValue }
 }

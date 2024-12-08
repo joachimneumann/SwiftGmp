@@ -129,13 +129,13 @@ for filename in glob.glob("*.txt"):
                             pass
                         elif components[0].strip() == "DISPLAY":
                             pass
-                        elif components[0].strip() == "MC":
+                        elif components[0].strip() == "mc":
                             pass
-                        elif components[0].strip() == "MR":
+                        elif components[0].strip() == "mr":
                             pass
-                        elif components[0].strip() == "M+":
+                        elif components[0].strip() == "m+":
                             pass
-                        elif components[0].strip() == "M-":
+                        elif components[0].strip() == "m-":
                             pass
                         elif "nan" in components[1]:
                             pass
