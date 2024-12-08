@@ -288,6 +288,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
             var temp = mpfr; mpfr_exp(  &mpfr, &temp, MPFR_RNDN)
         case .exp10:
             var temp = mpfr; mpfr_exp10(&mpfr, &temp, MPFR_RNDN)
+        case .exp2:
+            var temp = mpfr; mpfr_exp2(&mpfr, &temp, MPFR_RNDN)
         case .changeSign:
             var temp = mpfr; mpfr_neg(  &mpfr, &temp, MPFR_RNDN)
         case .rez:

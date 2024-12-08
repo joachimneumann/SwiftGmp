@@ -83,6 +83,7 @@ public enum InplaceOperation: String, OpProtocol, CaseIterable {
     case sqr
     case cubed
     case exp
+    case exp2
     case exp10
     case changeSign = "±"
     case rez
