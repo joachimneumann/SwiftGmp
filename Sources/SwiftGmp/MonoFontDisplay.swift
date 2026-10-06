@@ -15,9 +15,8 @@ import Foundation
 /// This logic is unneccesarly complicated for a test Display with Integer String lengths.
 /// But this will allow to inherit a class FloatDisplay that uses a proportional font and
 /// a displaywidth that is a CGFloat.
-///
 
-open class MonoFontDisplay {
+open class MonoFontDisplay: ObservableObject {
     public enum DisplayType {
         case unknown
         case error
@@ -26,14 +25,27 @@ open class MonoFontDisplay {
         case floatSmallerThanOne
         case scientifiNotation
     }
-    open var left: String
-    open var right: String?
-    private var type: DisplayType
+    
+//    private var _left: String = "0"
+//    public var left: String {
+//        get { _left }
+//        set {
+//            print("left new value: \(newValue)")
+//            guard !newValue.isEmpty else { return } // Example safeguard
+//            _left = newValue
+//        }
+//    }
+
+    @Published public var left: String = "0"
+
+//    @Published public var left: String
+    public var right: String?
+    var type: DisplayType
     
     public var isError: Bool { type == .error }
     
     var displayWidth: Int
-    
+    open var rightWidth: CGFloat = 10.0
     open var maxDigits: Int {
         displayWidth
     }
@@ -56,7 +68,7 @@ open class MonoFontDisplay {
 
     public init(displayWidth: Int) {
         self.displayWidth = displayWidth
-        self.left = "0"
+//        self.left = "00"
         self.right = nil
         self.type = .unknown
     }

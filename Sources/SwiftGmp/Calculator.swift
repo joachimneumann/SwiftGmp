@@ -57,6 +57,24 @@ public class Calculator {
         }
     }
 
+    /// Replace the current operand without clearing pending operations or memory.
+    /// Accept decimal numbers and scientific notation, never expressions.
+    @discardableResult
+    public func replaceCurrentNumber(_ text: String) -> Bool {
+        let number = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard number.range(of: #"\A[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?\z"#, options: .regularExpression) != nil else { return false }
+        let value = SwiftGmp(withString: number, bits: token.generousBits(for: token.precision))
+        guard value.isValid else { return false }
+        if !token.numberExpected {
+            token.removeLastSwiftGmp()
+        }
+        privateDisplayBuffer = ""
+        twoOperantDisplayBufferCache = nil
+        token.newToken(value)
+        updateOperatorState()
+        return true
+    }
+
     public func press(_ op: any OpProtocol) {
         if let _ = op as? TwoOperantOperation {
             twoOperantDisplayBufferCache = displayBuffer
@@ -235,9 +253,13 @@ public class Calculator {
                 token.walkThroughTokens(tokens: &token.tokens)
             }
         } else {
-            fatalError("Unsupported operation \(op.getRawValue())")
+            fatalError("Unsupported operation: \(op.getRawValue())")
         }
         
+        updateOperatorState()
+    }
+
+    private func updateOperatorState() {
         pendingOperators = []
         for op in token.allOperationsSorted {
             isAllowedOperator[op.getRawValue()] = true

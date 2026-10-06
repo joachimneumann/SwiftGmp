@@ -136,61 +136,10 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "DEBUG_TESTS()">
-               </Test>
-               <Test
                   Identifier = "DisplayTests">
                </Test>
                <Test
                   Identifier = "DisplayTests/integer()">
-               </Test>
-               <Test
-                  Identifier = "anotherTest()">
-               </Test>
-               <Test
-                  Identifier = "basics1BcTest()">
-               </Test>
-               <Test
-                  Identifier = "basics1Test()">
-               </Test>
-               <Test
-                  Identifier = "basics2BcTest()">
-               </Test>
-               <Test
-                  Identifier = "basics2Test()">
-               </Test>
-               <Test
-                  Identifier = "basics3BcTest()">
-               </Test>
-               <Test
-                  Identifier = "basics3Test()">
-               </Test>
-               <Test
-                  Identifier = "calculatorBcTest()">
-               </Test>
-               <Test
-                  Identifier = "calculatorTest()">
-               </Test>
-               <Test
-                  Identifier = "largeBcTest()">
-               </Test>
-               <Test
-                  Identifier = "largeTest()">
-               </Test>
-               <Test
-                  Identifier = "pendingTest()">
-               </Test>
-               <Test
-                  Identifier = "precisionTest()">
-               </Test>
-               <Test
-                  Identifier = "pressTest()">
-               </Test>
-               <Test
-                  Identifier = "testChatGTPBcTest()">
-               </Test>
-               <Test
-                  Identifier = "testChatGTPTest()">
                </Test>
             </SkippedTests>
          </TestableReference>

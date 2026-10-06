@@ -117,8 +117,8 @@ public enum ControlOperation: String, OpProtocol, CaseIterable {
     case calc = "calc"
     case settings = "settings"
     case second = "2nd"
-    case rad = "Rad"
-    case deg = "Deg"
+    case rad = "Deg"
+    case deg = "Rad"
 }
 
 

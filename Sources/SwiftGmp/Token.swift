@@ -108,6 +108,7 @@ class Token {
     }
     
     let allOperationsSorted: [any OpProtocol]
+    private let operationSpellings: [(String, any OpProtocol)]
     
     func clear() {
         tokens = []
@@ -142,6 +143,11 @@ class Token {
         allOperationsUnsorted.append(contentsOf: PercentOperation.allCases)
         allOperationsUnsorted.append(contentsOf: DigitOperation.allCases)
         allOperationsSorted = allOperationsUnsorted.sorted { $0.getRawValue().count > $1.getRawValue().count }
+        // Expressions accept textual aliases without changing calculator button labels.
+        var spellings = allOperationsSorted.map { ($0.getRawValue(), $0) }
+        spellings.append(("pi", ConstantOperation.pi))
+        spellings.append(("^", TwoOperantOperation.powxy))
+        operationSpellings = spellings.sorted { $0.0.count > $1.0.count }
     }
     //
     var numberExpected: Bool {
@@ -441,8 +447,7 @@ class Token {
         let inputEndIndex: String.Index = input.endIndex
         while functionIndex < inputEndIndex {
             var inputSlice: Substring = input[functionIndex...]
-            for op in allOperationsSorted {
-                let opRawValue: String = op.getRawValue()
+            for (opRawValue, op) in operationSpellings {
                 if inputSlice.hasPrefix(opRawValue) {
                     if op is InplaceOperation {
                         // inplace operator found
@@ -465,7 +470,7 @@ class Token {
                             if parenthesisCounter == 0 {
                                 // function argument isolated: [index, searchIndex]
                                 var input2 = input
-                                input2.insert(contentsOf: op.getRawValue(), at: searchIndex)
+                                input2.insert(contentsOf: opRawValue, at: searchIndex)
                                 var functionArgument = String(input2[argumentIndex..<searchIndex])
                                 functionArgument = rearrangeInplaceFunctions(in: functionArgument)
                                 input2.insert(contentsOf: functionArgument, at: searchIndex)
@@ -545,8 +550,7 @@ class Token {
                 var opFound: Bool = false
                 let inputSlice: Substring = input[index...]
                 
-                for op in allOperationsSorted {
-                    let opRawValue: String = op.getRawValue()
+                for (opRawValue, op) in operationSpellings {
                     
                     if inputSlice.hasPrefix(opRawValue) {
                         opFound = true

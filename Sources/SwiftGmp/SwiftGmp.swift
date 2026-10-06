@@ -29,6 +29,10 @@ public struct Raw {
 }
 
 class SwiftGmp: Equatable, CustomDebugStringConvertible {
+    // The bundled iOS MPFR has global caches, and the conversion factors below
+    // are shared across instances. Serialize access, including nested operations.
+    private static let mpfrLock = NSRecursiveLock()
+
     
     private(set) var bits: Int
     private static var rad_deg_bits: Int = 10
@@ -38,11 +42,15 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     private var mpfr = mpfr_t()
 
     init(bits: Int) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         self.bits = bits
         mpfr_init2(&mpfr, bits) // nan
     }
     
     init(withString string: String, bits: Int) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         let without_ = string.replacingOccurrences(of: "_", with: "")
         self.bits = bits
 
@@ -51,6 +59,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     init(withSwiftGmp: SwiftGmp, bits: Int) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         self.bits = bits
 
         mpfr_init2(&mpfr, bits) // nan
@@ -58,15 +68,21 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     deinit {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         mpfr_clear(&mpfr)
     }
     
     static func == (lhs: SwiftGmp, rhs: SwiftGmp) -> Bool {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         return mpfr_cmp(&lhs.mpfr, &rhs.mpfr) == 0
     }
     
     
     func setBits(_ newBits: Int) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         bits = newBits
         mpfr_prec_round(&mpfr, self.bits, MPFR_RNDN);
     }
@@ -85,6 +101,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     static func isValidSwiftGmpString(_ gmpString: String, bits: Int) -> Bool {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         var temp_mpfr: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: nil)
         mpfr_init2 (&temp_mpfr, bits)
         return mpfr_set_str (&temp_mpfr, gmpString, 10, MPFR_RNDN) == 0
@@ -94,23 +112,33 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     // copy and convert
     //
     func copy() -> SwiftGmp {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         let ret = SwiftGmp.init(withString: "0", bits: bits)
         mpfr_set(&ret.mpfr, &mpfr, MPFR_RNDN)
         return ret
     }
 
     func replaceWith(_ other: SwiftGmp) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         mpfr_set(&mpfr, &other.mpfr, MPFR_RNDN)
     }
 
     func toDouble() -> Double {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         return mpfr_get_d(&mpfr, MPFR_RNDN)
     }
     static func memorySize(bits: Int) -> Int {
-        mpfr_custom_get_size(bits)
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
+        return mpfr_custom_get_size(bits)
     }
     
     func raw(digits: Int) -> Raw {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         if self.isZero {
             return Raw(mantissa: "0", exponent: 0, isNegative: false, canBeInteger: true, isError: false)
         }
@@ -176,26 +204,40 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     //
     // Status Boolean
     //
-    func isNegative()    -> Bool { mpfr_cmp_d(&mpfr, 0.0)  < 0 }
+    func isNegative() -> Bool {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
+        return mpfr_cmp_d(&mpfr, 0.0) < 0
+    }
     var isValid: Bool {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         if mpfr_number_p(&mpfr) == 0 { return false }
         if isNan { return false }
         if isInf { return false }
         return true
     }
     var isNan: Bool {
-        mpfr_nan_p(&mpfr) != 0
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
+        return mpfr_nan_p(&mpfr) != 0
     }
     var isInf: Bool {
-        mpfr_inf_p(&mpfr) != 0
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
+        return mpfr_inf_p(&mpfr) != 0
     }
     var isZero: Bool {
-        mpfr_zero_p(&mpfr) != 0
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
+        return mpfr_zero_p(&mpfr) != 0
     }
     
     static var randstate: gmp_randstate_t? = nil
     
     func execute(_ twoOperantOperation: TwoOperantOperation, other: SwiftGmp) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         var temp = self.mpfr;
         switch twoOperantOperation {
         case .add:
@@ -223,6 +265,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
         }
     }
     func execute(_ constOp: ConstantOperation) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         switch constOp {
         case .pi:
             mpfr_const_pi(&mpfr, MPFR_RNDN)
@@ -239,6 +283,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     func execute(_ inplaceOp: InplaceOperation) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         switch inplaceOp {
         case .abs:
             var temp = mpfr; mpfr_abs(  &mpfr, &temp, MPFR_RNDN)
@@ -329,6 +375,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     /// Option 2: in the build settings set exclusiv access to memory to compiletime enfocement only
     
     func check(bits: Int) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         if bits != SwiftGmp.rad_deg_bits {
             let _180 = SwiftGmp(withString: "180", bits: bits)
             let _pi = SwiftGmp(bits: bits)
@@ -342,6 +390,8 @@ class SwiftGmp: Equatable, CustomDebugStringConvertible {
     }
     
     func x_double_up_arrow_y(other: SwiftGmp) {
+        SwiftGmp.mpfrLock.lock()
+        defer { SwiftGmp.mpfrLock.unlock() }
         var temp: mpfr_t = mpfr_t(_mpfr_prec: 0, _mpfr_sign: 0, _mpfr_exp: 0, _mpfr_d: nil)
         mpfr_init2 (&temp, mpfr_get_prec(&mpfr))
         mpfr_set(&temp, &mpfr, MPFR_RNDN)
